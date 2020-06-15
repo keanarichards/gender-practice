@@ -15,8 +15,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # load data ---------------------------------------------------------------
 
-clean <- read_csv("pilot/data/clean.csv")
-
+clean <- read_csv(here::here("pilot", "data", "clean.csv"))
 
 # primary hypothesis 1 ----------------------------------------------------
 
@@ -28,16 +27,11 @@ clean$comp_choice <- factor(clean$comp_choice)
 
 
 primary_hyp1 <- glm (comp_choice ~ gender, data = clean, family = binomial())
-summary(primary_hyp1)
-
-exp(primary_hyp1$coefficients)
-exp(confint(primary_hyp1))
 
 
 # secondary hypothesis 1 --------------------------------------------------
 
 secondary_hyp1 <- glm (comp_choice ~ gender + conf_partner+ risk, data = clean, family = binomial())
-summary(secondary_hyp1)
 
 
 # secondary hypothesis 2 --------------------------------------------------

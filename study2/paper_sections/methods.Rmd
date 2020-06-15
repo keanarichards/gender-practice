@@ -1,0 +1,38 @@
+---
+title: "Study 1 methods"
+author: "Keana Richards"
+date: "6/9/2020"
+output:
+  word_document: default
+---
+
+```{r, include = F}
+
+## hiding code chunks globally 
+knitr::opts_chunk$set(echo=FALSE, message = F, warning = F)
+
+
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+options(pillar.sigfig = 2)
+
+# load packages -----------------------------------------------------------
+## Package names
+packages <- c("readr", "tidyverse", "here", "summarytools")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+clean <- read_csv(here("study2", "data", "clean.csv"))
+
+```
+
+Participants, recruited through Amazon Mechanical Turk, were included based on the same criteria as in Study 1. The final sample consisted of `r nrow(clean)` participants (`r freq(clean$gender, report.nas = F)[6]`% women), with an average age of `r mean(clean$age)` (*SD* = `r sd(clean$age)`) years. 
+
+After being told about rules for the multiplication task and completing comprehension check questions, participants were assigned to either a preparation condition, where they were told they would complete several rounds of practice before completing the multiplication task, or a control condition, where they were told they would complete several rounds of a counting task before moving on. As in Study 1, men and women were assigned equally to each condition. The participants in the preparation condition completed 12 rounds (one round per times table), with 6 problems per round. For the counting task in the control condition, participants were asked to complete 5 questions where they counted the number of zeros in a matrix of zeros and ones. Afterwards, participants chose a payment scheme for the multiplication task, and completed the task for two minutes. We included many of the same follow-up questions as in Study 1, including risk aversion, confidence, perceptions of gender differences in preparation, competitiveness, and performance. We also asked participants if they wished they had more time to prepare for the multiplication task and included measures of their fatigue, field-specific ability beliefs, and interest in the multiplication task. 

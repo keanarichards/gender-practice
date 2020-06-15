@@ -1,0 +1,27 @@
+---
+title: "outline"
+author: "Keana Richards"
+date: "6/13/2020"
+output: word_document
+---
+
+
+# Pilot 
+
+
+```{r child = here::here("paper",  "pilot.Rmd")}
+
+```
+
+# Study 1 
+
+```{r child = here::here("paper", "study1.Rmd")}
+
+```
+
+# Study 2
+
+```{r child = here::here("paper", "study2.Rmd")}
+
+```
+

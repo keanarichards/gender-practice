@@ -1,0 +1,20 @@
+---
+title: "Study 1"
+author: "Keana Richards"
+date: "6/12/2020"
+output:
+  word_document: default
+---
+
+## Methods 
+
+```{r child = here::here("study1", "paper_sections", "methods.Rmd")}
+
+```
+
+## Results
+
+```{r child = here::here("study1", "paper_sections", "results.Rmd")}
+
+```
+

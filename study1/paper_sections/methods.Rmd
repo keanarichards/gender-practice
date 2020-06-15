@@ -1,0 +1,44 @@
+---
+title: "Study 1 methods"
+author: "Keana Richards"
+date: "6/9/2020"
+output:
+  word_document: default
+---
+
+```{r, include = F}
+
+## hiding code chunks globally 
+knitr::opts_chunk$set(echo=FALSE, message = F, warning = F)
+
+
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+options(pillar.sigfig = 2)
+
+# load packages -----------------------------------------------------------
+## Package names
+packages <- c("readr", "tidyverse", "here", "summarytools")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+clean <- read_csv(here("study1", "data", "clean.csv"))
+
+```
+
+Like the pilot study, participants were recruited on Amazon Mechanical Turk for a study on decision-making. The exclusion criteria were nearly identical to those in the pilot study, with the exception that participants were not excluded if they failed the comprehension check questions. The final sample consisted of `r nrow(clean)` participants (`r freq(clean$gender, report.nas = F)[6]`% women), with an average age of `r mean(clean$age)` (*SD* = `r sd(clean$age)`) years.  
+
+Participants who met the inclusion criteria were immediately assigned to either a knowledge of preparation condition or a control condition. Men and women were equally assigned to each condition. Participants in the knowledge of preparation condition were told that they would have the chance to prepare for a multiplication task they would complete later on, while participants assigned to the control condition were not given this information. Then, all participants were given the opportunity to choose a payment scheme (either piece-rate or tournament) for the multiplication task. After choosing a payment scheme, participants in both conditions were given the chance to prepare before the multiplication task. If they took this opportunity, they had the chance to practice and review each of the times tables as many times as they wanted, or skip any. Once finished, participants completed as many problems as possible from the paid multiplication task for two minutes. 
+
+Before finishing the survey, participants completed a series of follow-up questions, including self-reported risk aversion, confidence based on perceived decile relative to all other participants, and perceptions of gender differences in competitiveness, performance, and willingness to practice (both within the context of the study and in general). To determine whether cheating was a factor that participants relied on while completing the task, we also asked participants about their use of calculators and perceptions of calculator use on the multiplication task. 
+
+
+
+

@@ -14,7 +14,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # load data ---------------------------------------------------------------
 
-clean <- read_csv("study2/data/clean.csv")
+clean <- read_csv(here::here("study2", "data", "clean.csv"))
 
 ## recoding to factors for vars used in logits
 
@@ -41,9 +41,8 @@ z.prop = function(x1,x2,n1,n2){
   return(z.prop.ris)
 }
 
-primary_hypothesis1 <- z.prop(prep_comp, con_comp, total_prep, total_con)
-
-## returns z score of -.87 < -1.96 (AKA NS)
+primary_hypothesis1_z <- z.prop(prep_comp, con_comp, total_prep, total_con)
+primary_hypothesis1_pval <- pnorm(primary_hypothesis1_z)  
 
 # exploratory analysis 1 --------------------------------------------------
 
@@ -82,11 +81,9 @@ exploratory5 <- glm(comp_choice ~ condition, family = binomial,data = clean)
 
 exploratory6 <-lm(task_score~condition, data = clean)
 
-
 # exploratory analysis 7 --------------------------------------------------
 
 exploratory7 <-lm(total_time~condition, data = clean)
-
 
 # exploratory analysis 8 --------------------------------------------------
 

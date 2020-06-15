@@ -1,0 +1,107 @@
+---
+title: "results"
+author: "Keana Richards"
+date: "6/10/2020"
+output:
+  word_document: default
+---
+
+### Summary 
+
+Although we did not find support for the hypothesized interaction between gender and condition on the choice to compete, we found evidence for the hypothesized effect of gender on the choice to prepare. Despite choosing to compete less frequently than men, women chose to prepare more for the multiplication task, which, as predicted, aligned with participants' perceptions of gender differences in preparation and competition, even though participants did not expect any gender differences in performance.
+
+```{r, include = F}
+
+## hiding code chunks globally 
+knitr::opts_chunk$set(echo=F, message = F, warning = F)
+
+
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+
+# load packages -----------------------------------------------------------
+
+
+## Install devtools package if necessary
+if(!"devtools" %in% rownames(installed.packages())) install.packages("devtools")
+
+
+## Package names
+packages <- c("readr", "tidyverse", "here", "devtools", "knitr", "officer")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+## Install the stable development versions from GitHub
+devtools::install_github("crsh/papaja")
+
+library(papaja)
+
+source(here("study1", "source", "01_preregistered-analyses.R"))
+
+```
+
+### Pre-registered analyses
+
+Primary hypothesis 1: We do not find evidence of a significant interaction between gender and condition on the decision to compete `r apa_print(primary_hyp1)$full_result$conditionpract_genderWoman`. 
+
+
+```{r, fig.cap="Choice to compete by gender and condition"}
+knitr::include_graphics(here::here("study1", "figs", "fig00_comp-choice-by-gender-and-cond-bar.png"))
+
+```
+
+Primary hypothesis 2: Women are `r (exp(coef(primary_hyp2))[2] - 1)*100`% more likely to take advantage of the opportunity to prepare relative to men `r apa_print(primary_hyp2)$full_result$genderWoman`, while controlling for the decision to compete. Note: there is no significant interaction between gender and the choice to compete on the choice to prepare. 
+
+```{r, fig.cap="Choice to practice by gender and choice to compete"}
+knitr::include_graphics(here::here("study1", "figs", "fig01_pract-choice-by-gender-and-comp-choice-bar.png"))
+
+```
+
+Primary hypothesis 3: Women  completed `r (exp(coef(primary_hyp3))[2] - 1)*100`% more rounds of preparation relative to men, `r apa_print(primary_hyp2)$full_result$genderWoman`. 
+
+
+```{r, fig.cap="Total practice count by gender"}
+knitr::include_graphics(here::here("study1", "figs", "fig02_total-rev-count-by-gender.png"))
+
+
+```
+
+
+Primary hypothesis 4: Participants expected women to spend more time preparing for the multiplication task relative to men, `r apa_print(primary_hyp4, n= nrow(clean))$statistic`. 
+
+
+```{r, fig.cap="Perceptions of gender differences in practice on the task"}
+
+knitr::include_graphics(here::here("study1", "figs", "fig03_perc-task-gender-pract.png"))
+
+```
+
+
+Exploratory analysis 7a: Participants did not expect any gender differences in performance on the task, `r apa_print(exploratory7a, n = nrow(clean))$statistic`. 
+
+```{r, fig.cap="Perceptions of gender differences in performance on the task"}
+knitr::include_graphics(here::here("study1", "figs", "fig04_better-gender-guess.png"))
+
+```
+
+Exploratory analysis 7b: Participants were significantly more likely to expect men to choose to compete more often, `r apa_print(exploratory7b, n = nrow(clean))$statistic`. 
+
+```{r, fig.cap="Perceptions of gender differences in choice to compete"}
+knitr::include_graphics(here::here("study1", "figs", "fig05_perc-gender-comp.png"))
+
+```
+
+Exploratory analysis 7c: Participants were significantly more likely to expect women to choose to prepare in general, `r apa_print(exploratory7c, n = nrow(clean))$statistic`.
+
+```{r, fig.cap="Perceptions of general gender differences in choice to practice"}
+knitr::include_graphics(here::here("study1", "figs", "fig06_perc-gen-gender-pract.png"))
+
+```
+

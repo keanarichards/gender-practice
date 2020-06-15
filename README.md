@@ -18,4 +18,4 @@ Gender = men
 Competition choice = piece-rate 
 
 
-
+Note: used set_here(path = '..') to ensure that the gender practice project was the root directory for all documents. Make sure to have gender-practice R project in the folder

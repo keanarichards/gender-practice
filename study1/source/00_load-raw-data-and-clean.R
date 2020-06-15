@@ -201,6 +201,4 @@ raw <- raw %>% retype()
 ## adding in id variable
 
 raw$id <- seq(1:nrow(raw))
-
-
 write.csv(raw, "study1/data/clean.csv", row.names = F)
