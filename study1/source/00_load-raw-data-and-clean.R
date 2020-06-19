@@ -171,7 +171,7 @@ col_names_des <- col_names_des %>% add_row(col_names = raw %>% select(-all_of(lo
   des = c("choice to compete", "display order for choice to compete", paste("count of practice for", seq(1:12), "times tables", "total_review_count"), 
   "task comprehension check accuracy", "payment scheme comprehension check accuracy", "number of comprehension check questions wrong overall", "total number of rounds reviewing multiplying problems"))
 
-write.csv(col_names_des, "study1/data/vars-labels.csv", row.names = F)
+write.csv(col_names_des, "study1/data/vars-and-labels.csv", row.names = F)
 
 # recode vars -----------------------------------------------------------
 

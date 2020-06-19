@@ -225,7 +225,7 @@ col_names_des <- col_names_des %>% add_row(col_names = raw %>% select(-all_of(lo
   "bonuses earned during task", "composite score for field specific ability beliefs",
   "composite score for fatigue"))
 
-write.csv(col_names_des, "study2/data/vars-labels.csv", row.names = F)
+write.csv(col_names_des, "study2/data/vars-and-labels.csv", row.names = F)
 
 # recode vars -----------------------------------------------------------
 

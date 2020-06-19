@@ -61,15 +61,15 @@ ggsave(here("pilot", "figs", "fig00_comp-choice-by-gender-bar.png"), p, width = 
 
 # secondary hypothesis 2: performance across rounds  ----------------------
 
-round_scores <-
-  clean %>% pivot_longer(
-    cols = starts_with("round"),
-    names_to = "round",
-    values_to = "score",
-    names_pattern = "round_(.)_score") %>% select(id, round, score)
+# round_scores <-
+  #clean %>% pivot_longer(
+    #cols = starts_with("round"),
+    #names_to = "round",
+    #values_to = "score",
+    #names_pattern = "round_(.)_score") %>% select(id, round, score)
 
-Scores_across_rounds1plot <- ggplot(round_scores, aes(round, score))
-Scores_across_rounds1plot + geom_boxplot() + labs(x = "Round", y = "Score")
+#Scores_across_rounds1plot <- ggplot(round_scores, aes(round, score))
+#Scores_across_rounds1plot + geom_boxplot() + labs(x = "Round", y = "Score")
 
 
 
