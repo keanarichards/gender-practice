@@ -17,6 +17,8 @@ After loading the package, run the following in the console before starting the 
 
 Running the makefile using *make all* in the RStudio Terminal will re-run all code from start to finish to produce the final product. If the terminal is not preferable, another option to compile the final product is to click "Build" at the top of RStudio and run "Build all."
 
+To find run specific parts of the analyses, enter 'make help' into the terminal, which will list commands and their respective output for some of the major parts of the analyses (e.g., results documents, methods documents) 
+
 Logistics:
 
 All variables names and descriptions can be found in the files called "vars-and-labels" in respective data directory
