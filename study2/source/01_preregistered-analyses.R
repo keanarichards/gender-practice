@@ -1,7 +1,7 @@
 # load packages -----------------------------------------------------------
 
 ## Package names
-packages <- c("readr", "tidyverse", "mediation")
+packages <- c("tidyverse", "mediation", "here")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -14,7 +14,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # load data ---------------------------------------------------------------
 
-clean <- read_csv(here::here("study2", "data", "clean.csv"))
+clean <- read_csv(here("study2", "data", "clean.csv"))
 
 ## recoding to factors for vars used in logits
 
@@ -47,8 +47,6 @@ primary_hypothesis1_pval <- pnorm(primary_hypothesis1_z)
 # exploratory analysis 1 --------------------------------------------------
 
 exploratory1 = glm(comp_choice ~ risk + conf_rank + condition + gender*condition,family=binomial,data = clean)
-exp(cbind(OR = coef(exploratory1), confint(exploratory1)))
-
 
 # exploratory analysis 2 --------------------------------------------------
 
@@ -75,6 +73,8 @@ exploratory4 <- lm(task_score~ gender, data = clean)
 
 # exploratory analysis 5 --------------------------------------------------
 
+## did not run mediation model because condition does not predict competition choice 
+
 exploratory5 <- glm(comp_choice ~ condition, family = binomial,data = clean)
 
 # exploratory analysis 6 --------------------------------------------------
@@ -88,8 +88,6 @@ exploratory7 <-lm(total_time~condition, data = clean)
 # exploratory analysis 8 --------------------------------------------------
 
 exploratory8 <- glm(extra_prep_count ~ gender + condition + fab + gender*fab,family="poisson",data = clean)
-
-exp(cbind(OR = coef(exploratory8), confint(exploratory8)))
 
 # exploratory analysis 9 --------------------------------------------------
 

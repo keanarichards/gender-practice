@@ -1,7 +1,7 @@
 # load packages -----------------------------------------------------------
 
 ## Package names
-packages <- c("readr",  "plyr", "tidyverse","eply", "hablar")
+packages <- c("plyr", "tidyverse","eply", "hablar", "here")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -15,23 +15,23 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # load data ---------------------------------------------------------------
 
-full_raw <- read_csv("study1/data/raw.csv")
+full_raw <- read_csv(here("study1", "data", "raw.csv"))
 
-## original N = 1296 before exclusions
-
+# removing participants who don't meet inclusion criteria and row 2 from dataset----------------
 
 raw <- full_raw %>% slice(-2) %>%  dplyr::filter(Nationality == "American" , Gender != "Other (please specify):",
-  Residence == "United States" , `Phone/tablet` == "No", DistributionChannel =="anonymous", Progress == "100")
+  Residence == "United States" , `Phone/tablet` == "No", Progress == "100", DistributionChannel =="anonymous")
 
-
-## reasons for exclusion: people failed comprehension check, were not using a computer to complete survey, did a survey preview (distribution
-## channel was not anonymous, nationality was not american, indicated "other" for gender, did not reside in the US), or just did not finish the survey
 
 # export excluded data -------------------------------------------------
 
 excluded <- anti_join(full_raw, raw)
 
-write.csv(excluded, "study1/data/excluded.csv", row.names = F)
+## removing previews to get real excluded participants
+
+excluded %>% filter(DistributionChannel !="anonymous")
+
+write.csv(excluded, here("study1", "data", "excluded.csv"), row.names = F)
 
 ## removed 284 rows
 
@@ -86,7 +86,7 @@ raw <- cbind(raw, s)
 # removing extra columns --------------------------------------------------
 
 
-raw <- raw %>% select(-c(47:2463, Preparation1times_DO:Review12times_DO, StartDate:UserLanguage, Example,  
+raw <- raw %>% dplyr::select(-c(47:2463, Preparation1times_DO:Review12times_DO, StartDate:UserLanguage, Example,  
   MTurkID, `Phone/tablet`, Q1201:Q1212, `Q257_First Click`:Q543, SC0, Gender_1, `2_Q1382 - Topics`, FL_80_DO, FL_203_DO))
 
 
@@ -167,11 +167,11 @@ col_names_des <- data.frame(cbind(names(raw[loc]), des))
 
 col_names_des <- col_names_des %>% dplyr::rename(col_names = V1)
 
-col_names_des <- col_names_des %>% add_row(col_names = raw %>% select(-all_of(loc)) %>% names(), 
+col_names_des <- col_names_des %>% add_row(col_names = raw %>% dplyr::select(-all_of(loc)) %>% names(), 
   des = c("choice to compete", "display order for choice to compete", paste("count of practice for", seq(1:12), "times tables", "total_review_count"), 
   "task comprehension check accuracy", "payment scheme comprehension check accuracy", "number of comprehension check questions wrong overall", "total number of rounds reviewing multiplying problems"))
 
-write.csv(col_names_des, "study1/data/vars-and-labels.csv", row.names = F)
+write.csv(col_names_des, here("study1", "data", "vars-and-labels.csv"), row.names = F)
 
 # recode vars -----------------------------------------------------------
 
@@ -201,4 +201,4 @@ raw <- raw %>% retype()
 ## adding in id variable
 
 raw$id <- seq(1:nrow(raw))
-write.csv(raw, "study1/data/clean.csv", row.names = F)
+write.csv(raw, here("study1" , "data", "clean.csv"), row.names = F)

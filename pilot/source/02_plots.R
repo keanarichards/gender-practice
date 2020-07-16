@@ -2,7 +2,7 @@
 
 
 ## Package names
-packages <- c("readr", "tidyverse", "jtools", "here")
+packages <- c("tidyverse", "jtools", "here")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -13,15 +13,9 @@ if (any(installed_packages == FALSE)) {
 ## Packages loading
 invisible(lapply(packages, library, character.only = TRUE))
 
-## Install the stable development versions from GitHub
-devtools::install_github("crsh/papaja")
-
-library(papaja)
-
-
 # load data ---------------------------------------------------------------
 
-clean <- read_csv(here::here("pilot", "data", "clean.csv"))
+clean <- read_csv(here("pilot", "data", "clean.csv"))
 
 # primary hypothesis 1 ----------------------------------------------------
 
@@ -39,7 +33,7 @@ dat <- rbind(dat1, dat)
 dat <- dat %>% filter (comp_choice == "tournament")
 
 
-p <- ggplot(data = dat, aes(x = comp_choice, fill = gender)) +
+p <- ggplot(data = dat, aes(x = gender, fill = gender)) +
   geom_bar(aes(y = percent * 100),
   position = "dodge", stat = "identity") + geom_errorbar(aes(
   ymin = (percent * 100) - (error * 100),
@@ -48,8 +42,11 @@ p <- ggplot(data = dat, aes(x = comp_choice, fill = gender)) +
   position =
   position_dodge(.9)) +
   geom_text(x = 1.5, y = 100, label = "***") +
-  labs(x = 'Choice to compete', y = '% Competing') + scale_fill_manual(values =
-  c("springgreen3", "slateblue1")) + theme_apa()
+  labs(y = '% Competing') + scale_fill_manual(values =
+  c("springgreen3", "slateblue1"), labels = c("Men", "Women")) + theme_apa() +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 
 ggsave(here("pilot", "figs", "fig00_comp-choice-by-gender-bar.png"), p, width = 7, height = 7)
 
@@ -88,11 +85,15 @@ dat <- rbind(dat1, dat)
 dat <- dat %>% filter (pract_choice == "Yes")
 
 
-p <- ggplot(data = dat, aes(x = pract_choice, fill = gender))  + 
-  labs(y = 'Would you take the opportunity to practice? (%)')  + scale_y_continuous(limits = c(0, 100)) + 
-  geom_bar(aes(y = percent*100,
-               position = "dodge", stat = "identity"),     position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
-                                                                                                                                                                            position=position_dodge(.9)) + theme_apa()
+p <- ggplot(data = dat, aes(x = gender, fill = gender))  + 
+  labs(y = '% who said they would take the opportunity to practice')  + scale_y_continuous(limits = c(0, 100)) + 
+  geom_bar(aes(y = percent*100), position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"),
+              labels = c("Men", "Women"))+ 
+  geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+  position=position_dodge(.9)) + theme_apa()+
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 
 ggsave(here("pilot", "figs", "fig01_pract-choice-by-gender-bar.png"), p, width = 7, height = 7)
 

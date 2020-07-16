@@ -1,7 +1,7 @@
 # load packages -----------------------------------------------------------
 
 ## Package names
-packages <- c("readr", "tidyverse", "ez")
+packages <- c("tidyverse", "ez", "here")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -14,7 +14,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # load data ---------------------------------------------------------------
 
-clean <- read_csv(here::here("study1", "data", "clean.csv"))
+clean <- read_csv(here("study1", "data", "clean.csv"))
 
 ## recoding to factors for vars used in logits
 
@@ -23,6 +23,8 @@ clean$comp_choice <- factor(clean$comp_choice)
 clean$condition <- factor(clean$condition)
 clean$pract_choice <- factor(clean$pract_choice)
 
+## note: for all analyses, the time spent preparing data is not available, so we will replace with choice to prepare when possible
+ 
 # primary hypothesis 1 ----------------------------------------------------
 
 primary_hyp1 = glm(comp_choice ~ condition*gender,family=binomial,data = clean)
@@ -34,7 +36,7 @@ primary_hyp2 = glm(pract_choice ~ gender + comp_choice,family=binomial,data = cl
 
 # primary hypothesis 3 --------------------------------------------------
 
-
+## conducted poisson regression instead of originally planned linear regression because of nature of data (count)
 primary_hyp3 <- glm(total_review_count ~ gender, family="poisson", data=clean)
 
 
@@ -52,9 +54,13 @@ exploratory1 = glm(comp_choice ~ gender+ risk + conf_rank,family=binomial,data =
 
 exploratory2 = glm(comp_choice ~ gender+ risk + conf_rank + condition + gender*condition,family=binomial,data = clean)
 
-# exploratory analysis 3 --------------------------------------------------
+# exploratory analysis 3a -------------------------------------------------
+## accounting for typo on prereg doc - cannot analyze because there is no time information
 
-exploratory3 <- lm(conf_rank~total_review_count, data = clean)
+
+# exploratory analysis 3b --------------------------------------------------
+
+exploratory3b <- lm(conf_rank~total_review_count, data = clean)
 
 # exploratory analysis 4 --------------------------------------------------
 

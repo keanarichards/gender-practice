@@ -2,7 +2,7 @@
 # load packages -----------------------------------------------------------
 
 ## Package names
-packages <- c("readr", "tidyverse", "ez")
+packages <- c("here", "tidyverse", "ez")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -15,7 +15,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # load data ---------------------------------------------------------------
 
-clean <- read_csv(here::here("pilot", "data", "clean.csv"))
+clean <- read_csv(here("pilot", "data", "clean.csv"))
 
 # primary hypothesis 1 ----------------------------------------------------
 
@@ -31,11 +31,12 @@ primary_hyp1 <- glm (comp_choice ~ gender, data = clean, family = binomial())
 
 # secondary hypothesis 1 --------------------------------------------------
 
+## logistic regressin to test whether confidence and risk aversion predict choice to compete over and above effect of gender
+
 secondary_hyp1 <- glm (comp_choice ~ gender + conf_partner+ risk, data = clean, family = binomial())
 
 
 # secondary hypothesis 2 --------------------------------------------------
-
 
 clean %>% summarize(mean1 = mean(round_1_score), mean2= mean(round_2_score), mean3 = mean(round_3_score))
 

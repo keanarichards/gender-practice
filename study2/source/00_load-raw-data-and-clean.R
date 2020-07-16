@@ -1,7 +1,7 @@
 # load packages -----------------------------------------------------------
 
 ## Package names
-packages <- c("readr", "tidyverse", "hablar", "psych")
+packages <- c("tidyverse", "hablar", "psych", "here")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -15,26 +15,24 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # load data ---------------------------------------------------------------
 
-full_raw <- read_csv("study2/data/raw.csv")
-
-## original N = 1268 before exclusions
-
+full_raw <- read_csv(here("study2", "data", "raw.csv"))
 
 raw <- full_raw %>% slice(-2) %>%  dplyr::filter(Nationality == "American" , Gender != "Other (please specify):",
-  Residence == "United States" , `Phone/tablet` == "No", DistributionChannel =="anonymous", Progress == "100")
+  Residence == "United States" , `Phone/tablet` == "No", Progress == "100",DistributionChannel =="anonymous") 
 
 
-## reasons for exclusion: people failed comprehension check, were not using a computer to complete survey, did a survey preview (distribution
-## channel was not anonymous, nationality was not american, indicated "other" for gender, did not reside in the US), or just did not finish the survey
+## reasons for exclusion: people failed comprehension check, were not using a computer to complete survey, nationality was not american, indicated "other" for gender, did not reside in the US), or just did not finish the survey
 
 
 # export excluded data -------------------------------------------------
 
 excluded <- anti_join(full_raw, raw)
 
-write.csv(excluded, "study2/data/excluded.csv", row.names = F)
+## removing previews to get real excluded participants
 
-## removed 242 rows
+excluded %>% filter(DistributionChannel !="anonymous")
+
+write.csv(excluded, here("study2", "data", "excluded.csv"), row.names = F)
 
 ## first storing the names for all columns 
 
@@ -42,8 +40,7 @@ col_names <-names(x = raw)
 
 # removing extra columns --------------------------------------------------
 
-raw <- raw %>% select(-c(contains("Click"), StartDate:UserLanguage,MTurkID, 
-  `Phone/tablet`, starts_with("del"), contains("ctrl_task"), matches("^prep_[0-9]|^prep[0-9]"), starts_with("Q"), 
+raw <- raw %>% dplyr::select(-c(contains("Click"), StartDate:UserLanguage,MTurkID, `Phone/tablet`, starts_with("del"), contains("ctrl_task"), matches("^prep_[0-9]|^prep[0-9]"), starts_with("Q"), 
   Gender_1, SC0, FL_203_DO, FL_80_DO, FL_258_DO, preparationround1_DO,
   prepround2_DO, prepround3_DO, prepround4_DO, prepround5_DO, Multiplicationtask_DO, `Confidence/gender_DO`,
   `Demographics,risk,genderperceptionsofpractice,interest,fatigue,fab_DO`))
@@ -90,7 +87,7 @@ raw$n_comp_wrong <- raw$pay_comp_check_acc + raw$task_comp_check_acc
 
 raw$extra_prep_count <-ifelse(raw$extra_prep1 == "No", 0, ifelse(raw$`extra-prep2` == "No", 1, ifelse(raw$extraprep3 == "No", 2, ifelse(raw$extraprep4 == "No", 3, ifelse(raw$extraprep5 == "No", 4, 5)))))
 
-raw <- raw %>% select(-c(extra_prep1:extraprep5))
+raw <- raw %>% dplyr::select(-c(extra_prep1:extraprep5))
 
 
 ## creating total time spent on task var: 
@@ -102,9 +99,9 @@ raw <-raw %>% retype()
 mean_timing_ctrl5a <- rowMeans(raw[grep("^timing_ctrl[1_4]a", names(raw))], na.rm = TRUE)
 raw$`timing_ctrl5a_Page Submit` <- as.numeric(ifelse(is.na(raw$`timing_ctrl5b_Page Submit`) == FALSE, mean_timing_ctrl5a, raw$`timing_ctrl5a_Page Submit`))
 
+raw <-raw %>% retype()
 
 total_timing_ctrl <-rowSums(raw[grep("^timing_ctrl[0-9]", names(raw))], na.rm = TRUE)
-
 
 total_timing_prep <-rowSums(raw[grep("^prep_timing[0-9]", names(raw))], na.rm = TRUE)
 
@@ -216,7 +213,7 @@ col_names_des <- data.frame(cbind(names(raw[loc]), des))
 
 col_names_des <- col_names_des %>% dplyr::rename(col_names = V1)
 
-col_names_des <- col_names_des %>% add_row(col_names = raw %>% select(-all_of(loc)) %>% names(), 
+col_names_des <- col_names_des %>% add_row(col_names = raw %>% dplyr::select(-all_of(loc)) %>% names(), 
   des = c("choice to compete", "task comprehension check accuracy", 
   "payment scheme comprehension check accuracy", "number of comprehension check questions wrong overall",
   "total count of extra rounds reviewing multiplying problems", "total time spent on either control or preparation rounds", 
@@ -225,7 +222,7 @@ col_names_des <- col_names_des %>% add_row(col_names = raw %>% select(-all_of(lo
   "bonuses earned during task", "composite score for field specific ability beliefs",
   "composite score for fatigue"))
 
-write.csv(col_names_des, "study2/data/vars-and-labels.csv", row.names = F)
+write.csv(col_names_des, here("study2", "data", "vars-and-labels.csv"), row.names = F)
 
 # recode vars -----------------------------------------------------------
 
@@ -256,4 +253,4 @@ raw <- raw %>% retype()
 
 raw$id <- seq(1:nrow(raw))
 
-write.csv(raw, "study2/data/clean.csv", row.names = F)
+write.csv(raw, here("study2", "data", "clean.csv"), row.names = F)

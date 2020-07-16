@@ -2,7 +2,7 @@
 
 
 ## Package names
-packages <- c("readr", "tidyverse", "hablar")
+packages <- c("here", "tidyverse", "hablar")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -15,30 +15,29 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # load data ---------------------------------------------------------------
 
-full_raw <- read_csv("pilot/data/raw.csv")
-
-## original N = 544 before exclusions (includes one survey preview)
+full_raw <- read_csv(here("pilot", "data", "raw.csv"))
 
 # removing participants who don't meet inclusion criteria and row 2 from dataset----------------
 
 raw <- full_raw %>%slice(-2) %>%  dplyr::filter(Nationality == "American" , Gender != "Other:" ,
-  Residence == "United States" , `Phone/tablet` == "No", DistributionChannel =="anonymous", Progress == "100") %>% drop_na(conf_partner)
-
-## reasons for exclusion: people failed comprehension check, were not using a computer to complete survey, did a survey preview (distribution
-## channel was not anonymous, nationality was not american, indicated "other" for gender, did not reside in the US), or just did not finish the survey
-
+  Residence == "United States" , `Phone/tablet` == "No", Finished == "True") %>% filter(is.na(comprehension3) | comprehension3 == "QU",
+  DistributionChannel =="anonymous")
 
 # export excluded data -------------------------------------------------
 
 excluded <- anti_join(full_raw, raw)
 
-write.csv(excluded, "pilot/data/excluded.csv", row.names = F)
+## removing previews to get real excluded participants
+
+excluded %>% filter(DistributionChannel !="anonymous")
+
+write.csv(excluded, here("pilot", "data", "excluded.csv"), row.names = F)
 
 ## removed 244 rows (technically excluded 243 participants because one of the 544 before was a survey preview)
 
 # remove extra columns --------------------------------------------------
 
-raw <- raw  %>% select(
+raw <- raw  %>% dplyr::select(
   -c(StartDate:UserLanguage, Example, round1_paid:conf4_paid, 
   bonus_pay_round1and2:bonus_paycomp_round3, FL_54_DO, FL_61_DO, `timing1_First Click`:`timing_choice_Click Count`, `Q339_First Click`:Q376, MTurkID, `Phone/tablet`)
 )
@@ -68,7 +67,7 @@ col_names_des <- cbind(col_names, des)
 col_names_des[26, "des"] <- "Score summed across all 3 rounds"
 
 
-write.csv(col_names_des, "pilot/data/vars-and-labels.csv", row.names = F)
+write.csv(col_names_des, here("pilot", "data", "vars-and-labels.csv"), row.names = F)
 
 # recode vars -----------------------------------------------------------
 
@@ -89,4 +88,4 @@ raw$gender <- recode(raw$gender, "Male" = "Man", "Female" = "Woman")
 raw$id <- seq(1:nrow(raw))
 
 
-write.csv(raw, "pilot/data/clean.csv", row.names = F)
+write.csv(raw, here("pilot", "data", "clean.csv"), row.names = F)

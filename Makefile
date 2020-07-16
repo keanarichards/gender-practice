@@ -128,6 +128,6 @@ paper/draft_paper.docx: paper/draft_paper.Rmd paper/pilot.docx paper/study1.docx
 	Rscript -e 'rmarkdown::render("$<")'
 
 clean: 
-	rm -f */*/clean.csv */*/excluded.csv */*/vars-and-labels.csv */*/*.docx */*.docx .Rhistory
+	rm -f */*/clean.csv */*/excluded.csv */*/vars-and-labels.csv */*/*.docx */*.docx .Rhistory */*/.Rhistory
 	
 

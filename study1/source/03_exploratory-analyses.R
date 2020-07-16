@@ -15,7 +15,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # load data ---------------------------------------------------------------
 
-clean <- read_csv(here("pilot", "data", "clean.csv"))
+clean <- read_csv(here("study1", "data", "clean.csv"))
 
 
 # analyses ----------------------------------------------------------------
@@ -23,5 +23,4 @@ clean <- read_csv(here("pilot", "data", "clean.csv"))
 clean$pract_choice <- factor(clean$pract_choice)
 
 
-exploratory1 <- glm(pract_choice ~ gender , data = clean, family = binomial())
-
+exploratory1 <- glm(pract_choice ~ gender*comp_choice , data = clean, family = binomial())
