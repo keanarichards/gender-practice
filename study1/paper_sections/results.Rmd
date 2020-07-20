@@ -36,7 +36,9 @@ if (any(installed_packages == FALSE)) {
 invisible(lapply(packages, library, character.only = TRUE))
 
 ## Install the stable development versions from GitHub
-devtools::install_github("crsh/papaja")
+if(!"papaja" %in% rownames(installed.packages())) devtools::install_github("crsh/papaja")
+
+
 
 library(papaja)
 

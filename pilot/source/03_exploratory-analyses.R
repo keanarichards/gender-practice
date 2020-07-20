@@ -25,3 +25,8 @@ clean$pract_choice <- factor(clean$pract_choice)
 
 exploratory1 <- glm(pract_choice ~ gender , data = clean, family = binomial())
 
+
+## redoing primary hypothesis 1 as chi-square test
+
+tbl <- table(clean$gender, clean$comp_choice)
+exploratory2 <- chisq.test(tbl)
