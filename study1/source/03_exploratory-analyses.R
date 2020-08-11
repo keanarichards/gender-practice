@@ -23,4 +23,7 @@ clean <- read_csv(here("study1", "data", "clean.csv"))
 clean$pract_choice <- factor(clean$pract_choice)
 
 
-exploratory1 <- glm(pract_choice ~ gender*comp_choice , data = clean, family = binomial())
+sec_exploratory1 <- glm(pract_choice ~ gender+comp_choice , data = clean, family = binomial())
+
+
+sec_exploratory2 <- glm(pract_choice ~ gender*comp_choice , data = clean, family = binomial())

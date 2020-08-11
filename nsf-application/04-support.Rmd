@@ -1,0 +1,32 @@
+---
+output:
+  word_document: 
+      reference_docx: mystyle.docx
+bibliography: library.bib
+---
+
+## Keana Richards
+
+Title: Doctoral Dissertation Research in DRMS: Exploring gender differences in effort before competition
+
+Source of support: NSF
+
+Project location: University of Pennsylvania
+
+Total award amount: $31,783.81
+
+Starting date: 02/22/2021
+
+Ending date: 02/28/2022
+
+Support type: Pending (current proposal)
+
+Person-months per year: 12
+
+
+
+
+
+
+
+

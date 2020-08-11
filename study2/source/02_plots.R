@@ -28,7 +28,6 @@ p <- ggplot(data = dat, aes(x = condition, fill = condition)) +
   position=position_dodge(.9)) +theme(legend.position = "none") + guides (fill = F)+
   labs(x = 'Condition', y = '% Competing') + theme_apa() +
   scale_x_discrete(labels = c("Control", "Practice")) 
-p
 ggsave(here("study2", "figs", "fig00_comp-choice-women-by-cond.png"), width = 7, height = 7)
 
 
@@ -109,12 +108,11 @@ ub <- function(x) {mean(x) + sd(x)/sqrt((count(clean)))}
 
 clean$logextra_prep_count <- log10(clean$extra_prep_count +1)
 
-
 ## calculating mean & SEM within gender and comp choice
 
 
 sumld <- clean %>% 
-  select(logextra_prep_count, gender, comp_choice) %>% 
+  dplyr::select(logextra_prep_count, gender, comp_choice) %>% na.omit(comp_choice) %>% 
   group_by(gender, comp_choice) %>% summarise_all(list(mean = mean, lower = lb, upper = ub))
 
 p <- ggplot(data = sumld, aes(x = comp_choice, fill = gender)) +
@@ -128,3 +126,25 @@ p <- ggplot(data = sumld, aes(x = comp_choice, fill = gender)) +
 ggsave(here("study2", "figs", "fig04_total-rev-count-by-gender-comp-choice.png"), p, width = 7, height = 7)
 
 
+# true exploratory 2 ------------------------------------------------------
+
+dat <- dplyr::select(clean,gender,comp_choice, pract_choice) %>%
+  dplyr::count(gender, comp_choice, pract_choice) %>% filter(gender == "Woman", pract_choice == "Yes") %>% mutate(percent = n / sum(n),
+                                                                                                                  error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(clean,gender,comp_choice, pract_choice) %>%
+  dplyr::count(gender, comp_choice, pract_choice) %>% filter(gender == "Man", pract_choice == "Yes") %>% mutate(percent = n / sum(n),
+                                                                                                                error = sqrt((percent * (1-percent))/n))
+
+dat <- rbind(dat1, dat)
+
+p <- ggplot(data = dat, aes(x = comp_choice, fill = gender)) +
+  geom_bar(aes(y = percent*100),
+           position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                                                                  position=position_dodge(.9)) + 
+  geom_text(x = 1.5, y = 100, label = "***") + 
+  labs(x = 'Choice to compete', y = '% Practicing') +scale_fill_manual(values=c("springgreen3", "slateblue1"),  labels = c("Men", "Women")) + 
+  theme_apa() +
+  scale_x_discrete(labels = c("Piece-rate", "Tournament"))
+
+ggsave(here("study2", "figs", "fig05_pract-choice-by-gender-and-comp-choice-bar.png"), p, width = 7, height = 7)

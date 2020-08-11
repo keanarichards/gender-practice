@@ -20,8 +20,25 @@ full_raw <- read_csv(here("pilot", "data", "raw.csv"))
 # removing participants who don't meet inclusion criteria and row 2 from dataset----------------
 
 raw <- full_raw %>%slice(-2) %>%  dplyr::filter(Nationality == "American" , Gender != "Other:" ,
-  Residence == "United States" , `Phone/tablet` == "No", Finished == "True") %>% filter(is.na(comprehension3) | comprehension3 == "QU",
+  Residence == "United States" , `Phone/tablet` == "No") %>% filter(is.na(comprehension3) | comprehension3 == "QU",
   DistributionChannel =="anonymous")
+
+# remove duplicate IPs ----------------------------------------------------
+
+## first sort by date of completion (starting with earliest), remove people who have matching IP address, gender, and MTurkID
+raw <- raw[order(raw$StartDate),]
+raw <- raw[!duplicated(raw[c("IPAddress", "MTurkID", "Gender")]),]
+
+## because there were people who had invalid IDs, need to subset people who have invalid MTurkID & remove duplicate IP addresses for those people. MTurkID should be 12-14 characters
+## need to inspect & make sure MTurk IDs are different manually 
+
+duplicated <- raw %>% filter(duplicated(IPAddress)| duplicated(raw$IPAddress, fromLast = T))
+
+## will scan from top to bottom, since it's already sorted by start date (ascending), will delete the second most recent one
+duplicated <- duplicated[!duplicated(duplicated$IPAddress),]
+
+raw <- anti_join(raw, duplicated)
+
 
 # export excluded data -------------------------------------------------
 
@@ -29,11 +46,10 @@ excluded <- anti_join(full_raw, raw)
 
 ## removing previews to get real excluded participants
 
-excluded %>% filter(DistributionChannel !="anonymous")
+excluded <- excluded %>% filter(DistributionChannel !="anonymous")
 
 write.csv(excluded, here("pilot", "data", "excluded.csv"), row.names = F)
 
-## removed 244 rows (technically excluded 243 participants because one of the 544 before was a survey preview)
 
 # remove extra columns --------------------------------------------------
 

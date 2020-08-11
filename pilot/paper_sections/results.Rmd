@@ -49,7 +49,7 @@ source(here::here("pilot", "source", "03_exploratory-analyses.R"))
 All hypotheses were [pre-registered](https://osf.io/q39a5/) unless otherwise stated and all analyses were conducted in R. We did not find evidence for the hypothesized gender difference in the choice to compete (see Figure \@ref(fig:p00)). `r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`% of men chose to compete compared to `r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`% of women. Women were more likely to indicate that they would have taken the opportunity to practice the task than men (see Figure \@ref(fig:p01)), despite no gender differences in performance or choice to compete.
 
 ### Pre-registered analyses
-*Primary hypothesis 1.* Using a logistic regression with gender predicting willingness to compete in round 3, we do not find significant evidence of gender differences in the choice to compete, `r apa_print(primary_hyp1)$full_result$genderWoman` (see Figure \@ref(fig:p00)). Note: the results for the chi-square test are similar: `r apa_print(exploratory2, n=546)$statistic`
+*Primary hypothesis 1.* Using a logistic regression with gender predicting willingness to compete in round 3, we do not find significant evidence of gender differences in the choice to compete, `r apa_print(primary_hyp1)$full_result$genderWoman` (see Figure \@ref(fig:p00)). Note: the results for the chi-square test are similar: `r apa_print(sec_exploratory2, n=546)$statistic`
 
 
 ```{r p00, fig.cap = "Proportion of participants who chose to compete based on participant gender. Error bars represent standard error."}
@@ -67,7 +67,7 @@ print(ctable(clean$gender, clean$comp_choice))
 
 ### Exploratory analyses
 
-Using a logistic regression, we find that gender predicts (hypothetical) willingness to practice the task, `r apa_print(exploratory1)$full_result$genderWoman` (see Figure \@ref(fig:p01)). 
+Using a logistic regression, we find that gender predicts (hypothetical) willingness to practice the task, `r apa_print(sec_exploratory1)$full_result$genderWoman` (see Figure \@ref(fig:p01)). 
 
 ```{r p01, fig.cap = "Proportion of participants who indicated they would have taken the opportunity to practice the key-entry task if provided based on participant gender. Error bars represent standard error."}
 

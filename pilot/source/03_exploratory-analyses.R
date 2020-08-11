@@ -23,10 +23,26 @@ clean <- read_csv(here("pilot", "data", "clean.csv"))
 clean$pract_choice <- factor(clean$pract_choice)
 
 
-exploratory1 <- glm(pract_choice ~ gender , data = clean, family = binomial())
+sec_exploratory1 <- glm(pract_choice ~ gender , data = clean, family = binomial())
 
 
 ## redoing primary hypothesis 1 as chi-square test
 
 tbl <- table(clean$gender, clean$comp_choice)
-exploratory2 <- chisq.test(tbl)
+sec_exploratory2 <- chisq.test(tbl)
+
+men_scores <- clean %>% filter(gender == "Man")
+women_scores <- clean %>% filter(gender == "Woman")
+
+sec_exploratory3 <- t.test(x = men_scores$overall_score,y = women_scores$overall_score)
+
+t1 <- table(clean$better_gender_guess)
+sec_exploratory4= chisq.test(t1)
+
+
+t2 <- table(clean$improve_pract)
+sec_exploratory5= chisq.test(t2)
+
+
+
+

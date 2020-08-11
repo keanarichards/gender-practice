@@ -28,24 +28,23 @@ clean$comp_choice <- factor(clean$comp_choice)
 
 primary_hyp1 <- glm (comp_choice ~ gender, data = clean, family = binomial())
 
-
 # secondary hypothesis 1 --------------------------------------------------
 
-## logistic regressin to test whether confidence and risk aversion predict choice to compete over and above effect of gender
+## logistic regression to test whether confidence and risk aversion predict choice to compete over and above effect of gender
 
 secondary_hyp1 <- glm (comp_choice ~ gender + conf_partner+ risk, data = clean, family = binomial())
 
 
 # secondary hypothesis 2 --------------------------------------------------
 
-clean %>% summarize(mean1 = mean(round_1_score), mean2= mean(round_2_score), mean3 = mean(round_3_score))
+clean <- clean %>% filter(!is.na(round_1_score), !is.na(round_2_score), !is.na(round_3_score)) 
 
 ## repeated measures anova to test hypothesis that round number predicts performance (i.e., performance improves across rounds)
 
 
 round_scores <- clean %>% pivot_longer(cols = starts_with("round"), names_to = "round",
-                                       values_to = "score",  names_pattern = "round_(.)_score") %>% select(id, round, score)
+                                       values_to = "score",  names_pattern = "round_(.)_score") 
 
+round_scores <- round_scores %>% dplyr::select(id, round, score)
 
 Scores_across_roundsModel<-ezANOVA(data = round_scores, dv = .(score), wid = .(id),  within = .(round), type = 3, detailed = TRUE)
-

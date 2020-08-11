@@ -1,7 +1,7 @@
 # load packages -----------------------------------------------------------
 
 ## Package names
-packages <- c("plyr", "tidyverse","eply", "hablar", "here")
+packages <- c("plyr", "tidyverse","eply", "hablar", "here", "conflicted")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -12,7 +12,9 @@ if (any(installed_packages == FALSE)) {
 ## Packages loading
 invisible(lapply(packages, library, character.only = TRUE))
 
-
+conflict_prefer("filter", "dplyr")
+conflict_prefer("select", "dplyr")
+conflict_prefer("here", "here")
 # load data ---------------------------------------------------------------
 
 full_raw <- read_csv(here("study1", "data", "raw.csv"))
@@ -20,8 +22,22 @@ full_raw <- read_csv(here("study1", "data", "raw.csv"))
 # removing participants who don't meet inclusion criteria and row 2 from dataset----------------
 
 raw <- full_raw %>% slice(-2) %>%  dplyr::filter(Nationality == "American" , Gender != "Other (please specify):",
-  Residence == "United States" , `Phone/tablet` == "No", Progress == "100", DistributionChannel =="anonymous")
+  Residence == "United States" , `Phone/tablet` == "No", DistributionChannel =="anonymous")
 
+# remove duplicate IPs ----------------------------------------------------
+
+## first sort by date of completion (starting with earliest), remove people who have matching IP address, gender, and MTurkID
+raw <- raw[order(raw$StartDate),]
+raw <- raw[!duplicated(raw[c("IPAddress", "MTurkID", "Gender")]),]
+
+## because there were people who had invalid MTurkIDs, need to subset people who have invalid MTurkID & remove duplicate IP addresses for those people.
+## need to inspect & make sure MTurk IDs are different manually 
+duplicated <- raw %>% filter(duplicated(IPAddress)| duplicated(raw$IPAddress, fromLast = T))
+
+## will scan from top to bottom, since it's already sorted by start date (ascending), will delete the second most recent one
+
+duplicated <- duplicated[!duplicated(duplicated$IPAddress),]
+raw <- anti_join(raw, duplicated)
 
 # export excluded data -------------------------------------------------
 

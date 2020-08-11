@@ -76,9 +76,9 @@ ub <- function(x) {mean(x) + sd(x)/sqrt((count(clean)))}
 
 clean$logtotal_rev_count <- log10(clean$total_review_count +1)
 
-
 ## calculating mean & SEM within gender and comp choice
-
+## first have to remove NA participants
+clean <- clean %>% filter(!is.na(comp_choice))
 
 sumld <- clean %>% 
   select(logtotal_rev_count, gender, comp_choice) %>% 
@@ -91,7 +91,7 @@ p <- ggplot(data = sumld, aes(x = comp_choice, fill = gender)) +
   labs(x = "Competition choice", y = 'Average (log) practice count') + theme_apa() +
   scale_fill_manual(values=c("springgreen3", "slateblue1"), labels = c("Men", "Women"))+
   scale_x_discrete(labels = c("Piece-rate", "Tournament")) 
-
+p
 ggsave(here("study1", "figs", "fig02_total-rev-count-by-gender-comp-choice.png"), p, width = 7, height = 7)
 
 

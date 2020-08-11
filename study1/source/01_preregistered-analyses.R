@@ -33,7 +33,6 @@ primary_hyp1 = glm(comp_choice ~ condition*gender,family=binomial,data = clean)
 
 primary_hyp2 = glm(pract_choice ~ gender + comp_choice,family=binomial,data = clean)
 
-
 # primary hypothesis 3 --------------------------------------------------
 
 ## conducted poisson regression instead of originally planned linear regression because of nature of data (count)
@@ -75,10 +74,8 @@ t2 <- table(clean$calc1, clean$gender)
 exploratory5a = chisq.test(t2)
 
 ## Calc2: Did you use a calculator to complete the multiplication task (note: this will not affect your payment)?
-
 t3 <- table(clean$calc2, clean$gender)
 exploratory5b = chisq.test(t3)
-
 
 ## Calc3: Do you think other participants used a calculator to complete the multiplication task?
 
@@ -137,3 +134,7 @@ exploratory7b= chisq.test(t13)
 
 t14 <- table(clean$perc_gen_gender_pract)
 exploratory7c= chisq.test(t14)
+
+t15 <- table(clean$perc_task_gender_pract)
+exploratory7c= chisq.test(t15)
+

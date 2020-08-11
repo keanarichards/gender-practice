@@ -1,0 +1,30 @@
+---
+output:
+  word_document: 
+      reference_docx: mystyle.docx
+bibliography: library.bib
+---
+
+## Professional Preparation 
+
+B.A., University of Maryland, College Park, College Park, MD (Psychology), 2017
+
+M.A., University of Pennsylvania, Philadelphia, PA (Psychology), 2018
+
+## Appointments
+
+PhD student, University of Pennsylvania, Philadelphia PA (Psychology), 2017-present
+
+Masters student, University of Pennsylvania, Philadelphia PA (Statistics), 2017-present
+
+## Most relevant product
+
+MAKE SURE PAPER IS SUBMITTED BEFORE INCLUDING THIS: Richards, K., Nave, G., Apicella, C. (2020). The effects of preparation on gender differences in willingness to compete. *Manuscript under review* 
+
+## Synergistic activities
+
+I have taught 200 students in Social Psychology about the principles of intergroup biases for 1.5 hour invited lectures (4/9/2019 & 11/7/2019), including many concepts which overlap with the current research. 
+
+For the past 2 years, I have been serving as a mentor for underrepresented students in STEM through my appointment at the University of Pennsylvania. As a mentor for the College Achievement Program, I helped two Black female students navigate the graduate school application process during one-on-one monthly meetings. Additionally, I have mentored a female honor's thesis student in literature reviewing, Qualtrics survey construction, hypothesis testing using R, and presenting results of analyses. 
+
+I organized and led Data Management training in R for 10 research assistants in the Social and Behavioral Science Initiative (2019). During the training, I taught students the principles of cleaning data, including data selection, filtering, arrangement, mutation, and summarization, using the tidy packages in R. 

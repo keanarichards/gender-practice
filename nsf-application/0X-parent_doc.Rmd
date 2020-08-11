@@ -1,0 +1,33 @@
+---
+output:
+  word_document: 
+      reference_docx: mystyle.docx
+bibliography: library.bib
+csl: apa6.csl
+---
+
+
+
+
+
+
+
+# Project summary
+```{r child = here::here("00-project_summary.Rmd")}
+
+```
+
+
+# Project description
+
+```{r child = here::here("01-project_description.Rmd")}
+
+```
+
+
+# Facilities, equipment, and other resources
+
+```{r child = here::here("03-facilities.Rmd")}
+
+```
+

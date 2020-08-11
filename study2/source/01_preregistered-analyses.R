@@ -67,6 +67,12 @@ exploratory3b <-chisq.test(t2)
 t3 <- table(clean$perc_gen_gender_pract)
 exploratory3c <-chisq.test(t3)
 
+
+# exploratory analysis 3d -------------------------------------------------
+
+t4 <- table(clean$perc_task_gender_pract)
+exploratory3d <-chisq.test(t4)
+
 # exploratory analysis 4 --------------------------------------------------
 
 exploratory4 <- lm(task_score~ gender, data = clean)
@@ -111,15 +117,17 @@ exploratory10 <- z.prop(prep_M, prep_F, total_Mprep, total_Fprep)
 # exploratory analysis 11 --------------------------------------------------
 
 ## IV on M
+sub <- clean %>% dplyr::select(bonus_task, gender, perf_extra_prep) %>% na.omit(.)
 
-medModel <- lm(perf_extra_prep ~ gender,  data = clean)
+medModel <- lm(perf_extra_prep ~ gender,  data = sub)
 
 
 ## IV & M on DV
 
-outModel <- lm(bonus_task~ gender + perf_extra_prep, data = clean)
 
-exploratory11 <- mediate(model.m = medModel, model.y = outModel, treat = "gender", mediator = "perf_extra_prep", data = clean)
+outModel <- lm(bonus_task~ gender + perf_extra_prep, data = sub)
+
+exploratory11 <- mediate(model.m = medModel, model.y = outModel, treat = "gender", mediator = "perf_extra_prep", data = sub)
 
 
 # exploratory analysis 12 --------------------------------------------------

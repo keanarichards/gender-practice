@@ -109,7 +109,7 @@ print(ctable(clean$gender, clean$perc_gen_gender_pract))
 
 ### Exploratory analyses
 
-Exploratory analysis 1: Women were `r (exp(coef(exploratory1))[2] - 1)*100`% more likely to take advantage of the opportunity to prepare relative to men `r apa_print(exploratory1)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s204)). 
+Exploratory analysis 1: Women were `r (exp(coef(sec_exploratory1))[2] - 1)*100`% more likely to take advantage of the opportunity to prepare relative to men `r apa_print(exploratory1)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s204)). 
 
 ```{r s204,fig.cap="Gender differences in the number of extra practice rounds chosen across participants' choice in a payment scheme. Error bars represent standard error."}
 knitr::include_graphics(here::here("study2", "figs", "fig04_total-rev-count-by-gender-comp-choice.png"))

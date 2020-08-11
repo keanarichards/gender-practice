@@ -1,0 +1,17 @@
+---
+output:
+  word_document: 
+      reference_docx: mystyle.docx
+bibliography: library.bib
+---
+
+# Data management plan 
+
+
+**Types of data:** The research data will be downloaded from the Qualtrics survey software as a .csv file, which will include the participants’ responses, along with administrative data produced by Qualtrics (e.g., date, end date, response type, progress, duration, longitude and latitude). The administrative data produced by Qualtrics will be deleted during data cleaning, leaving only the participants’ responses. 
+
+
+**Storage:** Data will be stored on password-protected computers only accessible to the study personnel during data analysis. After finishing the pre-registered data analysis plan, the data will be stored on cloud-based storage through the public online repository Open Science Framework ([OSF](https://osf.io/)). Data will only be identified by unique subject ID numbers. The number of research personnel involved will be kept to only the number necessary to conduct the study. We do not plan on deleting the data.
+
+
+**Distribution:** Following emerging norms in the field, the research data (as a .csv file), code for analysis (as a .R file), and materials for the studies (as the .pdf version of the downloaded Qualtrics survey) will be posted to the public online repository Open Science Framework (https://osf.io/) within a short period after finishing data analysis. Additionally, the data may be shared for research purposes, including but not limited to: publication, presentation, or in correspondence with colleagues who request the data. These data will not include any personal identifying information and all distribution will be in accordance with the Institutional Review Board protocol.

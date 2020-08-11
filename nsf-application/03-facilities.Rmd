@@ -1,0 +1,13 @@
+---
+output:
+  word_document: 
+      reference_docx: mystyle.docx
+bibliography: library.bib
+csl: apa6.csl
+---
+
+# Facilities, equipment, and other resources
+
+Keana Richards has support from several knowledgeable mentors, including her adviser, Dr. Apicella, who has extensive experience conducting research in behavioral economics, especially with regards to gender and competition [@Apicella2020; @Apicella2017a; @Apicella2015; @Apicella2011; @Apicella2017]. On top of that, Dr. Apicella is co-director of the Social and Behavioral Science Initiative (SBSI), which fosters interdisciplinary discussion by hosting weekly brown bags and has opportunities for funding graduate research. Throughout her dissertation, Richards will receive feedback from an interdisciplinary committee, including Dr. Apicella, Associate Professor of Psychology, Dr. Gideon Nave, Assistant Professor of Marketing, Dr. Emily Falk, Professor of Communication, Psychology, and Marketing, and Dr. Geoffrey Goodwin, Associate Professor of Psychology.  
+
+All studies will be completed on Qualtrics survey software, which both Dr. Apicella and Richards have access to, along with 24/7 access to the Qualtrics support team. To mediate the recruitment process on Amazon Mechanical Turk, Richards has a Turkprime account, which has features to prevent repeated participation (e.g., checks for duplicate IP addresses), prevent bots from contaminating data collection (e.g., checks for duplicate geolocations), and verify worker information. Additionally, Dr. Apicella and Keana Richards will use the Benjamin Franklin Laboratory and the William Penn Laboratory for participant recruitment, which include 34 computers with Microsoft Office, Adobe Reader Pro, Internet access (Chrome and Firefox) and removable privacy shields, along with 20 noise canceling headphones. Through Dr. Apicella’s affiliation with SBSI, there are two available participant pools for recruitment: the psychology student pool who will receive credit for participating and the paid participant pool maintained by SBSI. Finally, Dr. Apicella and Richards have access to additional support, if needed, from 3 grants managers, 3 IT support specialists, 1 business office manager, 1 undergraduate coordinator, and 6 administrative coordinators. 

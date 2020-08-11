@@ -71,7 +71,7 @@ print(stby(list(clean$gender, clean$condition), INDICES = clean$comp_choice, FUN
 ```
 
 
-Primary hypothesis 2: As, hypothesized, women were `r (exp(coef(primary_hyp2))[2] - 1)*100`% more likely to take advantage of the opportunity to practice relative to men, `r apa_print(primary_hyp2)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s101)). As an exploratory analysis, we tested whether gender and the choice to compete interact to predict the choice to prepare, but did not find evidence for an interaction, `r apa_print(exploratory1)$full_result$genderWoman_comp_choicetournament`. 
+Primary hypothesis 2: As, hypothesized, women were `r (exp(coef(primary_hyp2))[2] - 1)*100`% more likely to take advantage of the opportunity to practice relative to men, `r apa_print(primary_hyp2)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s101)). As an exploratory analysis, we tested whether gender and the choice to compete interact to predict the choice to prepare, but did not find evidence for an interaction, `r apa_print(sec_exploratory2)$full_result$genderWoman_comp_choicetournament`. 
 
 ```{r s101, fig.cap="Proportion of participants who chose to prepare based on participant gender and choice to compete. Error bars represent standard error."}
 knitr::include_graphics(here::here("study1", "figs", "fig01_pract-choice-by-gender-and-comp-choice-bar.png"))
