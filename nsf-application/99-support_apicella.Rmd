@@ -1,0 +1,43 @@
+---
+output:
+  word_document: 
+      reference_docx: mystyle.docx
+bibliography: library.bib
+---
+# Current and pending support 
+
+## Coren Apicella
+
+**Title:** Doctoral Dissertation Research in DRMS: Exploring gender differences in effort before competition
+
+Source of support: NSF
+
+Project location: University of Pennsylvania
+
+Total award amount: $31,783.81
+
+Starting date: 02/20/2021
+
+Ending date: 02/19/2022
+
+Support type: Pending (current proposal)
+
+Person-months per year: 2
+
+
+**Title:** The impact of lingua franca use and education on moral, supernatural, and risk-related beliefs and decisions in Hadza foragers
+
+Source of support: Templeton Religious Sub-grant from UT Austin
+
+Project location: University of Pennsylvania, USA, and Tanzania
+
+Total award amount: $197,476
+
+Starting date: 02/01/2020
+
+Ending date: 12/01/2022
+
+Support type: Current
+
+Person-months per year: 2.5 
+

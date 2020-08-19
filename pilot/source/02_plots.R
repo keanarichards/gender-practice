@@ -46,8 +46,10 @@ p <- ggplot(data = dat, aes(x = gender, fill = gender)) +
   c("springgreen3", "slateblue1"), labels = c("Men", "Women")) + theme_apa() +
   theme(axis.title.x=element_blank(),
         axis.text.x=element_blank(),
-        axis.ticks.x=element_blank())
-
+        axis.ticks.x=element_blank(),
+        panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
 ggsave(here("pilot", "figs", "fig00_comp-choice-by-gender-bar.png"), p, width = 7, height = 7)
 
 # secondary hypothesis 1 --------------------------------------------------
@@ -93,7 +95,51 @@ p <- ggplot(data = dat, aes(x = gender, fill = gender))  +
   position=position_dodge(.9)) + theme_apa()+
   theme(axis.title.x=element_blank(),
         axis.text.x=element_blank(),
-        axis.ticks.x=element_blank())
+        axis.ticks.x=element_blank(),
+panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
+
 
 ggsave(here("pilot", "figs", "fig01_pract-choice-by-gender-bar.png"), p, width = 7, height = 7)
 
+
+# true exploratory 1 ------------------------------------------------------
+
+dat <- clean %>%
+  group_by(gender) %>%
+  dplyr::summarise( 
+    n=n(),
+    mean=mean(overall_score),
+    sd=sd(overall_score)
+  ) %>%
+  dplyr::mutate( se=sd/sqrt(n))
+
+p <- ggplot(dat, aes(x=gender, y= mean, fill=gender)) + 
+  geom_bar(position=position_dodge(), stat="identity") +
+  geom_errorbar(aes(ymin=mean-se, ymax=mean+se),
+                width=.2,                    # Width of the error bars
+                position=position_dodge(.9))+
+  geom_text(x = 1.5, y = 100, label = "***") +
+  labs(y = 'Average score') + scale_fill_manual(values =
+                                                c("springgreen3", "slateblue1"), labels = c("Men", "Women")) + theme_apa() +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
+
+
+ggsave(here("pilot", "figs", "fig02_perform-by-gender-bar.png"), p, width = 7, height = 7)
+
+
+## for nsf app with caption attached 
+p <- p + labs (caption = "Figure 4. Average performance by gender from the pilot study. \n Error bars represent standard error.") + theme(
+  plot.caption = element_text(hjust = 0, size =14), legend.text = element_text(size =14), axis.text.y = element_text(size = 14), 
+  axis.title.y = element_text(size = 14), axis.title.x=element_blank(),
+  axis.text.x=element_blank(),
+  axis.ticks.x=element_blank(),
+  panel.border  = element_blank()
+)
+ggsave(here("nsf-application", "nsf4.png"), p, width = 7, height = 7)

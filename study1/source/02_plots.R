@@ -36,7 +36,9 @@ p <- ggplot(data = dat, aes(x = condition, fill = gender)) +
   geom_text(x = 1.5, y = 100, label = "***") + 
   labs(x = 'Condition', y = '% Competing') +
   scale_fill_manual(values=c("springgreen3", "slateblue1"),  labels = c("Men", "Women")) + theme_apa() +
-  scale_x_discrete(labels = c("Control", "Practice"))
+  scale_x_discrete(labels = c("Control", "Practice")) + theme(panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
 
 ggsave(here("study1", "figs", "fig00_comp-choice-by-gender-and-cond-bar.png"), p, width = 7, height = 7)
 
@@ -62,9 +64,20 @@ p <- ggplot(data = dat, aes(x = comp_choice, fill = gender)) +
   geom_text(x = 1.5, y = 100, label = "***") + 
   labs(x = 'Choice to compete', y = '% Practicing') +scale_fill_manual(values=c("springgreen3", "slateblue1"),  labels = c("Men", "Women")) + 
   theme_apa() +
-  scale_x_discrete(labels = c("Piece-rate", "Tournament"))
+  scale_x_discrete(labels = c("Piece-rate", "Tournament"))+ theme(panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
 
 ggsave(here("study1", "figs", "fig01_pract-choice-by-gender-and-comp-choice-bar.png"), p, width = 7, height = 7)
+
+
+## for nsf app with caption attached 
+p <- p + labs (caption = "Figure 1. Proportion of participants who chose to prepare based on \n participant gender and choice to compete from first study. \n Error bars represent standard error.") + theme(
+  plot.caption = element_text(hjust = 0, size =14), axis.text.x = element_text(size = 14), legend.text = element_text(size =14), axis.text.y = element_text(size = 14), axis.title.x = element_text(size = 14),
+  axis.title.y = element_text(size = 14)
+)
+
+ggsave(here("nsf-application", "nsf1.png"), p, width = 7, height = 7)
 
 
 # primary hypothesis 3 ----------------------------------------------------
@@ -90,8 +103,10 @@ p <- ggplot(data = sumld, aes(x = comp_choice, fill = gender)) +
   position=position_dodge(.9)) + 
   labs(x = "Competition choice", y = 'Average (log) practice count') + theme_apa() +
   scale_fill_manual(values=c("springgreen3", "slateblue1"), labels = c("Men", "Women"))+
-  scale_x_discrete(labels = c("Piece-rate", "Tournament")) 
-p
+  scale_x_discrete(labels = c("Piece-rate", "Tournament")) + theme(panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
+
 ggsave(here("study1", "figs", "fig02_total-rev-count-by-gender-comp-choice.png"), p, width = 7, height = 7)
 
 
@@ -112,7 +127,9 @@ dat <- dat %>% filter (perc_task_gender_pract == "Women")
 p <- ggplot(data = dat, aes(x = gender, fill = gender))  + 
   labs(x = 'Participant gender', y = '% who said women prepared more for task')  + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") + guides (fill = F)+
   geom_bar(aes(y = percent*100), position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
-  position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))
+  position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
 
 ggsave(here("study1", "figs", "fig03_perc-task-gender-pract.png"), p, width = 7, height = 7)
 
@@ -132,7 +149,9 @@ dat <- dat %>% filter(better_gender_guess == "Women")
 p <- ggplot(data = dat, aes(x = gender, fill = gender))  + 
   labs(x = 'Participant gender', y = '% who said women performed better on task')  + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") + guides (fill = F)+
   geom_bar(aes(y = percent*100), position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
-  position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))
+  position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
 
 ggsave(here("study1", "figs", "fig04_better-gender-guess.png"), p, width = 7, height = 7)
 
@@ -152,7 +171,9 @@ dat <- dat %>% filter(perc_gender_comp == "Men")
 p <- ggplot(data = dat, aes(x = gender, fill = gender))  + 
   labs(x = 'Participant gender', y = '% who said men chose to compete more for task')  + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") + guides (fill = F)+
   geom_bar(aes(y = percent*100),     position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
-  position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))
+  position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
 ggsave(here("study1", "figs", "fig05_perc-gender-comp.png"), p, width = 7, height = 7)
 
 
@@ -176,7 +197,9 @@ dat <- dat %>% filter(perc_gen_gender_pract == "Women")
 p <- ggplot(data = dat, aes(x = gender, fill = gender))  + 
   labs(x = "Participant gender", y = '% who said women prepare more in general')  + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") + guides (fill = F)+
   geom_bar(aes(y = percent*100),     position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
-  position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))
+  position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
 
 ggsave(here("study1", "figs", "fig06_perc-gen-gender-pract.png"), p, width = 7, height = 7)
 

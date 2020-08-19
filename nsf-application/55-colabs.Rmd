@@ -1,0 +1,17 @@
+---
+output:
+  word_document: 
+      reference_docx: mystyle.docx
+bibliography: library.bib
+---
+
+# Keana Richards collaborators and other affiliations
+
+## Collaborators in the last 48 months (other than students and postdocs)
+Rachel Arnett (University of Pennsylvania); Gideon Nave (University of Pennsylvania); Emily Falk (University of Pennsylvania); Leigh Tost (University of Southern California); Peter Mucha (University of North Carolina - Chapel Hill); Douglas A. Frye (University of Pennsylvania); Howard C. Stevenson (University of Pennsylvania)
+
+## Faculty advisor(s)
+Coren Apicella (September 2017 - present); Emily Falk (January 2020-present)
+
+## PhD thesis committee
+Coren Apicella (University of Pennsylvania); Gideon Nave (University of Pennsylvania); Emily Falk (University of Pennsylvania); Geoffrey Goodwin (University of Pennsylvania) 

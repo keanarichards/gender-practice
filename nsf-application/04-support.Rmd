@@ -4,6 +4,7 @@ output:
       reference_docx: mystyle.docx
 bibliography: library.bib
 ---
+# Current and pending support 
 
 ## Keana Richards
 
@@ -15,9 +16,9 @@ Project location: University of Pennsylvania
 
 Total award amount: $31,783.81
 
-Starting date: 02/22/2021
+Starting date: 02/20/2021
 
-Ending date: 02/28/2022
+Ending date: 02/19/2022
 
 Support type: Pending (current proposal)
 

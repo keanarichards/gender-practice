@@ -5,8 +5,9 @@ output:
 bibliography: library.bib
 ---
 
+# Budget justification 
 
-Funds from the NSF DDIG will be dedicated to paying participants. Each participant will earn \$2.50 as a guaranteed payment. There are two budget costs that will vary based on the participants' decisions and performance. The first is the bonus payment for the task itself, which will vary based on the condition participants' are assigned to (i.e., piece-rate and tournament payment) and their performance. We are basing their average task performance on participants from our preliminary studies. Additionally, participants' bonus earnings from the follow-up questions about confidence will depend on their accuracy, so we use the average accuracy of participants from previous studies on the confidence measure to anticipate the costs for the confidence measure. Finally, Amazon Mechanical Turk charges a fee for using its services (20% of each worker's total compensation) and Turkprime charges $.02 + 5% of the workers' compensation for each participant. Dr. Apicella offers to cover the remaining costs of running the experiments that are not funded by the NSF. 
+Funds from the NSF DDIG will be dedicated to paying participants. Each participant (*N* = 3250 for each study) will earn \$2.50 as a guaranteed payment. There are two budget costs that will vary based on participants' performance. The first variable cost is the bonus payment for the tasks themselves. We are basing the average expected task performance on participants' performance (i.e., questions completed per minute) in each respective task from our preliminary studies. Additionally, participants' bonus earnings from the follow-up question about confidence will depend on their accuracy, so we use participants' average accuracy on this measure from previous studies to determine the cost here. Finally, Amazon Mechanical Turk charges a fee for using its services (20% of each worker's total compensation) and Turkprime charges $.02 + 5% of the workers' compensation for each participant. We expect that the cost of participant payment across both studies will be, at maximum, \$31, 783.81. Dr. Apicella offers to cover the remaining costs of running the experiments that are not funded by the NSF. 
 
 ```{r, message=F,  warning=F, echo = F}
 
@@ -60,7 +61,7 @@ Turkprime_fees <- n*((avg_pay*.05) + .02)
 Total <- total_guar + bonus_task + bonus_conf_MC + Mturk_fees + Turkprime_fees
 
 library(janitor)
-df <- data.frame(study, n, total_guar,  bonus, Mturk_fees, Turkprime_fees, Total) 
+df <- data.frame(study,total_guar,  bonus, Mturk_fees, Turkprime_fees, Total) 
 
 
 df <- df %>%
@@ -77,6 +78,6 @@ library(kableExtra)
 <br><br><br><br> 
 
 ```{r, echo = F}
-kable(df,  digits = 2, col.names = c("Study","N",  "Guaranteed payment", "Bonus payment", "MTurk fees", "Turkprime fees", "Total cost"), caption = "Table 1. Budget calculation", format.args = list(big.mark = ","))
+kable(df,  digits = 2, col.names = c("Study", "Guaranteed payment", "Bonus payment", "MTurk fees", "Turkprime fees", "Total cost"), caption = "Table 1. Budget calculation", format.args = list(big.mark = ","))
 ```
 

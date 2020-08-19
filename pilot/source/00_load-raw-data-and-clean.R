@@ -46,7 +46,7 @@ excluded <- anti_join(full_raw, raw)
 
 ## removing previews to get real excluded participants
 
-excluded <- excluded %>% filter(DistributionChannel !="anonymous")
+excluded <- excluded %>% filter(DistributionChannel =="anonymous")
 
 write.csv(excluded, here("pilot", "data", "excluded.csv"), row.names = F)
 

@@ -76,7 +76,7 @@ knitr::include_graphics(here::here("pilot", "figs", "fig01_pract-choice-by-gende
 ```
 
 ```{r, results = "asis"}
-print(ctable(clean$gender, clean$pract_choice))
+print(ctable(clean$gender, clean$pract_choice, Row.variable = "Eender"))
 
 ```
 
