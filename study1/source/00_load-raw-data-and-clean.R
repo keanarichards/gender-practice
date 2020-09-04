@@ -99,6 +99,12 @@ s <- as.data.frame(s, col.names = paste0("pract_count", c(1:12)))
 raw <- cbind(raw, s)
 
 
+# identify participants who didn't finish -----------------------------------
+
+dropped_out <- raw %>% filter(Finished == "FALSE")
+write.csv(dropped_out, here("study1", "data", "dropped_out.csv"), row.names = F)
+
+
 # removing extra columns --------------------------------------------------
 
 

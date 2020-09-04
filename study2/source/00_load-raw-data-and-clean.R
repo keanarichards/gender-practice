@@ -46,6 +46,12 @@ total_pay <- total_pay %>% tidyr::unite("pay", 	c(PR_pay, tourn_payment), remove
 
 raw <- left_join(raw, total_pay[c("combined_pay", "MTurkID")], by = "MTurkID")
 
+# identify participants who didn't finish -----------------------------------
+
+dropped_out <- raw %>% filter(Finished == "FALSE")
+write.csv(dropped_out, here("study2", "data", "dropped_out.csv"), row.names = F)
+
+
 # removing extra columns --------------------------------------------------
 
 raw <- raw %>% dplyr::select(-c(contains("Click"), StartDate:UserLanguage,MTurkID, `Phone/tablet`, starts_with("del"), contains("ctrl_task"), matches("^prep_[0-9]|^prep[0-9]"), starts_with("Q"), 

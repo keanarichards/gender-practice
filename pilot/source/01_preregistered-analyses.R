@@ -34,7 +34,6 @@ primary_hyp1 <- glm (comp_choice ~ gender, data = clean, family = binomial())
 
 secondary_hyp1 <- glm (comp_choice ~ gender + conf_partner+ risk, data = clean, family = binomial())
 
-
 # secondary hypothesis 2 --------------------------------------------------
 
 clean <- clean %>% filter(!is.na(round_1_score), !is.na(round_2_score), !is.na(round_3_score)) 

@@ -45,21 +45,11 @@ source(here("study2", "source", "03_exploratory-analyses.R"))
 
 ```
 
-### Summary 
+### Pre-registered analyses^[All hypotheses were pre-registered(https://osf.io/q39a5/) unless otherwise stated and all analyses were conducted in R.]
 
-All hypotheses were [pre-registered](https://osf.io/q39a5/) unless otherwise stated and all analyses were conducted in R. We first examined whether gender was balanced across conditions. `r ctable(clean$gender, clean$condition)$proportions[1]*100`% of men and `r ctable(clean$gender, clean$condition)$proportions[2]*100`% of women were assigned to the control condition, while `r ctable(clean$gender, clean$condition)$proportions[4]*100`% of men and `r ctable(clean$gender, clean$condition)$proportions[5]*100`% of women were assigned to the practice condition, for a total of `r ctable(clean$gender, clean$condition)$proportions[3]*100`% of participants assigned to the control condition and `r ctable(clean$gender, clean$condition)$proportions[6]*100`% of participants assigned to the practice condition. 
+Primary hypothesis 1: We replicated the effect of gender on the choice to compete: `r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`% of men chose to compete compared to `r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`% of women. However, we do not find evidence of a significant effect of condition on the choice to compete among women, *z* = `r primary_hypothesis1_z`, *p* = `r primary_hypothesis1_pval` (see Figure \@ref(fig:s200)). 
 
-We replicated the effect of gender on the choice to compete: `r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`% of men chose to compete compared to `r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`% of women. However, our primary hypothesis women would be more likely to compete in the preparation condition was not supported (see Figure \@ref(fig:s200)). 
-
-Despite no evidence for the effect of condition on the choice to compete among women, we replicate the effects found in Study 1, where women were significantly more likely to prepare for the task, even after being forced to prepare in the preparation condition (see Figure \@ref(fig:s204)). 
-
-
-
-### Pre-registered analyses
-
-Primary hypothesis 1: We do not find evidence of a significant effect of condition on the choice to compete among women, *z* = `r primary_hypothesis1_z`, *p* = `r primary_hypothesis1_pval` (see Figure \@ref(fig:s200)). 
-
-```{r s200, fig.cap='Proportion of female participants who chose to compete based on condition. Error bars represent standard error.'}
+```{r s200, fig.cap='Proportion of female participants who chose to compete based on condition. Error bars represent standard errors.'}
 knitr::include_graphics(here::here("study2", "figs", "fig00_comp-choice-women-by-cond.png"))
 
 ```
@@ -73,7 +63,7 @@ print(ctable(woman$comp_choice, woman$condition))
 
 Exploratory analysis 3a: Participants did not expect any gender differences in performance on the task, `r apa_print(exploratory3a, n = nrow(clean))$statistic` (see Figure \@ref(fig:s201)). 
 
-```{r s201,fig.cap="Participants' perceptions of gender differences in performance on the task. Error bars represent standard error."}
+```{r s201,fig.cap="Participants' perceptions of gender differences in performance on the task. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study2", "figs", "fig01_better-gender-guess.png"))
 
 ```
@@ -85,7 +75,7 @@ print(ctable(clean$gender, clean$better_gender_guess))
 
 Exploratory analysis 3b: Participants were significantly more likely to expect men to choose to compete more often, `r apa_print(exploratory3b, n = nrow(clean))$statistic` (see Figure \@ref(fig:s202)). 
 
-```{r s202,fig.cap="Participants' perceptions of gender differences in choice to compete. Error bars represent standard error."}
+```{r s202,fig.cap="Participants' perceptions of gender differences in choice to compete. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study2", "figs", "fig02_perc-gender-comp.png"))
 
 ```
@@ -98,7 +88,7 @@ print(ctable(clean$gender, clean$perc_gender_comp))
 Exploratory analysis 3c: Participants were significantly more likely to expect women to choose to prepare in general, `r apa_print(exploratory3c, n = nrow(clean))$statistic` (see Figure \@ref(fig:s203)).
 
 
-```{r s203,fig.cap="Participants' perceptions of general gender differences in choice to practice. Error bars represent standard error."}
+```{r s203,fig.cap="Participants' perceptions of general gender differences in choice to practice. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study2", "figs", "fig03_perc-gen-gender-pract.png"))
 
 ```
@@ -109,9 +99,9 @@ print(ctable(clean$gender, clean$perc_gen_gender_pract))
 
 ### Exploratory analyses
 
-Exploratory analysis 1: Women were `r (exp(coef(sec_exploratory1))[2] - 1)*100`% more likely to take advantage of the opportunity to prepare relative to men `r apa_print(exploratory1)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s204)). 
+Exploratory analysis 1: Despite no evidence for the effect of condition on the choice to compete among women, we replicate the effects found in Study 1, where women were significantly more likely to prepare for the task, even after being forced to prepare in the preparation condition (see Figure \@ref(fig:s204)). Women were `r (exp(coef(sec_exploratory1))[2] - 1)*100`% more likely to take advantage of the opportunity to prepare relative to men `r apa_print(exploratory1)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s204)). 
 
-```{r s204,fig.cap="Gender differences in the number of extra practice rounds chosen across participants' choice in a payment scheme. Error bars represent standard error."}
+```{r s204,fig.cap="Gender differences in the number of extra practice rounds chosen across participants' choice in a payment scheme. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study2", "figs", "fig04_total-rev-count-by-gender-comp-choice.png"))
 
 ```

@@ -51,6 +51,12 @@ excluded <- excluded %>% filter(DistributionChannel =="anonymous")
 write.csv(excluded, here("pilot", "data", "excluded.csv"), row.names = F)
 
 
+# identify participants who didn't finish -----------------------------------
+
+dropped_out <- raw %>% filter(Finished == "False")
+write.csv(dropped_out, here("pilot", "data", "dropped_out.csv"), row.names = F)
+
+
 # remove extra columns --------------------------------------------------
 
 raw <- raw  %>% dplyr::select(
