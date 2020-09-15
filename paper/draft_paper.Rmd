@@ -1,5 +1,5 @@
 ---
-title             : "The effects of preparation on gender differences in willingness to compete"
+title             : "The effects of preparation on gender differences in choice to compete"
 shorttitle        : "Preparation, gender, and choice to compete"
 
 author: 
@@ -45,7 +45,7 @@ bibliography      : ["library.bib"]
 floatsintext      : no
 figurelist        : no
 tablelist         : no
-footnotelist      : no
+footnotelist      : yes
 linenumbers       : yes
 mask              : no
 draft             : no

@@ -62,7 +62,7 @@ print(stby(list(clean$gender, clean$condition), INDICES = clean$comp_choice, FUN
 ```
 
 
-Primary hypothesis 2: As, hypothesized, women were `r (exp(coef(primary_hyp2))[2] - 1)*100`% more likely to take advantage of the opportunity to practice relative to men, `r apa_print(primary_hyp2)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s101)). As an exploratory analysis, we tested whether gender and the choice to compete interact to predict the choice to prepare, but did not find evidence for an interaction, `r apa_print(sec_exploratory2)$full_result$genderWoman_comp_choicetournament`. 
+Primary hypothesis 2: As hypothesized, women were `r (exp(coef(primary_hyp2))[2] - 1)*100`% more likely to take advantage of the opportunity to practice relative to men, `r apa_print(primary_hyp2)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s101)). As an exploratory analysis, we tested whether gender and the choice to compete interact to predict the choice to prepare, but did not find evidence for an interaction, `r apa_print(sec_exploratory2)$full_result$genderWoman_comp_choicetournament`. 
 
 ```{r s101, fig.cap="Proportion of participants who chose to prepare based on participant gender and choice to compete. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study1", "figs", "fig01_pract-choice-by-gender-and-comp-choice-bar.png"))
@@ -77,7 +77,7 @@ print(stby(list(clean$gender, clean$comp_choice), INDICES = clean$pract_choice, 
 
 
 
-Primary hypothesis 3: Women  completed `r (exp(coef(primary_hyp3))[2] - 1)*100`% more rounds of preparation relative to men, `r apa_print(primary_hyp2)$full_result$genderWoman` (see Figure \@ref(fig:s102)). 
+Primary hypothesis 3: In concordance with our pre-registered hypothesis, women  completed `r (exp(coef(primary_hyp3))[2] - 1)*100`% more rounds of preparation relative to men, `r apa_print(primary_hyp2)$full_result$genderWoman` (see Figure \@ref(fig:s102)). 
 
 
 ```{r s102, fig.cap="Average (log-transformed) practice count based on participant gender and competition choice. Error bars represent standard errors."}
@@ -87,7 +87,7 @@ knitr::include_graphics(here::here("study1", "figs", "fig02_total-rev-count-by-g
 ```
 
 
-Primary hypothesis 4: Participants expected women to spend more time preparing for the multiplication task relative to men, `r apa_print(primary_hyp4, n= nrow(clean))$statistic` (see Figure \@ref(fig:s103)). 
+Primary hypothesis 4: As hypothesized, participants expected women to spend more time preparing for the multiplication task relative to men, `r apa_print(primary_hyp4, n= nrow(clean))$statistic` (see Figure \@ref(fig:s103)). 
 
 
 ```{r s103, fig.cap="Participants' perceptions of gender differences in the choice to practice on the task. Error bars represent standard errors."}

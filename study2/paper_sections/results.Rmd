@@ -45,7 +45,7 @@ source(here("study2", "source", "03_exploratory-analyses.R"))
 
 ```
 
-### Pre-registered analyses^[All hypotheses were pre-registered(https://osf.io/q39a5/) unless otherwise stated and all analyses were conducted in R.]
+### Pre-registered analyses^[All hypotheses were pre-registered (https://osf.io/q39a5/) unless otherwise stated and all analyses were conducted in R.]
 
 Primary hypothesis 1: We replicated the effect of gender on the choice to compete: `r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`% of men chose to compete compared to `r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`% of women. However, we do not find evidence of a significant effect of condition on the choice to compete among women, *z* = `r primary_hypothesis1_z`, *p* = `r primary_hypothesis1_pval` (see Figure \@ref(fig:s200)). 
 
