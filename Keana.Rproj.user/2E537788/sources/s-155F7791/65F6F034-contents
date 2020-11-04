@@ -1,0 +1,70 @@
+
+# load packages -----------------------------------------------------------
+
+## Package names
+packages <- c("tidyverse", "here", "iptools")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+
+# pilot ---------------------------------------------------------------
+
+raw <- read_csv(here("pilot", "data", "raw.csv"))
+
+raw <- raw %>% slice(-c(1:2))
+
+raw <- raw %>%  dplyr::filter(Nationality == "American" , Gender != "Other:" ,
+  Residence == "United States" , `Phone/tablet` == "No") %>% filter(is.na(comprehension3) | comprehension3 == "QU",
+  DistributionChannel =="anonymous")
+
+
+dup1 <- raw[duplicated(raw$IPAddress, fromLast = T) | duplicated(raw$IPAddress), c("MTurkID", "IPAddress", "Gender")]
+
+dup1 <- dup1[order(dup1$IPAddress),]
+write.csv(dup1, "pilot_duplicated_ip.csv")
+
+# study 1 -----------------------------------------------------------------
+
+
+raw <- read_csv(here("study1", "data", "raw.csv"))
+
+raw <- raw %>% slice(-c(1:2))
+
+raw <- raw %>%  dplyr::filter(Nationality == "American" , Gender != "Other (please specify):",
+  Residence == "United States" , `Phone/tablet` == "No", DistributionChannel =="anonymous")
+
+dup2 <- raw[duplicated(raw$IPAddress, fromLast = T) | duplicated(raw$IPAddress), c("MTurkID", "IPAddress", "Gender")]
+
+dup2 <- dup2[order(dup2$IPAddress),]
+write.csv(dup2, "study1_duplicated_ip.csv")
+
+
+# study 2 -----------------------------------------------------------------
+
+raw <- read_csv(here("study2", "data", "raw.csv"))
+
+raw <- raw %>% slice(-c(1:2))
+
+raw <- raw  %>%  dplyr::filter(Nationality == "American" , Gender != "Other (please specify):",
+  Residence == "United States" , `Phone/tablet` == "No",DistributionChannel =="anonymous") 
+
+dup1 <- dup1[order(dup1$IPAddress),]
+
+dup3 <- raw[duplicated(raw$IPAddress, fromLast = T) | duplicated(raw$IPAddress), c("MTurkID", "IPAddress", "Gender")]
+
+dup3 <- dup3[order(dup3$IPAddress),]
+
+write.csv(dup3, "study2_duplicated_ip.csv")
+
+
+
+
+
+

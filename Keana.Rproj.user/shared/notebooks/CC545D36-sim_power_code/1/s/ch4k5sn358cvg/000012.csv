@@ -1,0 +1,13 @@
+"0",""
+"0","paramtest_results <- grid_search(regression_sim2,"
+"0","    params=list(n=c(2000, 2500), b3=c(.2, .3, .4)),"
+"0","    n.iter=5000, output='data.frame', parallel='snow', ncpus=3,"
+"0","    b0=0, b1=.2, b2=.2)"
+"1","Running 30,000 tests...
+"
+"0","power <- results(paramtest_results) %>%"
+"0","    dplyr::group_by(n.test, b3.test) %>%"
+"0","    dplyr::summarise(power = sum(b3_p < .05)/n())"
+"2","`summarise()` regrouping output by 'n.test' (override with `.groups` argument)
+"
+"0","print(power)"

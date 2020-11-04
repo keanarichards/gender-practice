@@ -1,0 +1,51 @@
+---
+title: "Pilot study methods"
+author: "Keana Richards"
+date: "6/9/2020"
+output:
+  word_document: default
+---
+
+```{r, include = F}
+
+## hiding code chunks globally 
+knitr::opts_chunk$set(echo=FALSE, message = F, warning = F)
+
+
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+
+
+# load packages -----------------------------------------------------------
+## Package names
+packages <- c("readr", "tidyverse", "here", "summarytools")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+
+
+clean <- read_csv(here("pilot", "data", "clean.csv"))
+excluded <- read_csv(here("pilot", "data", "excluded.csv"))
+
+## note: although 223 participants were excluded, the totals based on the exclusion criteria is 225 because there were 2 participants who indicated both gender = "other" and nationality/residence = "other" 
+
+```
+
+We recruited workers on Amazon Mechanical Turk for a study on decision-making. The workers who opted into the study had to pass several screening questions to be included as participants in the paid portion of the study. Specifically, participants included in the study had to (i) pass three comprehension questions for the task they would be completing, (ii) be using a computer (rather than a phone or tablet), (iii) identify their nationality as American and live in the United States (to control for gender differences in competitiveness across cultures), and (iv) indicate that they were male or female (instead of responding "Other" when asked about their gender). Also, we excluded the second response for participants who had an identical IP address, MTurkID, and gender. Based on these criteria, `r nrow(excluded)` participants were excluded from the analyses. Thus, the final sample consisted of `r nrow(clean)` participants (`r freq(clean$gender, report.nas = F)[6]`% women), with an average age of `r mean(clean$age)` (*SD* = `r sd(clean$age)`) years. 
+
+Participants completed three paid rounds of a one-minute “key-entry task.” Throughout the task, participants were continuously shown a legend that associated five numbers with five randomly drawn letters. The task consisted of using the legend to match a series of 2-digit numbers to their corresponding letters as quickly as possible. For instance, if the letter "C" was associated with the number 1 and "R" was associated with the number 2, and participants were presented with the number 12, they would have to enter "CR" into a corresponding text box. Before the paid rounds, participants were shown an example problem with the correct answer and required to pass 3 comprehension questions, which were identical in structure to the questions asked during the incentivized rounds (each of which contained 36 questions). 
+
+In the first and second round of the task, participants were incentivized according to a piece-rate and tournament payment scheme, respectively [@Niederle2007]. Under the piece-rate scheme, participants earned \$.05 for each correct answer. Under the tournament payment scheme, participants earned \$.10 for each correct answer, but were only paid if their score was greater than a randomly assigned, anonymous partner. In the third round, participants could choose between the two above payment schemes. We denote this decision as "willingness to compete" [@Niederle2007]. 
+
+After the third round, participants completed a series of follow-up questions which measured confidence, risk aversion, and perceptions of gender differences in performance on the task. One of their responses to the confidence and perceptions of gender differences measures was randomly selected and if the selected guess was correct, they received a bonus of \$.10. 
+
+As confidence measures, participants (i) indicate whether they thought their round 2 score was higher or lower than the person they had competed against; (ii) guess which decile their score might fall into relative to all men who completed the task during round 2; and (iii) repeat (ii) with respect to female participants. As a measure of risk aversion, participants were asked "How do you see yourself: Are you generally a person who is fully prepared to take risks or do you try to avoid taking risks?" [@Dohmen2011b] on a 0 (Not at all willing to take risks) to 10 (very willing to take risks) scale. 
+
+Finally, we asked about participants' perceptions of the effects of practice, if offered, on task performance (i.e., "Do you think your score would have improved if you practiced the task beforehand?"), along with participants' hypothetical willingness to practice the task beforehand, if given the opportunity. We operationalized this measure as their response to the question "If you had the chance to practice the task, would you have taken that opportunity?" If they responded yes, they were asked how long they would have practiced (in minutes) if they were given unlimited time to practice. 

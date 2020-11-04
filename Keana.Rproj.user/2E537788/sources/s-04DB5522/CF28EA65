@@ -1,0 +1,32 @@
+{
+    "id": "CF28EA65",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1596744139727.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "expression": "duplicated %>% filter(nchar(MTurkID) %in% (12:14))",
+        "caption": "duplicated %>% filter(nchar(MTurkID) %in% (12:14))",
+        "totalObservations": 11,
+        "displayedObservations": 11,
+        "variables": 1290,
+        "cacheKey": "C14C82BA",
+        "object": "",
+        "environment": "_rs_no_env",
+        "contentUrl": "grid_resource/gridviewer.html?env=_rs_no_env&obj=&cache_key=C14C82BA&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1596744126,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1596744139727,
+    "read_only": false,
+    "read_only_alternatives": []
+}

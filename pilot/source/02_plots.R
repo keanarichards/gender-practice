@@ -42,7 +42,7 @@ p <- ggplot(data = dat, aes(x = gender, fill = gender)) +
   position =
   position_dodge(.9)) +
   geom_text(x = 1.5, y = 100, label = "***") +
-  labs(y = '% Competing') + scale_fill_manual(values =
+  labs(y = 'Percentage Competing') + scale_fill_manual(values =
   c("springgreen3", "slateblue1"), labels = c("Men", "Women")) + theme_apa() +
   theme(axis.title.x=element_blank(),
         axis.text.x=element_blank(),
@@ -88,7 +88,7 @@ dat <- dat %>% filter (pract_choice == "Yes")
 
 
 p <- ggplot(data = dat, aes(x = gender, fill = gender))  + 
-  labs(y = '% who said they would take the opportunity to practice')  + scale_y_continuous(limits = c(0, 100)) + 
+  labs(y = 'Percentage who would have practiced')  + scale_y_continuous(limits = c(0, 100)) + 
   geom_bar(aes(y = percent*100), position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"),
               labels = c("Men", "Women"))+ 
   geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,

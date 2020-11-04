@@ -1,0 +1,64 @@
+# load packages -----------------------------------------------------------
+
+## Package names
+packages <- c("readr", "tidyverse", "ez")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+# load data ---------------------------------------------------------------
+
+clean <- read_csv("study1/data/clean.csv")
+
+## recoding to factors for vars used in logits
+
+clean$gender <- factor(clean$gender)
+clean$comp_choice <- factor(clean$comp_choice)
+clean$condition <- factor(clean$condition)
+clean$pract_choice <- factor(clean$pract_choice)
+
+# primary hypothesis 1 ----------------------------------------------------
+
+primary_hyp1 = glm(comp_choice ~ condition*gender,family=binomial,data = clean)
+summary(primary_hyp1)
+
+exp(cbind(OR = coef(primary_hyp1), confint(primary_hyp1)))
+
+# primary hypothesis 2 --------------------------------------------------
+
+primary_hyp2 = glm(pract_choice ~ gender,family=binomial,data = clean)
+summary(primary_hyp2)
+
+exp(cbind(OR = coef(primary_hyp2), confint(primary_hyp2)))
+
+
+# primary hypothesis 3 --------------------------------------------------
+
+
+summary(m1 <- glm(total_review_count ~ gender, family="poisson", data=prep_cleaned))
+prep_cleaned[,max(prep_cleaned$total_review_count)]
+
+exp(coef(m1))
+
+
+# primary hypothesis 4 --------------------------------------------------
+
+
+
+# exploratory analysis 1 --------------------------------------------------
+
+
+# exploratory analysis 2 --------------------------------------------------
+
+
+# exploratory analysis 3 --------------------------------------------------
+# exploratory analysis 4 --------------------------------------------------
+# exploratory analysis 5 --------------------------------------------------
+# exploratory analysis 6 --------------------------------------------------
+# exploratory analysis 7 --------------------------------------------------

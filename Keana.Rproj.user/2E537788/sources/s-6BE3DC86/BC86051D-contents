@@ -1,0 +1,2169 @@
+---
+title: "Preparation Study 2"
+author: "Keana Richards"
+output:
+  html_document:
+    chunk_output_type: console
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+editor_options: 
+  chunk_output_type: console
+---
+```{r, warning= F, message = F}
+library(tidyr)
+library(dplyr)
+library(readr)
+library(knitr)
+library(psych)
+library(Hmisc)
+library(summarytools)
+library(sandwich)
+library(MASS)
+library(skimr)
+library(gplots)
+library(gridExtra)
+library(cowplot)
+library(colorspace)
+library(extrafont)
+library(plotly)
+library(varhandle)
+library(matrixStats)
+library(umap)
+library(sandwich)
+library(emmeans)
+library(msm)
+library(mediation)
+library(Hmisc)
+
+
+extrafont::loadfonts(device="win")
+
+
+options(scipen=999)
+par(mar = c(2,2,2,2))
+
+### used current time to set seed = 46403
+## as.integer(Sys.time()) %% 100000
+seed <- 46403
+set.seed(seed)
+```
+
+
+# Data cleaning
+
+```{r}
+full<- read.csv("C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/second_yr/practice_study/old_docs/prep_study2raw.csv", comment.char="#", stringsAsFactors=FALSE)
+```
+
+```{r}
+# excluding participants who did not meet exclusion criteria (based on their initial responses, they did not complete the survey, therefore did not see the education ?)
+
+full <-full[full$education != '',]
+
+# removing unnecessary variables
+
+## first storing the names for all columns 
+
+col_names <-names(x = full)
+
+## subsetting only variables to be used for analyses: 
+
+full <- full %>% select(col_names[c(19, 21, 23, 25, 27:29, 32, 37, 41, 46, 50, 55, 59, 64, 68, 73, 77, 87, 91, 101, 105, 115, 119, 129, 133, 143, 147, 157, 161, 171, 175, 185, 189, 199, 203, 213, 217, 227, 231, 241, 247:255, 420, 585, 750, 915, 1244:1265, 1268:1271)])
+
+
+# redefining column names var for only included variables:
+
+col_names <- col_names[c(19, 21, 23, 25, 27:29, 32, 37, 41, 46, 50, 55, 59, 64, 68, 73, 77, 87, 91, 101, 105, 115, 119, 129, 133, 143, 147, 157, 161, 171, 175, 185, 189, 199, 203, 213, 217, 227, 231, 241, 247:255, 420, 585, 750, 915, 1244:1265, 1268:1271)]
+
+View(col_names)
+
+# storing col description with col_names: 
+des <-unlist(full[1,], use.names = F)
+col_names_des <- cbind(col_names, des) 
+
+# removing description from the full dataset:
+
+full <- full[c(-1,-2),]
+
+
+# removing an duplicate MTurk IDs, if any: 
+
+full <- full[!duplicated(full$MTurkID),]
+
+## creating factors from character vars:
+
+vars <- c("gender_perform", "Gender", "task_gender_prep", "gender_compete", "preparedness", "task_gender_prep", "education", "Race.ethnicity")
+
+for (i in 1:length(vars)){
+  full[, vars[i]] <- factor(full[, vars[i]]) 
+
+}
+
+## reference level for Gender var is Male: 
+
+full$Gender <- relevel(full$Gender, ref = "Male")
+
+## removing words from risk var so it can be converted to a numeric var: 
+
+full$risk <- dplyr::recode(full$risk, "10(Very willing to take risks)" = "10", "0(Not at all willing to take risks)" = "0")
+
+## changing var type to numeric for vars wrongly identified as character:
+full[,c(8:41, 59, 71, 77:80)] <- sapply(full[,c(8:41, 59, 71, 77:80)],as.numeric)
+
+######
+
+## creating task_comp_check_accnumber variable: how many comp check ?s about the task they got wrong 
+
+full$task_comp_check_acc <- ifelse(full$task_comp_check1 == "48", 0, ifelse(full$task_comp_check2 == "2", 1,  ifelse(full$task_comp_check2 == "66", 2, 3)))
+
+## creating condition as factor:
+
+full$Condition <- factor(ifelse(full$Condition == 0, "Control", "Prepare"))
+
+
+## creating pay_comp_check_acc variable: how many comp check ?s about the payment scheme they got wrong
+
+full$pay_comp_check_acc <- 0
+
+## if they enter $12 (correct answer), keep at current number wrong (0), otherwise, add 1 wrong 
+
+full$pay_comp_check_acc <- ifelse(full$Comp_check_PR1 == "$12", full$pay_comp_check_acc, full$pay_comp_check_acc+ 1)
+
+## if they enter $14 (correct answer) or they have a blank (meaning they got the first ? correct), keep at current number wrong, otherwise, add 1 wrong 
+
+full$pay_comp_check_acc <- ifelse(full$comp_check_PR2 == "$14" | full$comp_check_PR2 == "", full$pay_comp_check_acc, full$pay_comp_check_acc+ 1)
+
+### repeating above for all 3 questions
+
+full$pay_comp_check_acc <- ifelse(full$Comp_check_comp1 == "$24", full$pay_comp_check_acc, full$pay_comp_check_acc+ 1)
+
+full$pay_comp_check_acc <- ifelse(full$Comp_check_comp2 == "$28" | full$Comp_check_comp2 == "", full$pay_comp_check_acc, full$pay_comp_check_acc+ 1)
+
+  
+full$pay_comp_check_acc <- ifelse(full$Comp_check_comp3 == "$0", full$pay_comp_check_acc, full$pay_comp_check_acc+ 1)
+
+
+full$pay_comp_check_acc <- ifelse(full$Comp_check_comp4 == "$0" | full$Comp_check_comp4  == "", full$pay_comp_check_acc, full$pay_comp_check_acc+ 1)  
+
+
+## "Number of comprehension check questions incorrect" (combining two vars above for total number of incorrect across both types of comprehension): 
+
+full$n_comp_wrong <- full$pay_comp_check_acc + full$task_comp_check_acc
+
+
+## creating "Number of optional preparation rounds chosen" var. If  they rejected the opportunity at the first offer, recorded as 0, otherwise add 1. Repeat for 5 opportunities:
+
+full$extra_prep_count <-ifelse(full$extra_prep1 == "No", 0, ifelse(full$extra.prep2 == "No", 1, ifelse(full$extraprep3 == "No", 2, ifelse(full$extraprep4 == "No", 3, ifelse(full$extraprep5 == "No", 4, 5)))))
+
+
+###########################
+
+## Confidence:
+
+full$conf_rank<- dplyr::recode(full$conf_rank, "Better than 50% of participants" = 50, "Better than 80% of participants" = 80, "Better than 60% of participants" = 60, "Better than 90% of participants" = 90, "Better than 30% of participants" = 30, "Better than 70% of participants" = 70, "Better than 40% of participants" = 40, "Better than 10% of participants" = 10, "Better than none of the other participants" =0, "Better than 20% of participants" = 20,  "Better than all other participants" = 100)
+
+## Willingness to compete as factor - combining across two versions of presentation:
+
+full$comp_choice <- factor(ifelse(full$choice_tourn_first2 == "Piece-rate (where you will earn $.10 for every problem solved correctly)" | full$choice_PR_first2 == "Piece-rate (where you will earn $.10 for every problem solved correctly)", "Piece-rate", ifelse(full$choice_tourn_first2 == "Tournament (where you will earn $.20 for every problem solved correctly only if you win)" | full$choice_PR_first2 == "Tournament (where you will earn $.20 for every problem solved correctly only if you win)", "Tournament", NA))) 
+
+## imputing mean of timing  within each participant across all control tasks for 5a page submit (control) (error in Qualtrics so was not stored): 
+
+mean_timing_ctrl <- rowMeans(full[, c(8, 10, 12, 14)], na.rm = TRUE)
+full[, 16]<- ifelse(is.na(full[, 15]) == FALSE, mean_timing_ctrl, full[, 16])
+
+###########
+
+## combining timing vars across conds: 
+
+### a) creating total time spent on task var: 
+
+sum_timing_ctrl <-rowSums(full[, c(8:17)], na.rm = TRUE)
+
+
+sum_timing_prep <-rowSums(full[, c(18:41)], na.rm = TRUE)
+
+
+full$total_time <- ifelse(is.na(full[, 8]) == FALSE, sum_timing_ctrl,sum_timing_prep)
+
+## b) creating total time spent on page answering ?s (for measuring performance purposes):
+
+sum_timing_ctrl <-rowSums(full[, c(8, 10, 12, 14, 16)], na.rm = TRUE)
+
+
+nums <- seq(from = 18, to = 41, by = 2)
+
+sum_timing_prep <-rowSums(full[, c(nums)], na.rm = TRUE)
+
+
+full$time_qs <- ifelse(is.na(full[, 8]) == FALSE, sum_timing_ctrl,sum_timing_prep)
+
+
+## creating performance on the fixed preparation rounds (units = ?s completed/second):
+
+full$perf_fixed <- (full$score_before_task/full$time_qs)
+
+## creating performance on the extra preparation rounds - multiplying count of extra prep rounds by 2 minutes, since that was the fixed amount of time they were given to complete the problems: 
+
+
+full$extraprep_count_time <- full$extra_prep_count*120
+
+full$perf_extra <- (full$unlimited_prep_score/full$extraprep_count_time)
+  
+#####################
+
+
+## recoding likert items:
+
+for (i in 62:70){
+  full[, i] <- dplyr::recode(full[, i] , "Strongly disagree" = 1, "Disagree" = 2, "Somewhat disagree" = 3, "Neither agree nor disagree" = 4, "Somewhat agree" = 5, "Agree" = 6, "Strongly agree" = 7)
+
+}
+
+
+### recoding reverse FAB items (ie. 3, 4)
+
+
+full$fab_3 = 8 - full$fab_3 
+
+full$fab_4 = 8 - full$fab_4
+
+## composite field-specific ability beliefs:
+
+items <-c("fab_1", "fab_2", "fab_3", "fab_4", "fab_5", "fab_6")
+scaleKey <- rep(1, 6)
+results_fab <- scoreItems(keys = scaleKey, items = full[items])
+
+## alpha for FAB = .82:
+
+results_fab$alpha
+
+full$fab <- as.vector(results_fab$scores)
+
+### composite fatigue:
+
+items <-c("fatigue_1", "fatigue_2")
+scaleKey <- rep(1, 2)
+results_fati <- scoreItems(keys = scaleKey, items = full[items])
+
+## alpha for fatigue = .94:
+
+results_fati$alpha
+
+full$fati <- as.vector(results_fati$scores)
+
+
+##checking NAs for data quality assurance 
+## expecting page submit to have exactly 1/2 NAs across all based on assignment to condition
+## would expect only var to have high NAs is unlimited prep_score & perf_extra because these are based on choice to spend extra time preparing)
+
+inspect.na(full)
+
+
+```
+
+
+
+# Calculating bonuses
+
+* Randomly assigning them to 1-4 for confidence/Gender questions:
+
+```{r}
+set.seed(seed)
+full$bonus_assn <- sample(c(1:4), 1026, replace = TRUE)
+
+mean(full$taskscore)
+```
+
+
+* Do you think men or women in this study correctly solved more multiplication problems on average?
+
+Men (50.07) had a higher mean compared to women (46.47). 
+
+```{r}
+
+full %>% 
+  group_by(Gender) %>% 
+  dplyr::summarize(avg = mean(taskscore))
+
+full$bonus_qs <- ifelse(full$gender_perform == "Men" & full$bonus_assn == 1, .1, 0)
+```
+
+* Do you think men or women in this study spent more time practicing/studying before completing the multiplication task?
+
+Sum of seconds preparing across all women (34,560) was greater than across all men (29,760)
+
+```{r}
+
+
+full %>% group_by(Gender) %>%
+  dplyr::summarize(sum_time = sum(extraprep_count_time))
+
+full %>% group_by(Gender) %>%
+  dplyr::summarize(mean = mean(extraprep_count_time))
+
+
+
+full$bonus_qs <- ifelse(full$task_gender_prep== "Women" & full$bonus_assn == 2, .1, full$bonus_qs)
+
+```
+
+
+* Do you think men or women in this study chose the tournament payment option more often?
+
+There was a larger proportion of men (9.84%) who chose to compete compared to women (6.63%)
+
+```{r}
+
+
+tbl3 <- table(full$comp_choice, full$Gender)
+prop.table(tbl3)*100
+
+
+full$bonus_qs <- ifelse(full$gender_compete == "Men" & full$bonus_assn == 3, .1, full$bonus_qs)
+
+```
+
+* If my performance is compared to that of all participants that completed the task, I think my score was...
+
+Stored in variable conf_accuracy
+ 
+```{r}
+
+full <- full %>% 
+  mutate(percent_rank = percent_rank(taskscore))
+
+full$conf_accuracy <- 0
+
+full$conf_rank <- (full$conf_rank/100)
+
+for (i in 1:nrow(full)) {
+if (full$percent_rank[i] >= full$conf_rank[i]) 
+  {full$conf_accuracy[i] <- "correct"
+
+} else if (full$percent_rank [i] < full$conf_rank[i]) 
+  {full$conf_accuracy[i] <- "incorrect"
+}
+}
+
+full$bonus_qs <- ifelse(full$conf_accuracy == "correct" & full$bonus_assn == 4, .1, full$bonus_qs)
+
+
+```
+
+* Tournament payoffs (separated by condition for fairness)
+
+** Filtering by choice & condition
+
+```{r}
+
+### filtered based on choice for tournament & condition
+# control
+tourn_choicec <- subset(full, comp_choice == "Tournament" & Condition == "Control", select = c(MTurkID, taskscore))
+
+# prepare
+tourn_choicep <- subset(full, comp_choice == "Tournament" & Condition == "Prepare", select = c(MTurkID, taskscore))
+
+
+
+#### permuting rows for each dataframe (prepare & control)
+set.seed(seed)
+tourn_choicec <-tourn_choicec[sample(1:nrow(tourn_choicec), replace = F), ]
+
+
+tourn_choicep <-tourn_choicep[sample(1:nrow(tourn_choicep), replace = F), ]
+
+```
+
+** Bonus calculations for those in control condition
+
+```{r}
+
+### split DF in half 
+tourn_choicec_split1 <- tourn_choicec[1:45, c("MTurkID", "taskscore")]
+tourn_choicec_split2 <- tourn_choicec[46:90, c("MTurkID", "taskscore")]
+tourn_choicec_split1$ID <- c(1:45)
+tourn_choicec_split2$ID <- c(1:45)
+combined2 <- merge (tourn_choicec_split1, tourn_choicec_split2, by = "ID")
+
+### subtract round scores to determine winner, storing in difference score var & replicating to be used for all participants in tourn_choicec DF (since it was split in 1/2 to match to competitor)
+
+combined2$difference_score <- combined2$taskscore.x - combined2$taskscore.y
+
+difference_score <- combined2$difference_score
+difference_score2 <- rep (difference_score)
+
+
+tourn_choicec$difference_score <- append(difference_score, difference_score2)
+
+
+## printing outcomes of competition for each person
+  
+for (i in 1:45) {
+if (tourn_choicec$difference_score [i]> 0) {tourn_choicec$W_L[i] <- "win"
+
+} else if (tourn_choicec$difference_score [i]< 0)
+ {tourn_choicec$W_L[i] <- "lose"
+  
+} else if (tourn_choicec$difference_score [i] == 0) 
+{tourn_choicec$W_L[i] <- "tie"}
+
+}
+
+
+for (i in 46:90) {
+  if (tourn_choicec$difference_score [i]> 0) {tourn_choicec$W_L[i] <- "lose"
+  
+  } else if (tourn_choicec$difference_score [i]< 0)
+  {tourn_choicec$W_L[i] <- "win"
+  
+  } else if (tourn_choicec$difference_score [i] == 0) 
+  {tourn_choicec$W_L[i] <- "tie"}
+  
+}
+
+
+## no ties
+table(tourn_choicec$W_L)
+
+
+## storing info (MTurkID & score) for winners 
+
+tourn_winnersc <- tourn_choicec %>% filter(W_L == "win"| W_L == "tie")
+tourn_winnersc$tourn_payment <- 0
+
+tourn_winnersc$tourn_payment <- tourn_winnersc$taskscore*.20
+
+
+```
+
+
+** Bonus calculation for those in preparation condition
+
+```{r}
+### split DF in half 
+tourn_choicep_split1 <- tourn_choicep[1:39, c("MTurkID", "taskscore")]
+tourn_choicep_split2 <- tourn_choicep[40:78, c("MTurkID", "taskscore")]
+tourn_choicep_split1$ID <- c(1:39)
+tourn_choicep_split2$ID <- c(1:39)
+combined2 <- merge (tourn_choicep_split1, tourn_choicep_split2, by = "ID")
+
+### subtract round scores to determine winner 
+
+combined2$difference_score <- combined2$taskscore.x - combined2$taskscore.y
+
+
+difference_score <- combined2$difference_score
+difference_score2 <- rep (difference_score)
+## finding random match for last person 
+set.seed(seed)
+s <- sample(c(1:79), size = 1)
+
+diff <- tourn_choicep[s, "taskscore"] - tourn_choicep[79, "taskscore"]
+
+## storing outcome for last person
+difference_score2[40] <- diff
+
+tourn_choicep$difference_score <- append(difference_score, difference_score2)
+
+
+## printing outcomes of competition for each person (except odd one at end)
+  
+for (i in 1:39) {
+if (tourn_choicep$difference_score [i]> 0) {tourn_choicep$W_L[i] <- "win"
+
+} else if (tourn_choicep$difference_score [i]< 0)
+ {tourn_choicep$W_L[i] <- "lose"
+  
+} else if (tourn_choicep$difference_score [i] == 0) 
+{tourn_choicep$W_L[i] <- "tie"}
+
+}
+
+
+for (i in 40:78) {
+  if (tourn_choicep$difference_score [i]> 0) {tourn_choicep$W_L[i] <- "lose"
+  
+  } else if (tourn_choicep$difference_score [i]< 0)
+  {tourn_choicep$W_L[i] <- "win"
+  
+  } else if (tourn_choicep$difference_score [i] == 0) 
+  {tourn_choicep$W_L[i] <- "tie"}
+  
+}
+
+## actual outcome for odd one out: 
+
+tourn_choicep[79, "W_L"] <- "win"
+
+## randomly selecting winner(s) for ties:
+# 1 tie
+table(tourn_choicep$W_L)
+
+set.seed(seed)
+tourn_choicep <-tourn_choicep[-sample(which("tie" == tourn_choicep$W_L), size = 1), ]
+
+
+## storing info (MTurkID & score) for winners 
+
+tourn_winnersp <- tourn_choicep %>% filter(W_L == "win"| W_L == "tie")
+tourn_winnersp$tourn_payment <- 0
+
+tourn_winnersp$tourn_payment <- tourn_winnersp$taskscore*.20
+```
+
+** combining the 2 conditions (vertical bind DFs)
+
+```{r}
+
+tourn_winners <- rbind(tourn_winnersc, tourn_winnersp)
+```
+
+
+
+* Piece-rate payoffs
+
+```{r}
+### filtered based on piece rate choice
+PR_choice <- subset(full, comp_choice == "Piece-rate", select = c(MTurkID, taskscore))
+
+## multiply by .10
+
+PR_choice$PR_pay <- PR_choice$taskscore*.10
+
+
+```
+
+
+* Merging based on worker ID:
+
+```{r}
+total_payment <- left_join(full, PR_choice,by = "MTurkID")
+total_payment <-left_join(total_payment, tourn_winners, by = "MTurkID")
+
+## merging into one column
+total_payment$combined_pay <- coalesce(total_payment$tourn_payment, total_payment$PR_pay)
+## inserting $0 payment for people who lose tournaments
+
+total_payment$combined_pay <- ifelse(is.na(total_payment$combined_pay), 0, total_payment$combined_pay)
+
+summary(r <- lm(combined_pay ~ Gender+ Condition+ taskscore.x, data = total_payment))
+summary(lm(combined_pay ~extra_prep_count, data =total_payment))
+
+
+```
+
+
+
+* Exporting file:
+
+```{r}
+
+
+total_payment$total_bonus <- total_payment$bonus_qs + total_payment$combined_pay 
+
+write.csv(total_payment,'total_payment_output.csv')
+```
+
+# Summarizing data
+
+```{r, message = F, warning=F, echo = F}
+
+dfSummary(full)
+skim(full)
+
+```
+
+
+
+## Summary stats by Gender
+
+```{r}
+group_by(full,Gender) %>%
+ skim()
+
+```
+
+## Task performance by Gender stats
+
+```{r}
+describeBy(full$taskscore, full$Gender)
+
+```
+
+
+
+# Graphs
+
+
+## Task performance by Gender
+
+```{r}
+
+
+Gender <- ggplot(full, aes(x = taskscore, color = Gender)) + geom_density() + scale_color_manual(values=c("Red","Blue"), name = "Gender")
+
+ggplotly(Gender)
+ 
+```
+
+
+## Task performance by Gender and competition choice:
+
+```{r}
+
+p <- ggplot(full, aes(x = taskscore, color = Gender)) + geom_density() + scale_color_manual(values=c("Red","Blue"), name = "Gender") + facet_grid(.~comp_choice)
+
+ggplotly(p)
+
+```
+
+## Task performance by Gender and condition:
+
+```{r}
+
+ggplotly(ggplot(full, aes(x = taskscore, color = Gender)) + geom_density() + scale_color_manual(values=c("Red","Blue"), name = "Gender") + facet_grid(.~Condition))
+
+```
+
+## Proportion who chose to compete:
+
+```{r}
+
+dat <- dplyr::select(full,comp_choice) %>%
+    dplyr::count(comp_choice) %>%
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat
+ggplot(data = dat, aes(x = comp_choice), fill = comp_choice) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = (percent*100)+(error*100) +  4, label = round(percent*100, 2))) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion')
+
+
+
+```
+
+## Proportion who chose to compete by Gender:
+
+```{r}
+
+
+dat <- dplyr::select(full,comp_choice, Gender) %>%
+    dplyr::count(comp_choice, Gender) %>% filter(Gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(full,comp_choice, Gender) %>%
+    dplyr::count(comp_choice, Gender) %>% filter(Gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat1, dat)
+
+dat
+
+ggplot(data = dat, aes(x = comp_choice, fill = Gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = (percent*100)+(error*100) +  4, label = round(percent*100, 2)), position = position_dodge(width = .9)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion')
+
+
+```
+
+
+
+## Proportion who chose to compete by condition:
+
+```{r}
+
+
+dat <- dplyr::select(full,comp_choice,Condition) %>%
+    dplyr::count(comp_choice,Condition) %>% filter(Condition == "Control") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(full,comp_choice,Condition) %>%
+    dplyr::count(comp_choice,Condition) %>% filter(Condition == "Prepare") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat1, dat)
+dat
+
+ggplot(data = dat, aes(x = comp_choice, fill = Condition)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = (percent*100)+(error*100) +  4, label = round(percent*100, 2)), position = position_dodge(width = .9)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion')
+
+
+```
+
+
+## Proportion who chose to compete by Gender and condition:
+
+```{r}
+
+dat <- full %>% dplyr::select(Gender, comp_choice, Condition) %>% group_by(Gender, Condition) %>% dplyr::count(Condition,Gender, comp_choice)%>%  mutate(percent = n / sum(n),  error = sqrt((percent * (1-percent))/n))
+
+
+
+ggplot(data = dat, aes(x = comp_choice, fill = Gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = (percent*100)+(error*100) +  2, label = round(percent*100, 2)), position = position_dodge(width = .9)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion')  + facet_grid(.~Condition)
+
+
+```
+
+
+
+## Overall proportion who wished they had more time to prepare:
+
+```{r}
+
+dat <- dplyr::select(full,preparedness) %>%
+    dplyr::count(preparedness) %>%
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+ggplot(data = dat, aes(x = preparedness), fill = preparedness) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = (percent*100)+(error*100) +  4, label = round(percent*100, 2))) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Do you wish you had more time to prepare?', y = 'Proportion')
+
+
+
+```
+
+
+
+## Proportion who wished they had more time to prepare within each condition:
+
+```{r}
+
+dat <- dplyr::select(full,preparedness,Condition) %>%
+    dplyr::count(preparedness,Condition) %>% filter(Condition == "Control") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(full,preparedness,Condition) %>%
+    dplyr::count(preparedness,Condition) %>% filter(Condition == "Prepare") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat1, dat)
+
+
+ggplot(data = dat, aes(x = preparedness, fill = Condition)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = (percent*100)+(error*100) +  4, label = round(percent*100, 2)), position = position_dodge(width = .9)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Do you wish you had more time to prepare?', y = 'Proportion')
+
+
+```
+
+
+## Proportion who wished they had more time to prepare within each condition (just women):
+
+```{r}
+
+dat <- full %>% filter (Gender == "Female") %>% dplyr::select(preparedness,Condition) %>% 
+    dplyr::count(preparedness,Condition) %>% filter(Condition == "Control") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- full %>% filter (Gender == "Female") %>% dplyr::select(preparedness,Condition) %>% 
+    dplyr::count(preparedness,Condition) %>% filter(Condition == "Prepare") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat1, dat)
+
+
+
+ggplot(data = dat, aes(x = preparedness, fill = Condition)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = (percent*100)+(error*100) +  4, label = round(percent*100, 2)), position = position_dodge(width = .9)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Do you wish you had more time to prepare?', y = 'Proportion')  
+
+
+```
+
+## Proportion who spent extra time preparing by Gender and choice to compete 
+
+
+```{r}
+
+dat <- full %>% dplyr::select(Gender, comp_choice, extra_prep_count) %>% group_by(Gender, comp_choice) %>% dplyr::count(extra_prep_count,Gender, comp_choice)%>%  mutate(percent = n / sum(n))
+
+
+p <-ggplot(dat, aes(x = extra_prep_count, fill= Gender)) + geom_bar(aes(y = percent*100), stat = "identity",color = "grey30", position = "dodge", alpha = .5) + facet_grid(.~comp_choice) 
+
+ggplotly(p)
+
+View(full$extraprep_count_time)
+
+View(full %>% filter(extraprep_count_time > 0))
+
+%>% summarize(mean = mean(extraprep_count_time))
+
+```
+
+
+## Confidence across conditions and Gender
+
+```{r}
+
+dat <- full %>% dplyr::select(Gender, Condition, conf_rank) %>% group_by(Gender, Condition) %>% dplyr::count(conf_rank,Gender, Condition)%>%  mutate(percent = n / sum(n))
+
+
+p <-ggplot(dat, aes(x = conf_rank, fill= Condition)) + geom_bar(aes(y = percent*100),color = "grey30", position = "dodge", stat = "identity") + facet_grid(.~Gender) 
+
+ggplotly(p)
+
+
+
+```
+
+## Field-specific ability beliefs across Gender & condition
+
+```{r}
+
+
+p <-ggplot(full, aes(x = fab, fill= Condition)) + geom_density(color = "grey30", position = "dodge", alpha = .5) + facet_grid(.~Gender)
+
+ggplotly(p)
+
+
+```
+
+## Fatigue across conditions
+
+```{r}
+p <-ggplot(full, aes(x = fati, fill= Condition)) + geom_density(color = "grey30", position = "dodge", alpha = .5) 
+
+ggplotly(p)
+```
+
+
+## Interest across conditions
+
+```{r}
+p <-ggplot(full, aes(x = interest, fill= Condition)) + geom_histogram(color = "grey30", position = "dodge", alpha = .5) 
+
+ggplotly(p)
+```
+
+
+## Time spent on filler/practice task across conditions
+
+```{r}
+
+p <-ggplot(full, aes(x = total_time, fill = Condition)) + geom_density(position = "dodge", alpha = .5) 
+
+ggplotly(p)
+
+
+```
+
+## Performance on task by condition
+
+```{r}
+p <-ggplot(full, aes(x = taskscore, fill = Condition)) + geom_density(position = "dodge", alpha = .5) 
+
+ggplotly(p)
+
+
+```
+
+## Choice to spend extra time preparing based on condition 
+
+```{r}
+p <-ggplot(full, aes(x = extra_prep_count , fill = Condition)) + geom_bar(position = "dodge") 
+
+ggplotly(p)
+
+```
+
+# Testing hypotheses
+
+## Some notes & comments
+
+* Final sample N = 1026
+* All graphs represent SE bars (AKA they'll be about the width of 68% CIs)
+* Replicated (very large) effects that participants expect women to prepare more & men to compete more. However, participants expected men & women to perform equally well on the multiplication task (potential response bias - on the other hand, this was an incentivized question, so possibly not)
+* Most participants did not wish they had more time to prepare (~86%), regardless of condition
+* More people in preparation condition immediately said no to the opportunity to prepare more (extra_prep_count = 0)
+* There is an effect of condition on performance, suggesting that being forced to prepare did enhance performance 
+* No evidence for effect of condition on willingness to compete, neither across all subjects nor amongst women 
+* Men performed better than women on average by about 4 points
+* Found unusually large proportion of participants choosing piece rate again (~84%) - almost identical to rate of last study (~85%), even when their baseline pay was higher this time 
+* There is a difference in amount of time spent before choosing to compete across conditions (possible confound)
+* More people seemed to be fatigued in preparation condition
+* No significant differences in perceptions of preparedness across Gender (i.e., in response to question: Do you wish you had more time to prepare for the multiplication task?)
+* No evidence for effect of condition on confidence 
+
+
+## Primary hypothesis 1: 
+
+
+* Model: Two-proportions z-test 
+* Predictor(s): Condition
+* Outcome: Willingness to compete
+
+
+* No evidence of effect of condition on choice to compete among women. 31/262 (~12%) women chose the tournament payment scheme in the preparation condition compared to 37/257 (~14%) women who chose the tournament payment scheme in the control conditon X<sup>2</sup> = .54, p = 0.46)
+
+
+```{r}
+
+prep_comp <- nrow(full %>% filter(Gender == "Female" & Condition == "Prepare" & comp_choice == "Tournament"))
+prep_comp
+total_prep<- nrow(full %>% filter(Gender == "Female" & Condition == "Prepare"))
+total_prep
+
+con_comp <- nrow(full %>% filter(Gender == "Female" & Condition == "Control" & comp_choice == "Tournament"))
+con_comp
+total_con <- nrow(full %>% filter(Gender == "Female" & Condition == "Control"))
+total_con
+
+
+## https://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/
+
+z.prop = function(x1,x2,n1,n2){
+  numerator = (x1/n1) - (x2/n2)
+  p.common = (x1+x2) / (n1+n2)
+  denominator = sqrt(p.common * (1-p.common) * (1/n1 + 1/n2))
+  z.prop.ris = numerator / denominator
+  return(z.prop.ris)
+}
+
+z.prop(prep_comp, con_comp, total_prep, total_con)
+
+### returns z score of -.87 < -1.96 
+
+
+## results from chi-square
+
+prop.test(x = c(prep_comp, con_comp), n = c(total_prep, total_con))
+
+
+t1 <- full %>% filter(Gender == "Female") %>% dplyr::select(Condition,comp_choice) %>% table(.)
+
+balloonplot(t(t1), main ="Choice to compete across conditions within women", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+
+f_only <- full %>% filter(Gender == "Female") 
+
+summary(glm(comp_choice~ Condition+ total_time, data = f_only, family = binomial))
+
+```
+
+
+
+
+## Exploratory 1:
+
+* Model: Logistic regression 
+* Predictor(s): Gender, condition, Gender*condition, risk tolerance, confidence
+* Outcome: Willingness to compete	
+
+* When controlling for all other variables (Gender, condition, Gender*condition), the only two that are significant are risk (OR = 1.37,p <.01) and confidence (OR = 6.16, p <.01) - replicating results from previous study.
+
+```{r}
+
+e1 = glm(comp_choice ~ risk + conf_rank + Condition + Gender*Condition,family=binomial,data = full)
+summary(e1)
+exp(cbind(OR = coef(e1), confint(e1)))
+
+```
+
+## Exploratory 2: 
+
+* Model: Linear regression
+* Predictor(s): Gender, performance on the task, condition, Gender*condition
+* Outcome: Bonuses earned from multiplication task
+
+
+* Only task score is a significant predictor of bonuses earned during task (b = .14, p <.01).
+
+```{r}
+
+summary(lm(combined_pay ~ Gender + taskscore.x + Condition + Gender*Condition, data = total_payment))
+
+```
+
+
+
+## Exploratory 3a: 
+
+* Model 1: Chi-square goodness of fit test (collapsed across conditions) with perceptions of Gender differences in performance as variable
+
+* There isn't a large difference in the proportion of participants who thought men (49%) or women (51%) would perform better on the multiplication task (X<sup>2</sup> = .56, p = 0.4537)
+
+
+```{r}
+dt <- table(full$gender_perform)
+dt
+
+chisq.test(dt)
+
+
+balloonplot(t(dt), main ="Perceptions of performance based on Gender", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+
+```
+
+## Exploratory 3b: 
+
+* Model 2: Chi-square goodness of fit test (collapsed across conditions) with perceptions of Gender differences in willingness to compete as variable
+
+
+* 88% of participants expect men to be more likely to compete (X<sup>2</sup> = 577.88, p < 0.01)
+
+
+```{r}
+dt <- table(full$gender_compete)
+
+
+chisq.test(dt)
+
+
+balloonplot(t(dt), main ="Perceptions of willingness to compete based on Gender", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+
+```
+
+
+
+## Exploratory 3c: 
+
+
+* Model 3: Chi-square goodness of fit test (collapsed across conditions) with perceptions of Gender differences in general willingness to prepare as variable
+
+* 81% of participants think women will be more likely to prepare than men (X<sup>2</sup> = 391.77, p < .01) 
+
+```{r}
+dt <- table(full$task_gender_prep, full$Gender)
+
+
+chisq.test(dt)
+
+
+balloonplot(t(dt), main ="Perceptions of task preparation based on Gender", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+
+```
+
+## Exploratory 4: 
+
+* Model: Linear regression
+* Predictor(s): Gender
+* Outcome: Performance on the task 
+* Note: if the null hypothesis is rejected, performance will be included as a control variable in any models with Gender included as a predictor
+
+
+* Women (M = 46.47) perform worse on the multiplication task compared to men (50.07) (r = -3.60, p = .006)
+
+```{r}
+
+summary(lm(taskscore~ Gender, data = full))
+
+full %>% group_by(Gender) %>% summarise(mean = mean(taskscore))
+
+```
+
+## Exploratory 5: 
+
+* Model: Mediation with logistic regression
+* Predictor(s): Condition
+* Mediator: Confidence
+* Outcome: Willingness to compete 
+
+
+* No need for mediation test - no effect of condition on choice to compete across all participants (b = -.16; p = .36)
+
+```{r}
+
+summary(glm(comp_choice ~ Condition, family = binomial,data = full))
+
+```
+
+## Exploratory 6: 
+
+* Model: Linear regression
+* Predictor(s): Condition
+* Outcome: Performance on the task 
+
+* Participants in the preparation condition performed better on the task (M = 49.86) compared to participants in the control condition (M = 46.64) (b = 3.22; p = .015)
+
+```{r}
+summary(lm(taskscore~Condition, data = full))
+full %>% group_by(Condition) %>% summarise(mean = mean(taskscore))
+
+```
+
+## Exploratory 7: 
+
+* Model: Linear regression
+* Predictor(s): Condition
+* Outcome: Time on the task 
+
+* Condition predicts total time spent on prep/filler task (b = 209.301, p < .01) - that is to say, there is a difference across conditions in time spent before deciding to compete.
+
+```{r}
+
+
+summary(lm(total_time~Condition, data = full))
+
+
+```
+
+
+## Exploratory 8: 
+
+* Model: Poisson regression
+* Predictor(s): Gender, condition, field-specific ability beliefs, Gender*field-specific ability beliefs
+* Outcome: Number of optional preparation rounds chosen 
+
+* Women are more likely to complete the optional preparation rounds (women are expected to choose the extra prep rounds at a rate 4.05 times that of men)
+
+* People in the preparation condition are less likely to choose the extra preparation rounds (rate .81 times of people in control condition)
+
+* People who indicate high FAB are more likely to choose the extra preparation rounds (for every increase in rating of FAB, expect the rate of one's choice to prepare to increase by 58%)
+
+
+```{r}
+
+
+
+
+control <- full %>% filter(Condition == "Control") 
+
+summary(glm.nb(extra_prep_count ~ Gender, data = control))
+
+summary(m1 <- glm.nb(extra_prep_count ~ Gender + Condition, data = full))
+
+summary(m1 <- glm.nb(extra_prep_count ~ Gender, data = full))
+
+
+summary(m1 <- glm(extra_prep_count ~ Gender, family="quasipoisson", data=full))
+
+plot(allEffects(m1))
+## https://stats.idre.ucla.edu/r/dae/poisson-regression/
+
+summary(r <-glm(extra_prep_count ~ Gender + Condition + fab + Gender*fab,family="poisson",data = full))
+
+## covariance matrix for heteroscedasticity-consistent coefficient estimates 
+
+cov.r <- vcovHC(r, type="HC0")
+std.err <- sqrt(diag(cov.r))
+r.est <- cbind(Estimate= coef(r), "Robust SE" = std.err,
+"Pr(>|z|)" = 2 * pnorm(abs(coef(r)/std.err), lower.tail=FALSE),
+LL = coef(r) - 1.96 * std.err,
+UL = coef(r) + 1.96 * std.err)
+
+r.est
+
+## testing model fit with residual deviance (p = .13, suggesting model fits reasonably well)
+
+with(r, cbind(res.deviance = deviance, df = df.residual,
+  p = pchisq(deviance, df.residual, lower.tail=FALSE)))
+
+## exponentiating for incidence rates
+
+exp(cbind(OR = coef(r), confint(r)))
+
+## calculate and store predicted values
+full$phat <- predict(r, type="response")
+
+## order by Gender and then by FAB
+full <- full[with(full, order(Gender, fab)), ]
+
+## create the plot
+ggplot(full, aes(x = fab, y = phat, colour = Gender)) +
+  geom_point(aes(y = extra_prep_count), alpha=.5, position=position_jitter(h=.2)) +
+  geom_line(size = 1) +
+  labs(x = "FAB", y = "Expected number of chosen prep rounds")
+
+```
+
+
+## Exploratory 9: 
+
+* Model: Linear regression
+* Predictor(s): Interest, fatigue, Gender, condition
+* Outcome: Performance on the extra preparation rounds
+
+* Interest is a marginally significant positive predictor of performance on the optional rounds (b = .01; p = .05355)
+
+* Fatigue is negatively related with performance on the extra preparation rounds (b = -.01; p = .003)
+
+* Condition is a significant positive predictor of performance on the extra rounds (b = .06; p < .01) (where baseline is control condition)
+
+```{r}
+
+summary(lm(perf_extra~interest + fati + Gender + Condition, data = full))
+
+```
+
+
+## Exploratory 10: 
+
+* Model: Two-proportions z-test 
+* Predictor(s): Gender
+* Outcome: Preparedness
+
+* 14.8% of men and 14.3% of women wished they had more time to prepare. No significant difference in perceptions of preparedness (X<sup>2</sup> = .02, p = .88)
+
+```{r}
+prep_M <- nrow(full %>% filter(Gender == "Male" & preparedness == "Yes"))
+
+total_Mprep<- nrow(full %>% filter(Gender == "Male"))
+
+
+prep_F <- nrow(full %>% filter(Gender == "Female" & preparedness == "Yes"))
+
+total_Fprep<- nrow(full %>% filter(Gender == "Female"))
+
+
+
+z.prop = function(x1,x2,n1,n2){
+  numerator = (x1/n1) - (x2/n2)
+  p.common = (x1+x2) / (n1+n2)
+  denominator = sqrt(p.common * (1-p.common) * (1/n1 + 1/n2))
+  z.prop.ris = numerator / denominator
+  return(z.prop.ris)
+}
+
+z.prop(prep_M, prep_F, total_Mprep, total_Fprep)
+
+### returns z score of .24 < 1.96 
+
+
+## results from chi-square
+
+
+prop.test(x = c(prep_M, prep_F), n = c(total_Mprep, total_Fprep))
+
+
+t1 <- full %>% filter(Gender == "Female") %>% dplyr::select(Condition,comp_choice) %>% table(.)
+
+balloonplot(t(t1), main ="Choice to compete across conditions within women", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+
+
+
+```
+
+## Exploratory 11: 
+
+* Model: Mediation
+* Predictor(s): Gender
+* Mediator: Performance on the extra preparation rounds
+* Outcome: Bonuses earned from multiplication task
+
+* No evidence for mediation 
+```{r}
+
+## IV on M
+
+medModel <- lm(perf_extra ~ Gender,  data = total_payment)
+
+
+## IV & M on DV
+
+outModel <- lm(combined_pay~ Gender + perf_extra, data = total_payment)
+
+summary(med <- mediate(model.m = medModel, model.y = outModel, treat = "Gender", mediator = "perf_extra", data = total_payment))
+
+plot(med)
+
+
+``` 
+
+## Exploratory 12: 
+
+* Model: Logistic regression
+* Predictor(s): Performance on the fixed preparation rounds
+* Outcome: Willingness to compete
+
+
+* Performance on the fixed rounds does not predict willingness to compete (OR = 1.25, p = .75)
+
+```{r}
+summary(r <- glm(comp_choice~ perf_fixed, family = binomial, data = full))
+
+exp(cbind(OR = coef(r), confint(r)))
+
+```
+
+## Exploratory 13:
+
+* Model: Linear regression
+* Predictor(s): Willingness to compete, Gender, Gender*willingness to compete
+* Outcome: Performance on the extra preparation rounds
+
+* None of the predictors predict performance on the extra preparation rounds. 
+
+
+```{r}
+summary(lm(perf_extra~comp_choice+ Gender + Gender*comp_choice, data = full))
+```
+
+
+
+### Supplementary analyses
+
+* Model: Linear regression
+* Predictor(s): Gender, performance on the task, condition, Gender*condition
+* Outcome: Bonuses earned from multiplication task
+
+
+```{r}
+## running without task score as predictor
+summary(lm(combined_pay ~ Gender +  Condition + Gender*Condition, data = total_payment))
+
+```
+
+
+* Model: Poisson regression
+* Predictor(s): Gender*choice to compete (Gender, competition choice)
+* Outcome: Extra preparation count 
+
+```{r}
+summary(r <-glm(extra_prep_count ~ Gender*comp_choice,family="quasipoisson",data = full))
+
+exp(cbind(OR = coef(r), confint(r)))
+
+```
+
+* Model: Linear regression
+* Predictor(s): Gender*condition
+* Outcome: Field-specific ability beliefs
+
+```{r}
+summary(lm(fab ~ Gender +  Condition + Gender*Condition, data = full))
+```
+
+* Condition (aka fixed preparation) predicting confidence
+
+
+```{r}
+summary(lm(conf_rank~ Condition, data = full))
+```
+
+* Extra prep count (aka unlimited preparation) predicting confidence
+
+```{r}
+summary(lm(conf_rank~ extra_prep_count, data = full))
+```
+
+* Gender and performance predicting choice to compete (making sure effect of Gender holds above & beyond the effect of performance)
+
+
+```{r}
+summary(glm(comp_choice ~ Gender + taskscore, family = "binomial", data = full))
+```
+
+* Is there a difference in perceptions of preparedness specifically among participants who chose to spend extra time preparing? No evidence of Gender difference within this subset of participants
+
+```{r}
+extra <- full %>% filter(extra_prep_count > 0)
+
+
+prep_M <- nrow(extra %>% filter(Gender == "Male" & preparedness == "Yes"))
+
+total_Mprep<- nrow(extra %>% filter(Gender == "Male"))
+
+
+prep_F <- nrow(extra %>% filter(Gender == "Female" & preparedness == "Yes"))
+
+total_Fprep<- nrow(extra %>% filter(Gender == "Female"))
+
+
+## results from chi-square
+
+
+prop.test(x = c(prep_M, prep_F), n = c(total_Mprep, total_Fprep))
+
+
+```
+
+* Does competition choice predict performance on task over and above Gender (i.e., does competition choice specifically improve men's performance)? No evidence it is specifically for men
+
+```{r}
+summary(lm(taskscore ~ comp_choice + Gender + Gender*comp_choice, data = full))
+```
+
+* Does condition affect performance over and above effects of extra preparation on performance? 
+
+
+```{r}
+
+
+summary(lm(taskscore ~ Condition + extra_prep_count, data = full))
+
+
+```
+
+* Condition on confidence controlling for extra prep count
+
+```{r}
+
+summary(lm(conf_rank~ Condition + extra_prep_count, data = full))
+
+
+```
+* How often did the participants who said they wished they had more time to prepare choose to complete the extra prep rounds? 
+
+```{r}
+tbl <- full %>% filter(preparedness == "Yes") %>% dplyr::group_by(comp_choice) %>% dplyr::count(extra_prep_count, comp_choice) %>% mutate(percent = n/sum(n))
+
+
+ggplot(data = tbl, aes(x = extra_prep_count, fill = comp_choice)) + geom_histogram(aes(y = percent), color = "grey30", position = "dodge", alpha = .5, stat = "identity") 
+
+p <-ggplot(full, aes(x = interest, fill= Condition)) + geom_histogram(color = "grey30", position = "dodge", alpha = .5) 
+
+
+```
+
+
+* Does the effect of extra preparation rounds on confidence hold after dropping the participants who wished they had more time to prepare?
+
+```{r}
+
+no_prep <- full %>% filter(preparedness == "No")
+
+summary(lm(conf_rank ~ extra_prep_count, data = no_prep))
+```
+
+```{r}
+summary(lm(taskscore~ Condition*extra_prep_count*comp_choice, data = full))
+```
+
+Does performance on task improve in preparation condition compared to control condition? 
+
+```{r}
+
+
+
+
+
+
+cor_vars <- as.matrix(full[c("perf_extra", "perf_fixed")])
+
+res2 <- rcorr(cor_vars)
+
+res2 <- rcorr(cor_vars)
+flattenCorrMatrix <- function(cormat, pmat) {
+  ut <- upper.tri(cormat)
+  data.frame(
+    row = rownames(cormat)[row(cormat)[ut]],
+    column = rownames(cormat)[col(cormat)[ut]],
+    cor  =(cormat)[ut],
+    p = pmat[ut]
+    )
+}
+flattenCorrMatrix(res2$r, res2$P)
+
+
+
+```
+
+Evidence that condition predicts performance on the extra task. 
+
+```{r}
+full %>% filter(Condition == "Prepare")
+summary(lm(perf_extra ~ Condition*extra_prep_count, data = full))
+
+```
+
+
+
+```{r}
+summary(lm(risk~ Condition + extra_prep_count + Gender, data = full))
+```
+
+
+```{r}
+summary(lm(conf_rank ~ fab, data = full))
+
+```
+
+
+
+```{r}
+summary(lm(conf_rank ~ Condition*comp_choice + extra_prep_count, data = full))
+
+```
+
+
+ 
+
+Notable comments from participants:
+
+no, the more problems I did, the more I questioned myself. was fun though
+
+It was unclear why you think that because you personally believe men or women must be better at math I must also believe the same thing. I choose an answer because I had to chose one and not because I agree with either option.
+
+No. But the survey does disregards several factors: 1. People who use number keypads instead of top computer number lines will go through the calculations faster. 2. Speed typists will go faster as well. 3. The health and mental clarify of the worker at the time of the test. 
+
+
+I'm not a math person!!!! - woman 
+
+
+No, it was fine, I just got really nervous & my mind was going blank :( - woman
+
+No, I think everything was clear. The multiplication exam was exciting. - man
+
+Everything was easily understandable. The task was interesting, challenging, and enjoyable! Thank you. - woman
+
+ppt plots
+
+```{r}
+
+## choice to compete by condition
+
+summary(r <- glm(comp_choice ~ Condition, family = binomial, data = full))
+exp(cbind(OR = coef(r), confint(r)))
+
+
+
+dat <- dplyr::select(full,Condition, comp_choice) %>%
+    dplyr::count(Condition, comp_choice) %>%
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat
+dat <- dat %>% filter(comp_choice == "Tournament")
+panel1 <- ggplot(data = dat, aes(x = Condition, fill = Condition)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Condition', y = '% Competing') + scale_fill_manual(values = c("springgreen3", "slateblue1"))+ apatheme+ scale_y_continuous(limits = c(0, 100))+ guides (fill = F)
+
+panel1
+
+
+## Choice to prepare by gender 
+
+summary(r <- glm(as.factor(extra_prep1)~ Gender, family = binomial, data = full))
+exp(cbind(OR = coef(r), confint(r)))
+
+
+
+
+dat <- dplyr::select(full,Gender,extra_prep1) %>%
+    dplyr::count(Gender, extra_prep1) %>% filter(Gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(full,Gender,extra_prep1) %>%
+    dplyr::count(Gender, extra_prep1) %>% filter(Gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat <- rbind(dat1, dat)
+dat
+dat <- dat %>% filter (extra_prep1 == "Yes")
+
+panel2 <- ggplot(data = dat, aes(x = Gender, fill = Gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% Preparing') + apatheme+ scale_y_continuous(limits = c(0, 100)) + guides(fill = F) +scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+panel2
+
+
+## preparedness
+
+summary(r <- glm(as.factor(preparedness)~ Gender, family = binomial, data = full))
+exp(cbind(OR = coef(r), confint(r)))
+
+
+
+
+dat <- dplyr::select(full,Gender,preparedness) %>%
+    dplyr::count(Gender, preparedness) %>% filter(Gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(full,Gender,preparedness) %>%
+    dplyr::count(Gender, preparedness) %>% filter(Gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat <- rbind(dat1, dat)
+
+dat <- dat %>% filter (preparedness == "Yes")
+
+panel3 <- ggplot(data = dat, aes(x = Gender, fill = Gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% want to prepare more') + apatheme+ scale_y_continuous(limits = c(0, 100)) + guides(fill = F) +scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+panel3
+
+
+
+
+### perceptions of Gender compete
+
+
+
+dat <- dplyr::select(full,gender_compete, Gender) %>%   dplyr::count(Gender, gender_compete) %>% filter(Gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(full,gender_compete, Gender) %>% 
+    dplyr::count(Gender, gender_compete) %>% filter(Gender == "Male") %>% 
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat, dat1)
+dat
+panel4 <- ggplot(data = dat, aes(x = gender_compete, fill = Gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05, position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% Believe Women Prepare More')  + apatheme+ scale_y_continuous(limits = c(0, 100))+ scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+
+panel4
+
+
+
+
+dt1 <- table(full$gender_compete)
+
+
+chisq.test(dt1)
+
+
+
+## perceptions of gender perform
+
+dat <- dplyr::select(full,gender_perform, Gender) %>%   dplyr::count(Gender, gender_perform) %>% filter(Gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(full,gender_perform, Gender) %>% 
+    dplyr::count(Gender, gender_perform) %>% filter(Gender == "Male") %>% 
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat, dat1)
+
+panel5 <- ggplot(data = dat, aes(x = gender_perform, fill = Gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05, position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% Believe Women Prepare More')  + apatheme+ scale_y_continuous(limits = c(0, 100))+ scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+
+panel5
+
+dt2 <- table(full$gender_perform)
+
+
+chisq.test(dt2)
+
+
+## perceptions of gender prep task
+
+
+dat <- dplyr::select(full,task_gender_prep, Gender) %>%   dplyr::count(Gender, task_gender_prep) %>% filter(Gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(full,task_gender_prep, Gender) %>% 
+    dplyr::count(Gender, task_gender_prep) %>% filter(Gender == "Male") %>% 
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat, dat1)
+dat
+panel6 <- ggplot(data = dat, aes(x = task_gender_prep, fill = Gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05, position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% Believe Women Prepare More')  + apatheme+ scale_y_continuous(limits = c(0, 100))+ scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+
+panel6
+
+
+dt3 <- table(full$task_gender_prep)
+
+
+chisq.test(dt3)
+
+## perceptions of gender prep general
+
+
+dat <- dplyr::select(full,gen_gender_prep, Gender) %>%   dplyr::count(Gender, gen_gender_prep) %>% filter(Gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(full,gen_gender_prep, Gender) %>% 
+    dplyr::count(Gender, gen_gender_prep) %>% filter(Gender == "Male") %>% 
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat, dat1)
+dat
+panel7 <- ggplot(data = dat, aes(x = gen_gender_prep, fill = Gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05, position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% Believe Women Prepare More')  + apatheme+ scale_y_continuous(limits = c(0, 100))+ scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+
+panel7
+
+full$Gender <- relevel(full$Gender, ref = "Female")
+
+levels(full$Gender)
+levels(prep_cleaned$gender)
+dt4 <- table(full$task_gender_prep)
+
+
+chisq.test(dt4)
+
+dat
+
+
+```
+
+
+
+
+
+exporting figures to ppt
+
+
+```{r}
+
+
+
+doc <- read_pptx() %>%
+  
+  
+add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel4, type = "body")  %>% 
+  
+  
+    
+add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel5, type = "body")  %>% 
+  
+    
+add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel6, type = "body")  %>% 
+  
+    
+add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel7, type = "body")  %>% 
+  
+print(target = "blankefe32.pptx")  %>%
+  invisible()
+
+
+
+
+```
+
+```{r}
+doc <- read_pptx() %>%
+  
+  
+add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(code = plot(allEffects(m1)), type = "body")  %>% 
+  print(target = "blank32.pptx")  %>%
+  invisible()
+
+
+```
+
+
+
+```{r}
+install.packages("qgraph")
+library(bmlm)
+library(qgraph)
+```
+
+
+
+```{r}
+mlm_path_plot(mod = NULL, xlab = "Preparation", ylab = "Competition", mlab = "Confidence")
+```
+interest across genders - women were less interested in the task.
+
+```{r}
+summary(lm(interest~Gender, data = full))
+```
+
+fatigue
+
+```{r}
+summary(lm(fati~Gender, data = full))
+
+```
+
+
+```{r}
+summary(lm(conf_accuracy~Gender, data = full))
+
+
+full%>% group_by(Condition) %>% dplyr::summarize(mean = mean(total_time))
+
+full <- full %>% mutate(conf_dev = conf_rank - percent_rank)
+
+
+
+summary(glm(task_gender_prep~Gender + extra_prep1, data = full, family = binomial))
+
+
+summary(glm(as.factor(gen_gender_prep) ~Gender + extra_prep1, data = full, family = binomial))
+
+summary(glm(as.factor(gender_compete)~Gender, family = binomial, data = full))
+
+
+summary(glm(as.factor(gender_perform)~Gender, family = binomial, data = full))
+
+prop.table(table(full$gender_perform, full$Gender))
+prop.table(table(full$gender_compete, full$Gender))
+
+```
+
+
+extra plots for committee meeting
+
+
+```{r}
+full$Gender <- relevel(full$Gender, ref = "Female")
+
+dat <- dplyr::select(full,Gender,extra_prep1) %>%
+    dplyr::count(Gender, extra_prep1) %>% filter(Gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+
+dat1 <- dplyr::select(full,Gender,extra_prep1) %>%
+    dplyr::count(Gender, extra_prep1) %>% filter(Gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+
+
+
+dat <- rbind(dat1, dat)
+
+
+
+ggplot(data = dat, aes(x = extra_prep1, fill = Gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Preparation choice', y = 'Proportion')  
+
+
+dat <- dat %>% filter (extra_prep1 == "Yes")
+
+
+apatheme=theme_bw()+
+  theme(panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        panel.border=element_blank(),
+        axis.line=element_line(),
+        text=element_text(family="serif", size = 18),axis.text=element_text(size=14),
+        legend.title=element_blank())
+panel1 <- ggplot(data = dat, aes(x = Gender, fill = Gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% Preparing') + apatheme+ scale_y_continuous(limits = c(0, 100)) + guides(fill = F) +scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+ggplot2::ggsave("s2fig1.png", plot = panel1, path = "C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/third_yr/major areas")
+
+```
+
+
+
+## fig2: Choice to prepare based on Gender & preparation choice in relative terms (within Gender & comp choice)
+
+
+```{r}
+
+full$Gender <- relevel(full$Gender, ref = "Female")
+
+dat <- dplyr::select(full,Gender,comp_choice, extra_prep1) %>%
+    dplyr::count(Gender,comp_choice, extra_prep1) %>% filter(Gender == "Female") %>% filter(comp_choice == "Tournament") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(full,Gender,comp_choice, extra_prep1) %>%
+    dplyr::count(Gender,comp_choice, extra_prep1) %>% filter(Gender == "Female")%>% filter(comp_choice == "Piece-rate")  %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat2 <- dplyr::select(full,Gender,comp_choice, extra_prep1) %>%
+    dplyr::count(Gender,comp_choice, extra_prep1) %>% filter(Gender == "Male") %>% filter(comp_choice == "Tournament")  %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+dat3 <- dplyr::select(full,Gender,comp_choice, extra_prep1) %>%
+    dplyr::count(Gender,comp_choice, extra_prep1) %>% filter(Gender == "Male") %>% filter(comp_choice == "Piece-rate") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat1, dat,dat2, dat3)
+
+dat <- dat %>% dplyr::filter (extra_prep1 == "Yes")
+
+
+panel2 <- ggplot(data = dat, aes(x = comp_choice,fill = Gender))+ geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity")  + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) +apatheme+ scale_y_continuous(limits = c(0, 100)) +
+    labs(x = 'Competition choice', y = '% Preparing')  +scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+panel2
+
+
+
+ggplot2::ggsave("s2fig2.png", plot = panel2, path = "C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/third_yr/major areas")
+
+```
+
+
+## Choice to prepare based on Gender within control group
+
+
+
+```{r}
+## is there a gender diff in prep choice among participants in the prep condition? 
+control_subset <- full %>% filter(Condition == "Prepare")
+
+
+e1 = glm(as.factor(extra_prep1) ~ as.factor(Gender),family=binomial,data = control_subset)
+summary(e1)
+exp(cbind(OR = coef(e1), confint(e1)))
+
+
+control_subset <- full %>% filter(Condition == "Control")
+dat <- dplyr::select(control_subset,Gender,extra_prep1) %>%
+    dplyr::count(Gender, extra_prep1) %>% filter(Gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(control_subset,Gender,extra_prep1) %>%
+    dplyr::count(Gender, extra_prep1) %>% filter(Gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat <- rbind(dat1, dat)
+
+
+
+dat <- dat %>% filter (extra_prep1 == "Yes")
+
+
+panel3 <- ggplot(data = dat, aes(x = Gender, fill = Gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% Preparing') + apatheme+ scale_y_continuous(limits = c(0, 100)) + guides(fill = F) +scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+
+ggplot2::ggsave("s2fig3.png", plot = panel3, path = "C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/third_yr/major areas")
+
+```
+
+## Choice to prepare based on Gender & preparation choice in relative terms (within Gender & comp choice) for participants in the control group
+
+
+```{r}
+dat <- dplyr::select(control_subset,Gender,comp_choice, extra_prep1) %>%
+    dplyr::count(Gender,comp_choice, extra_prep1) %>% filter(Gender == "Female") %>% filter(comp_choice == "Tournament") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(control_subset,Gender,comp_choice, extra_prep1) %>%
+    dplyr::count(Gender,comp_choice, extra_prep1) %>% filter(Gender == "Female") %>% filter(comp_choice == "Piece-rate")%>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat2 <- dplyr::select(control_subset,Gender,comp_choice, extra_prep1) %>%
+    dplyr::count(Gender,comp_choice, extra_prep1) %>% filter(Gender == "Male")%>% filter(comp_choice == "Tournament") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+dat3 <- dplyr::select(control_subset,Gender,comp_choice, extra_prep1) %>%
+    dplyr::count(Gender,comp_choice, extra_prep1) %>% filter(Gender == "Male")%>% filter(comp_choice == "Piece-rate") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+dat <- rbind(dat1, dat, dat2, dat3)
+
+dat <- dat %>% filter (extra_prep1 == "Yes")
+
+
+
+panel4 <- ggplot(data = dat, aes(x = comp_choice,fill = Gender))+ geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity")  + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) +apatheme+ scale_y_continuous(limits = c(0, 100)) +
+    labs(x = 'Competition choice', y = '% Preparing')  +scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+ggplot2::ggsave("s2fig4.png", plot = panel4, path = "C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/third_yr/major areas")
+
+
+
+```
+
+
+```{r}
+full$Gender  <- factor(full$Gender  , ordered = FALSE )
+
+full$Gender <- relevel(full$Gender, ref = "Male")
+
+r <- glm(as.factor(extra_prep1) ~  Gender*comp_choice,family=binomial,data = full)
+
+summary(r)
+exp(cbind(OR = coef(r), confint(r)))
+
+
+
+```
+
+
+
+```{r}
+
+summary(lm(extraprep_count_time ~ Gender+comp_choice, data = full))
+summary(lm(extraprep_count_time ~ Gender*comp_choice, data = full))
+
+summary(m1 <- glm.nb(extraprep_count_time ~ Gender*comp_choice , data = full))
+
+summary(m1 <- glm(extraprep_count_time ~ Gender*comp_choice , data = full, family = "poisson"))
+
+.03535 - 0.03504
+
+(0.00031)/(1-0.00031)
+
+0.0003100961*(1010-3-1)
+
+ 0.3119567/(0.0003100961) + 3 + 1
+
+1-0.03535
+
+plot(full$extraprep_count_time)
+```
+power analysis
+
+```{r}
+library(plyr)
+library(dplyr)
+library(ggplot2)
+library(paramtest)
+library(umap)
+
+
+### https://cran.r-project.org/web/packages/paramtest/vignettes/Simulating-Power.html
+### http://disjointedthinking.jeffhughes.ca/2017/09/power-simulations-r/
+
+lm_test_interaction <- function(simNum, N, b1, b2, b3, b0=0) {
+    
+    x1 <- sample(0:1, N, replace = T)
+    x2 <- sample(0:1, N, replace = T)
+    yvar <- sqrt(1 - b1^2 - b2^2 - b3^2)  # residual variance
+    y <- rnorm(N, b0 + b1*x1 + b2*x2 + b3*x1*x2, yvar)
+    model <- lm(y ~ x1 * x2)
+
+    # pull output from model (two main effects and interaction)
+    est_x1 <- coef(summary(model))['x1', 'Estimate']
+    p_x1 <- coef(summary(model))['x1', 'Pr(>|t|)']
+    sig_x1 <- p_x1 < .05
+    est_x2 <- coef(summary(model))['x2', 'Estimate']
+    p_x2 <- coef(summary(model))['x2', 'Pr(>|t|)']
+    sig_x2 <- p_x2 < .05
+    est_int <- coef(summary(model))['x1:x2', 'Estimate']
+    p_int <- coef(summary(model))['x1:x2', 'Pr(>|t|)']
+    sig_int <- p_int < .05
+
+    return(c(est_x1=est_x1, p_x1=p_x1, sig_x1=sig_x1, est_x2=est_x2, p_x2=p_x2,
+        sig_x2=sig_x2, est_int=est_int, p_int=p_int, sig_int=sig_int))
+}
+
+
+lm_test_interaction(1, 100, b1=9.650148, b2=43.910647, b3=9.429642)
+
+power_lm_int <- grid_search(lm_test_interaction, params=list(N=c(200, 300)),
+    n.iter=5000, output='data.frame', b1=9.650148, b2=43.910647, b3=9.429642, parallel='snow', ncpus=4)
+results(power_lm_int) %>%
+    dplyr::group_by(N.test) %>%
+    dplyr::summarise(
+        power_x1=mean(sig_x1),
+        power_x2=mean(sig_x2),
+        power_int=mean(sig_int))
+
+regression_sim <- function(simNum, n, b0, b1, b2, b3) {
+  
+  x1 <- sample(0:1, n, replace = T)
+  x2 <- sample(0:1, n, replace = T)
+  
+  y <- b0 + (b1*x1) + (b2*x2) + (b3*x1*x2) + rnorm(n, mean = 0, sd = 1)
+model <- lm(y~ x1*x2)
+
+  
+  output <- summary(model)$coefficients
+coefs <- output[,1]
+ps <- output[,4]
+
+rsq <- summary(model)$r.squared
+
+results <- c(coefs, ps, rsq)
+names(results) <- c('b0_coef', 'b1_coef', 'b2_coef', 'b3_coef', 'b0_p', 'b1_p', 'b2_p', 'b3_p', 'rsq')
+
+  return(results)
+  
+}
+paramtest_results <- grid_search(regression_sim,
+    params=list(n=c(1, 300, 400), b3=c(1, .2)),
+    n.iter=1000, output='data.frame', parallel='snow', ncpus=3,
+    b0= .15, b1= 1, b2=1)
+
+
+
+power <- results(paramtest_results) %>%
+    dplyr::group_by(n.test, b3.test) %>%
+    dplyr::summarise(power = sum(b3_p < .05)/n())
+print(power)
+
+
+```
+
+```{r}
+
+full %>% group_by(Gender) %>% mean(full$extraprep_count_time)
+max(full$extraprep_count_time)
+lm_test_interaction <- function(simNum, N, b1, b2, b3, b0=0) {
+    
+    x1 <- sample(0:1, N, replace = T)
+    x2 <- sample(0:1, N, replace = T)
+    yvar <- sqrt(1 - b1^2 - b2^2 - b3^2)  # residual variance
+    y <- rpois(N, 62.69006)
+    model <- glm(y ~ x1 * x2, family = "poisson")
+
+    # pull output from model (two main effects and interaction)
+    est_x1 <- coef(summary(model))['x1', 'Estimate']
+    p_x1 <- coef(summary(model))['x1', 'Pr(>|t|)']
+    sig_x1 <- p_x1 < .05
+    est_x2 <- coef(summary(model))['x2', 'Estimate']
+    p_x2 <- coef(summary(model))['x2', 'Pr(>|t|)']
+    sig_x2 <- p_x2 < .05
+    est_int <- coef(summary(model))['x1:x2', 'Estimate']
+    p_int <- coef(summary(model))['x1:x2', 'Pr(>|t|)']
+    sig_int <- p_int < .05
+
+    return(c(est_x1=est_x1, p_x1=p_x1, sig_x1=sig_x1, est_x2=est_x2, p_x2=p_x2,
+        sig_x2=sig_x2, est_int=est_int, p_int=p_int, sig_int=sig_int))
+}
+
+# varying N at 200 and 300; setting coefficient of x1 = .15, coefficient of
+# x2 = 0, and coefficien of interaction = .3
+power_lm_int <- grid_search(lm_test_interaction, params=list(N=c(200, 300)),
+    n.iter=5000, output='data.frame', b1=0.176633, b2=0.630782, b3=0.008415, parallel='snow', ncpus=4)
+results(power_lm_int) %>%
+    group_by(N.test) %>%
+    summarise(
+        power_x1=mean(sig_x1),
+        power_x2=mean(sig_x2),
+        power_int=mean(sig_int))
+```
+

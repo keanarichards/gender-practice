@@ -1,0 +1,40 @@
+---
+output:
+  word_document: 
+      reference_docx: mystyle.docx
+bibliography: library.bib
+---
+# Biographical Sketch 
+
+Keana Richards
+
+PhD candidate in Psychology, University of Pennsylvania
+
+MA candidate in Statistics, University of Pennsylvania
+
+## Professional Preparation 
+
+BA, University of Maryland, College Park, College Park, MD (Psychology), 2017
+MA, University of Pennsylvania, Philadelphia, PA (Psychology), 2018
+
+## Appointments
+
+PhD candidate, University of Pennsylvania, Philadelphia PA (Psychology), 2017-present
+MA candidate, University of Pennsylvania, Philadelphia PA (Statistics), 2017-present
+
+## Most relevant product
+
+Richards, K., Nave, G., Apicella, C. (2020). The effects of preparation on gender differences in willingness to compete. *To be submitted to Psychological Science* 
+
+## Synergistic activities
+
+*Teaching* 
+
+- I have taught 200 students in Social Psychology about the principles of intergroup biases for 1.5 hour invited lectures (4/9/2019 & 11/7/2019), including concepts which overlap with the current research. 
+
+- I organized and led data management training in R for 10 research assistants in the Social and Behavioral Science Initiative (2019). During the training, I taught students the principles of cleaning data, including data selection, filtering, arrangement, mutation, and summarization, using the tidy packages in R. 
+
+*Mentorship* 
+
+- I serve as a mentor for underrepresented students in STEM through the University of Pennsylvania’s College Achievement Program Graduate School Mentoring Initiative. As a mentor, I assist, fellow, Black female students navigate the graduate school application process during one-on-one monthly meetings.  
+- I have mentored a female honor student on her senior thesis. The study examined men’s reactions to competitive wins and losses. 

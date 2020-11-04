@@ -18,26 +18,11 @@ affiliation:
     institution   : "University of Pennsylvania"
 
 authornote: |
-  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
 
 abstract: |
-  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+  Previous research suggests that women compete less than men, even when there are no gender differences in performance (Niederle & Vesterlund, 2011). These gender differences in competitiveness can lead to lower earnings (Niederle & Vesterlund, 2007; Reuben, Sapienza, & Zingales, 2015) and as such, may contribute to the well-established gender gap in wages (Blau & Kahn, 2017), among other important gender differences in economic outcomes. One mechanism for gender differences in competitiveness is confidence, which leads women to undercompete and men to overcompete (relative to their performance level) (Niederle & Vesterlund, 2007). Since mastery has been shown to be an important driver of confidence (Gist & Mitchell, 1992; Usher & Pajares, 2008), we experimentally test whether providing the opportunity to prepare before a competition will reduce gender differences in competitiveness through 2 studies with over 2000 participants combined. We did not find evidence that women compete more when they have the opportunity to prepare. However, we find a gender gap in preparation, where women are choosing to prepare more (Studies 1 and 2), even though they chose to compete less (Studies 1 and 2) and even after they were forced to prepare (Study 2). This gender difference in preparation aligns with participants' beliefs about gender differences in preparation more generally (Studies 1 and 2). These findings suggest that women may prepare more than men, regardless of whether they plan on competing, with important implications for the opportunity costs of overpreparing. 
   
-  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
-  
-  One sentence clearly stating the **general problem** being addressed by  this particular study.
-  
-  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
-  
-  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
-  
-  One or two sentences to put the results into a more **general context**.
-  
-  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
-  
-  <!-- https://tinyurl.com/ybremelq -->
-  
-keywords          : "keywords"
+keywords          : "gender, choice to compete, competitiveness, economics, preparation, practice"
 wordcount         : "X"
 
 bibliography      : ["library.bib"]
@@ -54,17 +39,13 @@ documentclass     : "apa6"
 classoption       : "man"
 output            : papaja::apa6_word
 ---
+
+
+\nocite{Richards2020}
+
 # Introduction 
 
 ```{r child = here::here("paper",  "intro.Rmd")}
-
-```
-
-
-# Pilot study 
-
-
-```{r child = here::here("paper",  "pilot.Rmd")}
 
 ```
 
@@ -77,6 +58,19 @@ output            : papaja::apa6_word
 # Study 2
 
 ```{r child = here::here("paper", "study2.Rmd")}
+
+```
+
+# Discussion
+
+```{r child = here::here("paper", "discussion.Rmd")}
+
+```
+
+
+# Figures 
+
+```{r child = here::here("paper", "figures.Rmd")}
 
 ```
 

@@ -1,0 +1,49 @@
+---
+title: "Study 1 methods"
+author: "Keana Richards"
+date: "6/9/2020"
+output:
+  word_document: default
+---
+
+```{r, include = F}
+
+## hiding code chunks globally 
+knitr::opts_chunk$set(echo=FALSE, message = F, warning = F)
+
+
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+options(pillar.sigfig = 2)
+
+# load packages -----------------------------------------------------------
+## Package names
+packages <- c("readr", "tidyverse", "here", "summarytools")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+clean <- read_csv(here("study1", "data", "clean.csv"))
+excluded <- read_csv(here("study1", "data", "excluded.csv"))
+
+```
+
+Like the pilot study, we recruited workers on Amazon Mechanical Turk for a study on decision-making and performance. The pre-screening criteria were nearly identical to those in the pilot study, with the exception that workers were not excluded if they failed the comprehension questions to increase power. The final sample consisted of `r nrow(clean)` participants (`r freq(clean$gender, report.nas = F)[6]`% women), with an average age of `r mean(clean$age)` (*SD* = `r sd(clean$age)`) years.  
+
+Participants were told they would be completing a two-minute multiplication task where they would be able to choose how they would be paid for their performance. For the task, participants answered questions from the multiplication tables with numbers ranging from 1-12 (e.g., 1 X 5, 12 X 11) as quickly as possible. Then, they were provided examples and had to complete three comprehension questions, which they had to pass to proceed. After completing the comprehension check questions, participants were randomly assigned to either a "knowledge of preparation" condition or a control condition based on their gender. Participants in the knowledge of preparation condition were presented the following text: 
+
+"There is an option to practice/study before completing the multiplication task that is available to all participants. If you take this opportunity to practice/study, we will provide you with materials that may help boost your performance in the multiplication task. You will have unlimited time to practice/study before completing the task. You can stop practicing/studying at any point." 
+
+Participants assigned to the control condition simply proceeded without seeing this text. Then, all participants learned about the possible payment schemes that they could choose (either piece-rate or tournament) and had to pass several comprehension questions about the payment schemes before being choosing a payment scheme. For the tournament scheme, participants were paid \$.20 per problem they answered correctly only if they beat a randomly assigned partner, while the piece-rate scheme paid participants \$.10 per problem, regardless of other participants' performance. The payment schemes followed the same structure as the payment schemes in the pilot study, with the exception that the payment was doubled for each scheme (i.e., \$.20 per problem in the tournament scheme, \$.10 per problem in the piece-rate scheme). In the preparation condition, participants were reminded that they had the option to prepare before completing the task, while participants in the control condition did not have this reminder. Then, participants made a payment scheme choice, where the order of presentation of the tournament and piece-rate payment options was randomized and counter-balanced for each condition. After choosing a payment scheme, participants in both conditions were given the chance to prepare before the multiplication task. If they chose to practice (described as the choice/decision to practice in subsequent analyses), participants were asked, for each multiplication table, if they wanted to practice problems from that specific multiplication table. If they chose to practice a specific multiplication table, they had the chance to practice all twelve combinations of numbers for that multiplication table. They could only proceed if they answered all practice questions correctly. Then, they were asked if they would like to continue practicing or move onto the next multiplication table, while a review table was displayed. This process was repeated for each multiplication table. The practice and review table for each multiplication table was presented in sequential order (i.e., starting at the 1 multiplication table up to the 12 multiplication table). We measured the number of rounds of preparation each participant completed for analyses (i.e., total practice count), which was calculated as the total number of times a participant agreed to complete a round of preparation (including the choice to repeat a table and the choice to prepare in the first place). Once finished practicing, participants completed as many problems as possible from the paid multiplication task for two minutes and received feedback about their absolute (but not relative) performance. 
+
+Before finishing the survey, participants completed a series of incentivized follow-up questions, including confidence and perceptions of gender differences. For these measures, participants were told one of these measures would be selected for a possible bonus payment, and if they answered the selected question correctly, they would earn a bonus of \$.10. For the measure of confidence, participants guessed their relative performance compared to all other participants that completed the task by indicating the decile of their score. Participants were also asked to indicate their perceptions of gender differences in performance (i.e., “Do you think men or women in this study correctly solved more multiplication problems on average?”), willingness to prepare on the task (i.e., “Do you think men or women in this study spent more time practicing/studying before completing the multiplication task?”), willingness to prepare in general (i.e., "On most tasks, do you think men or women generally prepare (i.e., practice and/or study) more?")  and willingness to compete (i.e., “Do you think men or women in this study chose the tournament payment option more often?”). They also completed the same measure of risk aversion used in the pilot study. To determine whether cheating was a factor that participants relied on while completing the task, we also asked participants about their use of calculators and perceptions of calculator use on the multiplication task. 
+
+
+
+

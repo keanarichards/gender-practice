@@ -1,0 +1,15 @@
+"0",""
+"0","##edited to get power for f-test"
+"0","paramtest_results <- grid_search(regression_sim2,"
+"0","    params=list(n=c(1000, 2000), b5=c(.2, .3, .4)),"
+"0","    n.iter=500, output='data.frame', parallel='snow', ncpus=3,"
+"0","    b0=0, b1=.2, b2=.2, b3 = .2, b4 = .2)"
+"1","Running 3,000 tests...
+"
+"0","power <- results(paramtest_results) %>%"
+"0","    dplyr::group_by(n.test, b5.test) %>%"
+"0","    dplyr::summarise(power_b5 = sum(b5_p < .05)/n(),"
+"0","                     power_f = sum(f_p < .05)/n())"
+"2","`summarise()` regrouping output by 'n.test' (override with `.groups` argument)
+"
+"0","print(power)"

@@ -1,0 +1,32 @@
+{
+    "id": "E4C85302",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1599055148762.0,
+    "source_on_save": false,
+    "relative_order": 9,
+    "properties": {
+        "expression": "dropped_out",
+        "caption": "dropped_out",
+        "totalObservations": 17,
+        "displayedObservations": 17,
+        "variables": 185,
+        "cacheKey": "24BA69AB",
+        "object": "dropped_out",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=dropped_out&cache_key=24BA69AB&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1921437647232,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1599055148762,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,49 @@
+"0",""
+"0",""
+"0","# load packages -----------------------------------------------------------"
+"0",""
+"0","## Package names"
+"0","packages <- c(""tidyverse"", ""here"", ""conflicted"", ""plyr"", ""paramtest"", ""umap"")"
+"0",""
+"0","## Install packages not yet installed"
+"0","installed_packages <- packages %in% rownames(installed.packages())"
+"0","if (any(installed_packages == FALSE)) {"
+"0","  install.packages(packages[!installed_packages])"
+"0","}"
+"0",""
+"0","## Packages loading"
+"0","invisible(lapply(packages, library, character.only = TRUE))"
+"2","-------------------------------------------------------------------------------------------------------------------------------------------------------
+"
+"2","You have loaded plyr after dplyr - this is likely to cause problems.
+If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
+library(plyr); library(dplyr)
+"
+"2","-------------------------------------------------------------------------------------------------------------------------------------------------------
+"
+"2","
+Attaching package: ‘plyr’
+
+"
+"2","The following object is masked from ‘package:here’:
+
+    here
+
+"
+"2","The following objects are masked from ‘package:dplyr’:
+
+    arrange, count, desc, failwith, id, mutate, rename, summarise, summarize
+
+"
+"2","The following object is masked from ‘package:purrr’:
+
+    compact
+
+"
+"0","conflict_prefer(""here"", ""here"")"
+"2","[conflicted] Will prefer [34mhere::here[39m over any other package
+"
+"0","conflict_prefer(""filter"", ""stats"")"
+"2","[conflicted] Will prefer [34mstats::filter[39m over any other package
+"
+"0","## http://disjointedthinking.jeffhughes.ca/2017/09/power-simulations-r/"

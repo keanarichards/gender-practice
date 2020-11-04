@@ -17,13 +17,14 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 clean <- read_csv(here("study1", "data", "clean.csv"))
 
-
 # analyses ----------------------------------------------------------------
 
 clean$pract_choice <- factor(clean$pract_choice)
 
-
 sec_exploratory1 <- glm(pract_choice ~ gender+comp_choice , data = clean, family = binomial())
 
-
 sec_exploratory2 <- glm(pract_choice ~ gender*comp_choice , data = clean, family = binomial())
+
+sec_exploratory3 <- lm(task_score ~pract_choice + comp_choice + gender, data = clean)
+
+sec_exploratory4 <- lm(task_score ~total_review_count + comp_choice + gender, data = clean)

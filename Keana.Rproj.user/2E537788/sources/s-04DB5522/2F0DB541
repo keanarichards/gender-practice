@@ -1,0 +1,32 @@
+{
+    "id": "2F0DB541",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1595622712756.0,
+    "source_on_save": false,
+    "relative_order": 9,
+    "properties": {
+        "expression": "raw[duplicated(raw$MTurkID), c(\"MTurkID\", \"IPAddress\")]",
+        "caption": "raw[duplicated(raw$MTurkID), c(\"MTurkID\", \"IPAddress\")]",
+        "totalObservations": 93,
+        "displayedObservations": 93,
+        "variables": 2,
+        "cacheKey": "ED4DD827",
+        "object": "",
+        "environment": "_rs_no_env",
+        "contentUrl": "grid_resource/gridviewer.html?env=_rs_no_env&obj=&cache_key=ED4DD827&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 23081235858522181,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1595622712756,
+    "read_only": false,
+    "read_only_alternatives": []
+}

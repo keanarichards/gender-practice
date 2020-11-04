@@ -1,0 +1,32 @@
+{
+    "id": "4D587494",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1595447900982.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "expression": "full_raw %>% dplyr::filter(Finished == \"True\", Residence != \"United States\")",
+        "caption": "full_raw %>% dplyr::filter(Finished == \"True\", Residence != \"United States\")",
+        "totalObservations": 0,
+        "displayedObservations": 0,
+        "variables": 2677,
+        "cacheKey": "6FC2EB32",
+        "object": "",
+        "environment": "_rs_no_env",
+        "contentUrl": "grid_resource/gridviewer.html?env=_rs_no_env&obj=&cache_key=6FC2EB32&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 23081235858522181,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1595447900982,
+    "read_only": false,
+    "read_only_alternatives": []
+}

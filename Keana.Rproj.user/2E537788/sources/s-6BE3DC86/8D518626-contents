@@ -1,0 +1,108 @@
+---
+title: "results"
+author: "Keana Richards"
+date: "6/10/2020"
+output:
+  bookdown::word_document2:
+  fig_caption: yes 
+---
+
+```{r, include = F}
+
+## hiding code chunks globally 
+knitr::opts_chunk$set(echo=F, message = F, warning = F)
+
+
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+
+# load packages -----------------------------------------------------------
+
+
+## Install devtools package if necessary
+if(!"devtools" %in% rownames(installed.packages())) install.packages("devtools")
+
+
+## Package names
+packages <- c("readr", "tidyverse", "here", "devtools", "knitr", "officer", "summarytools")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+## Install the stable development versions from GitHub
+if(!"papaja" %in% rownames(installed.packages())) devtools::install_github("crsh/papaja")
+
+library(papaja)
+
+source(here("study2", "source", "01_preregistered-analyses.R"))
+source(here("study2", "source", "03_exploratory-analyses.R"))
+
+```
+
+### Pre-registered analyses^[All hypotheses were pre-registered(https://osf.io/q39a5/) unless otherwise stated and all analyses were conducted in R.]
+
+Primary hypothesis 1: We replicated the effect of gender on the choice to compete: `r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`% of men chose to compete compared to `r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`% of women. However, we do not find evidence of a significant effect of condition on the choice to compete among women, *z* = `r primary_hypothesis1_z`, *p* = `r primary_hypothesis1_pval` (see Figure \@ref(fig:s200)). 
+
+```{r s200, fig.cap='Proportion of female participants who chose to compete based on condition. Error bars represent standard errors.'}
+knitr::include_graphics(here::here("study2", "figs", "fig00_comp-choice-women-by-cond.png"))
+
+```
+
+
+```{r, results = "asis"}
+woman <- clean %>% filter(gender == "Woman")
+print(ctable(woman$comp_choice, woman$condition))
+
+```
+
+Exploratory analysis 3a: Participants did not expect any gender differences in performance on the task, `r apa_print(exploratory3a, n = nrow(clean))$statistic` (see Figure \@ref(fig:s201)). 
+
+```{r s201,fig.cap="Participants' perceptions of gender differences in performance on the task. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study2", "figs", "fig01_better-gender-guess.png"))
+
+```
+
+```{r, results = "asis"}
+print(ctable(clean$gender, clean$better_gender_guess))
+```
+
+
+Exploratory analysis 3b: Participants were significantly more likely to expect men to choose to compete more often, `r apa_print(exploratory3b, n = nrow(clean))$statistic` (see Figure \@ref(fig:s202)). 
+
+```{r s202,fig.cap="Participants' perceptions of gender differences in choice to compete. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study2", "figs", "fig02_perc-gender-comp.png"))
+
+```
+
+```{r, results = "asis"}
+print(ctable(clean$gender, clean$perc_gender_comp))
+```
+
+
+Exploratory analysis 3c: Participants were significantly more likely to expect women to choose to prepare in general, `r apa_print(exploratory3c, n = nrow(clean))$statistic` (see Figure \@ref(fig:s203)).
+
+
+```{r s203,fig.cap="Participants' perceptions of general gender differences in choice to practice. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study2", "figs", "fig03_perc-gen-gender-pract.png"))
+
+```
+
+```{r, results = "asis"}
+print(ctable(clean$gender, clean$perc_gen_gender_pract))
+```
+
+### Exploratory analyses
+
+Exploratory analysis 1: Despite no evidence for the effect of condition on the choice to compete among women, we replicate the effects found in Study 1, where women were significantly more likely to prepare for the task, even after being forced to prepare in the preparation condition (see Figure \@ref(fig:s204)). Women were `r (exp(coef(sec_exploratory1))[2] - 1)*100`% more likely to take advantage of the opportunity to prepare relative to men `r apa_print(exploratory1)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s204)). 
+
+```{r s204,fig.cap="Gender differences in the number of extra practice rounds chosen across participants' choice in a payment scheme. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study2", "figs", "fig04_total-rev-count-by-gender-comp-choice.png"))
+
+```
+

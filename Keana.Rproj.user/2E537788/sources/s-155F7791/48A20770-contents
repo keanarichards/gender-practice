@@ -1,0 +1,75 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r}
+library(plyr)
+library(dplyr)
+library(ggplot2)
+library(paramtest)
+library(umap)
+## http://disjointedthinking.jeffhughes.ca/2017/09/power-simulations-r/
+```
+
+# Function for multiple regression
+
+```{r}
+
+regression_sim <- function(simNum, n, b0, b1, b2, b3, x1_mean = 0, x1_sd = 1, err_mean = 0, err_sd = 1) {
+  x1 <- sample(0:1, n, replace = T)
+  x2 <- sample(0:1, n, replace = T)
+  
+  y <- b0 + (b1*x1) + (b2*x2) + (b3*x1*x2) + rnorm(n, mean = 0, sd = 1)
+model <- lm(y~ x1*x2)
+
+  
+  output <- summary(model)$coefficients
+coefs <- output[,1]
+ps <- output[,4]
+
+rsq <- summary(model)$r.squared
+
+results <- c(coefs, ps, rsq)
+names(results) <- c('b0_coef', 'b1_coef', 'b2_coef', 'b3_coef', 'b0_p', 'b1_p', 'b2_p', 'b3_p', 'rsq')
+
+  return(results)
+  
+}
+
+```
+
+# Using paramtest to vary sample size & beta 
+
+```{r}
+
+paramtest_results <- grid_search(regression_sim,
+    params=list(n=c(2000, 3000, 3250, 3500), b3=c(.2, .3, .4)),
+    n.iter=1000, output='data.frame', parallel='snow', ncpus=3,
+    b0=0, b1=.2, b2=.2)
+
+power <- results(paramtest_results) %>%
+    dplyr::group_by(n.test, b3.test) %>%
+    dplyr::summarise(power = sum(b3_p < .05)/n())
+print(power)
+
+ggplot(power, aes(x=n.test, y=power, group=factor(b3.test), colour=factor(b3.test))) +
+    geom_point() +
+    geom_line() +
+  geom_hline(yintercept = .80, linetype = "dashed") +
+  scale_y_continuous(limits = c(0,1), breaks = seq(0, 1, by = .2))+ 
+  scale_x_continuous(limits = c(2000,3500), breaks = seq(2000,3500, by = 250))+
+      labs(x='Sample Size', y='Power', colour="Beta estimate for interaction") +
+    theme_minimal() +theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) 
+
+
+## cut label:  geom_label(label = ".801", x = 3000, y = .85,  label.padding = unit(0.55, "lines"), # Rectangle size around label
+   # label.size = 0.35,
+  #  color = "black")
+
+
+```

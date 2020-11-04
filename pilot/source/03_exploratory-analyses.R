@@ -60,5 +60,3 @@ sec_exploratory7= chisq.test(t4)
 
 sec_exploratory8 <- t.test(x = men$min_pract,y = women$min_pract)
 
-
-

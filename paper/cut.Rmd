@@ -1,0 +1,59 @@
+---
+title: "cut"
+author: "Keana Richards"
+date: "26/10/2020"
+output: html_document
+---
+
+intro: 
+
+1. Women are doing well - but doesn't translate to econ outcomes 
+2. exploring interventions for gender diff is important 
+
+3. confidence is a large driver in the decision to compete (in some cases, it explains away the gender gap in the choice to compete)
+4. There is some evidence that women may choose to prepare more, suggesting that they may use preparation strategically to boost their confidence before entering competitive environments.  
+5. The current study explores the possibility that women may choose to prepare more
+
+
+
+
+
+
+Overall, confidence and risk attitude are important factors driving the gender gap in the choice to compete, suggesting that interventions targeting these psychological variables will likely encourage high-ability women to enter competitive environments, with important implications for gender gaps in economic outcomes. 
+
+In the current set of studies, we anticipate that the opportunity to prepare, including the knowledge of preparation and the actual act of preparation, will reduce gender differences in competitiveness. Additionally, given observed gender differences in confidence and risk attitude, we expect women will choose to prepare more for the tasks than men, regardless of their choice in a payment scheme. To explore these hypotheses, we conducted two experiments manipulating the opportunity to prepare in two different ways, while providing the opportunity to prepare thereafter for all participants, which allowed us to examine gender differences in the choice to prepare. In the first study, we manipulated participants' knowledge of whether they had unlimited time to prepare before they made their decision to compete. We anticipated that participants, especially women, who knew they had time to prepare would be more inclined to compete compared to participants who were not aware of the opportunity to prepare. Thus, we expected an interaction between gender and condition on the choice to compete, along with a main effect of condition.  
+
+In the second study, we examined how the actual act of preparation affects the decision to compete by manipulating whether participants were required to prepare before making this decision. Again, we expected that women in the preparation condition would be especially inclined to compete. 
+
+As such, additional explanations have been proposed, including gender differences in choice to compete. 
+
+2. possible explanations: including gender diff in the choice to compete 
+
+Previous research suggests that women are less willing to compete than men, even when they are equally, if not more, qualified [@Niederle2007; for reviews, see @Niederle2011 and @Croson2009]. This effect has been established across numerous studies and appears to be driven by high ability women being less willing to compete compared to their male counterparts, creating higher total costs of pay-off inferior decisions (i.e., under-entry) for women compared to men [@Niederle2007]. 
+
+To this end, many interventions have been proposed to address the gender gap the choice to compete (cites). Since the seminal work in this literature suggests that confidence was an important factor driving the gender gap in the choice to compete and that high-ability women were especially likely to undercompete relative to their performance level, targeting confidence is a central feature of many interventions aiming to reduce the gender gap in competitiveness (cites).  
+
+Across both studies, we also explored whether participants' lay beliefs about potential gender differences in the decisions to prepare and compete align with participants' actual behavior, which would suggest that these participants either directly observe and/or are aware of stereotypes surrounding these gender differences. 
+
+discussion - 
+
+
+
+
+
+
+opp costs:
+
+This gender gap in preparation is especially surprising considering the subject pool and the task type. We may expect these effects to be even larger if the task was important. 
+
+Much of the research on gender differences in competitiveness has focused on designing interventions that increase women’s willingness to compete. Less work has paid attention to the downstream consequences of said interventions. If we find that women spend more time preparing on average than men, and possibly overprepare, this would challenge prevailing views that gender differences in labor market outcomes could be reduced or eliminated by simple interventions. Indeed, there are opportunity costs to (over)preparing, including both economic and social costs, such as lost time with family and friends and missed advancement opportunities.
+
+
+
+future directions: 
+
+
+
+Make a note about whether competitions really are all that beneficial - draw from NSF . and make a point about how women competing more may be the wrong target if it has other harmful effects on women, but this needs to be explored more. Also, there are fewer interventions targeted at reducing men's overconfidence and in turn, their decision to compete even when they would earn more under a piece-rate payment scheme. 
+
+Future research should examine how the finding that women prepare more, regardless of their decision to compete, may affect their economic outcomes. Are women preparing more at a cost to themselves? Especially since our research was conducted on Amazon Mechanical Turk, where participants are paid for their time, so their decision to prepare can directly affect their economic outcomes. It would be especially interesting to examine whether women prepare more when they are charged for the preparation problems, and the direct costs of preparing are more tangible. 

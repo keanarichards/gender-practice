@@ -1,0 +1,24 @@
+{
+    "id": "4DD70276",
+    "path": "C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/pilot/source/00_load-raw-data-and-clean.R",
+    "project_path": "pilot/source/00_load-raw-data-and-clean.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1597698644241.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "cursorPosition": "37,60",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1597698952,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1597698987884,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,1 @@
+`r apa_print(sec_exploratory4, n= nrow(clean))`

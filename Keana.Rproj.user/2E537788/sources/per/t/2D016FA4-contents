@@ -1,0 +1,288 @@
+---
+title: "Exploring gender differences in effort before competition"
+author:
+- Keana Richards^1^
+- ^1^University of Pennsylvania
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  word_document: 
+      reference_docx: mystyle.docx
+csl: apa.csl
+bibliography: library.bib
+toc: yes
+---
+
+# Project summary 
+
+## Overview
+
+Competitions are becoming an increasingly prevalent part of the global economy [@Lavy2004; @Lemiuex2009] and the winners of competitions in the labor market are disproportionately rewarded for their efforts [@Frank2010]. Therefore, understanding individual differences in response to competitive situations is crucial for addressing economic disparities across groups, like persistent gender differences in labor market outcomes [@Blau2017; @Altonji1999]. For instance, competitions may elicit gender differences in effort exerted (e.g., preparing or studying) before entry. Since effort is a crucial determinant of one's achievement-related choices [@Barron2015], identifying gender differences in effort before a competition will improve our understanding of the factors that drive women's decisions to enter and stay in competitive environments. Our current work fills a crucial gap in the literature on gender differences in response to competition by examining how much effort women choose to expend before feeling comfortable entering a competition. Study 1 examines the effect of following a competitive or non-competitive payment scheme for a multiplication task on participants' choice to expend effort before completing the task (operationalized as the choice to spend extra time preparing). We hypothesize that women will spend more time preparing relative to men, especially before following a competitive payment scheme. On top of the anticipated main effect of gender and interaction effect between gender and condition, we expect a main effect of condition, where participants assigned to the competitive payment scheme will be more likely to prepare on average. In Study 2, we will explore the boundary conditions of the findings from Study 1 by manipulating beliefs about gender differences in performance on a different task. We expect women will spend significantly more time preparing for a male-typed task, but the gender difference in preparation will be reduced or eliminated when the task is female-typed. We also expect to replicate the main effect of gender on time spent preparing. 
+
+## Intellectual merit
+
+Previous work has focused exclusively on the situational and psychological characteristics that drive the gender gap in the choice to enter competitive environments. By focusing on how individuals behave before entering a competitive environment, our research will provide the foundation for an entirely new line of work focused on when and why gender differences in the choice to prepare before a competition arise, along with the possible economic ramifications of these differences. Many standard economic models do not account for gender differences in behavioral traits as possible explanations for gender differences in economic outcomes [@Niederle2017]. Thus, the current proposal will demonstrate the need to include gender-based behavior in future economic models [e.g., @Akerlof2000], and provide data to lay the foundation for building these models. Also, gender differences in willingness to prepare before competition may serve as a possible explanation for robust gender differences in the choice to compete, which have not yet been fully explained in previous research [@Niederle2011]. Specifically, gender differences in the choice to compete may result from women's desire to spend more time preparing before willingly entering a competition. Thus, the proposed research will identify a robust phenomenon that previous researchers have not yet considered in explaining gender differences in the choice to compete. Finally, Study 2 will allow us to test the boundary conditions of the effect by employing a new task and manipulating beliefs about gender differences in performance on the task. By testing whether the effect holds across contexts, we will be able to identify possible mechanisms for gender differences in the choice to prepare. Since Dr. Apicella and Keana Richards are dedicated to open-science practices, they will publish all pre-registrations, reproducible _R_ code, and surveys on the Open Science Framework, which will facilitate future research related to the proposed studies (see Future Directions). 
+
+## Broader impacts
+
+If women are preparing more than necessary, this can have a negative effect on their health, economic outcomes, and career advancement. For instance, women may expend extra effort before a competition at the expense of work-life balance, even if the effort only marginally increases their likelihood of success. Additionally, there are opportunity costs for expending more effort than necessary on a task, which are amplified in competitive environments where an individual's overall performance is evaluated based on their success across many domains. Within academia, researchers are required to balance many skills to be eligible to earn tenure. If any researcher focuses too much of their attention on one activity (e.g., serving on the faculty senate), this imposes direct costs on other important activities (e.g., conducting research), which will ultimately reduce their likelihood of success. Thus, if high-ability women expend more effort than necessary on one task because they (erroneously) believe they will perform worse, this may directly impose on their other commitments, hurting overall performance and reducing their likelihood of "winning" in these types of tournaments. The proposed work is relevant to women's professional development, since it can encourage an awareness of the dangers of overpreparation and help women realistically assess whether they are expending more effort than necessary on a task that does not substantially advance their career. These dangers are especially important for professional development in STEM fields, where gender disparities are arguably driven by gender differences in confidence, which increases the likelihood women will overprepare before competition [@Cheryan2017].
+
+Additionally, gender differences in effort before entry into competitions would have important implications for many of the competitions we observe in the modern labor market, where small differences in effort and/or ability can lead to massive disparities in economic outcomes. For instance, best-selling authors can earn upwards of $10 million  per book, but best-seller slots are limited, so there are many authors of similar caliber whose earnings barely cover basic necessities [@Frank2010]. Similarly, a professional athlete that wins a major tournament like the Wimbledon can earn upwards of \$2.9 million, while a semifinalist earns just above \$750 thousand [@Frank2010]. For other high-paying professions, an individual must compete just to have the chance to receive training for the profession (e.g., entry into medical school or law school). Thus, understanding gender differences in the choice to expend effort before competitions may be one avenue to explain persistent gender gaps in economic outcomes.
+
+# Project description
+
+## Introduction
+
+### Prevalence of competition in the modern labor market 
+
+Competition is becoming increasingly prevalent across labor markets internationally [@Lavy2004; @Lemiuex2009], which has been attributed in part to technological advances and globalization [@Cunat2005; @Lemiuex2009]. To demonstrate, the following titles involve some form of competition: “best-seller, world cup champion, Harvard matriculant, Rhodes scholar, first-round draft pick, clerk to a supreme court justice, cover girl, prime minister, host state for the first Mercedes plant in the US, French open champion” [@Frank2010]. As competition increases, compensation packages based on performance pay (including bonuses, piece-rate, and commission) have become more popular compared to hourly/salaried pay, especially among the higher tiers of an organization [@Hall1998; @Murphy1999]. There is evidence that the increasing use of performance pay lends itself to wage inequality. For instance, @Lemiuex2009 show that an increased dependence on performance pay during the late 1970’s (1976-1979) and early 1990’s (1990-1993) accounted for 21% of the observed growth in variance of male wages. Bonuses and commissions, arguably the most competitive compensation schemes, have been especially important in driving the large disparity between the highest and lowest percentile earners within an organization [@Bell2010; @Bell2014; @Benabou2016]. 
+
+There is evidence suggesting the prevalence of performance pay across labor markets contributes to the gender wage gap. Using data from the National Longitudinal Surveys of Youth in 1979 and 1997, @McGee2015 show that women are less likely to be employed in occupations that receive the most competitive form of performance pay (i.e., bonuses) and simultaneously are more likely to receive piece-rate pay, arguably the least competitive form of performance pay. 
+
+### Gender differences in competitiveness, confidence, risk aversion, and effort 
+
+#### Competitiveness
+
+Since competition is relevant to labor market outcomes [@Buser2014; @Zhang2012; @Reuben2015], researchers have started to focus on how a person’s gender affects their response to competition as a means of understanding persistent gender gaps in labor market outcomes [@Niederle2011]. In support of this possibility, women are more likely to avoid competitions when given the choice and if they are required to compete, perform more poorly in tournaments and stop competing after losing, especially in mixed-sex tournaments [@Niederle2011; @Buser2019; @Gill2014; @Niederle2007; @Niederle2017; @Gneezy2003]. Given the robust nature of gender differences in competitiveness and its implications for labor market outcomes [@Niederle2011], many researchers have sought to explain gender differences in competitiveness over the past several years. Recent work suggests gender differences in confidence and risk aversion are two possible means of explaining gender differences in competitiveness [@Niederle2011]. 
+
+
+#### Confidence
+
+Women tend to be less (over)confident on average than men [@Mobius2011; @Niederle2011; @Croson2009; @Lundeberg1994; @Niederle2007; @Bertrand2010a; @Beyer1990; @Beyer1997], especially in certain domains, like math [@Grosse2010; @Beyer1997]. Confidence is conceptualized as the accuracy of one's perceived performance or ability on a task [@Beyer1997], and as such, affects the decision to compete. Within the literature on the gender gap in competitiveness, confidence is operationalized as beliefs about one's relative performance during a competition, where individuals who have inaccurately high ratings of their performance are deemed overconfident. Although both men and women tend to be overconfident, men are far more likely to fall into the trap of overconfidence, which leads them to compete more often than they should given their actual performance [@Niederle2007]. Gender differences in confidence consistently explain part of the gender gap in competitiveness, although the gap typically remains significant even after controlling for confidence [@Niederle2011].  
+
+#### Risk aversion
+
+Another variable that has been identified as a possible explanation for gender differences in competitiveness is risk aversion, typically construed as the preference for a certain gain over a gamble, even if the gamble has an equal or greater monetary expectation [@Kahneman1982]. For instance, a risk averse person would prefer a sure gain of $80 over a gamble where they have an 85 percent chance of winning \$100 and a 15 percent chance of winning \$0, even though the monetary expectation in the latter case is higher (e.g., average of \$85 in earnings relative to an average of \$80) [@Kahneman1982]. Payment based on the outcomes of a competition are inherently more risky than non-competitive payment schemes (e.g., guaranteed payment per unit of output) because in most cases, there is uncertainty surrounding one's relative performance [@Niederle2011]. Since risk aversion is relevant to the decision to compete and there are established gender differences in risk aversion [@Bertrand2010a; @Croson2009], researchers have examined whether risk aversion is sufficient to fully or partially explain the gender gap in competitiveness. Risk aversion is typically measured using one's self-reported "willingness to take risk in general" on a 10-point scale, which has been confirmed as a valid measure of risk aversion that maps onto risk-taking behavior [@Dohmen2011b]. Using this measure, there is evidence that risk explains part of the gender gap in competitiveness, although the role of risk aversion is less robust and smaller than the role of confidence [@Niederle2011]. 
+
+#### Effort 
+
+Since competitive environments are inherently more risky than non-competitive environments and may reduce one's confidence by drawing attention to their relative performance, people may engage in several self-regulatory behaviors before and while performing in competitive environments. For instance, they may exert more effort before the competition and try to master relevant skills, which is one of the most important drivers of confidence [for review, see @Gist1992; @Usher2008]. Since women tend to be more risk-averse and less confident to begin with [@Niederle2014; @Niederle2011; @Lenney1977; @Maccoby1974; @Croson2009], they may respond more negatively to competitive environments than men and as a result, engage in more coping strategies, like preparing more before entering the competition. In fact, previous evidence suggests women value effort and dedication more and spend more time preparing than men in general [@Kenney-Benson2006; @Kimble2005; @Lucas2005; @Hirt2009; @Leslie2015; @Mccrea2008]. For instance, @Hirt2003 find that women perceive effort as the norm and any type of effort withdrawal is unacceptable. Similarly, more feminine individuals rated the importance of studying higher compared to masculine individuals [@Grabill2005]. Observing gender differences in effort likely leads people to perceive effort as feminine, which is supported by evidence that people more readily identify a student as female when they are told the individual has exerted effort to improve their grades [@Grabill2005; @Power1998].
+
+\nocite{Richards2020}
+
+
+##### Preliminary data
+
+Our previous work substantiates gender differences in effort, where women were more likely to choose to prepare before performing on a multiplication task, even though they were less likely to compete (Richards et al., in prep). The first preliminary study in this line of work manipulated participants’ (_N_ = 1010) knowledge of whether they would have unlimited time to prepare before they made their decision to compete. We expected that participants who knew they had the chance to prepare as much as they wanted would be more inclined to compete compared to participants who were not aware of the opportunity to prepare before they decided on a payment scheme.
+
+While we did not find that knowledge of preparation affected participants’ decision to compete, there was a sizable gender difference in the choice to prepare, where men were 40.8% less likely to choose to prepare for a multiplication task compared to women when offered the opportunity (OR = .59; 95% CI for odds ratio [.46, .76], p < .001). At the end of the experiment, participants were incentivized to state which gender they believed would be more likely to prepare. Both men (77.61%) and women (88.35%) believed that women would spend more time preparing for the task (χ^2^ = 449.78, _p_ < .001), with similar results when asked which gender prepares more in general, where 85.9% of men and 92.4% of women believed women generally prepare more (χ^2^ = 10.38, _p_ < .01). These effects hold while controlling for participants’ own decision to prepare. Therefore, data from the first study provides evidence that people accurately believe women are more likely to exert effort by choosing to prepare more often. In fact, women chose to prepare more often than men while controlling for their choice to compete (95% CI for odds ratio [1.35, 2.34], _p_ < .01) (see Figure 1). Notably, there was no interaction between gender and choice to compete on the choice to prepare (_p_ = .97). 
+
+In a follow-up study examining the role of forced preparation on the decision to compete with 1026 participants from MTurk, we replicated the effect of gender on preparation, where 42% of women and 35.7% of men chose to complete the optional preparation (_p_ < .05). In fact, even in the condition where participants were forced to prepare for 12 rounds lasting on average 2 minutes, there was a marginally significant effect of gender on the choice to prepare (OR = 1.41; 95% CI for odds ratio [.97, 2.04], p = .0706). Again, we find that these behaviors align with participants’ expectations that women will prepare more for the task (χ^2^ = 391.77, _p_ < .01). Also, we find that women prepare more while controlling for their choice to compete (95% CI for odds ratio [1.04, 1.82], _p_ < .05) (see Figure 2). Overall, our previous work provides compelling evidence that women are more likely to choose to prepare than men, even after being forced to do so, despite competing less often. Although we do not find that women who choose to compete are more likely to prepare, 1) we did not manipulate the payment scheme, so there were clear selection effects on one’s choice to prepare across payment schemes and 2) only 11% of women within the study chose to compete, so there was little power to detect any possible interaction effect. Through the proposed experiments, we intend to address these limitations by directly manipulating participants' payment scheme and recruiting a large sample to provide power to detect small effects. 
+
+### Open questions
+
+We expect gender differences in the choice to prepare before performing will be exacerbated when individuals are required to compete, given women’s greater tendency to avoid competitions entirely, perform more poorly in competitions, and stop competing after failure [@Niederle2011; @Buser2019; @Gill2014; @Niederle2007; @Niederle2017; @Gneezy2003]. If women cannot avoid ubiquitous competitions in the labor market, they may try to cope by preparing more, which may increase their confidence or reduce the perceived risk of the competition. Our proposed Study 1 will manipulate participants' payment scheme (i.e., competitive or non-competitive) to examine whether competition exacerbates previously established gender differences in effort.  
+
+Previous evidence suggests that the effect of gender on competitiveness varies by task type, where women are far more likely to choose to enter a tournament when they are completing a verbal task compared to a math task [@Grosse2010], suggesting an important boundary condition of the gender gap in competitiveness driven by gender stereotypes about ability. Beliefs about gender differences in ability likely contribute to persistent occupational segregation, as suggested by @Cheryan2017, who demonstrate that gender stereotypes about ability affect differences in the representation of women across STEM fields. Occupational gender segregation explains gender differences in wages [@Levanon2009; @Blau2017], so it is important to identify how beliefs about gender differences in ability shape decisions to enter competitive environments. To this end, Study 2 will manipulate participants' beliefs about gender differences on the task under a competitive payment scheme, where participants will be under the impression that women outperformed men, men outperformed women, or, in the control condition, will not be provided information about gender differences in performance. Like Study 1, we expect an interaction between gender and competition choice, where women will spend more time preparing than men when they believe men performed better during a previous iteration of the study and in the control condition, but this effect will be reduced when they believe women performed better. Since previous research suggests confidence and risk aversion are relevant factors in one's decision to compete [@Niederle2011], we will include exploratory analyses testing whether confidence or risk aversion interaction with gender and condition.
+
+## Proposed research
+
+### Study 1: Does competition elicit gender differences in effort?
+
+#### Procedure 
+
+Participants (_N_ = 3250; see sample size justification below) will be recruited to complete a study on "decision-making and performance" through MTurk, with a guaranteed payment and the opportunity to earn bonuses depending on their performance and the performance of others. Recruiting participants on this platform allows for efficient data collection while meeting acceptable psychometric standards [@Rand2012; @Buhrmester2011]. Since we anticipate completing the required parts of the study will take no more than 10 minutes on average, we will pay participants $2.50 (i.e., double the federal and Pennsylvania minimum wage), with the opportunity for bonuses, outlined below. Participants will only be included if they indicate that they are 18 years or older, are American citizens, and identify as female or male while answering initial demographic questions. 
+ 
+**Manipulation:** Participants will be randomly assigned to follow either a competitive or noncompetitive payment scheme for one round (2 minutes) of multiplication problems conditional on their indicated gender (to guarantee women and men are represented at similar rates in each condition).
+
+
+The payment scheme will be manipulated between subjects, where participants in the competition (tournament) condition will be paid 4 cents per problem on the task, but only if they beat another randomly assigned MTurker, while participants assigned to the noncompetitive (piece-rate) payment scheme will be paid 2 cents per problem. Although a within-subjects design would allow us to have more power in detecting the proposed interaction effect between condition and gender in predicting decision to prepare, we anticipate interpreting the effect of the interaction on time spent preparing for whichever payment scheme is presented second (since the payment schemes would be counterbalanced) would be difficult considering the number of factors that could affect the decision (e.g., fatigue and/or learning effects reducing participants' desire to prepare, demand effects for preparation if participants believe they are expected to prepare more in one condition compared to the other). Thus, we would only be able to confidently interpret the results for whichever condition were presented first. For this reason, we have opted to use a between-subjects design. 
+
+
+**Dependent variable:** Participants will have the option to complete unlimited "preparation" problems, which they will be told might improve their performance on the subsequent task. To measure their desire to prepare for the task, we will first ask participants whether they would like to spend any time practicing multiplication problems. For participants who agree to practice, we will ask them to enter how much time they would like to spend preparing using a slider scale (ranging from 0-5 minutes in 30 second increments), which will be granted. This measure is advantageous over using actual time preparing because participants may have unexpected interruptions while they are completing the preparation, which may lead us to erroneously conclude that they are expending more effort. Thus, we use chosen amount of time (in seconds) preparing as our primary dependent variable. We will also include a measure of the number of problems participants complete in the amount of time they spent preparing (including both correct and incorrect responses, since completing any problems, regardless of one's accuracy, is considered preparation) as a secondary dependent variable. Replicating the effects using the secondary dependent variable will serve as a robustness check for the slider scale measure, in case participants do not actually prepare as much as they anticipate they will. 
+
+Unbeknownst to the participants, the practice problems will be identical to the task itself, so preparing will likely improve performance on the task, as suggested to participants when they were presented the opportunity to practice. Once participants finish their optional preparation round, they will be asked to indicate whether they would like to continue preparing or move onto the task. If they choose the former option, they will be able to enter their desired time for preparing using the same slider scale. The dependent variable will be quantified as the total number of seconds of preparation across all optional preparation rounds. 
+
+
+**Task performance:** After choosing their unlimited practice time, participants will complete the task for payment based on their designated pay scheme. Participants' scores on the task will be quantified as the number of questions correct within the two-minute time frame allotted, without any penalties for incorrect responses. Participants will be presented with their absolute (but not relative) performance (i.e., the number of questions they answered correctly). We do not include information about their relative performance since we ask them to guess their relative performance in the confidence measure. 
+
+
+**Post-manipulation measures:** Participants will complete a series of measures after completing the task, which will be used for exploratory analyses. All questions will be counterbalanced. The confidence measure will incentivize ($.25 = 10% of their guaranteed earnings) participants to guess their relative performance compared to all other participants that completed the task by indicating the decile of their score relative to other participants. We use a measure of relative performance, rather than a measure of absolute performance (e.g., asking participants to guess their score on the task) because relative performance is much more relevant for competitive contexts than noncompetitive contexts in the labor market. The confidence measure draws from previous research [@Niederle2007], but instead of asking participants to indicate whether they won against a randomly selected opponent, we ask participant to guess their relative decile to provide us with more information about their relative confidence. Given the difficulty of guessing one's exact percentile without any information about other participants, deciles are used rather than percentiles to make earning the bonus seem more achievable. Also, the item will be phrased so participants do not need to understand the word "decile," but will be asked "If my performance is compared to that of all participants that completed the task, I think my score was..." with the options for responses ranging from "Better than all other participants" to "Better than none of the other participants" with 10% increments in between (e.g., "Better than 50% of participants"). We will also measure risk aversion by asking participants to indicate on a 0-10 scale "How do you see yourself: Are you generally a person who is fully prepared to take risks or do you try to avoid taking risks?" [@Dohmen2011]. These measures are included after completing the task largely because the confidence measure requires participants to state their perceived relative performance on the task. 
+
+#### Attrition
+
+We will take several steps to counteract the possibility of condition-dependent attrition, which has the potential to lead to misleading conclusions [@Zhou2016], especially if women and men drop out of the study at different rates based on condition. First, we will employ 3 costless strategies (e.g., personalization, forewarning of study content, and an appeal to participants' conscience) suggested by @Reips2000 and shown in @Zhou2016 to be effective in reducing dropout rates by at least half. When participants enter the study, they will read a message that serves as both a forewarning and an appeal to their conscious (bolded) [modified from @Zhou2016]:
+
+
+"This is an anonymous survey consisting of multiple questions. **If a sizable number of people quit a survey partway, the data quality of that survey would be compromised.** However, our research depends on good quality data, so we ask that you are willing to participate in the survey for its entirety."
+
+
+Then, participants will enter their MTurk ID as a means of establishing personalization. Notably, @Zhou2016 acknowledge that this is not a foolproof solution, since screening participants in advance in this way may reduce external validity. In this case, we want to have the capacity to establish the anticipated effect in the first place, so we are prioritizing internal validity. On top of these preventive measures, we will collect information about the rates of attrition during each study. Turkprime provides a metric for the overall rate of attrition, while Qualtrics offers the option to view partial responses from dropouts. For participants who drop out during or after learning about the manipulation, we will create an indicator variable for survey completion based on partial responses from Qualtrics, which will be coded as 1 if participants finish the study and 0 otherwise. This indicator will then be submitted as the dependent variable to a logistic regression with β~1~\*Condition + β~2~\*Gender + β~3~\*Gender\*Condition as predictors. If we find a significant interaction effect between gender and condition, this would suggest that we should interpret our results with caution because internal validity may be threatened, which will be explicitly stated in any reports on the studies, along with overall attrition rates and condition-dependent attrition rates [@Zhou2016]. We also note that our pilot data where participants were required to complete one round of a task under each type of payment scheme suggests that a small proportion of participants (6%) drop out during the study at all (Richards et al., in prep). For participants who did not finish the pilot study, all participants who performed under the piece-rate payment scheme (which was presented first) also performed under the tournament payment scheme. Thus, our previous work suggests that condition-dependent attrition is unlikely, with the caveat that the participants in the pilot study saw both payment schemes, which is slightly different from the proposed research. To account for the possibility that attrition rates in previous studies do not allow us to infer attrition rates for the proposed research, we take the aforementioned steps to protect the integrity of the study from condition-dependent attrition.
+
+#### Hypotheses and analyses
+
+We will be using two-tailed tests during all hypothesis testing (_p_ < .05) and all analyses will be conducted using _R_ (version 3.6.3). To control the false-discovery rate during exploratory analyses, we will apply the Benjamini-Hochberg correction to all exploratory analyses. 
+
+**Primary analysis**: We expect that women will choose to prepare more than men, especially before a competition. We will test the interaction between gender and condition (competitive or noncompetitive pay) using a linear regression with amount of time a participant chose to prepare (summed across all rounds of preparation) as the dependent variable. Thus, the following linear regression will be run: Time spent preparing = β~1~\*Gender + β~2~\*Condition + β~3~\*Gender\*Condition, where the piece-rate payment scheme and men will be coded as the reference groups for Condition and Gender, respectively. A positive beta coefficient for the interaction term (β~3~) would support our hypothesis, indicating that the effect of gender on time spent preparing is greater in the tournament condition. Additionally, we expect positive beta coefficients for the main effects of gender and condition, suggesting the women and participants following the competitive pay scheme spent more time preparing. We will also run a separate linear regression with number of problems completed (including both correct and incorrect responses) as a secondary dependent variable, to check that the results agree. Finally, we will check that participants from different demographic groups were successfully randomized equally to each condition by running four separate logistic regressions with age, race/ethnicity, education, and income predicting condition (e.g., Condition = β~1~\*Age). Since both proposed experiments include large sample sizes (_N_ = 3250), it is unlikely demographic variables will become exceptionally imbalanced across conditions to the extent that they will explain our observed effects [@Bowers2011]. However, we will control for any variables that were not successfully randomized if we find significant differences in demographics across groups.  
+
+
+**Exploratory analysis 1:** Given the literature suggesting confidence is an important driver of the gender gap in competitiveness [@Niederle2011], we will explore whether the role of confidence on time spent preparing differs based on participant gender and condition. To this end, we will test whether post-manipulation confidence (operationalized as participants' projected decile rating) interacts with gender and condition by running a linear regression with time spent preparing as a dependent variable. Therefore, the model will be structured as follows: Time spent preparing = β~1~\*Gender + β~2~\*Condition + β~3~\*Gender\*Condition + β~4~\*Confidence\*Condition + β~5~\*Gender\*Confidence + β~6~\*Gender\*Condition\*Confidence. The reference groups will be the piece-rate payment scheme and men for condition and gender, respectively. Given the previous literature on gender gaps in confidence and competitiveness, we would expect a three-way interaction between gender, condition, and confidence on preparation, where women's confidence plays a larger role in time spent preparing for women following the competitive payment scheme, relative to men following either the competitive or piece-rate payment scheme and women following the piece-rate payment scheme. 
+
+**Exploratory analysis 2:** Finally, we will explore whether risk aversion interacts with participants' gender and condition to affect their time spent preparing. The procedures for this test will be identical to those in Exploratory analysis 1, but risk aversion will replace confidence.
+
+### Study 2: Do task stereotypes elicit gender differences in effort during competition?
+
+#### Procedure
+
+Study 2 will follow nearly identical procedures as those employed in Study 1, where participants will see the manipulation, complete the main task, and answer post-manipulation measures, including risk aversion, confidence, and a manipulation check. There are a few notable changes that will be implemented in Study 2. Instead of manipulating the payment scheme, all participants will be required to submit their performance to a tournament, following the same rate of pay as Study 1 (i.e., 4 cents per problem if the participant outperforms a randomly assigned partner). We do not manipulate payment scheme here to reserve power for the main interaction effect of interest between gender and condition on time spent preparing. Stereotypes about gender differences in performance on the task will be manipulated through a statement about gender differences in performance supposedly found in a previous study, where men outperformed women or women outperformed men on the task [@Fryer2008]. Additionally, we will have a control condition where participants are not told about any gender differences in performance on the task. If we do not find a significant difference between the conditions that establish gender differences in performance, we will be able to use the control condition to identify whether manipulating gender differences in performance has any effect on time spent preparing. For the paid task, participants will complete a one-minute matching task, where they are first presented a legend with numbers and corresponding letters. Using this legend, participants must enter letters that correspond to the sequences of two-digit numbers presented to them. This task was validated in a separate pilot study online with MTurkers. Since our pilot data suggest participants complete the problems in the matching task twice as fast as problems in the multiplication task, we reduce the task time to one minute to reduce total study costs. This novel task is used instead of the multiplication task from Study 1 to increase the likelihood that participants will believe our manipulation (i.e., that men or women perform better) [@Swim1994; @Nosek2002; @Cvencek2011]. If we used the multiplication task or another task participants were familiar with, it is possible participants may not believe there were gender differences in performance, or have pre-conceived ideas about which gender would perform better, based on any previous experience with the task they may have had. Also, the  pilot study showed that 79.69% of participants believed their score on the matching task would have improved with practice if they had been given the chance (χ^2^ = 112.81, p < .001). Therefore, participants are motivated to practice before the matching task compared to other tasks where one's score does not improve with practice. 
+
+
+In our pilot study using the matching task with MTurkers, there was no significant gender difference in performance on the task (95% CI for t [-1.95, 5.86], _p_ = .33), but participants were significantly more likely to expect women performed better when asked about gender differences in performance (χ^2^ = 63.01, _p_ < .001). However, we required participants to choose one gender in their response, instead of providing the option to guess that both genders performed equally well. Thus, it is entirely possible that participants would have accurately claimed that men and women performed equally well, if given that option. Even though it is unlikely that participants will not believe our statement about gender differences in performance since the task is novel and there were no gender differences in performance, we include a manipulation check and condition on participants' responses to the manipulation check as a test of robustness. 
+
+One may argue that the manipulation employed in Study 2 elicits demand effects, where participants may choose to prepare more when they are told their gender performs poorly on the task because they may be able to recognize our hypothesis and want to behave in ways that align with the hypothesis. We argue that demand effects are not problematic for interpreting the results for two reasons. First, it is unlikely participants will be sufficiently motivated by the unpaid preparation to succumb to demand effects, even if they know our hypothesis. Only 12% of U.S. MTurkers indicate that "MTurk money is irrelevant" and another 12% indicate that "MTurk is my primary source of income" [@Mason2012], suggesting that many MTurkers try to maximize the amount of money they make in a given amount of time while on the platform, and are unlikely to be motivated by unpaid work. Even if participants are motivated to align their behavior with our hypothesis, there are many tasks in the real world where task stereotypes about gender differences in performance are either implicitly or explicitly stated [@Grosse2010], with the assumption that one gender must exert more effort to "compensate" for a lack of ability. Thus, participants' behavior in the study, even if driven by demand, will likely mirror effects we see in the real world, and as a result, will have real-world implications, especially if women are preparing more than necessary based on inaccurate stereotypes. 
+
+After completing the task, participants will complete the measures of risk aversion and confidence from Study 1, along with a manipulation check, where participants are asked to identify whether, on average, our previous study showed that a) men performed better on the task, b) women performed better on the task, or c) there were no gender differences in performance on the task. The presentation of these options will be counterbalanced across participants. Participants will be incentivized to answer all post-manipulation measures at the same rate (i.e., $.25). 
+
+
+#### Analyses and expected results
+
+**Primary analysis**: We predict women will choose to prepare more than men before a competition, especially when the task is male-typed. The primary analysis will be parallel to Study 1, with a few changes. First, the reference group for the condition variable will be the control condition. A positive beta coefficient for the interaction term between the gender variable and the male-typed task condition would suggest that the manipulation elicited greater practice in women when they believed men performed better on the task. For the interaction between gender and the female-typed task condition, we do not have strong a priori predictions about the direction of the effect. It is possible women may still be motivated to prepare since they would not want to perform worse than other women, in which case we would expect the interaction term between gender and the female-typed task condition would be positive, albeit weaker than interaction effect between gender and the male-typed task condition. However, if women feel less motivated to prepare after learning the task is female-typed, the coefficient would be close to zero and nonsignificant, suggesting that believing women perform better on the task will lead women and men to spend relatively similar amounts of time practicing. We do not expect the female-typed task will encourage men to practice significantly more than women, largely because men tend to be more confident on average than women [@Niederle2011]. As in the previous study, we will run a separate linear regression with the number of correct and incorrect responses within the amount of time spent preparing as a secondary dependent variable.
+
+
+**Exploratory analyses 1 and 2:** Exploratory analyses 1 and 2 will be similar to the analyses in Study 1, with the control condition as the reference group for the condition variable. 
+
+
+**Exploratory analysis 3:** Additionally, we will compare participants' time spent preparing based on their responses to the manipulation check. Instead of excluding participants who fail the manipulation check, we will use this as a source of information about how participants' beliefs affect their decision to prepare, even if they did not pay attention to the manipulation. To do this, we will run a linear regression with gender and participants' response to the manipulation check as predictors and their time spent preparing as the outcome. Thus, the following linear regression will be run: Time spent preparing = β~1~\*Gender+ β~2~\*Manipulation check + β~3~\*Gender\*Manipulation check, where responses that gender differences in performance were not found in the previous study and men will be coded as the reference groups for Manipulation check and Gender, respectively. A positive beta coefficient for the interaction term between the gender variable and the manipulation check responses where participants believed men performed better would suggest that the manipulation elicited greater practice in women when they held that belief. For the interaction between gender and the manipulation check responses where participants believed women performed better, we expect the coefficient will either be close to zero and nonsignificant or significant and positive (albeit smaller than the interaction between gender and beliefs that men performed better based on the manipulation check), like our predictions in primary analysis 1. 
+
+
+# Broader impacts
+
+By identifying the gender difference in the choice to expend effort before a competition, we are tapping into a possible explanation for the robust gender difference in willingness to compete [@Niederle2011]: women do not feel sufficiently prepared. Understanding how anticipated effort affects gender differences in competitiveness is important for reducing gender inequality that persists today. When women compete less than their male counterparts because they feel insufficiently prepared, they may be missing crucial economic opportunities, since competitiveness is relevant to one’s economic outcomes. For instance, the operationalization of competitiveness used in the current study is directly related to education choices, which is a crucial determinant of one’s career outcomes and may contribute to persistent horizontal job segregation, which in turn, explains a large proportion of the gender wage gap  [@Blau2017]. Competitiveness predicted Dutch students’ choice of track for the last three years of secondary school [@Buser2014]. In further support of the importance of competitiveness in explaining education choices, the gender differences in track choices were reduced by 20% after controlling for competitiveness for individuals matched on objective and subjective measures of ability. Similarly, @Zhang2012 showed that when admission to high school was dependent on performance in an entrance exam in China (Ninglang county), competitive students were more likely to take the entrance exam than their non-competitive counterparts. Additionally, a longitudinal study showed that the standard measure of competitiveness was a positive predictor MBA students’ earnings two years later, where students who chose the more competitive payment scheme earned 9% more [@Reuben2015]. The researchers also showed that the gender gap in earnings they observed was partially explained by competitiveness. Overall, these studies demonstrate the relevance of competitiveness to labor market outcomes, so factors that may affect competitiveness, like beliefs about effort, are important for improving gender equality in labor market outcomes. In fact, our research uses relatively unimportant tasks that are unlikely to affect participants' labor market outcomes outside of the MTurk studies. Yet, our previous work shows a gender difference in preparation, suggesting that our study likely *underestimates* gender differences in choices to prepare for tasks that are more important for one's career and/or labor market outcomes. In this way, our study is providing a conservative test of the gender differences in effort in the real world. 
+
+Additionally, Keana Richards is dedicated to promoting diversity in STEM both in her service and research activities. Outside of research, Richards serves as a mentor with the University of Pennsylvania College Achievement Program Graduate School Mentoring Initiative, which helps undergraduate students from disadvantaged backgrounds (e.g., first-generation, low-income) apply to graduate school. As research coordinator for the Upward Bound Math and Science Summer Scholars Academy at the University of Pennsylvania, Richards led a group of first-generation and/or low-income high school students in preparing a competitive application for the George Washington Carver Science Fair by providing guidance and feedback, improving their chance of earning an academic scholarship from Temple University. Over the course of the 6-week program, Richards also cultivated the students’ passion for research by teaching them how to review background literature, generate novel hypotheses and appropriate methodology to test them, analyze results, and craft a scientific poster based upon their research. Finally, the NSF DDIG will improve Richards' ability to produce high-impact work that will enable her to pursue a tenure-track faculty position as a woman of color. As a tenure-track professor, she will be able to serve as an important role model for young women and people of color in the academy. 
+
+# Future directions
+
+A follow-up study based on these experiments can explore whether the anticipated gender difference in choice to prepare during competition persists even when there is a monetary cost for preparing. The results of this follow-up study have the potential to help us understand global gender gaps. Also, this work is critical because women who do not feel as though they are sufficiently prepared before entering competitive industries, jobs, or even majors in college may engage in costly and unnecessary preparation time, which may reduce their interest in pursuing these endeavors. This would suggest women’s greater willingness to prepare before they enter a competition may actually be harming them and their economic outcomes. Also, if our hypotheses are supported, our research raises the question: Which gender is preparing more (or less) than needed? This should be addressed in research by testing whether gender and time chosen to prepare interact to affect a participants' probability of winning a competition [see @Niederle2007]. 
+
+
+# Sample size justification
+
+We estimate power for the hypothesized interaction effect in the primary analyses (see [Simonsohn](http://datacolada.org/17) and [Giner-Sorolla](https://approachingblog.wordpress.com/2018/01/24/powering-your-interaction-2/)). 
+
+
+We ran 1000 simulations while varying the sample size (_N_ = 2000, 3000, 3250, 3500) and the effect size for the interaction effect (_b_ = .2, .3, .4) (see below). Based on these simulated estimates, we will recruit 3250 participants to achieve 83.7% power for a relatively small effect (_b_ = .2). 
+
+
+```{r, echo = F}
+knitr::include_graphics("nsf_insertimage_1.png", dpi = 1000)
+
+```
+
+# Budget justification 
+
+Funds from the NSF DDIG will be dedicated to paying participants. Each participant will earn \$2.50 as a guaranteed payment. There are two budget costs that will vary based on the participants' decisions and performance. The first is the bonus payment for the task itself, which will vary based on the condition participants' are assigned to (i.e., piece-rate and tournament payment) and their performance. We are basing their average task performance on participants from our preliminary studies. Additionally, participants' bonus earnings from the follow-up questions about confidence will depend on their accuracy, so we use the average accuracy of participants from previous studies on the confidence measure to anticipate the costs for the confidence measure. Finally, Amazon Mechanical Turk charges a fee for using its services (20% of each worker's total compensation) and Turkprime charges $.02 + 5% of the workers' compensation for each participant. Dr. Apicella offers to cover the remaining costs of running the experiments that are not funded by the NSF. 
+
+
+```{r, message=F,  warning=F, echo = F}
+
+## Average performance from study 1 and 2 across all participants. 
+
+## Study 1: 52.79703
+## Study 2: 48.24659
+
+## Average performance of participants from pilot study with matching task across all 3 rounds within 60 seconds= 
+## 53.64688
+
+## Proportion of participants from previous studies guess correctly on conf = about 50% for all studies 
+
+
+study <- c("Study 1", "Study 2")
+guar <- c(2.5, 2.5)
+n <- c(3250, 3250)
+
+total_guar <- guar*n
+
+## for first part, averaging performance from study 1 and 2 across participants. for second part, using performance from pilot
+avg_perf <- c((52.79703+ 48.24659)/2 ,53.64688)
+
+## for the task bonus, multiplying average task performance from respective previous study by the sample size for that specific condition (1/2 for piece-rate, only 1/4 for competition since only half of the half earn it), by the payment for that condition. 
+## don't need to multiply/divide by time in seconds since we are using the same amount of time as previous studies.
+
+bonus_task <- c((.25*n[1]*avg_perf[1]*.04) + (.5*n[1]*avg_perf[1]*.02),.5*n[2]*avg_perf[2]*.04)
+
+avg_bonus_task <- .5*(bonus_task/n)
+conf_prop <- c(.5, .5)
+
+bonus_conf <- c(conf_prop[1]*n[1]*.25, conf_prop[2]*n[2]*.25)
+
+MC_prop <- c(1, 1)
+
+bonus_MC <- c(MC_prop[1]*n[1]*.25, MC_prop[2]*n[2]*.25)
+
+bonus_conf_MC <- bonus_conf + bonus_MC
+
+avg_bonus_conf_MC <- (bonus_conf + bonus_MC)/n
+
+avg_bonus <- avg_bonus_task + avg_bonus_conf_MC
+
+avg_pay <- guar + avg_bonus
+bonus <- bonus_conf_MC +bonus_task 
+
+Mturk_fees <- (total_guar + bonus_conf_MC + bonus_task)*.2
+
+Turkprime_fees <- n*((avg_pay*.05) + .02)
+
+Total <- total_guar + bonus_task + bonus_conf_MC + Mturk_fees + Turkprime_fees
+
+library(janitor)
+df <- data.frame(study, n, total_guar,  bonus, Mturk_fees, Turkprime_fees, Total) 
+
+
+df <- df %>%
+  adorn_totals("row")
+
+library(knitr)
+options(kableExtra.auto_format = FALSE)
+
+library(kableExtra)
+
+
+```
+
+<br><br><br><br> 
+
+```{r, echo = F}
+kable(df,  digits = 2, col.names = c("Study","N",  "Guaranteed payment", "Bonus payment", "MTurk fees", "Turkprime fees", "Total cost"), caption = "Table 1. Budget calculation", format.args = list(big.mark = ","))
+```
+
+
+
+# Facilities, equipment, and other resources
+
+Keana Richards has support from several knowledgeable mentors, including her adviser, Dr. Apicella, who has extensive experience conducting research in behavioral economics, especially with regards to gender and competition [@Apicella2020; @Apicella2017a; @Apicella2015; @Apicella2011; @Apicella2017]. On top of that, Dr. Apicella is co-director of the Social and Behavioral Science Initiative (SBSI), which fosters interdisciplinary discussion by hosting weekly brown bags and has opportunities for funding graduate research. Throughout her dissertation, Richards will receive feedback from an interdisciplinary committee, including Dr. Apicella, Associate Professor of Psychology, Dr. Gideon Nave, Assistant Professor of Marketing, Dr. Emily Falk, Professor of Communication, Psychology, and Marketing, and Dr. Geoffrey Goodwin, Associate Professor of Psychology.  
+
+All studies will be completed on Qualtrics survey software, which both Dr. Apicella and Richards have access to, along with 24/7 access to the Qualtrics support team. To mediate the recruitment process on Amazon Mechanical Turk, Richards has a Turkprime account, which has features to prevent repeated participation (e.g., checks for duplicate IP addresses), prevent bots from contaminating data collection (e.g., checks for duplicate geolocations), and verify worker information. Additionally, Dr. Apicella and Keana Richards will use the Benjamin Franklin Laboratory and the William Penn Laboratory for participant recruitment, which include 34 computers with Microsoft Office, Adobe Reader Pro, Internet access (Chrome and Firefox) and removable privacy shields, along with 20 noise canceling headphones. Through Dr. Apicella’s affiliation with SBSI, there are two available participant pools for recruitment: the psychology student pool who will receive credit for participating and the paid participant pool maintained by SBSI. Finally, Dr. Apicella and Richards have access to additional support, if needed, from 3 grants managers, 3 IT support specialists, 1 business office manager, 1 undergraduate coordinator, and 6 administrative coordinators. 
+
+# Data management plan 
+
+
+**Types of data:** The research data will be downloaded from the Qualtrics survey software as a .csv file, which will include the participants’ responses, along with administrative data produced by Qualtrics (e.g., date, end date, response type, progress, duration, longitude and latitude). The administrative data produced by Qualtrics will be deleted during data cleaning, leaving only the participants’ responses. 
+
+
+**Storage:** Data will be stored on password-protected computers only accessible to the study personnel during data analysis. After finishing the pre-registered data analysis plan, the data will be stored on cloud-based storage through the public online repository Open Science Framework ([OSF](https://osf.io/)). Data will only be identified by unique subject ID numbers. The number of research personnel involved will be kept to only the number necessary to conduct the study. We do not plan on deleting the data.
+
+
+**Distribution:** Following emerging norms in the field, the research data (as a .csv file), code for analysis (as a .R file), and materials for the studies (as the .pdf version of the downloaded Qualtrics survey) will be posted to the public online repository Open Science Framework (https://osf.io/) within a short period after finishing data analysis. Additionally, the data may be shared for research purposes, including but not limited to: publication, presentation, or in correspondence with colleagues who request the data. These data will not include any personal identifying information and all distribution will be in accordance with the Institutional Review Board protocol.
+
+# Figures
+
+```{r, fig.cap = "Figure 1. Choice to prepare based on gender and competition choice in Study 1. All error bars represent SE.", echo = F}
+knitr::include_graphics("plot1.png", dpi = 1000)
+
+```
+
+
+```{r, fig.cap = "Figure 2. Choice to prepare based on gender and competition choice in Study 2. All error bars represent SE.", echo = F}
+knitr::include_graphics("plot2.png", dpi = 1000)
+
+```
+
+
+
+
+# References
+<br><br>
+
+
+
+

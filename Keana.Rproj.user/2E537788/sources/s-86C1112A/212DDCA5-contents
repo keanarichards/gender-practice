@@ -1,0 +1,1240 @@
+---
+title: "COVID19 Narrative Pilot 2 Data Cleaning Script"
+date: "`r Sys.Date()`"
+author: Keana Richards & Bradley Mattan
+output:
+  github_document:
+    toc: true
+    toc_depth: 2
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# load packages
+```{r}
+# Package names"
+packages <- c("psych", "tidyverse", "knitr", "qualtRics", "nFactors", "matrixStats", "expss")
+
+# Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+# Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+```
+
+# load data
+
+```{r}
+#Import pilot 2 test data
+#import <- read_survey("~/Box Sync/CurrentProjects_Penn/COVID-19/Analysis/Narratives/Narratives_Pilot2/COVID-19 Narratives 1_April 19, 2020_15.07.csv")
+#Import partial pilot 2 data: Note there was a labeling error for transport_1 for participants in the expository health condition. "transport_1" was originally labeled as "tranpsort_1" in this data file. I recoded it in Qualtrics for subsequent data files.
+#import <- read_survey("~/Box Sync/CurrentProjects_Penn/COVID-19/Analysis/Narratives/Narratives_Pilot2/COVID-19 Narratives 1_April 20, 2020_12.39.csv")
+#Import final pilot 2 data
+import <- read_survey("~/Box Sync/CurrentProjects_Penn/COVID-19/Analysis/Narratives/Narratives_Pilot2/COVID-19 Narratives 1_April 20, 2020_17.12.csv")
+
+## setwd("C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/third_yr/cnl/CNL")
+## import <- read_survey("C:/Users/keana/Box/COVID-19/Analysis/Narratives/Narratives_Pilot2/COVID-19 Narratives 1_April 20, 2020_17.12.csv")
+
+```
+
+# removing unnecessary variables
+
+```{r}
+raw <- import #BM: Added so that we don't have to reload the data every time there's a bug in programming
+## timer questions
+col_names <- names(raw)
+r<- grepl("time|RT|Click|Page" , col_names)
+raw <- raw[!r]
+
+## choosing people from pilot2 (any completed on 4/20) 
+pilot2test = grepl("^2020-04-20", as.character(raw$StartDate))
+raw= raw[pilot2test, ]
+
+## removing qualtrics output
+raw <- raw %>% dplyr::select(-StartDate:-UserLanguage)
+```
+
+
+# Remove participants if they:
+    * are under 18
+    * are not currently residing in the US
+    * english check 
+    * fail attention check 
+    * have response invariance (defined as the - 3 sd from total median variance across scales)
+    * came from survey testing and preview mode
+
+```{r}
+### must be MTurk workers
+MID <- raw[is.na(raw$MID),]
+raw <- raw[!is.na(raw$MID),]
+
+### above 18; currently reside in US; attention check 2
+excluded <- raw %>% filter(screen_1 !=1 | screen_2 != 1 | attention_2 != 5) 
+raw <- raw %>% filter(screen_1 ==1 & screen_2 == 1 & attention_2 == 5) 
+
+### english check
+print("summary of responses prior to exclusions")
+raw$english_check
+
+# variables containing exclusions
+copy <- raw[grepl("he delivery truck zoomed by the school bus because it was going so slow", raw$english_check, ignore.case = T),]
+e <- raw[!grepl("bus|truck", raw$english_check,ignore.case = T),]
+
+# removing bad subjects
+if (dim(copy)[1] > 0) {
+  raw <- raw[!grepl("he delivery truck zoomed by the school bus because it was going so slow", raw$english_check, ignore.case = T),]
+}
+raw <- raw[grepl("bus|truck", raw$english_check, ignore.case = T),]
+
+# removing subjects by researcher discretion: "Failure is defined as giving clearly incorrect or irrelevant answers, as determined by the researcher team; while “the school bus” is the correct answer, we accept “the delivery truck” as well"
+discretionary <- raw[grepl("the school bus are delivery truck are problem|TRUCK ZOOMED", raw$english_check, ignore.case = F),]
+raw <- raw[!grepl("the school bus are delivery truck are problem|TRUCK ZOOMED", raw$english_check, ignore.case = F),]
+
+print("summary of final responses after exclusions")
+raw$english_check
+
+### dropping unnecessary variables
+excluded <- rbind (excluded, e, copy, MID, discretionary)
+raw <- raw %>% dplyr::select(-screen_1:-english_check)
+raw <- raw %>% dplyr::select(-nh_empathy_1:-`5_c_msg_motiv_other_11`) # vestigial columns from pilot 1
+```
+
+Inspect open-ended feedback
+```{r}
+print("summary of open-ended feedback after exclusions")
+raw$fb_open
+```
+
+Invariance Computation and Filtering 
+
+```{r}
+# first have to rename cols
+varying <- names(raw %>% dplyr::select('1_nh_share_1':'5_c_msg_motiv_other_5')) #extracting column names
+names <- paste0(substr(varying, 3, nchar(varying)), "_", substr(varying, 0,1)) #removing leading numbers and adding them at the end
+raw <- raw %>% rename_at(varying, ~ names) #BM: to make renaming work, I had to change vars(varying) to just varying
+
+names <- names(raw) #getting all the names
+
+# Economic Stress
+sd <- rowSds(as.matrix(raw[grep("^stress_(.*)_([1])", names(raw))], na.rm = T)) 
+sd = data.frame(sd)
+# Post-Message Sharing and Valence across Blocks                       
+sd = sd %>% mutate(sd1a=rowSds(as.matrix(raw[grep("^(.)(.)_share_(.)_([0-5])", names(raw))]), na.rm = T))
+sd = sd %>% mutate(sd1b=rowSds(as.matrix(raw[grep("^(.)(.)_valence_(.)_([0-5])", names(raw))]), na.rm = T))
+# Post-Message Transportation within Block
+sd = sd %>% mutate(sd2a=rowSds(as.matrix(raw[grep("^transport.+1$", names(raw))]), na.rm = T))
+sd = sd %>% mutate(sd2b=rowSds(as.matrix(raw[grep("^transport.+2$", names(raw))]), na.rm = T))
+sd = sd %>% mutate(sd2c=rowSds(as.matrix(raw[grep("^transport.+3$", names(raw))]), na.rm = T))
+sd = sd %>% mutate(sd2d=rowSds(as.matrix(raw[grep("^transport.+4$", names(raw))]), na.rm = T))
+sd = sd %>% mutate(sd2e=rowSds(as.matrix(raw[grep("^transport.+5$", names(raw))]), na.rm = T))
+# Post-Message Relevance and Motivation across Blocks
+sd = sd %>% mutate(sd3a=rowSds(as.matrix(raw[grep("c_msg_rel_self", names(raw))]), na.rm = T))
+sd = sd %>% mutate(sd3b=rowSds(as.matrix(raw[grep("c_msg_rel_social", names(raw))]), na.rm = T))
+sd = sd %>% mutate(sd3c=rowSds(as.matrix(raw[grep("c_msg_motiv_self", names(raw))]), na.rm = T))
+sd = sd %>% mutate(sd3d=rowSds(as.matrix(raw[grep("c_msg_motiv_other", names(raw))]), na.rm = T))
+# Prosocial Motivation
+sd = sd %>% mutate(sd4=rowSds(as.matrix(raw[grep("prosocial_motivation", names(raw))]), na.rm = T))
+# Beliefs
+sd = sd %>% mutate(sd5a=rowSds(as.matrix(raw[grep("belief_self", names(raw))]), na.rm = T))
+sd = sd %>% mutate(sd5b=rowSds(as.matrix(raw[grep("belief_others", names(raw))]), na.rm = T))
+sd = sd %>% mutate(sd6=rowSds(as.matrix(raw[grep("belief_vulnerable", names(raw))]), na.rm = T))
+# Self Construal
+sd = sd %>% mutate(sd7=rowSds(as.matrix(raw[grep("selfconstrual", names(raw))]), na.rm = T))
+# Policy Items
+sd = sd %>% mutate(sd8=rowSds(as.matrix(raw[grep("policy", names(raw))]), na.rm = T))
+# Humanization
+sd = sd %>% mutate(sd9=rowSds(as.matrix(raw[grep("humanization", names(raw))]), na.rm = T))
+# Warmth
+sd = sd %>% mutate(sd10=rowSds(as.matrix(raw[grep("prejudice", names(raw))]), na.rm = T))
+# Perceived Stress
+sd = sd %>% mutate(sd11a=rowSds(as.matrix(raw[grep("pss_feb", names(raw))]), na.rm = T))
+sd = sd %>% mutate(sd11b=rowSds(as.matrix(raw[grep("pss_march", names(raw))]), na.rm = T))
+# Loneliness
+sd = sd %>% mutate(sd12=rowSds(as.matrix(raw[grep("lonely", names(raw))]), na.rm = T))
+# Intergroup Empathy
+sd = sd %>% mutate(sd13=rowSds(as.matrix(raw[grep("^empathy_group_(.)", names(raw))]), na.rm = T))
+# IRI
+sd = sd %>% mutate(sd14=rowSds(as.matrix(raw[grep("^empathy_([0-9]|1[0-4])$|^iri_empathy", names(raw))]), na.rm = T))
+# Victimhood
+sd = sd %>% mutate(sd16=rowSds(as.matrix(raw[grep("victimhood", names(raw))]), na.rm = T))
+# Usefulness
+sd = sd %>% mutate(sd17=rowSds(as.matrix(raw[grep("usefulness", names(raw))]), na.rm = T))
+# Purpose
+sd = sd %>% mutate(sd18=rowSds(as.matrix(raw[grep("purpose", names(raw))]), na.rm = T))
+
+# Computing percentage of surveys with zero variance
+sd$pct_zeros = count_row_if(0,sd)/(dim(sd)[2]-count_row_if(NA,sd))
+cutoff = median(sd$pct_zeros) + 3*sd(sd$pct_zeros)
+invariant = raw %>% filter(sd$pct_zeros > cutoff)
+raw = raw %>% filter(sd$pct_zeros < cutoff)
+```
+
+    
+# Create Participant ID and strip MTurk IDs
+
+```{r}
+raw <- raw %>% mutate(ID = seq(1, nrow(raw)))
+raw <- raw[,-which(colnames(raw)=="MID")]
+```
+
+
+# creating composites for message-specific items
+sharing
+relevance
+motivation
+transportation: transport_(X)_(Y)_(Z)
+  (X): Refers to the item within a block
+    (1-2) = cognitive
+    (3) = general
+    (4) = emotional
+    (5) = imaginative
+  (Y): Refers to the condition
+    (_) = narrative healthcare workers
+    (1) = expository healthcare workers
+    (2) = narratives prisoners
+    (3) = expository prisoners
+    (4) = narratives job insecure
+    (5) = expository job insecure
+  (Z): Refers to the block (1-5)
+
+```{r}
+## overall transportation
+average <- names(raw[grep("^transport_(.*)", names(raw))])
+raw <-raw %>% mutate(transport_avg = rowMeans(raw[average], na.rm = T))
+
+## cognitive transportation 
+cognitive <- names(raw[grep("^transport_([1-2])_(.*)", names(raw))])
+raw <-raw %>% mutate(cog_transport = rowMeans(raw[cognitive], na.rm = T))
+
+## general transportation
+general <- names(raw[grep("^transport_3_(.*)", names(raw))])
+raw <-raw %>% mutate(gen_transport = rowMeans(raw[general], na.rm = T))
+
+## emotional transportation
+emotional <- names(raw[grep("^transport_4_(.*)", names(raw))])
+raw <-raw %>% mutate(emo_transport = rowMeans(raw[emotional], na.rm = T))
+
+## imaginative transportation
+imaginative <- names(raw[grep("^transport_5_(.*)", names(raw))])
+raw <-raw %>% mutate(img_transport = rowMeans(raw[imaginative], na.rm = T))
+
+## Sharing intentions
+full <- names(raw[grep("^(.)(.)_share_1_(.)", names(raw))])
+raw <-raw %>% mutate(share_avg = rowMeans(raw[full], na.rm = T))
+
+## Valence
+full <- names(raw[grep("^(.)(.)_valence_1_(.)", names(raw))])
+raw <-raw %>% mutate(valence_avg = rowMeans(raw[full], na.rm = T))
+
+## Relevance self = rel_self
+full <- names(raw[grep("^c_msg_rel_self_(.*)", names(raw))])
+raw <-raw %>% mutate(rel_self = rowMeans(raw[full], na.rm = T))
+
+## Relevance others = rel_social
+full <- names(raw[grep("^c_msg_rel_social_(.*)", names(raw))])
+raw <-raw %>% mutate(rel_social = rowMeans(raw[full], na.rm = T))
+
+## Self motivation avoid others = motiv_self
+full <- names(raw[grep("^c_msg_motiv_self_(.*)", names(raw))])
+raw <-raw %>% mutate(motiv_self = rowMeans(raw[full], na.rm = T))
+
+## Other motivation avoid others = motiv_other
+full <- names(raw[grep("^c_msg_motiv_other_(.*)", names(raw))])
+raw <-raw %>% mutate(motiv_other = rowMeans(raw[full], na.rm = T))
+```
+
+# Factor Analysis of Policy Items Directed at the Most Vulnerable
+
+```{r}
+# Determine Number of Factors to Extract: https://www.statmethods.net/advstats/factor.html
+# policies entered in the same order as listed in Qualtrics
+policydata <- as.data.frame(cbind(raw$policy_1,
+                    raw$policy_2,
+                    raw$policy_3,
+                    raw$policy_4,
+                    raw$policy_5,
+                    raw$policy_6,
+                    raw$policy_7,
+                    raw$policy1_33,
+                    raw$policy1_34
+                    ))
+policydata <- na.omit(policydata)
+ev <- eigen(cor(policydata)) # get eigenvalues
+ap <- parallel(subject=nrow(policydata),var=ncol(policydata),
+  rep=100,cent=.05)
+nS <- nScree(x=ev$values, aparallel=ap$eigen$qevpea)
+plotnScree(nS) # looks like the answer is just a single factor
+
+# Run Exploratory Maximum Likelihood Factor Analysis
+# with varimax rotation
+fit <- factanal(policydata, 1, rotation="varimax")
+print(fit, digits=2, cutoff=.3, sort=TRUE)
+# plot factor 1 by factor 2
+# load <- fit$loadings[,1:2]
+# plot(load,type="n") # set up plot
+# text(load,labels=names(policydata)) # add variable names
+
+```
+
+# Factor Analysis of Policy Items Directed at Low-Vulnerability Targets
+
+```{r}
+# Determine Number of Factors to Extract: https://www.statmethods.net/advstats/factor.html
+# policies entered in the same order as listed in Qualtrics
+policydata <- as.data.frame(cbind(raw$policy_8,
+                    raw$policy_9,
+                    raw$policy_10,
+                    raw$policy_12,
+                    raw$policy_13,
+                    raw$policy_14,
+                    raw$policy_15,
+                    raw$policy_16,
+                    raw$policy2_9,
+                    raw$policy2_10,
+                    raw$policy2_11,
+                    raw$policy2_12,
+                    raw$policy2_13,
+                    raw$policy2_14
+                    ))
+policydata <- na.omit(policydata)
+ev <- eigen(cor(policydata)) # get eigenvalues
+ap <- parallel(subject=nrow(policydata),var=ncol(policydata),
+  rep=100,cent=.05)
+nS <- nScree(x=ev$values, aparallel=ap$eigen$qevpea)
+plotnScree(nS) # looks like the answer is 2 factors
+
+# Run Exploratory Maximum Likelihood Factor Analysis
+# with varimax rotation
+fit <- factanal(policydata, 2, rotation="varimax")
+print(fit, digits=2, cutoff=.3, sort=TRUE)
+# plot factor 1 by factor 2
+# load <- fit$loadings[,1:2]
+# plot(load,type="n") # set up plot
+# text(load,labels=names(policydata)) # add variable names
+```
+
+# Factor Analysis of Prosocial items
+
+```{r}
+# Determine Number of Factors to Extract: https://www.statmethods.net/advstats/factor.html
+# policies entered in the same order as listed in Qualtrics
+prosocialdata <- as.data.frame(cbind(#raw$prosocial_motivation_1, # Mary wants to analyze this first item separately from the others
+                    raw$prosocial_motivation_2,
+                    raw$prosocial_motivation_3,
+                    raw$prosocial_motivation_4,
+                    raw$prosocial_motivation_5,
+                    raw$prosocial_motivation_6,
+                    raw$prosocial_motivation_7,
+                    raw$prosocial_motivation_8,
+                    raw$prosocial_motivation_9,
+                    raw$prosocial_motivation_10
+                    ))
+prosocialdata <- na.omit(prosocialdata) # remove any subject with NAs
+ev <- eigen(cor(prosocialdata)) # get eigenvalues
+ap <- parallel(subject=nrow(prosocialdata),var=ncol(prosocialdata),
+  rep=100,cent=.05)
+nS <- nScree(x=ev$values, aparallel=ap$eigen$qevpea)
+plotnScree(nS) # two factors
+
+# Run Exploratory Maximum Likelihood Factor Analysis
+# with varimax rotation
+fit <- factanal(prosocialdata, 2, rotation="varimax")
+print(fit, digits=2, cutoff=.3, sort=TRUE)
+```
+
+# Index Computations
+1) Check that the COVID19 statistics from NYT are up to date.
+  If not, initiate a pull request from https://github.com/nytimes/covid-19-data/blob/master/us-states.csv
+2) Get COVID-19 infection and death rates from participant's state from https://github.com/nytimes/covid-19-data/blob/master/us-states.csv
+3) Health vulnerabilities (Self) - Average the responses to each of the following items (max = 1, min = 0)
+  Over 60 years old?
+  Do you suffer from any pre-existing medical condition?
+  Do you smoke?
+  Is your immune system weakened due to treatment or illness?
+4) Health vulnerabilities (Others) - Average the responses to each of the following items (max = 1, min = 0)
+  Live with elderly
+  Live with smokers
+  Live with weakened immune system due to treatment or illness
+  Live with people with chronic medical conditions
+5) Employment 
+  Hours: Full time = .5, part time = -.5
+  Site: On site = .5, partially remote = 0, fully remote = -.5
+  Tenure: Employed = .5, unemployed = -.5
+6) Health insurance - Responses to these items will be scored as follows:
+  No insurance for anyone = 0
+  Insurance for self or household, but not both = .5
+  Insurance for all = 1
+7) Economic stress, loneliness, and perceived stress
+  Compute scores for these items
+8) IRI - Compute averages for the following:
+  Empathic Concern
+  Personal Distress
+  Fantasy
+  Perspective Taking
+  Overall Score
+9) Trait Victimhood
+  Compute average for all four items
+10) Political Bias in News Sources: Each source will be coded based on the difference in accuracy bias between Democratic and Republican respondents rating from pages 19-20 of the following report from the Knight Foundation (Gallup):https://knightfoundation.org/wp-content/uploads/2020/03/KnightFoundation_AccuracyandBias_Report_FINAL.pdf. Positive scores would indicate greater perceived liberal bias. So for example, Fox News bias would be computed as: -71 - 65 = -136. The participant’s average news bias score will be computed based on these ratings.
+11) Beliefs
+  Average agreement within each of the three belief components (protecting self, protecting others, perceived vulnerability)
+12) Prosocial Intentions
+  Factor analyze responses to items 2-8.
+  Average items loading on the same factor prior to analysis
+13) Public policies
+  Factor analyze responses to all items
+  Average items loading on the same factor prior to analysis
+14) Outgroup empathy, dehumanization, and prejudice
+  Compute averages for the targeted vulnerable groups and for the non-vulnerable groups
+15) Self construal
+  Average 4 items (but double-check with Rui)
+16) Household indices
+  Compute difference scores for household size and care responsibilities
+17) Compute objective SES
+18) Compute subjective SES
+19) Gender, race, and age
+20) Party identification and voting behavior
+  Dichotomize party identification: Republican = .5, Democrat = -.5
+  Trump voter = .5, Anyone else = -.5
+21) Purpose and usefulness
+22) Generating target-specific DVs
+23) Contrast coding for narrative versus expository messages
+
+```{r}
+wdf <- raw
+#1) Check that the COVID19 statistics from NYT are up to date.
+covid_data <- read.csv("~/Box Sync/CurrentProjects_Penn/COVID-19/Analysis/Public_data/covid-19-data/us-states.csv")
+covid_data$date <- as.Date(covid_data$date)
+covid_data <- covid_data[covid_data$date==max(covid_data$date),]
+covid_data$deathrate <- covid_data$deaths/covid_data$cases
+#2) Get COVID-19 infection and death rates from participant's state from https://github.com/nytimes/covid-19-data/blob/master/us-states.csv
+states = read.csv("state_codes.csv", stringsAsFactors = FALSE) %>% mutate(state_code = as.character(state_code))
+wdf <- merge(wdf, states, by.x = "state", by.y = "state_code", all.x = TRUE)
+wdf <- merge(wdf, covid_data, by.x = "state.y", by.y = "state", all.x = TRUE)
+#3) Health vulnerabilities (Self) 
+wdf <- within(wdf, {
+  elder <- ifelse(age>60,1,
+                  ifelse(age<=60,0,NA))
+  })
+wdf$health_self <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="elder"),
+  which(colnames(wdf)=="health_self_1"),
+  which(colnames(wdf)=="health_self_2"),
+  which(colnames(wdf)=="health_self_3"))],
+  na.rm=TRUE)
+#4) Health vulnerabilities (Others) 
+wdf$health_household <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="health_household_1"),
+  which(colnames(wdf)=="health_household_2"),
+  which(colnames(wdf)=="health_household_3"),
+  which(colnames(wdf)=="health_household_4"))],
+  na.rm=TRUE)
+#5) Employment
+wdf$jobsec <- paste(wdf$employ_preCovid,wdf$currentemploy)
+wdf <- within(wdf, {
+  student <- ifelse(student == 5, .5, 
+                    ifelse(student == 6, -.5, NA))
+  jobchange <- ifelse(jobsec=="1 1" | jobsec=="2 2" | jobsec=="4 4" | jobsec=="5 5" | jobsec=="6 6" | jobsec=="7 7", -1,
+                       ifelse(jobsec=="2 1" | jobsec=="2 4" | jobsec=="6 5" | jobsec=="4 1", -.5,
+                              ifelse(jobsec=="2 6" | jobsec=="1 5", 0,
+                                     ifelse(jobsec=="2 5" | jobsec=="4 5", .5,
+                                            ifelse(jobsec=="1 7" | jobsec=="2 7" | jobsec=="4 7" | jobsec=="5 7" | jobsec=="6 7", 1, NA)))))
+ jobnow <- ifelse(currentemploy==1, .5,
+                       ifelse(currentemploy==2, .5,
+                              ifelse(currentemploy==4, .5,
+                                     ifelse(currentemploy==5, 0,
+                                            ifelse(currentemploy==6, 0,
+                                                   ifelse(currentemploy==7, -.5, NA))))))
+ remote <- ifelse(currentemploy==1, .5,
+                       ifelse(currentemploy==2, -.5,
+                              ifelse(currentemploy==4, .5,
+                                     ifelse(currentemploy==5, .5,
+                                            ifelse(currentemploy==6, -.5, NA)))))
+})
+#6) Health insurance (mean centered)
+wdf$insurance <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="stress_insurance"),
+  which(colnames(wdf)=="stress_insurance_all"))],
+  na.rm=TRUE) - .5
+#7) Economic stress, loneliness, and perceived stress
+wdf <- within(wdf, {
+  econ_stress_diff <- stress_current_1 - stress_prior_1
+  econ_stress_current <- stress_current_1
+})
+wdf$pss_march_3 <- wdf$pss_current_3 #Correcting a Qualtrics labeling error
+wdf <- within(wdf, {
+  lonely_3r <- ifelse(lonely_3==1,4,
+                       ifelse(lonely_3==2,3,
+                              ifelse(lonely_3==3,2,
+                                     ifelse(lonely_3==4,1,NA))))
+  lonely_6r <- ifelse(lonely_6==1,4,
+                       ifelse(lonely_6==2,3,
+                              ifelse(lonely_6==3,2,
+                                     ifelse(lonely_6==4,1,NA))))
+  pss_feb_2r <- ifelse(pss_feb_2==0,4,
+                       ifelse(pss_feb_2==1,3,
+                              ifelse(pss_feb_2==2,2,
+                                     ifelse(pss_feb_2==3,1,
+                                           ifelse(pss_feb_2==4,1,NA)))))
+  pss_feb_3r <- ifelse(pss_feb_3==0,4,
+                       ifelse(pss_feb_3==1,3,
+                              ifelse(pss_feb_3==2,2,
+                                     ifelse(pss_feb_3==3,1,
+                                           ifelse(pss_feb_3==4,1,NA)))))
+  pss_march_2r <- ifelse(pss_march_2==0,4,
+                       ifelse(pss_march_2==1,3,
+                              ifelse(pss_march_2==2,2,
+                                     ifelse(pss_march_2==3,1,
+                                           ifelse(pss_march_2==4,1,NA)))))
+  pss_march_3r <- ifelse(pss_march_3==0,4,
+                       ifelse(pss_march_3==1,3,
+                              ifelse(pss_march_3==2,2,
+                                     ifelse(pss_march_3==3,1,
+                                           ifelse(pss_march_3==4,1,NA)))))
+})
+wdf$lonely <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="lonely_1"),
+  which(colnames(wdf)=="lonely_2"),
+  which(colnames(wdf)=="lonely_3r"),
+  which(colnames(wdf)=="lonely_4"),
+  which(colnames(wdf)=="lonely_5"),
+  which(colnames(wdf)=="lonely_6r"),
+  which(colnames(wdf)=="lonely_7"),
+  which(colnames(wdf)=="lonely_8"))],
+  na.rm=TRUE)
+wdf$pss_feb <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="pss_feb_1"),
+  which(colnames(wdf)=="pss_feb_2r"),
+  which(colnames(wdf)=="pss_feb_3r"),
+  which(colnames(wdf)=="pss_feb_4"))],
+  na.rm=TRUE)
+wdf$pss_march <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="pss_march_1"),
+  which(colnames(wdf)=="pss_march_2r"),
+  which(colnames(wdf)=="pss_march_3r"),
+  which(colnames(wdf)=="pss_march_4"))],
+  na.rm=TRUE)
+wdf <- within(wdf, {
+  pss_diff <- pss_march - pss_feb
+  pss_current <- pss_march
+})
+#8) IRI
+wdf <- within(wdf, {
+  empathy_2r <- ifelse(empathy_2==1,5,
+                       ifelse(empathy_2==2,4,
+                              ifelse(empathy_2==3,3,
+                                     ifelse(empathy_2==4,2,
+                                            ifelse(empathy_2==5,1,NA)))))
+  empathy_4r <- ifelse(empathy_4==1,5,
+                       ifelse(empathy_4==2,4,
+                              ifelse(empathy_4==3,3,
+                                     ifelse(empathy_4==4,2,
+                                            ifelse(empathy_4==5,1,NA)))))
+  empathy_5r <- ifelse(empathy_5==1,5,
+                       ifelse(empathy_5==2,4,
+                              ifelse(empathy_5==3,3,
+                                     ifelse(empathy_5==4,2,
+                                            ifelse(empathy_5==5,1,NA)))))
+  empathy_10r <- ifelse(empathy_10==1,5,
+                       ifelse(empathy_10==2,4,
+                              ifelse(empathy_10==3,3,
+                                     ifelse(empathy_10==4,2,
+                                            ifelse(empathy_10==5,1,NA)))))
+  empathy_12r <- ifelse(empathy_12==1,5,
+                       ifelse(empathy_12==2,4,
+                              ifelse(empathy_12==3,3,
+                                     ifelse(empathy_12==4,2,
+                                            ifelse(empathy_12==5,1,NA)))))
+  iri_empathy_18r <- ifelse(iri_empathy_18==1,5,
+                       ifelse(iri_empathy_18==2,4,
+                              ifelse(iri_empathy_18==3,3,
+                                     ifelse(iri_empathy_18==4,2,
+                                            ifelse(iri_empathy_18==5,1,NA)))))
+  iri_empathy_20r <- ifelse(iri_empathy_20==1,5,
+                       ifelse(iri_empathy_20==2,4,
+                              ifelse(iri_empathy_20==3,3,
+                                     ifelse(iri_empathy_20==4,2,
+                                            ifelse(iri_empathy_20==5,1,NA)))))
+  iri_empathy_23r <- ifelse(iri_empathy_23==1,5,
+                       ifelse(iri_empathy_23==2,4,
+                              ifelse(iri_empathy_23==3,3,
+                                     ifelse(iri_empathy_23==4,2,
+                                            ifelse(iri_empathy_23==5,1,NA)))))
+  iri_empathy_24r <- ifelse(iri_empathy_24==1,5,
+                       ifelse(iri_empathy_24==2,4,
+                              ifelse(iri_empathy_24==3,3,
+                                     ifelse(iri_empathy_24==4,2,
+                                            ifelse(iri_empathy_24==5,1,NA)))))
+})
+wdf$iri_empathic <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="empathy_1"),
+  which(colnames(wdf)=="empathy_2r"),
+  which(colnames(wdf)=="empathy_3"),
+  which(colnames(wdf)=="empathy_4r"),
+  which(colnames(wdf)=="empathy_5r"),
+  which(colnames(wdf)=="empathy_6"),
+  which(colnames(wdf)=="empathy_7"))],
+  na.rm=TRUE)
+wdf$iri_distress <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="empathy_8"),
+  which(colnames(wdf)=="empathy_9"),
+  which(colnames(wdf)=="empathy_10r"),
+  which(colnames(wdf)=="empathy_11"),
+  which(colnames(wdf)=="empathy_12r"),
+  which(colnames(wdf)=="empathy_13"),
+  which(colnames(wdf)=="empathy_14"))],
+  na.rm=TRUE)
+wdf$iri_fantasy <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="iri_empathy_17"),
+  which(colnames(wdf)=="iri_empathy_19"),
+  which(colnames(wdf)=="iri_empathy_20r"),
+  which(colnames(wdf)=="iri_empathy_23r"),
+  which(colnames(wdf)=="iri_empathy_25"),
+  which(colnames(wdf)=="iri_empathy_27"),
+  which(colnames(wdf)=="iri_empathy_29"))],
+  na.rm=TRUE)
+wdf$iri_persptak <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="iri_empathy_18r"),
+  which(colnames(wdf)=="iri_empathy_21"),
+  which(colnames(wdf)=="iri_empathy_22"),
+  which(colnames(wdf)=="iri_empathy_24r"),
+  which(colnames(wdf)=="iri_empathy_26"),
+  which(colnames(wdf)=="iri_empathy_28"),
+  which(colnames(wdf)=="iri_empathy_30"))],
+  na.rm=TRUE)
+wdf$iri_avg <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="iri_empathic"),
+  which(colnames(wdf)=="iri_distress"),
+  which(colnames(wdf)=="iri_fantasy"),
+  which(colnames(wdf)=="iri_persptak"))],
+  na.rm=TRUE)
+#9) Victimhood
+wdf$victimhood <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="victimhood_1"),
+  which(colnames(wdf)=="victimhood_2"),
+  which(colnames(wdf)=="victimhood_3"),
+  which(colnames(wdf)=="victimhood_4"))],
+  na.rm=TRUE)
+#10) Political bias in news sources
+wdf <- within(wdf, {
+  newsbias_1 <- ifelse(news_1==4,82,
+                       ifelse(news_1==5,80,
+                              ifelse(news_1==6,109,
+                                     ifelse(news_1==7,103,
+                                            ifelse(news_1==8,77,
+                                                   ifelse(news_1==9,116,
+                                                          ifelse(news_1==10,89,
+                                                                 ifelse(news_1==11,100,
+                                                                        ifelse(news_1==12,78,
+                                                                               ifelse(news_1==13,38,
+                                                                                      ifelse(news_1==14,105,
+                                                                                             ifelse(news_1==15,48,
+                                                                                                    ifelse(news_1==16,62,
+                                                                                                           ifelse(news_1==17,35,
+                                                                                                                  ifelse(news_1==18,20,
+                                                                                                                         ifelse(news_1==19,-75,
+                                                                                                                                ifelse(news_1==20,-132,NA)))))))))))))))))
+  newsbias_2 <- ifelse(news_2==4,82,
+                       ifelse(news_2==5,80,
+                              ifelse(news_2==6,109,
+                                     ifelse(news_2==7,103,
+                                            ifelse(news_2==8,77,
+                                                   ifelse(news_2==9,116,
+                                                          ifelse(news_2==10,89,
+                                                                 ifelse(news_2==11,100,
+                                                                        ifelse(news_2==12,78,
+                                                                               ifelse(news_2==13,38,
+                                                                                      ifelse(news_2==14,105,
+                                                                                             ifelse(news_2==15,48,
+                                                                                                    ifelse(news_2==16,62,
+                                                                                                           ifelse(news_2==17,35,
+                                                                                                                  ifelse(news_2==18,20,
+                                                                                                                         ifelse(news_2==19,-75,
+                                                                                                                                ifelse(news_2==20,-132,NA)))))))))))))))))
+  newsbias_3 <- ifelse(news_3==4,82,
+                       ifelse(news_3==5,80,
+                              ifelse(news_3==6,109,
+                                     ifelse(news_3==7,103,
+                                            ifelse(news_3==8,77,
+                                                   ifelse(news_3==9,116,
+                                                          ifelse(news_3==10,89,
+                                                                 ifelse(news_3==11,100,
+                                                                        ifelse(news_3==12,78,
+                                                                               ifelse(news_3==13,38,
+                                                                                      ifelse(news_3==14,105,
+                                                                                             ifelse(news_3==15,48,
+                                                                                                    ifelse(news_3==16,62,
+                                                                                                           ifelse(news_3==17,35,
+                                                                                                                  ifelse(news_3==18,20,
+                                                                                                                         ifelse(news_3==19,-75,
+                                                                                                                                ifelse(news_3==20,-132,NA)))))))))))))))))
+})
+wdf$newsbias <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="newsbias_1"),
+  which(colnames(wdf)=="newsbias_2"),
+  which(colnames(wdf)=="newsbias_3"))],
+  na.rm=TRUE)
+#11) Beliefs (check that values got properly recoded for belief_others in the new pilot data)
+wdf$belief_others <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="belief_others_1"),
+  which(colnames(wdf)=="belief_others_2"),
+  which(colnames(wdf)=="belief_others_3"),
+  which(colnames(wdf)=="belief_others_4"),
+  which(colnames(wdf)=="belief_others_5"),
+  which(colnames(wdf)=="belief_others_6"),
+  which(colnames(wdf)=="belief_others_7"),
+  which(colnames(wdf)=="belief_others_8"))],
+  na.rm=TRUE)
+wdf$belief_self <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="belief_self_1"),
+  which(colnames(wdf)=="belief_self_2"),
+  which(colnames(wdf)=="belief_self_3"),
+  which(colnames(wdf)=="belief_self_4"),
+  which(colnames(wdf)=="belief_self_5"))],
+  na.rm=TRUE)
+wdf$belief_vulnerable <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="belief_vulnerable_1"),
+  which(colnames(wdf)=="belief_vulnerable_2"),
+  which(colnames(wdf)=="belief_vulnerable_3"))],
+  na.rm=TRUE)
+wdf$belief_nonvulnerable <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="belief_vulnerable_4"),
+  which(colnames(wdf)=="belief_vulnerable_5"),
+  which(colnames(wdf)=="belief_vulnerable_6"))],
+  na.rm=TRUE)
+#12) Prosocial Intentions
+wdf$prosocial_selfless <- rowMeans(wdf[,c(
+   which(colnames(wdf)=="prosocial_motivation_2"),
+   which(colnames(wdf)=="prosocial_motivation_4"),
+   which(colnames(wdf)=="prosocial_motivation_5"),
+   which(colnames(wdf)=="prosocial_motivation_8"),
+   which(colnames(wdf)=="prosocial_motivation_10")
+   )],
+   na.rm=TRUE)
+wdf$prosocial_courtesy <- rowMeans(wdf[,c(
+   which(colnames(wdf)=="prosocial_motivation_3"),
+   which(colnames(wdf)=="prosocial_motivation_6"),
+   which(colnames(wdf)=="prosocial_motivation_7"),
+   which(colnames(wdf)=="prosocial_motivation_9")
+   )],
+   na.rm=TRUE)
+wdf$prosocial_motivation_1 <- scale(wdf$prosocial_motivation_1)
+#13) Public policy support
+wdf$policy_vulnerable <- rowMeans(wdf[,c(
+   which(colnames(wdf)=="policy_1"),
+   which(colnames(wdf)=="policy_2"),
+   which(colnames(wdf)=="policy_3"),
+   which(colnames(wdf)=="policy_4"),
+   which(colnames(wdf)=="policy_5"),
+   which(colnames(wdf)=="policy_6"),
+   which(colnames(wdf)=="policy_7"),
+   which(colnames(wdf)=="policy1_33"),
+   which(colnames(wdf)=="policy1_34"))],
+   na.rm=TRUE)
+wdf <- within(wdf, {
+  policy2_14r <- ifelse(policy2_14==1,7,
+                       ifelse(policy2_14==2,6,
+                              ifelse(policy2_14==3,5,
+                                     ifelse(policy2_14==4,4,
+                                            ifelse(policy2_14==5,3,
+                                                   ifelse(policy2_14==5,2,
+                                                          ifelse(policy2_14==5,1,NA)))))))
+})
+wdf$policy_proactive <- rowMeans(wdf[,c(
+   which(colnames(wdf)=="policy_8"),
+   which(colnames(wdf)=="policy_12"),
+   which(colnames(wdf)=="policy_14"),
+   which(colnames(wdf)=="policy_15"),
+   which(colnames(wdf)=="policy_16"),
+   which(colnames(wdf)=="policy2_9"),
+   which(colnames(wdf)=="policy2_10"),
+   which(colnames(wdf)=="policy2_14r"))],
+   na.rm=TRUE)
+ wdf$policy_reactive <- rowMeans(wdf[,c(
+   which(colnames(wdf)=="policy_9"),
+   which(colnames(wdf)=="policy_10"),
+   which(colnames(wdf)=="policy_13"),
+   which(colnames(wdf)=="policy2_12"),
+   which(colnames(wdf)=="policy2_13")
+   )],
+   na.rm=TRUE)
+#14) Outgroup Empathy, Dehumanization, Prejudice
+wdf$empathy_vulnerable <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="empathy_group_1"),
+  which(colnames(wdf)=="empathy_group_3"),
+  which(colnames(wdf)=="empathy_group_6"))],
+  na.rm=TRUE)
+wdf$empathy_nonvulnerable <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="empathy_group_8"),
+  which(colnames(wdf)=="empathy_group_10"),
+  which(colnames(wdf)=="empathy_group_13"))],
+  na.rm=TRUE)
+wdf$humanization_vulnerable <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="humanization_1"),
+  which(colnames(wdf)=="humanization_3"),
+  which(colnames(wdf)=="humanization_6"))],
+  na.rm=TRUE)
+wdf$humanization_nonvulnerable <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="humanization_8"),
+  which(colnames(wdf)=="humanization_10"),
+  which(colnames(wdf)=="humanization_13"))],
+  na.rm=TRUE)
+wdf$prejudice_vulnerable <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="prejudice_1"),
+  which(colnames(wdf)=="prejudice_3"),
+  which(colnames(wdf)=="prejudice_6"))],
+  na.rm=TRUE)
+wdf$prejudice_nonvulnerable <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="prejudice_8"),
+  which(colnames(wdf)=="prejudice_10"),
+  which(colnames(wdf)=="prejudice_13"))],
+  na.rm=TRUE)
+#15) Self construal
+wdf$selfconstrual <- rowMeans(wdf[,c(
+   which(colnames(wdf)=="selfconstrual_1"),
+   which(colnames(wdf)=="selfconstrual_2"),
+   which(colnames(wdf)=="selfconstrual_3"),
+   which(colnames(wdf)=="selfconstrual_4"))],
+   na.rm=TRUE)
+#16) Household indices
+wdf <- within(wdf, {
+  house_diff <- household_size_now - household_size_befor
+  care_diff <- stress_care2 - stress_care1
+  care_current <- stress_care2
+})
+#17) Objective SES
+wdf <- within(wdf, {
+  ses_income_self[ses_income_self > 9] <- NA
+  ses_income_household[ses_income_household > 9] <- NA
+  ses_savings[ses_savings > 5] <- NA
+  z.sav <- scale(ses_savings)
+  ses_cash[ses_cash > 9] <- NA
+  z.cash <- scale(ses_cash)
+  savings_debt[savings_debt > 9] <- NA
+  z.net <- scale(savings_debt)
+  z.edu <- scale(ses_degree)
+})
+wdf$z.inc <- scale(rowMeans(wdf[,c(
+  which(colnames(wdf)=="ses_income_self"),
+  which(colnames(wdf)=="ses_income_household"))],
+  na.rm=TRUE))
+wdf$z.assets <- scale(rowMeans(wdf[,c(
+  which(colnames(wdf)=="z.sav"),
+  which(colnames(wdf)=="z.cash"),
+  which(colnames(wdf)=="z.net"))],
+  na.rm=TRUE))
+wdf$ses_obj <- rowMeans(wdf[,c(
+  which(colnames(wdf)=="z.inc"),
+  which(colnames(wdf)=="z.edu"),
+  which(colnames(wdf)=="z.assets"))],
+  na.rm=TRUE)
+#18) Subjective status
+wdf <- within(wdf, {
+  ses_subj <- ifelse(ses_subj_1 == "On", 1,
+                      ifelse(ses_subj_2 == "On", 2,
+                             ifelse(ses_subj_3 == "On", 3,
+                                    ifelse(ses_subj_4 == "On", 4, 
+                                           ifelse(ses_subj_5 == "On", 5,
+                                                  ifelse(ses_subj_6 == "On", 6, 
+                                                         ifelse(ses_subj_7 == "On", 7,
+                                                                ifelse(ses_subj_8 == "On", 8, 
+                                                                       ifelse(ses_subj_9 == "On", 9,
+                                                                              ifelse(ses_subj_10 == "On", 10, NA))))))))))
+})
+#19) Gender, Race, and Age
+wdf <- within(wdf, {
+  gender.binom <- ifelse(gender == 1, -.5,
+                   ifelse(gender == 2, .5, NA))
+})
+for (i in 1:length(wdf$ID)) {
+  race = wdf$race[i]
+  hl = wdf$hispanic_latino[i]
+  wdf$race_ethnicity[i] <- ifelse(race==1 & hl == 0, -.5,
+                                  ifelse(race>1 | hl == 1, .5, NA))
+}
+wdf$age = scale(as.numeric(wdf$age))
+#20) Party identification and voting behavior
+for (i in 1:length(wdf$ID)) {
+  affiliation = wdf$`politic affiliation`[i]
+  lean = wdf$lean[i]
+  wdf$party[i] <- ifelse(affiliation<0, -.5,
+                      ifelse(affiliation>0, .5,
+                             ifelse(lean==-1,-.5,
+                                    ifelse(lean==1,.5,NA))))
+}
+wdf <- within(wdf, {
+  trump2016 <- ifelse(politics_pres_2016 == "1", -.5, #Hillary Clinton
+                      ifelse(politics_pres_2016 == "2", .5, #Donald Trump
+                             ifelse(politics_pres_2016 == "3", -.5, NA))) #Other
+  trump2020 <- ifelse(politics_pres_2020 == "1", -.5, #Joe Biden
+                      ifelse(politics_pres_2020 == "2", .5, #Donald Trump
+                             ifelse(politics_pres_2020 == "3", -.5, NA))) #Other
+})
+#21) Purpose & usefulness - not in pilot dataset
+wdf$purpose <- rowMeans(wdf[,c(
+   which(colnames(wdf)=="purpose_1"),
+   which(colnames(wdf)=="purpose_2"),
+   which(colnames(wdf)=="purpose_3"),
+   which(colnames(wdf)=="purpose_4"),
+   which(colnames(wdf)=="purpose_5"),
+   which(colnames(wdf)=="purpose_6"),
+   which(colnames(wdf)=="purpose_7"),
+   which(colnames(wdf)=="purpose_8"),
+   which(colnames(wdf)=="purpose_9"))],
+   na.rm=TRUE)
+wdf$usefulness <- rowMeans(wdf[,c(
+   which(colnames(wdf)=="usefulness_1"),
+   which(colnames(wdf)=="usefulness_2"),
+   which(colnames(wdf)=="usefulness_3"))],
+   na.rm=TRUE)
+#22) DVs specific to target group
+wdf <- within(wdf, {
+  targ_empathy <- ifelse(TARGETED_GROUP == "healthcare workers", empathy_group_6,
+                         ifelse(TARGETED_GROUP == "prisoners", empathy_group_3,
+                                ifelse(TARGETED_GROUP == "people who are financially struggling", empathy_group_1, NA)))
+  targ_prejudice <- ifelse(TARGETED_GROUP == "healthcare workers", prejudice_6,
+                         ifelse(TARGETED_GROUP == "prisoners", prejudice_3,
+                                ifelse(TARGETED_GROUP == "people who are financially struggling", prejudice_1, NA)))
+  targ_humanization <- ifelse(TARGETED_GROUP == "healthcare workers", humanization_6,
+                         ifelse(TARGETED_GROUP == "prisoners", humanization_3,
+                                ifelse(TARGETED_GROUP == "people who are financially struggling", humanization_1, NA)))
+  targ_vulnerable_belief <- ifelse(TARGETED_GROUP == "healthcare workers", belief_vulnerable_3,
+                              ifelse(TARGETED_GROUP == "prisoners", belief_vulnerable_1,
+                                ifelse(TARGETED_GROUP == "people who are financially struggling", belief_vulnerable_2, NA)))
+})
+
+#23) Contrast coding narrative (+.5) versus expository (-.5) conditions
+wdf <- within(wdf, {
+  message <- ifelse(condition=="narratives", .5,
+                    ifelse(condition=="expository", -.5, NA))
+})
+```
+
+# scaling and winsorization
+Outliers that are more than 3 SDs from the mean will be winsorized to +/- 3 SD
+
+```{r}
+# List of variables to winsorize
+variables <- c("deathrate",
+"health_self",
+"health_household",
+"jobchange",
+"econ_stress_diff",
+"econ_stress_current",
+"lonely",
+"pss_diff",
+"pss_current",
+"iri_empathic",
+"iri_distress",
+"iri_fantasy",
+"iri_persptak",
+"iri_avg",
+"victimhood",
+"newsbias",
+"belief_others",
+"belief_self",
+"belief_vulnerable",
+"belief_nonvulnerable",
+"policy_vulnerable",
+"policy_proactive",
+"policy_reactive",
+"empathy_vulnerable",
+"empathy_nonvulnerable",
+"humanization_vulnerable",
+"humanization_nonvulnerable",
+"prejudice_vulnerable",
+"prejudice_nonvulnerable",
+"selfconstrual",
+"house_diff",
+"care_diff",
+"care_current",
+"purpose",
+"usefulness",
+"ses_obj",
+"ses_subj",
+"age",
+"cog_transport",
+"gen_transport",
+"emo_transport",
+"img_transport",
+"transport_avg",
+"stress_children",
+"conservatism",
+"politics_news_freq",
+"stress_news",
+"share_avg",
+"valence_avg",
+"rel_self",
+"rel_social",
+"motiv_self",
+"motiv_other",
+"targ_empathy",
+"targ_prejudice",
+"targ_humanization",
+"targ_vulnerable_belief",
+"prosocial_selfless",
+"prosocial_courtesy",
+"prosocial_motivation_1")
+
+# Scale all continuous variables
+# Note: If you want the raw mean and sd after scaling, use: attributes(df$variable)$`scaled:center` and attributes(df$variable)$`scaled:scale`.
+wdf <- wdf %>% mutate_at(variables, scale)
+
+# For each variable, winsorize at +/-3 SD
+for (v in 1:length(variables)) {
+  col = which(colnames(wdf)==variables[v])
+  wdf[,col][wdf[,col] < -3] <- -3
+  wdf[,col][wdf[,col] > 3] <- 3
+}
+```
+
+# converting to long
+- create uniformly named variables for each message
+- generate a long dataframe that contains all trial-wise data
+
+```{r}
+# overall transportation
+average <- c("^transport.+1$", "^transport.+2$", "^transport.+3$", "^transport.+4$", "^transport.+5$")
+avg1 <- grep(average[1], names(wdf))
+avg2 <- grep(average[2], names(wdf))
+avg3 <- grep(average[3], names(wdf))
+avg4 <- grep(average[4], names(wdf))
+avg5 <- grep(average[5], names(wdf))
+wdf <-wdf %>% mutate(avg_transport_1 = rowMeans(wdf[avg1], na.rm = T))
+wdf <-wdf %>% mutate(avg_transport_2 = rowMeans(wdf[avg2], na.rm = T))
+wdf <-wdf %>% mutate(avg_transport_3 = rowMeans(wdf[avg3], na.rm = T))
+wdf <-wdf %>% mutate(avg_transport_4 = rowMeans(wdf[avg4], na.rm = T))
+wdf <-wdf %>% mutate(avg_transport_5 = rowMeans(wdf[avg5], na.rm = T))
+
+# cognitive transportation 
+cognitive <- c("^transport_([1-2]).+1$", "^transport_([1-2]).+2$", "^transport_([1-2]).+3$", "^transport_([1-2]).+4$", "^transport_([1-2]).+5$")
+cog1 <- grep(cognitive[1], names(wdf))
+cog2 <- grep(cognitive[2], names(wdf))
+cog3 <- grep(cognitive[3], names(wdf))
+cog4 <- grep(cognitive[4], names(wdf))
+cog5 <- grep(cognitive[5], names(wdf))
+wdf <-wdf %>% mutate(cog_transport_1 = rowMeans(wdf[cog1], na.rm = T))
+wdf <-wdf %>% mutate(cog_transport_2 = rowMeans(wdf[cog2], na.rm = T))
+wdf <-wdf %>% mutate(cog_transport_3 = rowMeans(wdf[cog3], na.rm = T))
+wdf <-wdf %>% mutate(cog_transport_4 = rowMeans(wdf[cog4], na.rm = T))
+wdf <-wdf %>% mutate(cog_transport_5 = rowMeans(wdf[cog5], na.rm = T))
+
+# general transportation 
+general <- c("^transport_3.+1$", "^transport_3.+2$", "^transport_3.+3$", "^transport_3.+4$", "^transport_3.+5$")
+gen1 <- grep(general[1], names(wdf))
+gen2 <- grep(general[2], names(wdf))
+gen3 <- grep(general[3], names(wdf))
+gen4 <- grep(general[4], names(wdf))
+gen5 <- grep(general[5], names(wdf))
+wdf <-wdf %>% mutate(gen_transport_1 = rowMeans(wdf[gen1], na.rm = T))
+wdf <-wdf %>% mutate(gen_transport_2 = rowMeans(wdf[gen2], na.rm = T))
+wdf <-wdf %>% mutate(gen_transport_3 = rowMeans(wdf[gen3], na.rm = T))
+wdf <-wdf %>% mutate(gen_transport_4 = rowMeans(wdf[gen4], na.rm = T))
+wdf <-wdf %>% mutate(gen_transport_5 = rowMeans(wdf[gen5], na.rm = T))
+
+# emotional transportation 
+emotional <- c("^transport_4.+1$", "^transport_4.+2$", "^transport_4.+3$", "^transport_4.+4$", "^transport_4.+5$")
+emo1 <- grep(emotional[1], names(wdf))
+emo2 <- grep(emotional[2], names(wdf))
+emo3 <- grep(emotional[3], names(wdf))
+emo4 <- grep(emotional[4], names(wdf))
+emo5 <- grep(emotional[5], names(wdf))
+wdf <-wdf %>% mutate(emo_transport_1 = rowMeans(wdf[emo1], na.rm = T))
+wdf <-wdf %>% mutate(emo_transport_2 = rowMeans(wdf[emo2], na.rm = T))
+wdf <-wdf %>% mutate(emo_transport_3 = rowMeans(wdf[emo3], na.rm = T))
+wdf <-wdf %>% mutate(emo_transport_4 = rowMeans(wdf[emo4], na.rm = T))
+wdf <-wdf %>% mutate(emo_transport_5 = rowMeans(wdf[emo5], na.rm = T))
+
+# imaginative transportation 
+imaginative <- c("^transport_5.+1$", "^transport_5.+2$", "^transport_5.+3$", "^transport_5.+4$", "^transport_5.+5$")
+img1 <- grep(imaginative[1], names(wdf))
+img2 <- grep(imaginative[2], names(wdf))
+img3 <- grep(imaginative[3], names(wdf))
+img4 <- grep(imaginative[4], names(wdf))
+img5 <- grep(imaginative[5], names(wdf))
+wdf <-wdf %>% mutate(img_transport_1 = rowMeans(wdf[img1], na.rm = T))
+wdf <-wdf %>% mutate(img_transport_2 = rowMeans(wdf[img2], na.rm = T))
+wdf <-wdf %>% mutate(img_transport_3 = rowMeans(wdf[img3], na.rm = T))
+wdf <-wdf %>% mutate(img_transport_4 = rowMeans(wdf[img4], na.rm = T))
+wdf <-wdf %>% mutate(img_transport_5 = rowMeans(wdf[img5], na.rm = T))
+
+## renaming variables from the narratives healthcare workers condition
+
+names(wdf)[which(colnames(wdf)=="c_msg_rel_self_1")] <- "relself_0_1"
+names(wdf)[which(colnames(wdf)=="c_msg_rel_social_1")] <- "relsocial_0_1"
+names(wdf)[which(colnames(wdf)=="c_msg_motiv_self_1")] <- "motivself_0_1"
+names(wdf)[which(colnames(wdf)=="c_msg_motiv_other_1")] <- "motivother_0_1"
+
+names(wdf)[which(colnames(wdf)=="c_msg_rel_self_2")] <- "relself_0_2"
+names(wdf)[which(colnames(wdf)=="c_msg_rel_social_2")] <- "relsocial_0_2"
+names(wdf)[which(colnames(wdf)=="c_msg_motiv_self_2")] <- "motivself_0_2"
+names(wdf)[which(colnames(wdf)=="c_msg_motiv_other_2")] <- "motivother_0_2"
+
+names(wdf)[which(colnames(wdf)=="c_msg_rel_self_3")] <- "relself_0_3"
+names(wdf)[which(colnames(wdf)=="c_msg_rel_social_3")] <- "relsocial_0_3"
+names(wdf)[which(colnames(wdf)=="c_msg_motiv_self_3")] <- "motivself_0_3"
+names(wdf)[which(colnames(wdf)=="c_msg_motiv_other_3")] <- "motivother_0_3"
+
+names(wdf)[which(colnames(wdf)=="c_msg_rel_self_4")] <- "relself_0_4"
+names(wdf)[which(colnames(wdf)=="c_msg_rel_social_4")] <- "relsocial_0_4"
+names(wdf)[which(colnames(wdf)=="c_msg_motiv_self_4")] <- "motivself_0_4"
+names(wdf)[which(colnames(wdf)=="c_msg_motiv_other_4")] <- "motivother_0_4"
+
+names(wdf)[which(colnames(wdf)=="c_msg_rel_self_5")] <- "relself_0_5"
+names(wdf)[which(colnames(wdf)=="c_msg_rel_social_5")] <- "relsocial_0_5"
+names(wdf)[which(colnames(wdf)=="c_msg_motiv_self_5")] <- "motivself_0_5"
+names(wdf)[which(colnames(wdf)=="c_msg_motiv_other_5")] <- "motivother_0_5"
+
+names(wdf) <- gsub("^c_msg_rel_self_1", "relself_1", names(wdf))
+names(wdf) <- gsub("^c_msg_rel_social_1", "relsocial_1", names(wdf))
+names(wdf) <- gsub("^c_msg_motiv_self_1", "motivself_1", names(wdf))
+names(wdf) <- gsub("^c_msg_motiv_other_1", "motivother_1", names(wdf))
+
+names(wdf) <- gsub("^c_msg_rel_self_2", "relself_2", names(wdf))
+names(wdf) <- gsub("^c_msg_rel_social_2", "relsocial_2", names(wdf))
+names(wdf) <- gsub("^c_msg_motiv_self_2", "motivself_2", names(wdf))
+names(wdf) <- gsub("^c_msg_motiv_other_2", "motivother_2", names(wdf))
+
+names(wdf) <- gsub("^c_msg_rel_self_3", "relself_3", names(wdf))
+names(wdf) <- gsub("^c_msg_rel_social_3", "relsocial_3", names(wdf))
+names(wdf) <- gsub("^c_msg_motiv_self_3", "motivself_3", names(wdf))
+names(wdf) <- gsub("^c_msg_motiv_other_3", "motivother_3", names(wdf))
+
+names(wdf) <- gsub("^c_msg_rel_self_4", "relself_4", names(wdf))
+names(wdf) <- gsub("^c_msg_rel_social_4", "relsocial_4", names(wdf))
+names(wdf) <- gsub("^c_msg_motiv_self_4", "motivself_4", names(wdf))
+names(wdf) <- gsub("^c_msg_motiv_other_4", "motivother_4", names(wdf))
+
+names(wdf) <- gsub("^c_msg_rel_self_5", "relself_5", names(wdf))
+names(wdf) <- gsub("^c_msg_rel_social_5", "relsocial_5", names(wdf))
+names(wdf) <- gsub("^c_msg_motiv_self_5", "motivself_5", names(wdf))
+names(wdf) <- gsub("^c_msg_motiv_other_5", "motivother_5", names(wdf))
+
+## Extracting the message-level variables into long format
+shares <- names(wdf[grep("^.+_share_1_(.*)", names(wdf))])
+long_share <- wdf %>% pivot_longer(
+                    cols = shares,
+                    names_to = c("cond", "msg"),
+                    names_pattern = "(..)_share_1_(.)",
+                    values_to = "share",
+                    values_drop_na = TRUE) %>% 
+           select(ID, msg, share)
+valences <- names(wdf[grep("^.+_valence_1_(.*)", names(wdf))])
+long_valence <- wdf %>% pivot_longer(
+                    cols = valences,
+                    names_to = c("cond", "msg"),
+                    names_pattern = "(..)_valence_1_(.)",
+                    values_to = "valence",
+                    values_drop_na = TRUE) %>% 
+           select(ID, msg, valence)
+long_rs <- wdf %>% pivot_longer(
+                    cols = starts_with("relself_"),
+                    names_to = c("cond", "msg"),
+                    names_pattern = "relself_(.)_(.)",
+                    values_to = "relself",
+                    values_drop_na = TRUE) %>% 
+           select(ID, msg, relself)
+long_ro <- wdf %>% pivot_longer(
+                    cols = starts_with("relsocial_"),
+                    names_to = c("cond", "msg"),
+                    names_pattern = "relsocial_(.)_(.)",
+                    values_to = "relsocial",
+                    values_drop_na = TRUE) %>% 
+           select(ID, msg, relsocial)
+long_ms <- wdf %>% pivot_longer(
+                    cols = starts_with("motivself_"),
+                    names_to = c("cond", "msg"),
+                    names_pattern = "motivself_(.)_(.)",
+                    values_to = "motivself",
+                    values_drop_na = TRUE) %>% 
+           select(ID, msg, motivself)
+long_mo <- wdf %>% pivot_longer(
+                    cols = starts_with("motivother_"),
+                    names_to = c("cond", "msg"),
+                    names_pattern = "motivother_(.)_(.)",
+                    values_to = "motivother",
+                    values_drop_na = TRUE) %>% 
+           select(ID, msg, motivother)
+long_ct <- wdf %>% pivot_longer(
+                    cols = starts_with("cog_transport_"),
+                    names_to = c("msg"),
+                    names_pattern = "cog_transport_(.)",
+                    values_to = "cog_trans",
+                    values_drop_na = TRUE) %>% 
+           select(ID, msg, cog_trans)
+long_gt <- wdf %>% pivot_longer(
+                    cols = starts_with("gen_transport_"),
+                    names_to = c("msg"),
+                    names_pattern = "gen_transport_(.)",
+                    values_to = "gen_trans",
+                    values_drop_na = TRUE) %>% 
+           select(ID, msg, gen_trans)
+long_et <- wdf %>% pivot_longer(
+                    cols = starts_with("emo_transport_"),
+                    names_to = c("msg"),
+                    names_pattern = "emo_transport_(.)",
+                    values_to = "emo_trans",
+                    values_drop_na = TRUE) %>% 
+           select(ID, msg, emo_trans)
+long_it <- wdf %>% pivot_longer(
+                    cols = starts_with("img_transport_"),
+                    names_to = c("msg"),
+                    names_pattern = "img_transport_(.)",
+                    values_to = "img_trans",
+                    values_drop_na = TRUE) %>% 
+           select(ID, msg, img_trans)
+long_at <- wdf %>% pivot_longer(
+                    cols = starts_with("avg_transport_"),
+                    names_to = c("msg"),
+                    names_pattern = "avg_transport_(.)",
+                    values_to = "avg_trans",
+                    values_drop_na = FALSE)
+
+## Merge all the dataframes
+long_all <- left_join(long_at, long_share, by = c("ID", "msg"))
+long_all <- left_join(long_all, long_valence, by = c("ID", "msg"))
+long_all <- left_join(long_all, long_rs, by = c("ID", "msg"))
+long_all <- left_join(long_all, long_ro, by = c("ID", "msg"))
+long_all <- left_join(long_all, long_ms, by = c("ID", "msg"))
+long_all <- left_join(long_all, long_mo, by = c("ID", "msg"))
+long_all <- left_join(long_all, long_ct, by = c("ID", "msg"))
+long_all <- left_join(long_all, long_gt, by = c("ID", "msg"))
+long_all <- left_join(long_all, long_et, by = c("ID", "msg"))
+long_all <- left_join(long_all, long_it, by = c("ID", "msg"))
+
+## Scale, winsorize, and view
+longvariables <- c("avg_trans",
+"share",
+"valence",
+"relself",
+"relsocial",
+"motivself",
+"motivother",
+"cog_trans",
+"gen_trans",
+"emo_trans",
+"img_trans")
+long_all <- long_all %>% mutate_at(longvariables, scale)
+for (v in 1:length(longvariables)) {
+  col = which(colnames(long_all)==longvariables[v])
+  long_all[,col][long_all[,col] < -3] <- -3
+  long_all[,col][long_all[,col] > 3] <- 3
+}
+
+View(long_all)
+```
+
+## Saving dataframes for analysis
+``` {r}
+write.csv(wdf,"~/Box Sync/CurrentProjects_Penn/COVID-19/Analysis/Narratives/Narratives_Pilot2/pilot_wide.csv", row.names = FALSE)
+#write.csv(long1,"~/Box Sync/CurrentProjects_Penn/COVID-19/Analysis/Narratives/Narratives_Pilot1/pilot_shares.csv", row.names = FALSE)
+#write.csv(long2,"~/Box Sync/CurrentProjects_Penn/COVID-19/Analysis/Narratives/Narratives_Pilot1/pilot_empathy_relmot.csv", row.names = FALSE)
+write.csv(long_all,"~/Box Sync/CurrentProjects_Penn/COVID-19/Analysis/Narratives/Narratives_Pilot2/pilot_long.csv", row.names = FALSE)
+```
+

@@ -1,0 +1,83 @@
+---
+output:
+  word_document: 
+      reference_docx: mystyle.docx
+bibliography: library.bib
+---
+
+# Budget justification 
+
+Funds from the NSF DDIG will be dedicated to paying participants. Each participant will earn \$2.50 as a guaranteed payment. There are two budget costs that will vary based on the participants' decisions and performance. The first is the bonus payment for the task itself, which will vary based on the condition participants' are assigned to and their performance. We are basing their average task performance on participants from our preliminary studies. Additionally, participants' bonus earnings from the follow-up questions about confidence will depend on their accuracy, so we use the average accuracy of participants from previous studies on the confidence measure to anticipate the costs for the confidence measure. Finally, Amazon Mechanical Turk charges a fee for using its services (20% of each worker's total compensation) and Turkprime charges $.02 + 5% of the workers' compensation for each participant. Dr. Apicella offers to cover the remaining costs of running the experiments that are not funded by the NSF. 
+
+```{r, message=F,  warning=F, echo = F}
+
+## Average performance from study 1 and 2 across all participants. 
+
+## Study 1: 52.79703
+## Study 2: 48.24659
+
+## Average performance of participants from pilot study with matching task across all 3 rounds within 60 seconds= 
+## 53.64688
+
+## Proportion of participants from previous studies guess correctly on conf = about 50% for all studies 
+
+
+study <- c("Study 1", "Study 2")
+guar <- c(2.5, 2.5)
+n <- c(3250, 3250)
+
+total_guar <- guar*n
+
+## for first part, averaging performance from study 1 and 2 across participants. for second part, using performance from pilot
+avg_perf <- c((52.79703+ 48.24659)/2 ,53.64688)
+
+## for the task bonus, multiplying average task performance from respective previous study by the sample size for that specific condition (1/2 for piece-rate, only 1/4 for competition since only half of the half earn it), by the payment for that condition. 
+## don't need to multiply/divide by time in seconds since we are using the same amount of time as previous studies.
+
+bonus_task <- c((.25*n[1]*avg_perf[1]*.04) + (.5*n[1]*avg_perf[1]*.02),.5*n[2]*avg_perf[2]*.04)
+
+avg_bonus_task <- .5*(bonus_task/n)
+conf_prop <- c(.5, .5)
+
+bonus_conf <- c(conf_prop[1]*n[1]*.25, conf_prop[2]*n[2]*.25)
+
+MC_prop <- c(1, 1)
+
+bonus_MC <- c(MC_prop[1]*n[1]*.25, MC_prop[2]*n[2]*.25)
+
+bonus_conf_MC <- bonus_conf + bonus_MC
+
+avg_bonus_conf_MC <- (bonus_conf + bonus_MC)/n
+
+avg_bonus <- avg_bonus_task + avg_bonus_conf_MC
+
+avg_pay <- guar + avg_bonus
+bonus <- bonus_conf_MC +bonus_task 
+
+Mturk_fees <- (total_guar + bonus_conf_MC + bonus_task)*.2
+
+Turkprime_fees <- n*((avg_pay*.05) + .02)
+
+Total <- total_guar + bonus_task + bonus_conf_MC + Mturk_fees + Turkprime_fees
+
+library(janitor)
+df <- data.frame(study, n, total_guar,  bonus, Mturk_fees, Turkprime_fees, Total) 
+
+
+df <- df %>%
+  adorn_totals("row")
+
+library(knitr)
+options(kableExtra.auto_format = FALSE)
+
+library(kableExtra)
+
+
+```
+
+<br><br><br><br> 
+
+```{r, echo = F}
+kable(df,  digits = 2, col.names = c("Study","N",  "Guaranteed payment", "Bonus payment", "MTurk fees", "Turkprime fees", "Total cost"), caption = "Table 1. Budget calculation", format.args = list(big.mark = ","))
+```
+

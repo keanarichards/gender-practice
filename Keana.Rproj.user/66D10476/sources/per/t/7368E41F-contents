@@ -1,0 +1,2006 @@
+---
+title: "Preparation Study 1"
+author: "Keana Richards"
+date: "March 26, 2019"
+output:
+  html_document:
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+---
+
+
+Started data collection on 6/22 @ 2:45 pm
+Completed data collection on 6/22 @ 8:22
+
+```{r, warning= F, message = F}
+library(tidyr)
+library(dplyr)
+library(readr)
+library(knitr)
+library(psych)
+library(Hmisc)
+library(summarytools)
+library(sandwich)
+library(MASS)
+library(skimr)
+library(gplots)
+library(gridExtra)
+library(ggridges)
+library(cowplot)
+library(colorspace)
+library(extrafont)
+library(plotly)
+library(ggpubr)
+library(officer)
+library(rvg)
+library(ggridges)
+
+extrafont::loadfonts(device="win")
+
+
+options(scipen=999)
+par(mar = c(2,2,2,2))
+```
+
+
+
+```{r, eval = F}
+Preparation_competitiveness_Study1_cleaned <- read_csv("C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/second_yr/practice_study/Preparation_competitiveness_Study1_cleaned.csv")
+
+
+
+
+Preparation_competitiveness_Study1_cleaned <- Preparation_competitiveness_Study1_cleaned %>% unite(reviewcount2, c(20:34))
+
+Preparation_competitiveness_Study1_cleaned <- Preparation_competitiveness_Study1_cleaned %>% unite(reviewcount3, c(21:36))
+
+Preparation_competitiveness_Study1_cleaned <- Preparation_competitiveness_Study1_cleaned %>% unite(reviewcount4, c(23:38))
+
+
+Preparation_competitiveness_Study1_cleaned <- Preparation_competitiveness_Study1_cleaned %>% unite(reviewcount5, c(25:40))
+
+
+Preparation_competitiveness_Study1_cleaned <- Preparation_competitiveness_Study1_cleaned %>% unite(reviewcount6, c(27:42))
+
+
+Preparation_competitiveness_Study1_cleaned <- Preparation_competitiveness_Study1_cleaned %>% unite(reviewcount7, c(29:44))
+
+Preparation_competitiveness_Study1_cleaned <- Preparation_competitiveness_Study1_cleaned %>% unite(reviewcount8, c(31:46))
+
+Preparation_competitiveness_Study1_cleaned <- Preparation_competitiveness_Study1_cleaned %>% unite(reviewcount9, c(33:48))
+
+Preparation_competitiveness_Study1_cleaned <- Preparation_competitiveness_Study1_cleaned %>% unite(reviewcount10, c(35:50))
+
+Preparation_competitiveness_Study1_cleaned <- Preparation_competitiveness_Study1_cleaned %>% unite(reviewcount11, c(37:52))
+
+Preparation_competitiveness_Study1_cleaned <- Preparation_competitiveness_Study1_cleaned %>% unite(reviewcount12, c(39:54))
+
+## creating task_comp_check_accnumber variable: how many comp check ?s about the task they got wrong 
+
+
+prep_cleaned$task_comp_check_acc <- ifelse(prep_cleaned$task_comp_check1 == "48", 0, ifelse(prep_cleaned$task_comp_check2 == "2", 1,  ifelse(prep_cleaned$task_comp_check2 == "66", 2, 3)))
+
+## creating pay_comp_check_acc variable: how many comp check ?s about the payment scheme they got wrong
+
+prep_cleaned$pay_comp_check_acc <- 0
+
+## if they enter $12 (correct answer), keep at current number wrong (0), otherwise, add 1 wrong 
+
+unique(prep_cleaned$Comp_check_comp2)
+
+prep_cleaned$pay_comp_check_acc <- ifelse(prep_cleaned$Comp_check_PR1 == "$12 ", prep_cleaned$pay_comp_check_acc, prep_cleaned$pay_comp_check_acc+ 1)
+
+## if they enter $14 (correct answer) or they have a blank (meaning they got the first ? correct), keep at current number wrong, otherwise, add 1 wrong 
+
+prep_cleaned$pay_comp_check_acc <- ifelse(prep_cleaned$comp_check_PR2 == "$14 " | is.na(prep_cleaned$comp_check_PR2), prep_cleaned$pay_comp_check_acc, prep_cleaned$pay_comp_check_acc+ 1)
+
+### repeating above for all 3 questions
+
+prep_cleaned$pay_comp_check_acc <- ifelse(prep_cleaned$Comp_check_comp1 == "$24 ", prep_cleaned$pay_comp_check_acc, prep_cleaned$pay_comp_check_acc+ 1)
+
+prep_cleaned$pay_comp_check_acc <- ifelse(prep_cleaned$Comp_check_comp2 == "$28 " | is.na(prep_cleaned$Comp_check_comp2), prep_cleaned$pay_comp_check_acc, prep_cleaned$pay_comp_check_acc+ 1)
+
+  
+prep_cleaned$pay_comp_check_acc <- ifelse(prep_cleaned$Comp_check_comp3 == "$0 ", prep_cleaned$pay_comp_check_acc, prep_cleaned$pay_comp_check_acc+ 1)
+
+
+prep_cleaned$pay_comp_check_acc <- ifelse(prep_cleaned$Comp_check_comp4 == "$0 " | is.na(prep_cleaned$Comp_check_comp4), prep_cleaned$pay_comp_check_acc, prep_cleaned$pay_comp_check_acc+ 1)  
+
+
+## "Number of comprehension check questions incorrect" (combining two vars above for total number of incorrect across both types of comprehension): 
+
+prep_cleaned$n_comp_wrong <- prep_cleaned$pay_comp_check_acc + prep_cleaned$task_comp_check_acc
+
+prep_cleaned$gender <- as.factor(prep_cleaned$gender)
+prep_cleaned$gender <- relevel(prep_cleaned$gender, ref = "Male")
+
+
+```
+
+
+# Calculating bonuses
+
+
+* Randomly assigning them to 1-4 for confidence/gender questions:
+
+```{r}
+
+prep_cleaned <- read.csv("C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/second_yr/practice_study/prep_cleaned.csv", stringsAsFactors=FALSE)
+
+prep_cleaned <- prep_cleaned[!duplicated(prep_cleaned$mturk_id),]
+
+prep_cleaned <-prep_cleaned[sample(1:nrow(prep_cleaned), replace = F), ]
+prep_cleaned$bonus_assn <- 0
+
+prep_cleaned$bonus_assn <- rep(1:4, 252, length.out = 1007)
+
+```
+
+
+* Do you think men or women in this study correctly solved more multiplication problems on average?
+
+Men (56.77) had a higher mean compared to women (49.33). 
+
+```{r, eval = F}
+
+describeBy(prep_cleaned$taskscore, prep_cleaned$gender)
+
+```
+
+* Do you think men or women in this study spent more time practicing/studying before completing the multiplication task?
+
+A larger proportion of women (29.70%) chose to practice/study compared to men (19.70%)
+
+```{r, eval = F}
+
+tbl2 <- table(prep_cleaned$prep_choice, prep_cleaned$gender, prep_cleaned$comp_choice)
+
+prop.table(tbl2)*100
+
+```
+
+
+* Do you think men or women in this study chose the tournament payment option more often?
+
+There was a larger proportion of men (9.41%) who chose to compete compared to women (5.94%)
+
+```{r, eval = F}
+
+
+tbl3 <- table(prep_cleaned$comp_choice, prep_cleaned$gender)
+prop.table(tbl3)*100
+
+```
+
+* If my performance is compared to that of all participants that completed the task, I think my score was...
+
+ Stored in variable conf_accuracy
+ 
+```{r, eval = F}
+
+prep_cleaned <- prep_cleaned %>% 
+  mutate(percent_rank = percent_rank(taskscore))
+
+prep_cleaned$conf_accuracy <- 0
+
+prep_cleaned$conf_rank <- (prep_cleaned$conf_rank/100)
+
+for (i in 1:1007) {
+if (prep_cleaned$percent_rank[i] >= prep_cleaned$conf_rank[i]) 
+  {prep_cleaned$conf_accuracy[i] <- "correct"
+
+} else if (prep_cleaned$percent_rank [i] < prep_cleaned$conf_rank[i]) 
+  {prep_cleaned$conf_accuracy[i] <- "incorrect"
+}
+}
+
+```
+
+* Tournament payoffs
+```{r, eval = F}
+set.seed(100)
+### filtered based on choice for tournament
+tourn_choice <- subset(prep_cleaned, comp_choice == "tournament", select = c(mturk_id, taskscore))
+
+#### randomly sort rows of DF
+
+tourn_choice <-tourn_choice[sample(1:nrow(tourn_choice), replace = F), ]
+
+### split DF in half 
+tourn_choice_split1 <- tourn_choice[1:77, c("mturk_id", "taskscore")]
+tourn_choice_split2 <- tourn_choice[78:154, c("mturk_id", "taskscore")]
+tourn_choice_split1$ID <- c(1:77)
+tourn_choice_split2$ID <- c(1:77)
+combined2 <- merge (tourn_choice_split1, tourn_choice_split2, by = "ID")
+
+### subtract round scores to determine winner 
+
+combined2$difference_score <- combined2$taskscore.x - combined2$taskscore.y
+
+###ID winners and put back in main dataset
+
+difference_score <- combined2$difference_score
+difference_score2 <- rep (difference_score)
+
+tourn_choice$difference_score <- difference_score
+
+
+difference_score <- append(difference_score, difference_score2)
+  
+for (i in 1:77) {
+if (tourn_choice$difference_score [i]> 0) {tourn_choice$W_L[i] <- "win"
+
+} else if (tourn_choice$difference_score [i]< 0)
+ {tourn_choice$W_L[i] <- "lose"
+  
+} else if (tourn_choice$difference_score [i] == 0) 
+{tourn_choice$W_L[i] <- "tie"}
+
+}
+
+
+for (i in 78:154) {
+  if (tourn_choice$difference_score [i]> 0) {tourn_choice$W_L[i] <- "lose"
+  
+  } else if (tourn_choice$difference_score [i]< 0)
+  {tourn_choice$W_L[i] <- "win"
+  
+  } else if (tourn_choice$difference_score [i] == 0) 
+  {tourn_choice$W_L[i] <- "tie"}
+  
+}
+
+tourn_choice <- tourn_choice[-sample(1:sum(tourn_choice$W_L == "tie"), size = sum(tourn_choice$W_L == "tie")/2, replace = F),]
+
+tourn_winners <- tourn_choice %>% filter(W_L == "win"| W_L == "tie")
+tourn_winners$tourn_payment <- 0
+
+tourn_winners$tourn_payment <- tourn_winners$taskscore*.20
+
+
+
+```
+
+
+* Piece-rate payoffs
+
+```{r, eval = F}
+### filtered based on piece rate choice
+PR_choice <- subset(prep_cleaned, comp_choice == "piece_rate", select = c(mturk_id, taskscore))
+
+## multiply by .10
+
+PR_choice$PR_pay <- PR_choice$taskscore*.10
+
+
+```
+
+
+* Merging based on worker ID:
+
+```{r, eval = F}
+total_payment <- left_join(prep_cleaned, PR_choice,by = "mturk_id")
+total_payment <-left_join(total_payment, tourn_winners, by = "mturk_id")
+
+## merging into one column
+total_payment$combined_pay <- coalesce(total_payment$tourn_payment, total_payment$PR_pay)
+## inserting $0 payment for people who lose tournaments
+
+total_payment$combined_pay <- ifelse(is.na(total_payment$combined_pay), 0, total_payment$combined_pay)
+
+## looking at bonus pay and whether it differs by gender, condition, and performance
+
+summary(r <- lm(combined_pay ~ gender+ Condition+ taskscore.x, data = total_payment))
+
+## over and above the effect of condition& performance, men earned more than women
+
+labels <- c("piece_rate" = "Piece Rate", "tournament" = "Tournament")
+
+panel4 <- ggplot(total_payment, aes(x = combined_pay, color = gender)) + geom_density() + scale_color_manual(values=c("Red","Blue"), name = "Gender") + facet_grid(.~comp_choice, labeller = as_labeller(c("piece_rate" = "Piece Rate", "tournament" = "Tournament")))+ labs(x = "Payment from Task", y= "Proportion")+ apatheme
+panel4
+
+total_payment %>%
+    group_by(gender) %>%
+    summarise(avg = mean(combined_pay))
+
+summary(lm(combined_pay ~total_review_count, data =total_payment))
+```
+
+
+
+* Exporting file:
+
+```{r, eval = F}
+
+write.csv(total_payment,'total_payment_output.csv')
+```
+
+# Summarizing data
+
+```{r, message = F, warning=F, echo = F}
+
+prep_cleaned <- read.csv("C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/second_yr/practice_study/prep_cleaned.csv", stringsAsFactors=FALSE)
+
+
+dfSummary(prep_cleaned)
+skim(prep_cleaned)
+
+
+```
+
+## Summary stats by gender
+
+```{r}
+group_by(prep_cleaned, gender) %>%
+ skim()
+
+```
+
+## Task performance by gender stats
+
+```{r}
+describeBy(prep_cleaned$taskscore, prep_cleaned$gender)
+
+```
+
+
+# Graphs
+
+
+## Task performance by gender
+
+```{r}
+
+
+gender <- ggplot(prep_cleaned, aes(x = taskscore, color = gender)) + geom_density() + scale_color_manual(values=c("Red","Blue"), name = "Gender")
+
+ggplotly(gender)
+ 
+```
+
+
+## Task performance by gender and competition choice:
+
+```{r}
+
+ggplot(prep_cleaned, aes(x = taskscore, color = gender)) + geom_density() + scale_color_manual(values=c("Red","Blue"), name = "Gender") + facet_grid(.~comp_choice)
+
+```
+
+
+
+## Overall proportion who chose to compete:
+
+```{r}
+
+dat <- dplyr::select(prep_cleaned,comp_choice) %>%
+    dplyr::count(comp_choice) %>%
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+ggplot(data = dat, aes(x = comp_choice), fill = comp_choice) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2))) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion')  
+
+
+
+```
+
+
+
+## Overall proportion who chose to prepare:
+
+```{r}
+
+dat <- dplyr::select(prep_cleaned,prep_choice) %>%
+    dplyr::count(prep_choice) %>%
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+ggplot(data = dat, aes(x = prep_choice), fill = prep_choice) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2))) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Preparation choice', y = 'Proportion')  
+
+```
+
+
+## Proportion who chose to prepare by gender:
+
+```{r, eval = F}
+
+dat <- dplyr::select(prep_cleaned,gender,prep_choice) %>%
+    dplyr::count(prep_choice,gender) %>%
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat
+
+ggplot(data = dat, aes(x = prep_choice, fill = gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Preparation choice', y = 'Proportion')  
+
+```
+
+
+## Proportion who compete by gender: 
+
+```{r, eval = F}
+dat <- dplyr::select(prep_cleaned,gender,comp_choice) %>%
+    dplyr::count(comp_choice,gender) %>%
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+ggplot(data = dat, aes(x = comp_choice, fill = gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion')  
+
+
+```
+
+## Proportion who compete by condition:
+```{r}
+dat <- dplyr::select(prep_cleaned,Condition, comp_choice) %>%
+    dplyr::count(Condition, comp_choice) %>%
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+ggplot(data = dat, aes(x = comp_choice, fill = Condition)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion')  
+
+
+```
+
+## Proportion who compete by gender and condition: 
+
+```{r, eval = F}
+
+dat <- dplyr::select(prep_cleaned,Condition, gender, comp_choice) %>%
+    dplyr::count(Condition, gender, comp_choice) %>%
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+ggplot(data = dat, aes(x = comp_choice,fill = gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion')  + facet_grid(.~Condition)
+
+
+```
+
+
+## Proportion who competed by gender and preparation choice:
+
+
+```{r, eval = F}
+dat <- dplyr::select(prep_cleaned,comp_choice, gender, prep_choice) %>%
+    dplyr::count(comp_choice, gender, prep_choice) %>%
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+ggplot(data = dat, aes(x = comp_choice,fill = gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion')  + facet_grid(.~prep_choice)
+
+
+```
+
+
+
+## Choice to prepare for women (% of total within each gender):
+
+```{r}
+
+dat <- dplyr::select(prep_cleaned,gender,prep_choice) %>%
+    dplyr::count(prep_choice,gender) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat
+
+ggplot(data = dat, aes(x = prep_choice)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Preparation choice', y = 'Proportion')  
+
+```
+
+## Choice to prepare for men (% of total within each gender):
+
+```{r}
+dat <- dplyr::select(prep_cleaned,gender,prep_choice) %>%
+    dplyr::count(prep_choice,gender) %>% filter(gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+ggplot(data = dat, aes(x = prep_choice)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Preparation choice', y = 'Proportion')  
+
+```
+
+## Choice to compete within women:
+
+```{r}
+dat <- dplyr::select(prep_cleaned,gender,comp_choice) %>%
+    dplyr::count(comp_choice,gender) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+ggplot(data = dat, aes(x = comp_choice)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion')  
+
+```
+
+## Choice to compete within men: 
+
+
+```{r}
+dat <- dplyr::select(prep_cleaned,gender,comp_choice) %>%
+    dplyr::count(comp_choice,gender) %>% filter(gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+ggplot(data = dat, aes(x = comp_choice)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion')  
+
+```
+
+## Choice to compete within women by condition:
+
+
+```{r}
+dat <- dplyr::select(prep_cleaned,gender,comp_choice, Condition) %>%
+    dplyr::count(comp_choice,gender, Condition) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+ggplot(data = dat, aes(x = comp_choice, fill = Condition)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion') 
+```
+
+
+## Choice to compete within men by condition:
+
+```{r}
+dat <- dplyr::select(prep_cleaned,gender,comp_choice, Condition) %>%
+    dplyr::count(comp_choice,gender, Condition) %>% filter(gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+ggplot(data = dat, aes(x = comp_choice, fill = Condition)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion') 
+```
+
+## Choice to compete within women by condition and preparation choice: 
+
+```{r}
+dat <- dplyr::select(prep_cleaned,gender,comp_choice, Condition, prep_choice) %>%
+    dplyr::count(comp_choice,gender, Condition, prep_choice) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+ggplot(data = dat, aes(x = comp_choice, fill = Condition)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion') + facet_grid(.~prep_choice)
+
+
+
+dat <- dplyr::select(prep_cleaned,gender,comp_choice, prep_choice) %>%
+    dplyr::count(comp_choice,gender, prep_choice) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat
+```
+
+
+
+## Choice to compete within men by condition and preparation choice: 
+
+```{r}
+dat <- dplyr::select(prep_cleaned,gender,comp_choice, Condition, prep_choice) %>%
+    dplyr::count(comp_choice,gender, Condition, prep_choice) %>% filter(gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+ggplot(data = dat, aes(x = comp_choice, fill = Condition)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion') + facet_grid(.~prep_choice)
+
+```
+
+
+## 3.4 (Proportion who chose to prepare by gender) recreated in relative terms (based on proportion within gender - e.g., 44.55% of women, rather than all participants, chose to prepare):
+
+```{r}
+
+prep_cleaned$comp_choice <- ifelse(prep_cleaned$comp_choice == "tournament", "Tournament", "Piece-rate")
+
+dat <- dplyr::select(prep_cleaned,gender,prep_choice) %>%
+    dplyr::count(gender, prep_choice) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(prep_cleaned,gender,prep_choice) %>%
+    dplyr::count(gender, prep_choice) %>% filter(gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat <- rbind(dat1, dat)
+
+
+
+ggplot(data = dat, aes(x = prep_choice, fill = gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Preparation choice', y = 'Proportion')  
+
+
+dat <- dat %>% filter (prep_choice == "Yes")
+
+
+apatheme=theme_bw()+
+  theme(panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        panel.border=element_blank(),
+        axis.line=element_line(),
+        text=element_text(family="serif", size = 18),axis.text=element_text(size=14),
+        legend.title=element_blank())
+
+
+
+panel1 <- ggplot(data = dat, aes(x = gender, fill = gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% Preparing') + apatheme+ scale_y_continuous(limits = c(0, 100)) + guides(fill = F) +scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+panel1
+
+```
+
+
+## 3.5 recreated (Proportion who compete by gender) in relative terms:
+
+```{r}
+dat <- dplyr::select(prep_cleaned,gender,comp_choice) %>%
+    dplyr::count(gender, comp_choice) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(prep_cleaned,gender,comp_choice) %>%
+    dplyr::count(gender, comp_choice) %>% filter(gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat <- rbind(dat1, dat)
+
+ggplot(data = dat, aes(x = comp_choice, fill = gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = '% Preparing')  
+```
+
+## 3.7 recreated (Proportion who compete by gender and condition) in relative terms: 
+```{r}
+
+dat <- dplyr::select(prep_cleaned,gender,comp_choice, Condition) %>%
+    dplyr::count(gender, comp_choice, Condition) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(prep_cleaned,gender,comp_choice, Condition) %>%
+    dplyr::count(gender, comp_choice, Condition) %>% filter(gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat <- rbind(dat1, dat)
+
+dat <- dat %>% filter (comp_choice == "tournament")
+
+
+
+panel11 <- ggplot(data = dat, aes(x = Condition, fill = gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9)) + apatheme+
+     geom_text(x = 1.5, y = 100, label = "***") + 
+    labs(x = 'Condition', y = '% Competing') +scale_fill_manual(values=c("springgreen3", "slateblue1"))
+panel11
+```
+
+
+## 3.8 (Proportion who competed by gender and preparation choice) recreated in relative terms: 
+
+```{r}
+
+dat <- dplyr::select(prep_cleaned,gender,comp_choice, prep_choice) %>%
+    dplyr::count(gender,comp_choice, prep_choice) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(prep_cleaned,gender,comp_choice, prep_choice) %>%
+    dplyr::count(gender,comp_choice, prep_choice) %>% filter(gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat <- rbind(dat1, dat)
+
+
+ggplot(data = dat, aes(x = comp_choice,fill = gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_text(aes(y = percent*100 + 6, label = round(percent*100, 2)), position = position_dodge(width = .5)) + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Competition choice', y = 'Proportion')  + facet_grid(.~prep_choice)
+
+```
+
+
+## fig2: Choice to prepare based on gender & preparation choice in relative terms (within gender & comp choice)
+
+
+```{r}
+
+prep_cleaned$gender  <- factor(prep_cleaned$gender  , ordered = FALSE )
+
+
+prep_cleaned$gender <- relevel(prep_cleaned$gender, ref = "Female")
+
+## subsetting based on female & tournament 
+
+dat <- dplyr::select(prep_cleaned,gender,comp_choice, prep_choice) %>%
+    dplyr::count(gender,comp_choice, prep_choice) %>% filter(gender == "Female") %>% filter(comp_choice == "Tournament") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+## subsetting based on F & PR
+
+
+dat1 <- dplyr::select(prep_cleaned,gender,comp_choice, prep_choice) %>%
+    dplyr::count(gender,comp_choice, prep_choice) %>% filter(gender == "Female") %>% filter(comp_choice == "Piece-rate") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+
+## repeat above for M
+
+
+dat2 <- dplyr::select(prep_cleaned,gender,comp_choice, prep_choice) %>%
+    dplyr::count(gender,comp_choice, prep_choice) %>% filter(gender == "Male") %>% filter(comp_choice == "Tournament") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+
+dat3 <- dplyr::select(prep_cleaned,gender,comp_choice, prep_choice) %>%
+    dplyr::count(gender,comp_choice, prep_choice) %>% filter(gender == "Male") %>% filter(comp_choice == "Piece-rate") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+
+
+
+# combining 
+
+dat <- rbind(dat1, dat, dat2, dat3)
+
+## subsetting based on choice to prepare = yes 
+
+dat <- dat %>% filter (prep_choice == "Yes")
+## plot with error bars
+
+ggplot(data = dat, aes(x = comp_choice,fill = gender))+ geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity")  + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) +apatheme+ scale_y_continuous(limits = c(0, 100)) +
+    labs(x = 'Competition choice', y = '% Preparing')  +scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+
+
+```
+
+
+## Choice to prepare based on gender within control group
+
+
+
+```{r}
+
+control_subset <- prep_cleaned %>% filter(Condition == "Control")
+dat <- dplyr::select(control_subset,gender,prep_choice) %>%
+    dplyr::count(gender, prep_choice) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(control_subset,gender,prep_choice) %>%
+    dplyr::count(gender, prep_choice) %>% filter(gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat <- rbind(dat1, dat)
+
+
+
+dat <- dat %>% filter (prep_choice == "Yes")
+
+
+ggplot(data = dat, aes(x = gender, fill = gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% Preparing') + apatheme+ scale_y_continuous(limits = c(0, 100)) + guides(fill = F) +scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+
+```
+
+## Choice to prepare based on gender & preparation choice in relative terms (within gender & comp choice) for participants in the control group
+
+
+```{r}
+dat <- dplyr::select(control_subset,gender,comp_choice, prep_choice) %>%
+    dplyr::count(gender,comp_choice, prep_choice) %>% filter(gender == "Female") %>% filter(comp_choice == "Tournament") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+dat1 <- dplyr::select(control_subset,gender,comp_choice, prep_choice) %>%
+    dplyr::count(gender,comp_choice, prep_choice) %>% filter(gender == "Female") %>% filter(comp_choice == "Piece-rate") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+dat2 <- dplyr::select(control_subset,gender,comp_choice, prep_choice) %>%
+    dplyr::count(gender,comp_choice, prep_choice) %>% filter(gender == "Male")%>% filter(comp_choice == "Tournament") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+dat3 <- dplyr::select(control_subset,gender,comp_choice, prep_choice) %>%
+    dplyr::count(gender,comp_choice, prep_choice) %>% filter(gender == "Male") %>% filter(comp_choice == "Piece-rate") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+
+dat <- rbind(dat1, dat, dat2, dat3)
+
+dat <- dat %>% filter (prep_choice == "Yes")
+
+
+
+ggplot(data = dat, aes(x = comp_choice,fill = gender))+ geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity")  + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.2,
+                 position=position_dodge(.9)) +apatheme+ scale_y_continuous(limits = c(0, 100)) +
+    labs(x = 'Competition choice', y = '% Preparing')  +scale_fill_manual(values=c("springgreen3", "slateblue1"))
+
+
+
+
+```
+
+
+
+
+# Testing hypotheses
+
+## Primary hypothesis 1: No significant interaction between gender and condition. Condition does not have significant effect on competition choice. Significant effect of gender where men are 121% more likely to compete compared to women. 
+
+```{r}
+
+prep_cleaned$gender <- factor(prep_cleaned$gender)
+prep_cleaned$comp_choice <- factor(prep_cleaned$comp_choice)
+prep_cleaned$Condition <- factor(prep_cleaned$Condition)
+
+
+p1 = glm(as.factor(comp_choice) ~ Condition*gender,family=binomial,data = prep_cleaned)
+anova(p1,test='Chisq')
+summary(p1)
+```
+
+ORs and 95% CIs: 
+
+```{r}
+
+exp(cbind(OR = coef(p1), confint(p1)))
+
+
+```
+
+## Primary hypothesis 1 while controlling for task score - gender is still a significant predictor (task score also significant predictor):
+
+```{r}
+p1 = glm(as.factor(comp_choice) ~ Condition*gender + taskscore,family=binomial,data = prep_cleaned)
+anova(p1,test='Chisq')
+summary(p1)
+```
+
+
+
+## Primary hypothesis 2: Men are 41% less likely to choose to prepare compare to women.
+
+
+```{r}
+
+prep_cleaned$gender <- factor(prep_cleaned$gender)
+prep_cleaned$comp_choice <- factor(prep_cleaned$comp_choice)
+prep_cleaned$Condition <- factor(prep_cleaned$Condition)
+
+
+p2 = glm(as.factor(prep_choice) ~ gender,family=binomial,data = prep_cleaned)
+summary(p2)
+
+
+```
+
+
+ORs and 95% CIs: 
+```{r}
+exp(cbind(OR = coef(p2), confint(p2)))
+
+```
+
+## Primary hypothesis 2 while controlling for taskscore - gender still significant predictor of choice to prepare (task score NS predictor while controlling for gender):
+
+```{r}
+
+p2 = glm(as.factor(prep_choice) ~ gender + taskscore,family=binomial,data = prep_cleaned)
+summary(p2)
+```
+
+
+
+## Primary hypothesis 3: Women are significantly more likely to review the problems more often. Men choose to review 57% of the amount women choose to review. 
+
+Note: Review count variable is a count of the number of times in total they chose to practice problems for a specific times table (1 is for each time they say yes to either the initial practice or the question of whether they would like to continue)
+
+
+
+```{r}
+ggplot(prep_cleaned, aes(logtotal_rev_count, fill = gender)) +
+  geom_histogram(binwidth=.5, position="dodge")
+
+
+
+prep_cleaned %>%
+    group_by(gender) %>%
+    summarise_each(funs(mean(.,na.rm=TRUE)), reviewcount1:reviewcount12)
+
+
+
+prep_cleaned %>%
+    group_by(gender) %>%
+    summarise_each(funs(mean(.,na.rm=TRUE)), total_review_count)
+
+
+
+
+View(prep_cleaned[which.max(prep_cleaned$total_review_count), ])
+
+
+
+
+prep_cleaned_out<- prep_cleaned[-which.max(prep_cleaned$total_review_count), ]
+
+
+summary(glm(as.factor(prep_choice) ~ gender, family = binomial, data = prep_cleaned_out))
+
+summary(glm(as.factor(prep_choice) ~ gender*comp_choice, family = binomial, data = prep_cleaned_out))
+
+
+summary(r <-glm(total_review_count ~ comp_choice*gender,family="poisson",data = prep_cleaned_out))
+
+summary(r <-glm(total_review_count ~ comp_choice*gender,family="poisson",data = prep_cleaned))
+exp(coef(r))
+
+
+
+
+summary(m1 <- glm(total_review_count ~ gender, family="poisson", data=prep_cleaned))
+prep_cleaned[,max(prep_cleaned$total_review_count)]
+
+exp(coef(m1))
+
+cov.m1 <- vcovHC(m1, type="HC0")
+std.err <- sqrt(diag(cov.m1))
+r.est <- cbind(Estimate= coef(m1), "Robust SE" = std.err,
+"Pr(>|z|)" = 2 * pnorm(abs(coef(m1)/std.err), lower.tail=FALSE),
+LL = coef(m1) - 1.96 * std.err,
+UL = coef(m1) + 1.96 * std.err)
+r.est
+```
+
+Plotting relationship between choice to compete, gender, & total review count
+
+```{r}
+library(plyr)
+
+
+library(readr)
+library(tidyr)
+library(ggplot2)
+library(Hmisc)
+library(plyr)
+library(RColorBrewer)
+library(reshape2)
+source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+
+### https://micahallen.org/2018/03/15/introducing-raincloud-plots/
+
+raincloud_theme = theme(
+text = element_text(size = 10),
+axis.title.x = element_text(size = 16),
+axis.title.y = element_text(size = 16),
+axis.text = element_text(size = 14),
+axis.text.x = element_text(angle = 45, vjust = 0.5),
+legend.title=element_text(size=16),
+legend.text=element_text(size=16),
+legend.position = "right",
+plot.title = element_text(lineheight=.8, face="bold", size = 16),
+panel.border = element_blank(),
+panel.grid.minor = element_blank(),
+panel.grid.major = element_blank(),
+axis.line.x = element_line(colour = 'black', size=0.5, linetype='solid'),
+axis.line.y = element_line(colour = 'black', size=0.5, linetype='solid'))
+
+
+## calculating sem within gender
+
+lb <- function(x){mean(x) - sd(x)}
+ub <- function(x) {mean(x) + sd(x)} 
+
+
+
+dat <- ddply(prep_cleaned, ~ gender, summarise, avg = mean(logtotal_rev_count), lower = lb(logtotal_rev_count), upper = ub(logtotal_rev_count))
+  
+
+panel10 <- ggplot(data = prep_cleaned, aes(y = logtotal_rev_count, x = gender, fill = gender)) +
+geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .8) +
+geom_point(aes(y = logtotal_rev_count, color = gender), position = position_jitter(width = .15), size = 1, alpha = 0.8) +
+geom_point(data = dat, aes(x = gender, y = avg, color = gender), position = position_nudge(x = 0.3), size = 2.5) +expand_limits(x = 5.25) +
+guides(fill = FALSE) +
+guides(color = FALSE) +
+scale_color_brewer(palette = "Dark2") +
+scale_fill_brewer(palette = "Dark2") +
+theme_bw() +facet_wrap(~comp_choice)
+
+
+
+
+
+
+summary(prep_cleaned$total_review_count)
+
+prep_cleaned %>% filter(total_review_count > 0) %>% select(total_review_count) %>% summary(.)
+
+prep_cleaned$logtotal_rev_count <- log10(prep_cleaned$total_review_count +1)
+
+
+n1 <- ggplot(nigeria, aes(x = Age, y = Population, fill = Gender)) + 
+  geom_bar(subset = .(Gender == "Female"), stat = "identity") + 
+  geom_bar(subset = .(Gender == "Male"), stat = "identity") + 
+  scale_y_continuous(breaks = seq(-15000000, 15000000, 5000000), 
+                     labels = paste0(as.character(c(seq(15, 0, -5), seq(5, 15, 5))), "m")) + 
+  coord_flip() + 
+  scale_fill_brewer(palette = "Set1") + 
+  theme_bw()
+
+hum.names <- as_labeller(c(`piece_rate` = "Piece rate", `tournament` = "Tournament"))
+
+
+dat = prep_cleaned%>%
+  group_by(gender) %>%
+  summarise (n = n()) %>%
+  mutate(freq = n / sum(n))
+
+
+ggplot(prep_cleaned, aes(logtotal_rev_count, fill = gender)) + geom_histogram(binwidth = .25) + facet_grid(gender ~ 
+    ., margins = TRUE, scales = "free")
+
+
+
+panel13 <- ggplot(prep_cleaned, aes(logtotal_rev_count, fill = gender))+
+  geom_histogram(aes(y=c(..count..[..group..=="Female"]/sum(..count..[..group..=="Female"]),
+                         ..count..[..group..=="Male"]/sum(..count..[..group..=="Male"]))*100),binwidth=.5, position = "dodge2")+ scale_fill_manual(values=c("springgreen3", "slateblue1"))  + apatheme
+panel13
+
+
+
+ggplot(prep_cleaned, fill = gender) +geom_bar(mapping = aes(x=logtotal_rev_count, y=..prop..), position = "dodge")
+  
+  
+  
+  geom_bar(aes(y = ..count../sum(..count..))+ facet_wrap(~comp_choice, labeller =hum.names) + apatheme 
+
+
+
+
+ggplot(prep_cleaned, aes(x = Stage, y = Users, fill = Gender)) +   # Fill column
+                              geom_bar(stat = "identity", width = .6) +   # draw the bars
+                              scale_y_continuous(breaks = brks,   # Breaks
+                                                 labels = lbls) + # Labels
+                              coord_flip() +  # Flip axes
+                              labs(title="Email Campaign Funnel") +
+                              theme_tufte() +  # Tufte theme from ggfortify
+                              theme(plot.title = element_text(hjust = .5), 
+                                    axis.ticks = element_blank()) +   # Centre plot title
+                              scale_fill_brewer(palette = "Dark2")  # Color palette
+install.packages("ggpol")
+library(ggpol)
+
+ggplot(prep_cleaned, aes(x = logtotal_rev_count, fill = Gender)) +
+  geom_bar(data = subset(prep_cleaned, gender = "Male"), fill = "blue") +
+  geom_bar(data = subset(prep_cleaned, gender = "Female"), aes(y=..count..*(-1)), fill = "red")+
+  coord_flip() +
+  theme_minimal() +
+  labs(y = "Count", x = "Age Band", title = " ")
+  
+  
+  
+  
+    scale_color_manual(c("pink","blue"))
+  
+  
+  
+  
+  scale_fill_manual(values = c("pink", "blue"))
+
+
+
+
+ggplot(data = prep_cleaned, aes(x = logtotal_rev_count, fill = gender)) +
+geom_histogram(data=subset(prep_cleaned,gender=="Male"), y = ..count..) +
+geom_histogram(data=subset(prep_cleaned,gender=="Female"), y = ..count..((*-1)) +
+xlab("Count") +
+coord_flip() +
+theme(text = element_text(size=16)) +
+scale_fill_brewer(palette="Dark2") +
+facet_wrap(~comp_choice)
+
+
+scale_y_continuous(breaks=seq(-40,40,10),labels=abs(seq(-40,40,10))) +
+
+summary(prep_cleaned$logtotal_rev_count)
+
+install.packages('plotrix')
+library(plotrix)
+
+f_count <- prep_cleaned %>% filter(gender == "Female") %>% select(logtotal_rev_count)
+
+m_count<- prep_cleaned %>% filter(gender == "Male") %>% select(logtotal_rev_count)
+
+pyramid.plot(f_count$logtotal_rev_count, m_count$logtotal_rev_count)
+
+
+```
+
+
+
+## Primary hypothesis 3 while controlling for taskscore - both gender and task score significantly predict total review count:
+
+## negative binomial with predicted counts plot
+
+
+```{r}
+library(AER)
+library(MASS)
+
+summary(m3 <- glm(total_review_count ~ gender, family="poisson", data=prep_cleaned))
+
+
+summary(m1 <- glm(total_review_count ~ gender, family="quasipoisson", data=prep_cleaned))
+dispersiontest(m1)
+summary(m1 <- glm(total_review_count ~ gender + taskscore, family="poisson", data=prep_cleaned))
+
+
+summary(m1 <- glm.nb(total_review_count ~ gender, data = prep_cleaned))
+
+
+pchisq(2 * (logLik(m1) - logLik(m3)), df = 1, lower.tail = FALSE)
+
+## creating predicted plot
+
+install.packages("effects")
+library(effects)
+
+panel50 <- plot(allEffects(m1))
+
+
+install.packages("vcd")
+library(vcd)
+
+
+summ(m1, exp = T)
+
+summary(fit0 <- goodfit(prep_cleaned$total_rev_count, type = "nbinomial"))
+
+
+plot(fit0, type = "standing")
+
+
+summary(glm.nb(total_review_count ~ gender + taskscore, data = prep_cleaned))
+
+
+r <- summary(glm.nb(total_review_count ~ gender*comp_choice, data = prep_cleaned))
+exp(coef(r))
+summary(lm(taskscore~gender, data = prep_cleaned))
+
+
+
+```
+
+
+## Primary hypothesis 4: Participants are significantly more likely to think that women prepared for the task compared to men. 
+
+```{r}
+
+
+
+dat <- dplyr::select(prep_cleaned, gender_prep) %>%
+    dplyr::count(gender_prep) %>%  mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+panel6 <- ggplot(data = dat, aes(x = gender_prep, fill = gender_prep))  + 
+    labs(x = 'Gender', y = 'Who prepares more? (%)')  + apatheme + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") +
+     geom_text(x = 1.5, y = 100, label = "***") + guides (fill = F)+
+    geom_bar(aes(y = percent*100,
+             position = "dodge", stat = "identity"),     position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9))
+
+panel6
+
+
+
+dt1 <- table(prep_cleaned$gender_prep, prep_cleaned$gender)
+dt1
+
+chisq.test(dt1)
+
+summary(glm(as.factor(gender_prep)~gender + prep_choice, data = prep_cleaned, family = binomial))
+
+
+```
+
+
+## Exploratory 1: Gender, risk, and confidence all significantly predict competition choice. 
+
+```{r}
+e1 = glm(as.factor(comp_choice) ~ gender+ risk + conf_rank,family=binomial,data = prep_cleaned)
+
+
+summary(e1)
+
+```
+
+## Exploratory 1 with task score controlled for (effect of gender and confidence are NS when controlling for task score, risk and task score still significant predictors):
+
+```{r}
+e1 = glm(as.factor(comp_choice) ~ gender+ risk + conf_rank + taskscore,family=binomial,data = prep_cleaned)
+summary(e1)
+
+```
+
+
+## Exploratory 2: When controlling for all other variables (gender, condition, gender*condition), the only two that are significant are risk and confidence. 
+
+```{r}
+e2 = glm(as.factor(comp_choice) ~ gender+ risk + conf_rank + Condition + gender*Condition,family=binomial,data = prep_cleaned)
+summary(e2)
+```
+
+## Exploratory 3: Amount of time reviewing problems does not seem to have a significant effect on confidence. 
+
+```{r}
+
+## linear regression instead of originally proposed ordinal
+
+
+e3 <- lm(conf_rank~total_review_count, data = prep_cleaned)
+summary(e3)
+library(dplyr)
+prep_cleaned %>% filter(total_review_count > 0) %>% summarize(mean = mean(total_review_count))
+```
+
+
+## Exploratory 4: Both reviewing problems and gender predict choice to compete. 
+
+```{r}
+
+
+e4 = glm(as.factor(comp_choice) ~ total_review_count+gender,family=binomial,data = prep_cleaned)
+summary(e4)
+
+```
+
+## Exploratory 4 controlling for task score - all predictors significant:
+
+```{r}
+
+e4 = glm(as.factor(comp_choice) ~ total_review_count + gender + taskscore,family=binomial,data = prep_cleaned)
+summary(e4)
+```
+
+
+
+## Exploratory 5: All gender effects in relation to the calculator questions are NS, with the exception of the last one, where participants think men were more likely to choose to use a calculator. This is driven by men being far less likely to think that women are going to use a calculator. 
+
+```{r}
+### Calc1: I think use a calculator would help you answer the multiplication questions... 
+
+t1 <- table(prep_cleaned$calc1, prep_cleaned$gender)
+
+kable(t1, col.names = c("Quality of life", "Proportion"), digits = 2) %>% save_kable("test.png")
+
+
+table(prep_cleaned$calc1, prep_cleaned$gender)
+balloonplot(t(t1), main ="Calc1", xlab ="", ylab="", rowmar = 10,
+            label = FALSE, show.margins = FALSE)
+chisq.test(t1)
+
+
+
+### Calc2: Did you use a calculator to complete the multiplication task (note: this will not affect your payment)?
+t1 <- table(prep_cleaned$calc2, prep_cleaned$gender)
+table(prep_cleaned$calc2, prep_cleaned$gender)
+balloonplot(t(t1), main ="Calc2?", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+chisq.test(t1)
+
+
+
+
+
+### Calc3: Do you think other participants used a calculator to complete the multiplication task?
+t1 <- table(prep_cleaned$calc3, prep_cleaned$gender)
+table(prep_cleaned$calc3, prep_cleaned$gender)
+balloonplot(t(t1), main ="Calc3", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+chisq.test(t1)
+
+
+### Calc4: I think using a calculator would help others answer the multiplication questions...
+
+t1 <- table(prep_cleaned$calc4, prep_cleaned$gender)
+table(prep_cleaned$calc4, prep_cleaned$gender)
+balloonplot(t(t1), main ="Calc4", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+chisq.test(t1)
+
+
+
+
+### Calc5: Do you think men or women might have used a calculator more often for the multiplication task?
+
+t1 <- table(prep_cleaned$calc5, prep_cleaned$gender)
+table(prep_cleaned$calc5, prep_cleaned$gender)
+balloonplot(t(t1), main ="Calc5", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+chisq.test(t1)
+
+
+
+```
+
+## Exploratory 6: No significant differences across preparation choice and calculator use questions. 
+
+```{r}
+### Calc1: I think use a calculator would help you answer the multiplication questions... 
+
+t1 <- table(prep_cleaned$calc1, prep_cleaned$prep_choice)
+table(prep_cleaned$calc1, prep_cleaned$prep_choice)
+balloonplot(t(t1), main ="Calc", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+chisq.test(t1)
+
+
+
+### Calc2: Did you use a calculator to complete the multiplication task (note: this will not affect your payment)?
+t1 <- table(prep_cleaned$calc2, prep_cleaned$prep_choice)
+table(prep_cleaned$calc2, prep_cleaned$prep_choice)
+balloonplot(t(t1), main ="Calc2", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+chisq.test(t1)
+
+
+
+
+
+### Calc3: Do you think other participants used a calculator to complete the multiplication task?
+t1 <- table(prep_cleaned$calc3, prep_cleaned$prep_choice)
+table(prep_cleaned$calc3, prep_cleaned$prep_choice)
+balloonplot(t(t1), main ="Calc3", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+chisq.test(t1)
+
+
+### Calc4: I think using a calculator would help others answer the multiplication questions...
+
+t1 <- table(prep_cleaned$calc4, prep_cleaned$prep_choice)
+table(prep_cleaned$calc4, prep_cleaned$prep_choice)
+balloonplot(t(t1), main ="Calc4", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+chisq.test(t1)
+
+
+
+
+### Calc5: Do you think men or women might have used a calculator more often for the multiplication task?
+
+t1 <- table(prep_cleaned$calc5, prep_cleaned$prep_choice)
+table(prep_cleaned$calc5, prep_cleaned$prep_choice)
+balloonplot(t(t1), main ="Calc5", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+chisq.test(t1)
+
+
+
+```
+
+## Exploratory 7: Differences in perceptions of performance by gender is NS.
+
+```{r}
+
+
+ dat <- dplyr::select(prep_cleaned,gender_perform, gender) %>%   dplyr::count(gender, gender_perform) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(prep_cleaned,gender_perform, gender) %>% 
+    dplyr::count(gender, gender_perform) %>% filter(gender == "Male") %>% 
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat, dat1)
+
+panel7 <- ggplot(data = dat, aes(x = gender_perform, fill = gender))  + 
+    labs(x = 'Gender', y = 'Who performs better? (%)')  + apatheme + scale_y_continuous(limits = c(0, 100))+
+     geom_text(x = 1.5, y = 100, label = "ns") + 
+    geom_bar(aes(y = percent*100,
+             position = "dodge", stat = "identity"),     position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9))
+
+panel7
+
+
+dt2 <- table(prep_cleaned$gender_perform, prep_cleaned$gender)
+
+prop.table(dt2)
+chisq.test(dt2)
+
+
+balloonplot(t(dt2), main ="Perceptions of performance based on gender", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+
+summary(glm(as.factor(gender_perform)~gender, family = binomial, data = prep_cleaned))
+```
+
+# Supplemental tests
+
+## People expect men to compete more often
+
+```{r}
+
+ dat <- dplyr::select(prep_cleaned,gender_compete, gender) %>%   dplyr::count(gender, gender_compete) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(prep_cleaned,gender_compete, gender) %>% 
+    dplyr::count(gender, gender_compete) %>% filter(gender == "Male") %>% 
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat, dat1)
+
+dat
+panel20 <- ggplot(data = dat, aes(x = gender_compete, fill = gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05, position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% Believe Women Prepare More')  + apatheme+ scale_y_continuous(limits = c(0, 100))+ scale_fill_manual(values=c("springgreen3", "slateblue1"))
+ 
+panel20
+
+
+
+panel8 <- ggplot(data = dat, aes(x = gender_compete, fill = gender_compete))  + 
+    labs(x = 'Gender', y = 'Who competes more? (%)')  + apatheme + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") +
+     geom_text(x = 1.5, y = 100, label = "***") + guides (fill = F)+
+    geom_bar(aes(y = percent*100,
+             position = "dodge", stat = "identity"),     position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9))
+
+panel8
+
+
+
+dt3 <- table(prep_cleaned$gender_compete)
+
+
+chisq.test(dt3)
+
+
+balloonplot(t(dt3), main ="", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+
+```
+
+
+
+## Men perform significantly better on the multiplication problems on avg. 
+
+```{r}
+
+t.test(prep_cleaned$taskscore~prep_cleaned$gender)
+```
+
+## People who choose to prepare are 50% more likely to compete
+
+```{r}
+r <-glm(as.factor(comp_choice) ~ prep_choice,family=binomial,data = prep_cleaned)
+
+summary(r)
+exp(cbind(OR = coef(r), confint(r)))
+
+
+
+
+```
+
+## People who choose to prepare are significantly less likely to indicate higher confidence in their relative performance. 
+
+```{r}
+## regression
+
+
+r1 <- lm(conf_rank~prep_choice, data = prep_cleaned)
+summary(r1)
+
+
+```
+
+## Test of proportion who competed by gender and preparation choice:
+
+```{r}
+r <-glm(as.factor(comp_choice) ~ gender + prep_choice + gender*prep_choice,family=binomial,data = prep_cleaned)
+
+summary(r)
+exp(cbind(OR = coef(r), confint(r)))
+
+
+```
+
+## gender predicting task score while keeping choice to compete constant.
+
+```{r}
+summary(lm(taskscore ~ gender + comp_choice, data = prep_cleaned))
+```
+
+
+```{r}
+prep_cleaned$gender  <- factor(prep_cleaned$gender  , ordered = FALSE )
+prep_cleaned$gender <- relevel(prep_cleaned$gender, ref = "Male")
+dat <- prep_cleaned %>% filter(Condition == "Control")
+
+
+r <-glm(as.factor(prep_choice) ~ gender + comp_choice + gender*comp_choice,family=binomial,data = dat)
+
+summary(r)
+exp(cbind(OR = coef(r), confint(r)))
+
+r <- glm(as.factor(prep_choice) ~  gender*comp_choice,family=binomial,data = prep_cleaned)
+
+summary(r)
+exp(cbind(OR = coef(r), confint(r)))
+
+
+
+
+```
+
+
+```{r, eval = F}
+
+
+no_knowledge <- prep_cleaned %>% filter(Condition == "Control") 
+
+r <-glm(total_review_count ~ comp_choice*gender,family="poisson",data = prep_cleaned)
+
+summary(r)
+
+
+
+
+summary(r <-glm(total_review_count ~ comp_choice*gender,family="poisson",data = no_knowledge))
+
+summary(r)
+exp(cbind(OR = coef(r), confint(r)))
+
+library(interactions)
+interactions::cat_plot(r, pred = comp_choice, modx = gender)
+
+
+knowledge <- prep_cleaned %>% filter(Condition == "Prepare") 
+
+
+summary(p <-glm(total_review_count ~ conf_rank+ comp_choice*gender,family="poisson",data = knowledge))
+
+
+interactions::cat_plot(p, pred = comp_choice, modx = gender)
+
+
+
+r <-glm(total_review_count ~ risk+gender+comp_choice,family="poisson",data = prep_cleaned)
+
+summary(r <-glm(total_review_count ~ Condition + gender + gender*Condition,family="poisson",data = prep_cleaned))
+
+
+
+
+r <-glm(as.factor(comp_choice) ~ Condition,family=binomial,data = prep_cleaned)
+
+summary(r)
+exp(cbind(OR = coef(r), confint(r)))
+
+
+preppers <- prep_cleaned %>% filter(prep_choice == "Yes") 
+e3 <- lm(conf_rank~total_review_count, data = prep_cleaned)
+summary(e3)
+
+
+
+
+doc %>% r <-glm(as.factor(comp_choice) ~ gender*Condition,family=binomial,data = prep_cleaned)
+
+
+e3 <- lm(conf_rank~gender, data = prep_cleaned)
+summary(e3)
+
+
+View(prep_cleaned$comp_choice)
+
+
+prep_cleaned %>% filter(gender == "Male" & Condition == "Prepare") %>% dplyr::summarize(mean(comp_choice == "tournament"))
+
+```
+
+
+
+```{r, eval = F}
+
+summary(glm(as.factor(gender_compete)~gender, family = binomial, data = prep_cleaned))
+
+e3 <- glm(comp_choice~gender, data = prep_cleaned, family = binomial)
+summary(e3)
+exp(cbind(OR = coef(e3), confint(e3)))
+
+e4 <- glm(comp_choice~gender, data = prep_cleaned, family = binomial)
+summary(e4)
+exp(cbind(OR = coef(e4), confint(e4)))
+
+prep_cleaned$gender_prep <- ifelse(prep_cleaned$gender_prep == "Men", "Men prepare more", "Women prepare more")
+
+dat <- dplyr::select(prep_cleaned,gender,gender_prep) %>%
+    dplyr::count(gender, gender_prep) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(prep_cleaned,gender_prep, gender) %>% 
+    dplyr::count(gender, gender_prep) %>% filter(gender == "Male") %>% 
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat, dat1)
+
+
+panel2 <- ggplot(data = dat, aes(x = gender_prep, fill = gender)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05, position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% Believe Women Prepare More')  + apatheme+ scale_y_continuous(limits = c(0, 100))+scale_fill_manual(values=c("springgreen3", "slateblue1"))
+ 
+panel2
+
+dat <- dplyr::select(prep_cleaned,gender,comp_choice) %>%
+    dplyr::count(gender, comp_choice) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(prep_cleaned,gender,comp_choice) %>%
+    dplyr::count(gender, comp_choice) %>% filter(gender == "Male") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat <- rbind(dat1, dat)
+
+dat <- dat %>% filter (comp_choice == "tournament")
+panel3 <- ggplot(data = dat, aes(x = gender, fill = gender))  +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + 
+    labs(x = 'Gender', y = '% Competing')  + apatheme + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") +
+     geom_text(x = 1.5, y = 40, label = "***") + guides (fill = F)+scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9))
+
+panel3
+
+dat <- dplyr::select(prep_cleaned,Condition, comp_choice) %>%
+    dplyr::count(Condition, comp_choice) %>%
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+
+dat <- dat %>% filter(comp_choice == "tournament")
+panel5 <- ggplot(data = dat, aes(x = Condition, fill = Condition)) +
+    geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                 position=position_dodge(.9)) + 
+    labs(x = 'Condition', y = '% Competing') + scale_fill_manual(values = c("springgreen3", "slateblue1"))+ apatheme+ scale_y_continuous(limits = c(0, 100))+ guides (fill = F)
+
+panel5
+
+panels <- c("panel3", "panel1", "panel2", "panel4", "panel5")
+
+
+for (i in 1:length(panels)) {
+  png(paste(panels[i], ".png", sep=""))
+    plot(get(panels[i]))
+  dev.off()
+}
+
+temp<- prep_cleaned %>% filter(gender == "Female")
+
+
+fit <- lm(total_review_count ~ gender + taskscore + gender*taskscore, data = prep_cleaned)
+
+library(interactions)
+interactions::probe_interaction(fit, pred = taskscore,modx = gender, plot.points = TRUE)
+
+summ(fit)
+sim_slopes(fit, taskscore, gender)  
+
+
+ggplot(data = prep_cleaned, aes(x = taskscore, fill = gender)) +
+    geom_bar(aes(y = total_review_count),
+             position = "dodge", stat = "identity")
+
+panel3
+
+
+summary(r <- glm(comp_choice~ Condition, data = prep_cleaned, family = binomial))
+exp(cbind(OR = coef(r), confint(r)))
+
+
+
+summary(r <- glm(factor(comp_choice)~ gender, data = prep_cleaned, family = binomial))
+exp(cbind(OR = coef(r), confint(r)))
+
+
+summary(r <- glm(factor(prep_choice)~ comp_choice, data = prep_cleaned, family = binomial))
+exp(cbind(OR = coef(r), confint(r)))
+
+
+```
+
+summarizing the comprehension check questions
+
+```{r, eval = F}
+n <- xtable(prop.table(table(prep_cleaned$n_comp_wrong))*100, file = "comp_check.txt", sep = ",", quote = FALSE, row.names = F)
+
+print.xtable(n, type = "html", file = "counts_extra_prep.html")
+
+summary(prep_cleaned$n_comp_wrong)
+
+theme_set(theme_pubr())
+
+p <- ggplot(prep_cleaned, aes(n_comp_wrong)) +
+  geom_bar(fill = "#0073C2FF") +
+  theme_pubclean()
+
+ggsave("comp_check_taskS1.png")
+
+
+```
+
+summarizing the counts for extra prep
+
+```{r, eval = F}
+install.packages("kableExtra")
+library(kableExtra)
+webshot::install_phantomjs()
+
+t1 <- table(prep_cleaned$total_review_count)
+
+kable(prop.table(t1)*100, col.names = c("Quality of life", "Proportion"), digits = 2) %>% save_kable("test.png")
+
+library(gridExtra)
+
+
+png(filename = "output.png", width=480,height=480,bg = "white")
+grid.table(c_df)
+dev.off()
+
+
+install.packages("xtable")
+library(xtable)
+
+
+install.packages("formattable")
+library(formattable)
+
+
+
+formattable(n)
+
+
+n <- xtable(prop.table(table(prep_cleaned$total_review_count))*100)
+
+print.xtable(n, type = "latex", file = "counts_extra_prep.tex")
+
+
+kable(summarize(prep_cleaned$total_review_count))
+
+theme_set(theme_pubr())
+
+p <- ggplot(prep_cleaned, aes(total_review_count)) +
+  geom_bar(fill = "#0073C2FF") +
+  theme_pubclean()
+
+ggsave("total_review_count_S1.png")
+
+
+```
+
+
+
+
+
+
+exporting figures to ppt 
+
+```{r, eval = F}
+
+setwd('C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/second_yr/practice_study')
+
+doc <- read_pptx() %>% add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel1, type = "body")  %>% 
+
+add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel2, type = "body") %>%
+
+add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel3, type = "body")  %>% 
+
+
+  
+  add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel6, type = "body")  %>% 
+  
+ 
+
+  
+  add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel7, type = "body") %>%
+
+  add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel8, type = "body") %>% 
+
+
+  
+  add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel5, type = "body") %>%
+  add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel9, type = "body") %>%
+  add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(ggobj = panel10, type = "body") %>% 
+
+  
+print(target = "blank2.pptx")  %>%
+  invisible()
+
+
+
+
+```
+
+
+
+```{r}
+
+ggplot(prep_cleaned, aes(x = total_review_count, y = gender, fill = comp_choice)) +
+  geom_density_ridges() +
+  theme_ridges() 
+```
+
+
+```{r}
+summary(lm(interest))
+
+prep_cleaned %>% dplyr::select(gender, prep_choice) %>% dplyr::count(gender, prep_choice) %>% summarise(mutate(percent = n / sum(n)))
+
+
+```
+
+## general gender prep 
+
+```{r}
+
+exclude_nas <- prep_cleaned[-c(208, 631),] 
+
+dat <- dplyr::select(exclude_nas,gender,perc_gender_prep) %>%
+    dplyr::count(gender, perc_gender_prep) %>% filter(gender == "Female") %>% mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(exclude_nas,perc_gender_prep, gender) %>% 
+    dplyr::count(gender, perc_gender_prep) %>% filter(gender == "Male") %>% 
+    mutate(percent = n / sum(n),
+           error = sqrt((percent * (1-percent))/n))
+dat <- rbind(dat, dat1)
+dat
+
+
+panel30 <- ggplot(data = dat, aes(x = perc_gender_prep, fill = gender))+geom_bar(aes(y = percent*100),
+             position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05, position=position_dodge(.9)) + 
+    labs(x = 'Gender', y = '% Believe Women Prepare More')  + apatheme+ scale_y_continuous(limits = c(0, 100))+scale_fill_manual(values=c("springgreen3", "slateblue1"))
+ 
+panel30
+
+
+dt1 <- table(exclude_nas$perc_gender_prep, exclude_nas$gender)
+dt1
+
+chisq.test(dt1)
+
+summary(glm(as.factor(perc_gender_prep)~gender + prep_choice, data = prep_cleaned, family = binomial))
+
+
+
+```
+
+
+
+
+```{r}
+setwd('C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/second_yr/practice_study')
+
+doc <- read_pptx() %>% 
+  add_slide('Title and Content', 'Office Theme')%>%
+  
+  ph_with_vg(ggobj = panel30, type = "body")  %>% 
+
+add_slide('Title and Content', 'Office Theme') %>%
+  
+  ph_with_vg(code= plot(allEffects(m1)), type = "body") %>%
+
+print(target = "blfdfegfe.pptx")  %>%
+  invisible()
+
+
+summary(lm(taskscore~Gender*comp_choice, data = prep_cleaned))
+
+summary(lm(taskscore ~ total_review_count, data = prep_cleaned))
+summary(lm(taskscore ~ prep_choice, data = prep_cleaned))
+
+```
+
+
+
+

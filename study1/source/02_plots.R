@@ -34,9 +34,9 @@ p <- ggplot(data = dat, aes(x = condition, fill = gender)) +
   position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
   position=position_dodge(.9)) + 
   geom_text(x = 1.5, y = 100, label = "***") + 
-  labs(x = 'Condition', y = '% Competing') +
+  labs(x = 'Condition', y = 'Percentage Competing') +
   scale_fill_manual(values=c("springgreen3", "slateblue1"),  labels = c("Men", "Women")) + theme_apa() +
-  scale_x_discrete(labels = c("Control", "Practice")) + theme(panel.border  = element_blank()) +
+  scale_x_discrete(labels = c("Control", "Prepare")) + theme(panel.border  = element_blank()) +
   #draws x and y axis line
   theme(axis.line = element_line(color = 'black'))
 
@@ -62,7 +62,7 @@ p <- ggplot(data = dat, aes(x = comp_choice, fill = gender)) +
   position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
   position=position_dodge(.9)) + 
   geom_text(x = 1.5, y = 100, label = "***") + 
-  labs(x = 'Choice to compete', y = '% Practicing') +scale_fill_manual(values=c("springgreen3", "slateblue1"),  labels = c("Men", "Women")) + 
+  labs(x = 'Choice to compete', y = 'Percentage Practicing') +scale_fill_manual(values=c("springgreen3", "slateblue1"),  labels = c("Men", "Women")) + 
   theme_apa() +
   scale_x_discrete(labels = c("Piece-rate", "Tournament"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
@@ -125,7 +125,7 @@ dat <- rbind(dat1, dat)
 dat <- dat %>% filter (perc_task_gender_pract == "Women")
 
 p <- ggplot(data = dat, aes(x = gender, fill = gender))  + 
-  labs(x = 'Participant gender', y = '% who said women prepared more for task')  + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") + guides (fill = F)+
+  labs(x = 'Participant gender', y = 'Percentage who said women prepared more for task')  + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") + guides (fill = F)+
   geom_bar(aes(y = percent*100), position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
   position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
@@ -147,7 +147,7 @@ dat <- rbind(dat1, dat)
 dat <- dat %>% filter(better_gender_guess == "Women")
 
 p <- ggplot(data = dat, aes(x = gender, fill = gender))  + 
-  labs(x = 'Participant gender', y = '% who said women performed better on task')  + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") + guides (fill = F)+
+  labs(x = 'Participant gender', y = 'Percentage who said women performed better on task')  + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") + guides (fill = F)+
   geom_bar(aes(y = percent*100), position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
   position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
@@ -169,7 +169,7 @@ dat <- rbind(dat1, dat)
 dat <- dat %>% filter(perc_gender_comp == "Men")
 
 p <- ggplot(data = dat, aes(x = gender, fill = gender))  + 
-  labs(x = 'Participant gender', y = '% who said men chose to compete more for task')  + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") + guides (fill = F)+
+  labs(x = 'Participant gender', y = 'Percentage who said men chose to compete more for task')  + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") + guides (fill = F)+
   geom_bar(aes(y = percent*100),     position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
   position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
@@ -195,7 +195,7 @@ dat <- rbind(dat1, dat)
 dat <- dat %>% filter(perc_gen_gender_pract == "Women")
 
 p <- ggplot(data = dat, aes(x = gender, fill = gender))  + 
-  labs(x = "Participant gender", y = '% who said women prepare more in general')  + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") + guides (fill = F)+
+  labs(x = "Participant gender", y = 'Percentage who said women prepare more in general')  + scale_y_continuous(limits = c(0, 100))+theme(legend.position = "none") + guides (fill = F)+
   geom_bar(aes(y = percent*100),     position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
   position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line

@@ -1,0 +1,145 @@
+# load packages -----------------------------------------------------------
+
+
+## Package names
+packages <- c("tidyverse", "jtools", "here")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+# load data ---------------------------------------------------------------
+
+clean <- read_csv(here("pilot", "data", "clean.csv"))
+
+# primary hypothesis 1 ----------------------------------------------------
+
+dat <- dplyr::select(clean, gender, comp_choice) %>%
+  dplyr::count(gender, comp_choice) %>% filter(gender == "Woman") %>% mutate(percent = n / sum(n),
+  error = sqrt((percent * (1-percent)) / n))
+
+dat1 <- dplyr::select(clean, gender, comp_choice) %>%
+  dplyr::count(gender, comp_choice) %>% filter(gender == "Man") %>% mutate(percent = n / sum(n),
+  error = sqrt((percent * (1 -percent)) / n))
+
+dat <- rbind(dat1, dat)
+
+
+dat <- dat %>% filter (comp_choice == "tournament")
+
+
+p <- ggplot(data = dat, aes(x = gender, fill = gender)) +
+  geom_bar(aes(y = percent * 100),
+  position = "dodge", stat = "identity") + geom_errorbar(aes(
+  ymin = (percent * 100) - (error * 100),
+  ymax = (percent * 100) + (error * 100)),
+  width = .05,
+  position =
+  position_dodge(.9)) +
+  geom_text(x = 1.5, y = 100, label = "***") +
+  labs(y = '% Competing') + scale_fill_manual(values =
+  c("springgreen3", "slateblue1"), labels = c("Men", "Women")) + theme_apa() +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
+ggsave(here("pilot", "figs", "fig00_comp-choice-by-gender-bar.png"), p, width = 7, height = 7)
+
+# secondary hypothesis 1 --------------------------------------------------
+
+
+
+
+
+# secondary hypothesis 2: performance across rounds  ----------------------
+
+# round_scores <-
+  #clean %>% pivot_longer(
+    #cols = starts_with("round"),
+    #names_to = "round",
+    #values_to = "score",
+    #names_pattern = "round_(.)_score") %>% select(id, round, score)
+
+#Scores_across_rounds1plot <- ggplot(round_scores, aes(round, score))
+#Scores_across_rounds1plot + geom_boxplot() + labs(x = "Round", y = "Score")
+
+
+
+# exploratory 1 -----------------------------------------------------------
+
+dat <- dplyr::select(clean,gender, pract_choice) %>%
+  dplyr::count(gender,pract_choice) %>% filter(gender == "Woman") %>% mutate(percent = n / sum(n),
+                                                                                           error = sqrt((percent * (1-percent))/n))
+
+dat1 <- dplyr::select(clean,gender,pract_choice) %>%
+  dplyr::count(gender, pract_choice) %>% filter(gender == "Man") %>% mutate(percent = n / sum(n),
+                                                                                         error = sqrt((percent * (1-percent))/n))
+
+dat <- rbind(dat1, dat)
+
+dat <- dat %>% filter (pract_choice == "Yes")
+
+
+p <- ggplot(data = dat, aes(x = gender, fill = gender))  + 
+  labs(y = '% who said they would take the opportunity to practice')  + scale_y_continuous(limits = c(0, 100)) + 
+  geom_bar(aes(y = percent*100), position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"),
+              labels = c("Men", "Women"))+ 
+  geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+  position=position_dodge(.9)) + theme_apa()+
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
+
+
+ggsave(here("pilot", "figs", "fig01_pract-choice-by-gender-bar.png"), p, width = 7, height = 7)
+
+
+# true exploratory 1 ------------------------------------------------------
+
+dat <- clean %>%
+  group_by(gender) %>%
+  dplyr::summarise( 
+    n=n(),
+    mean=mean(overall_score),
+    sd=sd(overall_score)
+  ) %>%
+  dplyr::mutate( se=sd/sqrt(n))
+
+p <- ggplot(dat, aes(x=gender, y= mean, fill=gender)) + 
+  geom_bar(position=position_dodge(), stat="identity") +
+  geom_errorbar(aes(ymin=mean-se, ymax=mean+se),
+                width=.2,                    # Width of the error bars
+                position=position_dodge(.9))+
+  geom_text(x = 1.5, y = 100, label = "***") +
+  labs(y = 'Average score') + scale_fill_manual(values =
+                                                c("springgreen3", "slateblue1"), labels = c("Men", "Women")) + theme_apa() +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black'))
+
+
+ggsave(here("pilot", "figs", "fig02_perform-by-gender-bar.png"), p, width = 7, height = 7)
+
+
+## for nsf app with caption attached 
+p <- p + labs (caption = "Figure 4. Average performance by gender from the pilot study. \n Error bars represent standard error.") + theme(
+  plot.caption = element_text(hjust = 0, size =14), legend.text = element_text(size =14), axis.text.y = element_text(size = 14), 
+  axis.title.y = element_text(size = 14), axis.title.x=element_blank(),
+  axis.text.x=element_blank(),
+  axis.ticks.x=element_blank(),
+  panel.border  = element_blank()
+)
+ggsave(here("nsf-application", "nsf4.png"), p, width = 7, height = 7)

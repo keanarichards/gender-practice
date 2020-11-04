@@ -1,0 +1,82 @@
+---
+title: "results"
+author: "Keana Richards"
+date: "6/10/2020"
+output:
+  bookdown::word_document2:
+  fig_caption: yes 
+---
+
+```{r, include = F}
+
+## hiding code chunks globally 
+knitr::opts_chunk$set(echo=F, message = F, warning = F)
+
+
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+
+# load packages -----------------------------------------------------------
+
+
+## Install devtools package if necessary
+if(!"devtools" %in% rownames(installed.packages())) install.packages("devtools")
+
+
+## Package names
+packages <- c("readr", "tidyverse", "here", "devtools", "knitr", "officer", "summarytools")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+
+## Install the stable development versions from GitHub
+if(!"papaja" %in% rownames(installed.packages())) devtools::install_github("crsh/papaja")
+library(papaja)
+
+source(here::here("pilot", "source", "01_preregistered-analyses.R"))
+source(here::here("pilot", "source", "03_exploratory-analyses.R"))
+
+```
+
+
+### Pre-registered analyses^[All hypotheses were pre-registered (https://osf.io/q39a5/) unless otherwise stated and all analyses were conducted in R.] 
+*Primary hypothesis 1.* Using a logistic regression with gender predicting willingness to compete in round 3, we do not find significant evidence of gender differences in the choice to compete, `r apa_print(primary_hyp1)$full_result$genderWoman`, though men chose to compete more often (`r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`%) compared to women (`r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`%) (see Figure \@ref(fig:p00)). Note: the results for the chi-square test are similar: `r apa_print(sec_exploratory2, n=546)$statistic`.
+
+```{r p00, fig.cap = "Proportion of participants who chose to compete based on participant gender. Error bars represent standard errors."}
+
+knitr::include_graphics(here::here("pilot", "figs", "fig00_comp-choice-by-gender-bar.png"))
+
+
+```
+
+```{r, results = "asis"}
+print(ctable(clean$gender, clean$comp_choice))
+
+```
+
+*Secondary hypothesis 1.* Using a logistic regression with gender predicting willingness to compete in round 3 while including confidence and risk aversion as controls, we do not find significant evidence of gender differences in the choice to compete, `r apa_print(secondary_hyp1)$full_result$genderWoman`. Instead, confidence, `r apa_print(secondary_hyp1)$full_result$conf_partnerLower_than_theirs` and risk aversion, `r apa_print(secondary_hyp1)$full_result$risk` significantly predicted the decision to compete.  
+
+### Exploratory analyses
+
+We also ran exploratory analyses outside of the pre-registered analyses, which will be discussed briefly here. First, we explored whether there is a gender difference in participants' willingness to practice, if given the chance. Using a logistic regression, we find that gender predicts (hypothetical) willingness to practice the task, `r apa_print(sec_exploratory1)$full_result$genderWoman` (see Figure \@ref(fig:p01)). 
+
+```{r p01, fig.cap = "Proportion of participants who indicated they would have taken the opportunity to practice the key-entry task if provided based on participant gender. Error bars represent standard errors."}
+
+knitr::include_graphics(here::here("pilot", "figs", "fig01_pract-choice-by-gender-bar.png"))
+
+```
+
+```{r, results = "asis"}
+print(ctable(clean$gender, clean$pract_choice, Row.variable = "Gender"))
+```
+
+We also explored whether there were gender differences in the number of minutes participants said they would hypothetically be willing to practice with a t-test, but did not find evidence that there were gender differences in participants' responses to this question, `r apa_print(sec_exploratory8)$full_result`. 
+
+Finally, we explored participants' perceptions of gender differences, and tested whether there were any significant gender differences in these perceptions through a series of chi-square tests. First, we explored whether participants were more likely to predict women or men would perform better on the task, and whether there were any gender differences in these perceptions. We find that participants were significantly more likely to believe that women outperformed men on the matching task, `r apa_print(sec_exploratory4, n= nrow(clean))$statistic`, and women were significantly more likely to make this prediction, `r apa_print(sec_exploratory5, n= nrow(clean))$statistic`, even though there were no gender differences in performance `r apa_print(sec_exploratory3)$full_result`. Additionally, the majority of participants that their score would have improved if they practiced the task beforehand, `r apa_print(sec_exploratory6, n= nrow(clean))$statistic`, and there were no significant gender differences in these perceptions, `r apa_print(sec_exploratory7, n= nrow(clean))$statistic`. 

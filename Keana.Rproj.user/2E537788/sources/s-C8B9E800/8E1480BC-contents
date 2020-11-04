@@ -1,0 +1,84 @@
+---
+title: "results"
+author: "Keana Richards"
+date: "6/10/2020"
+output:
+  bookdown::word_document2:
+  fig_caption: yes 
+---
+
+```{r, include = F}
+
+## hiding code chunks globally 
+knitr::opts_chunk$set(echo=F, message = F, warning = F)
+
+
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+
+# load packages -----------------------------------------------------------
+
+
+## Install devtools package if necessary
+if(!"devtools" %in% rownames(installed.packages())) install.packages("devtools")
+
+
+## Package names
+packages <- c("readr", "tidyverse", "here", "devtools", "knitr", "officer", "summarytools")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+
+## Install the stable development versions from GitHub
+devtools::install_github("crsh/papaja")
+
+library(papaja)
+
+source(here::here("pilot", "source", "01_preregistered-analyses.R"))
+source(here::here("pilot", "source", "03_exploratory-analyses.R"))
+
+```
+
+### Summary 
+All hypotheses were [pre-registered](https://osf.io/q39a5/) unless otherwise stated and all analyses were conducted in R. We did not find evidence for the hypothesized gender difference in the choice to compete (see Figure \@ref(fig:p00)). `r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`% of men chose to compete compared to `r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`% of women. Women were more likely to indicate that they would have taken the opportunity to practice the task than men (see Figure \@ref(fig:p01)), despite no gender differences in performance or choice to compete.
+
+### Pre-registered analyses
+*Primary hypothesis 1.* Using a logistic regression with gender predicting willingness to compete in round 3, we do not find significant evidence of gender differences in the choice to compete, `r apa_print(primary_hyp1)$full_result$genderWoman` (see Figure \@ref(fig:p00)).  
+
+
+```{r p00, fig.cap = "Proportion of participants who chose to compete based on participant gender. Error bars represent standard error."}
+
+knitr::include_graphics(here::here("pilot", "figs", "fig00_comp-choice-by-gender-bar.png"))
+
+
+```
+
+```{r, results = "asis"}
+print(ctable(clean$gender, clean$comp_choice))
+
+```
+
+
+### Exploratory analyses
+
+Using a logistic regression, we find that gender predicts (hypothetical) willingness to practice the task, `r apa_print(exploratory1)$full_result$genderWoman` (see Figure \@ref(fig:p01)). 
+
+```{r p01, fig.cap = "Proportion of participants who indicated they would have taken the opportunity to practice the key-entry task if provided based on participant gender. Error bars represent standard error."}
+
+knitr::include_graphics(here::here("pilot", "figs", "fig01_pract-choice-by-gender-bar.png"))
+
+```
+
+```{r, results = "asis"}
+print(ctable(clean$gender, clean$pract_choice))
+
+```
+
+

@@ -1,0 +1,11 @@
+"0","library(plyr)"
+"0","library(dplyr)"
+"0","library(ggplot2)"
+"0","library(paramtest)"
+"0","library(umap)"
+"0","conflict_prefer(""here"", ""here"")"
+"2","[conflicted] Removing existing preference
+"
+"2","[conflicted] Will prefer [34mhere::here[39m over any other package
+"
+"0","## http://disjointedthinking.jeffhughes.ca/2017/09/power-simulations-r/"

@@ -1,0 +1,32 @@
+{
+    "id": "1B5F44A4",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1597698867572.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "expression": "excluded",
+        "caption": "excluded",
+        "totalObservations": 209,
+        "displayedObservations": 209,
+        "variables": 185,
+        "cacheKey": "FEB58961",
+        "object": "excluded",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=excluded&cache_key=FEB58961&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 2360386452496,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1597698867572,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,32 @@
+{
+    "id": "1DBB1EAE",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1595625588509.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "expression": "raw[duplicated(raw$MTurkID, fromLast = T) | duplicated(raw$MTurkID),      ]",
+        "caption": "raw[duplicated(raw$MTurkID, fromLast = T) | duplicated(raw$MTurkID), ",
+        "totalObservations": "26",
+        "displayedObservations": "26",
+        "variables": "2677",
+        "cacheKey": "10C6AD65",
+        "object": "",
+        "environment": "_rs_no_env",
+        "contentUrl": "grid_resource/gridviewer.html?env=_rs_no_env&obj=&cache_key=10C6AD65&max_cols=50",
+        "preview": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 7019813714332116069,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1595625588509,
+    "read_only": false,
+    "read_only_alternatives": []
+}

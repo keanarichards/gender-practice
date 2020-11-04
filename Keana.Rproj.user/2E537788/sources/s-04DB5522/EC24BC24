@@ -1,0 +1,32 @@
+{
+    "id": "EC24BC24",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1598906448339.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "expression": "clean",
+        "caption": "clean",
+        "totalObservations": 337,
+        "displayedObservations": 337,
+        "variables": 30,
+        "cacheKey": "F26CB821",
+        "object": "clean",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=clean&cache_key=F26CB821&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 12666867879247987,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1598906448339,
+    "read_only": false,
+    "read_only_alternatives": []
+}

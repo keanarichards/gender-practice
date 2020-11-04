@@ -1,0 +1,16 @@
+"0",""
+"0","paramtest_results <- grid_search(regression_sim,"
+"0","    params=list(n=c(3000, 3250, 3500), b3=c(.2, .3, .4)),"
+"0","    n.iter=5000, output='data.frame', parallel='snow', ncpus=3,"
+"0","    b0=0, b1=.2, b2=.2)"
+"1","Running 45,000 tests...
+"
+"2","Error: [conflicted] [34m`filter`[39m found in 2 packages.
+Either pick the one you want with `::` 
+* [34mdplyr::filter[39m
+* [34mstats::filter[39m
+Or declare a preference with `conflict_prefer()`
+* conflict_prefer(""filter"", ""dplyr"")
+* conflict_prefer(""filter"", ""stats"")
+Backtrace:
+"

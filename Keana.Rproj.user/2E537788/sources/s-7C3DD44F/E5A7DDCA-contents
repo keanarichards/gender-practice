@@ -1,0 +1,68 @@
+# load packages -----------------------------------------------------------
+
+## Package names
+packages <- c("tidyverse", "gtsummary", "car", "here", "gt")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+# load data ---------------------------------------------------------------
+study1 <- read_csv(here("study1_wide.csv"))
+
+study1$gender <- dplyr::recode(study1$gender, `1` = "Male", `2` = "Female", `3` = "Other", `4` = "Prefer not to say")
+
+study1$race <- ifelse(study1$race >10, 10, study1$race)
+
+study1$race <- dplyr::recode(study1$race, `1` = "White", `2` = "Black/African American", `3` = "Asian", `4` = "American Indian/Alaska Native", 
+  `5` = "Native Hawaiian/Other Pacific Islander", `6`= "Other", `10` = "Multiracial")
+
+study1$hispanic_latino <- dplyr::recode(study1$hispanic_latino, `1` = "Yes", `0` = "No")
+
+study1$ses_degree <- dplyr::recode(study1$ses_degree, `1` = "Less than high school", `2` = "High school", `3` = "High school", `4` = "Some college", 
+  `5` = "Associate's degree", `6`= "Bachelor's degree", `7` = "Master's degree", `8` = "Professional school degree", `9` = "Doctorate degree")
+
+study1 <- study1 %>% mutate(ses_degree = factor(ses_degree, levels = c("Less than high school", "High school", "Some college", 
+ "Associate's degree", "Bachelor's degree", "Master's degree", "Professional school degree", "Doctorate degree")))
+
+
+study1$ses_income_household <- dplyr::recode(study1$ses_income_household, `1` = "< 5000", `2` = "5000-11999", `3` = "12000-15999", `4` = "16000-24999", 
+  `5` = "25000-34999", `6`= "35000-49999", `7` = "50000-74999", `8` = "75000-99999", `9` = "> 100000", `10` = "I don't know", `11` = "No response")
+study1$ses_degree
+
+study1$ses_subj_original <- as.character(study1$ses_subj_original)
+
+tbl <- study1 %>% dplyr::select(gender, condition, age_original, hispanic_latino, race, ses_degree, ses_income_household, ses_subj_original) %>%  
+  mutate(ses_degree= 
+           factor(ses_degree, levels = c("Less than high school", "High school", "Some college", 
+                                         "Associate's degree", "Bachelor's degree", "Master's degree", 
+                                         "Professional school degree", "Doctorate degree")),
+         ses_income_household = 
+           factor(ses_income_household, levels = c("< 5000", "5000-11999","12000-15999", "16000-24999", 
+                                                   "25000-34999", "35000-49999", "50000-74999", "75000-99999", 
+                                                   "> 100000", "I don't know","No response")),
+         ses_subj_original = 
+           factor(ses_subj_original, levels = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"))) %>% 
+  tbl_summary(by = condition, 
+              label = list(gender ~ "Gender",
+                           age_original ~ "Age",
+                           hispanic_latino ~ "Latinx = yes",
+                           race ~ "Race",
+                           ses_degree ~ "Education",
+                           ses_income_household ~ "Household Income",
+                           ses_subj_original ~ "Subjective SES"), 
+              statistic = list(all_continuous() ~ "{mean} ({sd})")) 
+
+
+## save as flextable <- gtsummary::as_flextable(tbl)
+## save_kable(tbl, "my_table.png")
+
+
+gt_tbl <- as_gt(tbl) %>% tab_options(container.width = 5000, table.width = 5000, table.font.size = 75)
+gt::gtsave(gt_tbl, file ="demo.png")
+

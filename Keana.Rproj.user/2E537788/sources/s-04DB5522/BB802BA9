@@ -1,0 +1,32 @@
+{
+    "id": "BB802BA9",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1596738991155.0,
+    "source_on_save": false,
+    "relative_order": 11,
+    "properties": {
+        "expression": "raw %>% filter(!nchar(raw$MTurkID) %in% (12:14)) %>% filter(duplicated(c(IPAddress)))",
+        "caption": "raw %>% filter(!nchar(raw$MTurkID) %in% (12:14)) %>% filter(duplicated(c(IPAddress)))",
+        "totalObservations": 1,
+        "displayedObservations": 1,
+        "variables": 185,
+        "cacheKey": "2DBA74DC",
+        "object": "",
+        "environment": "_rs_no_env",
+        "contentUrl": "grid_resource/gridviewer.html?env=_rs_no_env&obj=&cache_key=2DBA74DC&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 2910562809712699756,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1596738991155,
+    "read_only": false,
+    "read_only_alternatives": []
+}
