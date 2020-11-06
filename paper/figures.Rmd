@@ -10,7 +10,7 @@ knitr::include_graphics(here::here("study1", "figs", "fig00_comp-choice-by-gende
 
 ```
 
-```{r s101, fig.cap="Proportion of male and female participants who chose to prepare by choice to compete. Women are significantly more willing to prepare, even before they know what the preparation involves. This finding holds regardless of whether women chose to follow a competitive or non-competitive payment scheme. That is, there is no interaction between gender and choice to compete on the decision to prepare. Error bars represent standard errors."}
+```{r s101, fig.cap="Proportion of male and female participants who chose to prepare by choice to compete. Women are significantly more willing to prepare, even before they know what the preparation involves. There is no interaction between gender and choice to compete on the decision to prepare. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study1", "figs", "fig01_pract-choice-by-gender-and-comp-choice-bar.png"))
 
 ```
@@ -35,13 +35,13 @@ knitr::include_graphics(here::here("study1", "figs", "fig04_better-gender-guess.
 ```
 
 
-```{r s105, fig.cap="Participants' perceptions of gender differences in choice to compete. Both men and women were significantly more likely to correctly state that men would be more likely to choose to compete during the multiplication task, suggesting strong stereotypes about gender differences in competitiveness. Error bars represent standard errors."}
+```{r s105, fig.cap="Participants' perceptions of gender differences in choice to compete. Both men and women were significantly more likely than chance to correctly state that men would be more likely to choose to compete during the multiplication task, suggesting strong stereotypes about gender differences in competitiveness. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study1", "figs", "fig05_perc-gender-comp.png"))
 
 ```
 
 
-```{r s106, fig.cap="Participants' perceptions of general gender differences in choice to practice. Both men and women (but especially women) were significantly more likely to say that women prepare more in general than men. Again, these findings suggest that participants observe these gender differences directly or are aware of stereotypes about gender differences in the choice to prepare. Error bars represent standard errors."}
+```{r s106, fig.cap="Participants' perceptions of general gender differences in choice to practice. Both men and women (but especially women) were significantly more likely than chance to say that women prepare more in general than men. Again, these findings suggest that participants observe these gender differences directly or are aware of stereotypes about gender differences in the choice to prepare. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study1", "figs", "fig06_perc-gen-gender-pract.png"))
 
 ```
@@ -54,17 +54,17 @@ knitr::include_graphics(here::here("study2", "figs", "fig00_comp-choice-women-by
 
 ```
 
-```{r s201,fig.cap="Participants' perceptions of gender differences in performance on the task. We replicate the effect from Study 1, where participants were not significantly more likely to anticipate that one gender would perform better on the task. Error bars represent standard errors."}
+```{r s201,fig.cap="Participants' perceptions of gender differences in performance on the task. We replicate the effect from Study 1, where participants were not significantly more likely than chance to anticipate that one gender would perform better on the task. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study2", "figs", "fig01_better-gender-guess.png"))
 
 ```
 
-```{r s202,fig.cap="Participants' perceptions of gender differences in choice to compete. Replicating the finding from Study 1, participants (especially men) in Study 2 are significantly more likely to state that men chose the competitive payment scheme. Error bars represent standard errors."}
+```{r s202,fig.cap="Participants' perceptions of gender differences in choice to compete. Replicating the finding from Study 1, participants (especially men) in Study 2 are significantly more likely than chance to state that men chose the competitive payment scheme. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study2", "figs", "fig02_perc-gender-comp.png"))
 
 ```
 
-```{r s203,fig.cap="Participants' perceptions of general gender differences in choice to prepare. We replicate the findings from Study 1, where participants (especially women) are significantly more likely to state that women prepare more in general than men. Error bars represent standard errors."}
+```{r s203,fig.cap="Participants' perceptions of general gender differences in choice to prepare. We replicate the findings from Study 1, where participants (especially women) are significantly more likely than chance to state that women prepare more in general than men. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study2", "figs", "fig03_perc-gen-gender-pract.png"))
 
 ```

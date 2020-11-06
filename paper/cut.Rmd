@@ -35,10 +35,51 @@ To this end, many interventions have been proposed to address the gender gap the
 
 Across both studies, we also explored whether participants' lay beliefs about potential gender differences in the decisions to prepare and compete align with participants' actual behavior, which would suggest that these participants either directly observe and/or are aware of stereotypes surrounding these gender differences. 
 
+
+
+
+
+However, there is evidence that the task used during competition affects the size of the gender gap. For instance, some research suggests that when the task is female-typed or gender-neutral, the gender gap in willingness to compete may be reduced or eliminated [@Iriberri2017; @Boschini2014; @Boschini2019; @Apicella2015; @Grosse2010; @Gunther2010; @Dreber2014; @Dreber2011; @Shurchkov2012]. Drawing from the psychology literature on stereotype threat [@Steele1997; @Spencer1999; @Spencer2016], negative stereotypes about women’s ability to perform male-typed tasks (e.g., math, mental rotation) may produce anxiety and undermine performance. As a result, women may decide not to engage in a competition because they either believe the stereotype or because the stereotype provokes enough anxiety to reduce performance [@Gunther2010; @Grosse2010; @Iriberri2017; @Shurchkov2012].  
+
+Understanding how to address gender differences in competitiveness may be important for reducing gender inequality that persists today. When women compete less than their male counterparts, they may be missing crucial economic opportunities, as demonstrated by the evidence suggesting competitiveness is relevant to one’s economic outcomes [@Buser2014; @Zhang2012; @Reuben2015]. Given the importance of the gender gap in competition for women's economic outcomes, research has explored factors underlying gender differences in competitiveness.
+
+Women’s relatively lower levels of confidence in their performance partly explains this gender difference [@Niederle2011], so it is important to understand factors that may affect confidence prior to the decision to compete.
+
+Since competitions, by definition, compare the performance among two or more individuals, they naturally lead to self-evaluation and comparative judgments of self with others - processes that are intimately linked to confidence.
+
+
+
+
 discussion - 
 
+and there is no theoretical or empirical reason to suspect that women would be less concerned with mastery than men. In fact, research suggests that women are just as likely as men to compete when competing against their own past performance, suggesting an equal desire for self-improvement [@Apicella2017a].
+
+We also found that neither the knowledge of the opportunity to prepare nor the act of preparation itself affected participants' willingness to compete, which was surprising, given the previous literature suggesting that mastery is one of the most important determinants of confidence in tasks [for review, see @Gist1992; @Usher2008]. Since confidence and risk attitude were measured after providing the additional option to prepare, we cannot identify whether these factors drove the null effect of condition. 
+
+It is possible that the opportunity to prepare may have made participants more aware of the discrepancy between their current ability and their desired ability threshold for preparation. This increased awareness of the discrepancy may have affected participants' confidence and/or risk attitude, in turn negating any benefits of the opportunity to prepare on the decision to compete. We intend to explore this possibility in a future study. 
+
+Since the choice to compete and prepare have the potential to affect employees' success within organizations, our findings suggest that organizational decisions and communication should account for these gender differences to reduce persistent gender gaps in labor market outcomes. 
 
 
+## Implications of opportunity costs of overpreparing before competitions   
+
+Competitions are increasingly prevalent in the global labor market [@Lavy2004; @Lemiuex2009] and the winners of competitions are disproportionately rewarded [@Frank2010]. Understanding individual differences in response to competitive situations may help address economic disparities across groups, like persistent gender differences in labor market outcomes [@Blau2017; @Altonji1999]. For instance, one step to improve gender equality within organizations is to take these gender differences into account when making decisions on how to organize reward structures and communicate these structures to employees.  
+
+Much of the research on gender differences in competitiveness is focused on designing interventions to increase women’s competitiveness, with less attention paid to potential downstream consequences of these interventions. Yet, understanding how women and men respond to competitions may also be crucial for organizations across contexts to address gender disparities in labor market outcomes. If competitions exacerbate gender differences in the amount of effort exerted (e.g., preparing or studying) before performance, this may affect women’s labor output, career advancement, the ability to achieve a satisfying work-life balance, and even the decision to enter or stay in competitive environments. Additionally, there are opportunity costs for expending more effort than necessary on only one task or skill, especially when an individual's overall performance is evaluated based on their success across many domains. These effects are especially relevant to professional development in STEM fields, where gender disparities are arguably driven by gender differences in confidence [@Cheryan2017], increasing the likelihood women will overprepare before competition. 
+
+Relatedly, if women *expect* that they will prepare more in competitive environments, this may, in turn, impact whether they even enter competitive environments. In fact, there is evidence that the way a job is advertised affects women's willingness to apply [@Gaucher2011; @Flory2010]. If a job is described as "competitive" or the payment scheme is described as a competition, women find the jobs less appealing and are less willing to apply, demonstrating the power of organizational communication on gender differences in labor market outcomes. While our work suggests that merely giving women more time to prepare does not make them more willing to compete, anticipated effort could still influence labor market outcomes by affecting women’s decisions to enter certain fields or compete for promotions, for instance. In our studies, we use relatively unimportant tasks that are unlikely to greatly impact one’s earnings. Yet, we still find a striking gender difference in preparation, suggesting that our study likely *underestimates* this gender difference. For instance, we would expect greater gender differences in preparation for tasks with higher stakes, where the outcomes are important for one’s career and economic prospects. In this way, our study is providing a conservative test of the gender differences in effort and preparation in the real world. 
+
+## Future research
+
+There are a number of avenues for future research in this area. First, we would like to test the robustness of gender differences in preparation outside of online and laboratory settings. Do these findings replicate in organizations? Exploring the gender difference in preparation cross-culturally would also shed light on the universality of the finding and help to identify cultural, ecological and social factors that exacerbate it.
+
+A second important extension of the work would be to examine how anticipated preparation or workload influences women’s decisions to enter competitive environments. While we did not find that giving women time to prepare makes them more likely to compete, it is still possible that women know that they will end up preparing more in competitive situations and thus, select out of them. As mentioned earlier, there are opportunity costs to overpreparing. 
+
+A third extension of the current work would be to examine whether women are overpreparing. Does preparation negatively impact women? Does it help women? To determine whether men or women are preparing more (or less) than needed, future research should test whether gender and time chosen to prepare interact to affect a participants’ probability of winning a competition [see @Niederle2007]. Another follow-up study could manipulate whether there is a monetary cost for preparing to explore whether gender differences in the choice to prepare persist despite a clear cost, and whether this leads to gender differences in earnings within the study. 
+
+It would also be interesting to explore whether norms about gender affect decisions to compete. Norms are important drivers of human behavior [@Schultz2007], so it is entirely plausible that the decision to compete and prepare might be fueled in part by what most women or men are doing, or perceptions of gender differences in these behaviors. Although there is some work exploring how gender norms affect actual behavior [@Babcock2012; @Bowles2007; @Toosi2019; @Smith2014; @Bertrand2015; @Akerlof2000], our evidence of participants' lay beliefs about gender differences suggests that this is an important avenue for future research. Additionally, our findings cannot speak to whether the decision to prepare directly improved participants' performance. Future research should manipulate whether participants have the opportunity to prepare without providing the option for additional practice thereafter to explore the benefits of preparing on performance, which may negate any opportunity costs of preparing. 
+
+While we build off an extensive and laudable literature on gender differences in competitiveness, we have unearthed a gender difference in preparation. As this is a new area of research, there are many promising and exciting avenues for future exploration, all of which have the potential to inform governmental and organizational policies that ultimately mitigate gender disparities in the labor market.
 
 
 
