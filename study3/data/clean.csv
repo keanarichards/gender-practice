@@ -1,0 +1,204 @@
+"age","gender","gender_other","subj_confidence","abs_confidence","control_prep_beliefs","better_gender_guess","math_gender_prep","gen_gender_prep","interest","rank_explanations_2","rank_explanations_4","rank_explanations_5","rank_explanations_6","rank_explanations_8","text_explanation","unclear","task_score","condition","total_time"
+22,"Man",NA,61,20,6,"No difference","No difference","No difference",5,4,2,5,3,1,NA,NA,32,"control",188.14
+20,"Man",NA,100,30,NA,"No difference","No difference","No difference",7,3,1,5,4,2,NA,NA,69,"pract",169.305
+18,"Woman",NA,71,26,6,"No difference","No difference","No difference",5,3,4,2,5,1,NA,NA,54,"control",136.184
+20,"Woman",NA,78,30,NA,"No difference","Women","Women",6,3,1,5,4,2,NA,NA,55,"pract",227.176
+22,"Woman",NA,92,30,NA,"No difference","No difference","No difference",4,3,5,2,4,1,NA,NA,90,"pract",119.271
+19,"Man",NA,75,30,NA,"No difference","Women","Women",5,5,3,4,2,1,NA,NA,57,"pract",162.34
+19,"Woman",NA,80,30,7,"Women","Women","Women",6,5,2,4,3,1,NA,NA,54,"control",151.934
+20,"Woman",NA,41,15,6,"Women","Women","Women",4,1,2,4,5,3,"no",NA,38,"control",168.716
+21,"Man",NA,100,100,NA,"No difference","No difference","Women",5,5,2,4,3,1,NA,"No",59,"pract",174.935
+20,"Woman",NA,44,30,5,"No difference","No difference","No difference",4,5,2,4,1,3,NA,NA,65,"control",143.177
+21,"Man",NA,80,30,6,"No difference","Women","Women",6,5,4,2,3,1,NA,NA,51,"control",155.264
+21,"Woman",NA,51,20,NA,"No difference","Women","Women",3,4,2,5,3,1,NA,NA,35,"pract",373.51
+19,"Other","woman",92,30,5,"No difference","No difference","No difference",5,4,3,5,2,1,"I think there may be a gender difference (biased towards men) in the majors/career paths that require STEM knowledge and arithmetic mastery. Therefore, men's scores may slightly exceed women's, on average.","No, everything was clear!",56,"control",182.967
+22,"Man",NA,100,40,5,"Men","No difference","No difference",7,4,2,5,3,1,NA,NA,81,"control",140.073
+22,"Woman",NA,90,20,NA,"Men","Women","Women",6,3,2,5,4,1,NA,NA,61,"pract",171.838
+21,"Woman",NA,60,30,6,"Men","Women","Women",5,5,3,2,4,1,NA,NA,54,"control",150.29
+18,"Man",NA,90,100,NA,"Men","Women","Women",3,5,3,4,2,1,NA,NA,150,"pract",250.097
+21,"Woman",NA,65,25,6,"No difference","Women","Women",6,5,2,4,3,1,NA,NA,56,"control",132.184
+21,"Man",NA,80,40,NA,"No difference","No difference","Women",1,5,2,4,3,1,NA,NA,62,"pract",141.734
+20,"Man",NA,92,40,2,"No difference","No difference","No difference",6,5,2,3,4,1,NA,NA,68,"control",148.514
+21,"Woman",NA,100,20,NA,"Men","Women","Women",5,4,3,5,2,1,NA,NA,50,"pract",184.351
+20,"Man",NA,80,50,4,"No difference","No difference","No difference",5,3,5,2,4,1,NA,NA,63,"control",188.873
+22,"Woman",NA,68,20,NA,"Men","Women","Women",7,4,2,5,3,1,NA,"No",56,"pract",222.935
+19,"Woman",NA,97,40,5,"No difference","Women","Women",5,5,3,4,2,1,"Men are more overly confident in their abilities for simple things such as multiplication (even if they do not have reason to be), whereas women acknowledge that they should not be cocky about their abilities as everyone makes mistakes, so they know practice always helps.",NA,60,"control",137.684
+18,"Woman",NA,94,47,6,"No difference","Women","Women",6,5,2,4,3,1,"n/a","n/a",68,"control",129.144
+20,"Man",NA,90,55,NA,"No difference","No difference","No difference",6,5,2,4,3,1,NA,NA,64,"pract",172.929
+18,"Woman",NA,71,20,NA,"Women","Women","Women",2,5,4,2,3,1,NA,NA,37,"pract",219.59
+18,"Man",NA,100,45,7,"No difference","Women","No difference",5,4,3,5,2,1,NA,NA,85,"control",112.318
+21,"Man",NA,100,25,NA,"Men","Women","Women",7,4,3,5,2,1,"there is a societal perception that men are better than women at maths, therefore they might feel inferior to the mens' abilities at maths and so will study harder to do better","no",66,"pract",173.909
+21,"Man",NA,100,30,NA,"No difference","No difference","No difference",5,4,2,1,5,3,NA,NA,74,"pract",131.316
+21,"Man",NA,85,20,6,"No difference","No difference","No difference",5,4,2,5,3,1,NA,NA,47,"control",140.692
+26,"Man",NA,71,20,6,"No difference","Women","No difference",4,4,2,5,3,1,"The societal expectation that women are worse then men at math makes them try harder.",NA,35,"control",227.038
+19,"Woman",NA,92,30,2,"No difference","Women","Women",5,4,3,1,2,5,NA,NA,50,"control",145.262
+21,"Woman",NA,52,20,NA,"Women","Women","Women",2,4,2,5,3,1,NA,NA,39,"pract",255.931
+18,"Man",NA,95,30,NA,"Men","Men","No difference",7,5,3,2,4,1,NA,NA,61,"pract",123.827
+19,"Man",NA,91,29,NA,"No difference","No difference","No difference",7,4,5,2,3,1,NA,NA,53,"pract",177.05
+18,"Woman",NA,90,30,NA,"No difference","No difference","No difference",5,5,2,4,3,1,NA,"Perhaps I wasn't reading enough in depth, but I wasn't aware that I could skip the original preparatory phase.",67,"pract",140.25
+21,"Woman",NA,98,30,3,"Women","Women","Women",3,4,2,5,3,1,"Women have the tendency to feel like they are doing worse at math than their peers when they are doing equal or better than their male peers.","No",65,"control",141.339
+18,"Man",NA,80,40,2,"No difference","No difference","Women",4,5,1,4,2,3,NA,NA,101,"control",133.04
+19,"Woman",NA,93,20,NA,"Men","No difference","No difference",5,5,3,2,4,1,"to prove men wrong.",NA,55,"pract",190.785
+19,"Woman",NA,85,40,4,"No difference","No difference","No difference",7,4,2,3,5,1,NA,"no",65,"control",188.541
+19,"Man",NA,82,50,NA,"No difference","Women","Women",5,5,3,4,2,1,NA,NA,66,"pract",166.107
+20,"Man",NA,100,50,1,"Women","Women","Women",7,1,5,2,3,4,NA,NA,65,"control",154.726
+19,"Woman",NA,70,24,6,"Women","Women","Women",5,5,2,4,3,1,NA,NA,46,"control",143.67
+18,"Woman",NA,70,18,NA,"No difference","No difference","No difference",6,5,3,4,2,1,"n/a",NA,63,"pract",145.444
+21,"Man",NA,100,50,NA,"No difference","No difference","No difference",5,5,3,2,4,1,NA,NA,54,"pract",249.184
+21,"Man",NA,100,35,2,"Men","No difference","No difference",6,2,5,1,3,4,NA,NA,62,"control",155.754
+20,"Man",NA,85,30,5,"No difference","No difference","Women",7,5,2,4,3,1,NA,"All was clear.",55,"control",151.782
+20,"Man",NA,100,50,NA,"No difference","No difference","No difference",6,5,2,4,1,3,NA,NA,49,"pract",117.892
+22,"Man",NA,80,20,5,"No difference","Men","Women",4,4,3,5,2,1,NA,"No",72,"control",175.442
+18,"Man",NA,100,40,NA,"No difference","No difference","No difference",6,2,3,5,4,1,NA,NA,71,"pract",115.452
+21,"Woman",NA,42,40,4,"Women","Women","Women",5,4,3,5,2,1,NA,NA,69,"control",270.825
+20,"Man",NA,70,30,6,"No difference","No difference","No difference",3,4,2,5,3,1,NA,NA,85,"control",137.953
+19,"Woman",NA,51,15,NA,"No difference","Women","Women",6,2,5,1,4,3,NA,NA,49,"pract",259.158
+20,"Woman",NA,75,20,5,"No difference","No difference","Women",5,4,2,3,5,1,NA,NA,56,"control",127.712
+21,"Man",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,"control",98.366
+22,"Woman",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,"pract",65.698
+30,"Woman",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,NA,0
+20,"Woman",NA,100,50,NA,"Women","No difference","No difference",6,5,2,4,3,1,NA,NA,70,"pract",130.49
+18,"Man",NA,50,20,NA,"No difference","Women","No difference",6,1,5,4,2,3,NA,NA,57,"pract",194.45
+20,"Man",NA,90,30,NA,"Women","Women","Women",6,5,3,1,4,2,NA,"No",51,"pract",181.945
+20,"Woman",NA,100,30,4,"No difference","No difference","Women",4,5,3,2,4,1,"N/A",NA,59,"control",152.511
+18,"Woman",NA,71,25,NA,"Men","Men","Men",7,5,1,4,3,2,NA,NA,71,"pract",288.026
+20,"Woman",NA,81,30,5,"Women","Men","Women",7,5,3,4,2,1,NA,NA,61,"control",128.118
+21,"Woman",NA,70,50,NA,"No difference","Women","Women",6,5,3,2,4,1,NA,NA,63,"pract",222.434
+22,"Woman",NA,55,14,7,"Men","No difference","Women",5,5,2,4,3,1,NA,NA,37,"control",193.739
+21,"Man",NA,90,30,5,"Men","Men","Women",6,5,2,4,3,1,NA,NA,50,"control",147.424
+20,"Man",NA,100,25,5,"Men","No difference","Women",7,4,3,5,2,1,"Women are always told in our society to follow rules by the book, and not take risk like men do. That's also why I think women an average prepare more.","No. Everything was clear.",70,"control",118.016
+18,"Woman",NA,90,30,NA,"No difference","Women","Women",5,5,3,2,4,1,NA,NA,61,"pract",218.627
+20,"Woman",NA,100,20,2,"Men","Women","Women",4,5,2,4,3,1,NA,"no",70,"control",132.666
+19,"Man",NA,100,100,NA,"No difference","No difference","Women",6,3,2,4,1,5,NA,NA,101,"pract",128.205
+18,"Man",NA,100,55,1,"No difference","Women","Women",6,4,2,5,1,3,NA,NA,85,"control",118.54
+21,"Man",NA,72,23,NA,"Women","Women","Women",7,5,2,3,4,1,"Women feel they have pressure to overcome stereotypes about their gender performance in math","No",58,"pract",160.107
+20,"Woman",NA,100,30,NA,"Men","Women","Women",6,4,2,5,1,3,NA,NA,67,"pract",125.913
+20,"Man",NA,100,30,5,"Women","Women","Women",7,4,3,5,1,2,"Early education unfairly penalizes behavior problems of boys. This phenomenon offers a possible explanation as to why women tend to have better study skills and academic success than men. https://www.usnews.com/news/articles/2016-06-22/boys-bear-the-brunt-of-school-discipline",NA,55,"control",152.368
+18,"Woman",NA,100,30,NA,"No difference","No difference","No difference",5,5,2,4,3,1,NA,NA,57,"pract",184.128
+20,"Woman",NA,70,50,3,"No difference","Women","Women",4,4,2,5,3,1,NA,NA,58,"control",120.712
+21,"Man",NA,100,20,NA,"Men","Men","No difference",6,4,1,5,3,2,"I've read some studies that showed that women tend to be more agreeable and conscientious in terms of personality traits than men. It makes sense to me that when asked to prepare more, women would both agree to that suggestion and also prepare more once they do agree.","I think the question: do men or women ""prepare more"" could more explicitly reference that it was referring to the first task, but other than that everything was clear!",65,"pract",139.615
+22,"Man",NA,80,30,NA,"No difference","No difference","No difference",6,5,2,3,4,1,"I cannot think of other reasons",NA,65,"pract",177.611
+19,"Woman",NA,90,25,5,"No difference","Women","Women",6,5,4,2,3,1,NA,"no",64,"control",118.475
+20,"Woman",NA,81,20,NA,"Women","No difference","No difference",5,4,2,5,3,1,NA,NA,44,"pract",212.264
+19,"Woman",NA,100,50,NA,"No difference","No difference","No difference",7,4,5,3,2,1,NA,NA,65,"pract",137.428
+19,"Man",NA,100,45,6,"No difference","No difference","Women",5,2,4,1,3,5,"Women are more likely to recognize the merits of practicing.",NA,79,"control",135.088
+21,"Woman",NA,100,20,7,"No difference","No difference","No difference",6,1,3,2,4,5,NA,NA,40,"control",490.818
+20,"Woman",NA,50,20,4,"Men","Women","Women",4,5,2,4,3,1,NA,NA,62,"control",151.556
+21,"Woman",NA,43,25,NA,"Men","Men","No difference",5,5,3,4,1,2,NA,NA,39,"pract",166.301
+19,"Woman",NA,92,20,NA,"No difference","Women","Women",7,5,3,2,4,1,NA,NA,49,"pract",845.344
+19,"Woman",NA,81,40,4,"No difference","No difference","Women",4,5,3,4,2,1,NA,NA,64,"control",223.539
+20,"Man",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,NA,0
+20,"Woman",NA,70,25,4,"Women","No difference","No difference",5,5,2,4,3,1,NA,NA,65,"control",148.821
+20,"Woman",NA,100,20,NA,"No difference","Women","Women",6,5,2,3,1,4,NA,NA,26,"pract",207.635
+20,"Man",NA,90,60,6,"No difference","No difference","Women",6,4,2,5,3,1,NA,NA,64,"control",171.211
+19,"Woman",NA,27,40,5,"No difference","Women","Women",6,4,2,5,3,1,NA,NA,66,"control",127.891
+18,"Man",NA,91,50,NA,"Women","Women","Women",7,5,2,3,4,1,NA,NA,60,"pract",156.127
+20,"Woman",NA,73,25,NA,"No difference","Women","Women",5,4,1,5,2,3,NA,NA,46,"pract",203.686
+21,"Woman",NA,85,40,NA,"Women","Women","Women",5,5,2,3,4,1,NA,NA,75,"pract",213.445
+20,"Man",NA,100,30,6,"Women","Women","Women",7,5,2,4,3,1,NA,NA,63,"control",146.416
+20,"Man",NA,100,50,2,"No difference","No difference","No difference",4,5,3,1,4,2,NA,NA,77,"control",114.365
+22,"Man",NA,100,70,NA,"No difference","No difference","No difference",7,5,2,3,4,1,NA,NA,67,"pract",151.759
+20,"Woman",NA,85,20,5,"Men","Women","Women",7,5,2,4,3,1,NA,NA,73,"control",112.153
+21,"Woman",NA,90,40,5,"No difference","Women","Women",3,5,2,4,3,1,NA,NA,70,"control",159.776
+19,"Woman",NA,100,25,NA,"No difference","Women","Women",6,4,2,5,3,1,NA,NA,62,"pract",148.718
+18,"Man",NA,100,40,NA,"No difference","No difference","Women",4,5,2,4,3,1,NA,NA,53,"pract",216.155
+20,"Woman",NA,71,23,3,"Men","Men","No difference",6,4,2,5,3,1,NA,NA,60,"control",160.2
+18,"Man",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,"pract",257.743
+18,"Man",NA,90,35,7,"Women","Men","Men",7,5,1,4,2,3,NA,NA,41,"control",171.239
+21,"Man",NA,100,70,5,"No difference","Men","No difference",6,5,4,3,2,1,NA,NA,90,"control",108.758
+21,"Woman",NA,95,50,NA,"No difference","Women","Women",6,4,2,5,3,1,NA,NA,54,"pract",173.732
+20,"Woman",NA,100,30,NA,"No difference","Women","Women",7,4,3,5,2,1,NA,NA,66,"pract",167.459
+22,"Man",NA,62,28,NA,"Women","No difference","Women",3,4,2,5,1,3,NA,NA,63,"pract",221.393
+20,"Woman",NA,79,20,5,"Men","Women","Women",7,5,3,2,4,1,"Women in general care more about performing well","no",49,"control",178.093
+21,"Man",NA,100,40,6,"Women","Women","Women",6,4,2,5,3,1,NA,NA,52,"control",149.525
+19,"Woman",NA,92,36,NA,"No difference","No difference","No difference",7,5,3,2,4,1,NA,NA,60,"pract",166.843
+20,"Woman",NA,100,40,3,"No difference","No difference","No difference",4,3,4,2,5,1,NA,NA,65,"control",135.709
+NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,NA,0
+51,"Woman",NA,92,30,4,"No difference","Women","Women",7,5,3,2,4,1,NA,"no",56,"control",287.255
+19,"Woman",NA,100,30,NA,"Men","Men","Women",7,5,3,2,4,1,NA,NA,59,"pract",174.844
+18,"Woman",NA,92,30,NA,"No difference","Women","Women",4,5,3,2,4,1,NA,NA,55,"pract",201.352
+20,"Woman",NA,81,25,5,"No difference","Women","Women",7,5,3,2,4,1,NA,NA,98,"control",125.605
+20,"Man",NA,75,35,NA,"Men","Women","Women",2,4,2,5,1,3,NA,NA,80,"pract",141.914
+21,"Woman",NA,52,40,6,"Men","Women","No difference",6,2,4,3,5,1,NA,NA,70,"control",137.919
+20,"Woman",NA,71,30,NA,"Women","No difference","Women",6,4,5,2,3,1,"I do not have any other explanations","no",39,"pract",199.355
+19,"Woman",NA,51,30,6,"Women","Women","Women",2,4,2,5,3,1,NA,NA,62,"control",502.037
+19,"Man",NA,94,40,2,"No difference","Women","Women",5,4,2,5,3,1,NA,NA,56,"control",120.992
+21,"Man",NA,37,30,NA,"No difference","No difference","No difference",2,5,2,3,4,1,NA,NA,71,"pract",133.131
+22,"Man",NA,80,25,7,"No difference","Women","Women",5,5,3,4,2,1,NA,NA,60,"control",152.413
+19,"Woman",NA,53,15,NA,"No difference","Women","No difference",4,2,4,5,3,1,NA,NA,62,"pract",154.842
+19,"Woman",NA,69,25,NA,"No difference","No difference","No difference",5,3,5,1,4,2,"Women are more thoughtful at the task at hand than men.",NA,55,"pract",183.871
+20,"Woman",NA,59,40,7,"Women","No difference","Women",4,5,2,3,4,1,NA,"no.",73,"control",132.25
+20,"Man",NA,88,40,NA,"No difference","No difference","No difference",4,5,4,2,3,1,NA,NA,67,"pract",157.069
+19,"Woman",NA,95,26,NA,"Men","Women","Women",6,1,3,4,2,5,NA,NA,80,"pract",137.722
+21,"Woman",NA,50,40,6,"Women","Women","Women",6,5,3,2,4,1,NA,NA,98,"control",94.708
+21,"Man",NA,100,35,NA,"Men","Men","Women",7,4,2,5,3,1,NA,NA,66,"pract",132.994
+21,"Woman",NA,75,20,NA,"No difference","Women","Women",6,4,3,5,2,1,NA,NA,55,"pract",313.484
+20,"Woman",NA,60,25,6,"Women","Women","Women",6,4,3,5,2,1,NA,NA,52,"control",130.663
+20,"Woman",NA,85,15,5,"Women","Women","No difference",6,4,2,5,3,1,NA,NA,38,"control",643.782
+21,"Man",NA,100,NA,1,"No difference","No difference","No difference",1,4,3,5,2,1,NA,NA,71,"control",131.301
+19,"Man",NA,100,40,1,"No difference","No difference","No difference",4,4,1,5,2,3,NA,NA,80,"control",90.323
+26,"Man",NA,95,30,NA,"Women","No difference","Women",4,5,2,4,3,1,"Men are overconfident in their skills.","no",53,"pract",200.366
+21,"Man",NA,93,15,NA,"No difference","Women","Women",6,5,2,3,4,1,NA,NA,68,"pract",153.089
+27,"Man",NA,90,40,1,"No difference","No difference","No difference",4,5,3,4,2,1,NA,NA,45,"control",218.641
+21,"Man",NA,90,NA,5,"No difference","No difference","No difference",6,5,4,2,3,1,NA,NA,68,"control",120.14
+20,"Woman",NA,75,20,NA,"No difference","No difference","No difference",5,2,3,5,4,1,NA,NA,45,"pract",173.204
+18,"Man",NA,100,25,NA,"Women","Women","Women",2,4,5,2,3,1,NA,NA,37,"pract",192.284
+21,"Woman",NA,40,20,7,"No difference","No difference","No difference",6,5,2,4,3,1,NA,NA,45,"control",120.384
+19,"Man",NA,100,35,5,"No difference","Women","Women",6,5,3,2,4,1,NA,"no",52,"control",194.541
+21,"Man",NA,50,20,NA,"Men","Women","Women",2,4,2,5,1,3,NA,NA,26,"pract",213.805
+21,"Man",NA,100,30,5,"No difference","No difference","Women",4,5,3,4,2,1,NA,NA,55,"control",147.203
+19,"Man",NA,70,20,NA,"No difference","No difference","No difference",5,5,2,3,4,1,NA,"no",47,"pract",240.53
+19,"Other","none. i am swag",92,40,NA,"No difference","Women","Women",7,4,2,5,3,1,NA,NA,69,"pract",150.142
+18,"Man",NA,93,30,NA,"No difference","Women","Women",5,4,3,5,2,1,NA,NA,71,"pract",143.363
+20,"Man",NA,100,25,4,"Women","Women","Women",4,5,2,4,3,1,NA,"No",44,"control",142.464
+19,"Woman",NA,91,40,NA,"No difference","Men","Women",5,4,2,5,3,1,NA,NA,77,"pract",135.007
+19,"Man",NA,50,30,7,"No difference","No difference","No difference",5,4,2,5,3,1,NA,NA,46,"control",163.243
+21,"Woman",NA,75,80,2,"No difference","Women","Women",5,4,3,5,2,1,NA,NA,77,"control",107.53
+19,"Woman",NA,100,30,NA,"No difference","No difference","Women",6,5,2,4,3,1,NA,NA,50,"pract",175.752
+20,"Other","not really important to me",75,15,NA,"No difference","No difference","No difference",4,4,3,5,1,2,NA,NA,56,"pract",171.342
+19,"Woman",NA,92,50,4,"No difference","Women","Women",4,4,5,2,1,3,"N/A",NA,55,"control",139.38
+22,"Man",NA,65,20,NA,"No difference","No difference","Women",6,5,3,2,4,1,NA,NA,49,"pract",304.053
+19,"Man",NA,76,25,NA,"Women","Women","Women",6,2,5,4,3,1,NA,NA,43,"pract",395.759
+21,"Woman",NA,90,25,NA,"No difference","No difference","No difference",6,5,2,4,3,1,NA,NA,65,"pract",158.374
+20,"Man",NA,100,100,7,"Men","No difference","Women",7,5,3,2,4,1,NA,"No, but at the very beginning in the Study Overview, the first use of the word ""arithmetic"" is spelled wrong. Just thought I'd let you know !",97,"control",93.285
+20,"Woman",NA,61,40,NA,"Women","Women","Women",5,5,3,2,4,1,NA,NA,62,"pract",194.647
+20,"Man",NA,75,30,5,"No difference","No difference","No difference",5,5,2,4,3,1,NA,NA,75,"control",129.49
+23,"Woman",NA,99,70,2,"Women","Women","Women",6,4,3,5,2,1,NA,"No",67,"control",141.003
+20,"Woman",NA,54,20,4,"No difference","No difference","Women",6,5,1,4,2,3,NA,NA,55,"control",110.43
+21,"Man",NA,70,20,NA,"No difference","No difference","No difference",6,1,4,3,2,5,"Perhaps men are more impulsive and overconfident.","no",38,"pract",195.39
+20,"Woman",NA,81,30,NA,"No difference","No difference","No difference",4,4,2,5,1,3,NA,NA,60,"pract",183.429
+21,"Man",NA,70,30,NA,"No difference","No difference","No difference",5,5,1,4,3,2,NA,NA,52,"pract",214.24
+20,"Woman",NA,84,NA,NA,"No difference","No difference","No difference",6,4,1,5,2,3,"Women are just as good at math at men, but society tells them that they're meant to be worse. If anything, women study more math to counteract this fact or avoid it because they're told they should, but they are inherently just as good at it",NA,52,"pract",206.345
+34,"Other",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,"control",11.939
+23,"Man",NA,65,24,7,"No difference","Women","Women",4,4,2,5,3,1,"N/A",NA,57,"control",126.461
+22,"Man",NA,95,20,NA,"No difference","No difference","No difference",4,3,2,5,1,4,NA,NA,79,"pract",142.295
+19,"Man",NA,100,15,2,"No difference","Women","Women",5,4,1,5,2,3,NA,NA,60,"control",127.379
+20,"Woman",NA,73,15,3,"No difference","Women","Women",5,4,2,5,3,1,NA,"no",61,"control",117.976
+18,"Woman",NA,96,20,6,"No difference","Women","Women",7,4,3,5,1,2,NA,NA,75,"control",242.863
+21,"Man",NA,100,25,NA,"No difference","Women","Women",7,3,4,5,2,1,NA,NA,64,"pract",140.348
+18,"Man",NA,100,30,2,"Men","Women","Women",4,4,3,5,2,1,NA,NA,62,"control",127.844
+29,"Woman",NA,80,25,NA,"Women","Women","Women",7,5,3,4,2,1,"Women have a better memory than men",NA,44,"pract",254.572
+20,"Man",NA,86,50,5,"No difference","No difference","No difference",5,5,4,1,2,3,NA,NA,87,"control",135.886
+22,"Man",NA,70,26,NA,"No difference","No difference","No difference",5,5,3,1,4,2,NA,NA,50,"pract",169.145
+20,"Woman",NA,100,37,NA,"Women","Women","Women",5,5,2,4,3,1,NA,NA,52,"pract",229.519
+21,"Man",NA,8,100,4,"No difference","Women","Women",5,5,2,4,3,1,NA,"No",37,"control",160.196
+22,"Woman",NA,45,10,5,"Women","Women","Women",4,5,2,4,3,1,NA,NA,45,"control",149.844
+19,"Man",NA,60,50,NA,"No difference","No difference","No difference",4,5,4,1,3,2,NA,NA,100,"pract",109.744
+20,"Woman",NA,100,NA,1,"No difference","No difference","No difference",6,4,2,5,3,1,"There is the stereotype threat saying women are not good at math as man do.",NA,59,"control",133.84
+20,"Woman",NA,76,15,NA,"No difference","Women","Women",3,5,3,4,2,1,"probably goes back to when we learned multiplication tables--elementary school. I feel that quick math like this was mastered by the girls before the boys in class because of differences in maturity at a young age (3rd grade for me)",NA,50,"pract",182.311
+21,"Man",NA,100,30,1,"No difference","No difference","No difference",4,4,2,5,3,1,NA,NA,38,"control",162.735
+21,"Woman",NA,100,NA,NA,"No difference","No difference","No difference",4,5,2,4,3,1,NA,NA,43,"pract",232.832
+21,"Man",NA,80,35,NA,"No difference","No difference","No difference",3,3,5,1,4,2,"none","no",46,"pract",195.978
+22,"Woman",NA,80,60,5,"No difference","No difference","No difference",6,3,4,5,2,1,NA,NA,60,"control",126.92
+21,"Woman",NA,96,25,7,"No difference","Women","Women",5,4,1,5,3,2,NA,"No",65,"control",150.604
+22,"Man",NA,50,35,NA,"No difference","No difference","No difference",2,5,4,2,3,1,NA,NA,66,"pract",224.943
+22,"Man",NA,90,25,6,"Women","Women","Women",6,5,3,2,4,1,NA,NA,54,"control",153.169
+20,"Woman",NA,82,12,NA,"Women","Women","Women",3,1,4,2,3,5,"Men have a higher confidence bias where they feel more prepared than they actually are. Women have less of one thus they study more to increase their performance","I didn't understand how I could opt out of practice that well",54,"pract",168.092
+18,"Man",NA,80,25,4,"Women","Women","Women",4,5,3,1,4,2,NA,"No",51,"control",165.549
+20,"Woman",NA,38,20,7,"Men","Women","Women",3,4,2,5,3,1,NA,NA,38,"control",140.315
+21,"Woman",NA,96,40,NA,"Women","Women","Women",5,5,2,1,4,3,NA,NA,52,"pract",151.656
+22,"Man",NA,93,30,NA,"No difference","Women","Women",7,5,2,1,4,3,NA,NA,81,"pract",171.423
+19,"Man",NA,90,60,NA,"No difference","Women","Women",4,5,4,2,1,3,NA,NA,75,"pract",150.34
+20,"Man",NA,95,60,2,"No difference","No difference","Women",5,5,3,4,1,2,NA,NA,78,"control",106.931
+20,"Woman",NA,50,20,NA,"Women","Women","Women",4,5,2,3,4,1,NA,NA,35,"pract",258.823
+20,"Man",NA,99,23,5,"Women","Women","Women",4,4,3,5,2,1,NA,NA,49,"control",197.514

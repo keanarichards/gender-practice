@@ -1,0 +1,149 @@
+---
+output:
+  word_document: 
+      reference_docx: mystyle.docx
+bibliography: library.bib
+---
+
+# Example abstracts (with associated links)
+
+[Abstract 1](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948752&HistoricalAwards=false)
+
+Decision makers often consider information from a variety of sources, but since processing information is effortful not all information is always taken into account. This project investigates the contributions of two major sources of information to decision-making: any available information on the reward that an action will produce, and the history of rewards obtained from taking this action in the past. The extent to which decision makers rely on either of these sources of information is fundamental to understanding commonly observed choice patterns that economize on learning: Present information is often (at least partially) ignored and substituted for by relying on prior experience. Recent advances in economics model this trade-off, but do not typically provide an account of prior experience. Neuroscience and artificial intelligence, however, provide an account of learning from prior experience which is relevant to the formation of habits, for instance. This project aims to combine neuroscientific and economic accounts in one coherent theoretical framework, and to quantify experimentally the extent to which decisions rely on present information and prior experience, respectively. Such a measurement is crucial for understanding the circumstances under which a decision maker reassesses a recurring decision and breaks a habit. It will suggest policies that help incentivize decision makers to make deliberate decisions rather than following persistent habits. This is of great importance given the central role habits play in anxiety disorders, addiction, and arguably also in consumption decisions.
+
+The relative contributions of present information and prior experience are assessed in an experiment that is firmly rooted in the economic theory of rational inattention as well as computational models of reinforcement learning from cognitive neuroscience. The experiment combines observed choice behavior with a measurement of neural activity, in order to establish whether the latter is correlated with probabilistic beliefs. The rationale is that dopaminergic activity in the midbrain is consistent with reinforcement learning theory believed to encode a reward prediction error, which can be observed in the striatum using functional magnetic resonance imaging. If this neural measurement can be validated as a proxy for probabilistic beliefs, it could be leveraged for inference on unobservable beliefs. This provides further evidence on the extent to which subjects decisions rely on present information and prior experience, depending on the characteristics of these two sources of information.
+
+[Abstract 2](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2046692&HistoricalAwards=false)
+
+Scientists often use numbers and statistics to communicate health and environmental risks with the public. Members of the public, however, may find this type of messaging difficult to understand or unappealing. In contrast, narrative or stories may offer an effective alternative. When reading a well-crafted narrative, people may find themselves absorbed into an imaginary world and identify with the characters portrayed. These processes, termed as transportation and identification, illustrate how narratives may change people's attitudes and behaviors. Notably, when people are engaged in a narrative, they may feel closer to the characters or the scenario, which may also influence their perception about the issue featured in the story. This research project examines whether narratives indeed reduce the distance people perceive toward the characters and the scenario and subsequently influence their attitudes toward two risk topics ocean plastic pollution and e-cigarette use. Specifically, participants will read a narrative that features either a close scenario (e.g., ocean plastic pollution harming their own country) or a far scenario (e.g., ocean plastic pollution harming a foreign country), and portrays characters that are either similar or different from them. We then examine whether these differences in the narrative influence their transportation and identification levels, and more importantly, whether they report attitude changes that are consistent with the positions promoted in the narrative. This project will help risk communication experts craft narrative persuasion messages to target different individuals more effectively.
+
+This research project seeks to advance the theorization of narrative persuasion in risk communication through the lens of psychological distance. There are two main objectives. First, this research explores how using narrative can influence risk communication outcomes. The central argument is that via the mediation of transportation and identification, the effectiveness of narrative persuasion is influenced by the perceived distance between audience and the risk featured in the narrative. Second, the research aims to incorporate distance framing into narrative message design to effectively communicate about abstract and uncertain risks. Specifically, this research seeks to identify the impacts of distance cues associated with narrative character and narrative scenario in actualizing persuasion effects. The two experiments feature different character-based and scenario-based distance cues. The experiments focus on one environmental risk: ocean plastic pollution, and one health risk: e-cigarette use. Intrinsic to public perception of these two topics are all four dimensions of psychological distance: social, spatial, temporal, and hypothetical. By testing the proposed theoretical framework in different environmental and health contexts, this research has broad theoretical and practical implications. Findings from this project contribute to the literature on narrative persuasion and risk communication and inform the design of narrative messaging that is widely utilized in information campaigns and entertainment education.
+
+[Abstract 3](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948887&HistoricalAwards=false)
+
+A basic feature of human social life is asking and answering questions, a complex task that requires one to decide whom to ask, how to phrase the question, and how to interpret the answer and judge its worth. Despite the centrality of the activity, however, little is understood about the general principles involved in each step of the process, making it difficult to design better ways to help people ask questions and find the information they need. The problem becomes even more pressing in the information age: people ask more questions than ever before, on a wider range of topics, and they take those questions not only to friends and family, but also to strangers and acquaintances on the wider world of online bulletin boards and social media. This dissertation work addresses gaps in our understanding, using a combination of methods from psychology and computer science. Tools from machine learning and artificial intelligence will be used to analyze large-scale collections of questions and answers that people produce on online bulletin board systems and results will be used to build general theories that explain and predict how and when people find good answers to their questions. In laboratory experiments to test these theories, participants will be shown questions and answers with varying underlying properties, and the results will identify features that are particularly crucial for information gathering. The large-scale nature of the data science investigation affords the development of theories based on subtle patterns in the relationship between question and answer, while the laboratory work allows investigation into the causal nature of the problem: what, for the question-asker, makes an answer good?
+
+One of the most common ways people explore and learn about the world is by seeking information from others through asking questions. This behavior requires two kinds of judgments: (1) from whom one should seek answers and (2) how should one judge whether the answer satisfies the question? These two judgments are inter-dependent and require that people make decisions under uncertainty. This two-pronged investigation into how such judgments are made includes not only the lab-based experiments that are a traditional strength of social and decision sciences, but also a data science component that looks at how these decisions are made in the wild. This mix of methodologies will be used to examine the defining features of good answers and those who give them. The research focuses on questions and answers that are given in human-to-human linguistic dialogue. Techniques from data science and computational linguistics will be used to analyze collections of questions and answers produced on online discussion forums, ranging from requests for technical help on Stackexchange to more nuanced, social questions asked by parents on Mumsnet. Two key properties of the relationship between questions and answers the extent to which they overlap, and the degree to which answers focus the solution space posed by the question are hypothesized to correspond to how answers are evaluated. Controlled laboratory experiments will be used to elucidate preferences for those who answer questions. The types of preferences a questioner has for potential answerers has direct consequences for the relevance and quality of information received, and in turn affects the utility of subsequent answers and further decisions. A Bayesian framework is used to formalize the task facing the questioner: to infer what type of answerer an individual is, given their past answering behavior. Behavioral experiments will test key predictions of the model.
+
+[Cmd/Ctrl+click here for list of other examples](https://www.nsf.gov/awardsearch/advancedSearchResult?ProgEleCode=1321&BooleanElement=Any&BooleanRef=Any&ActiveAwards=true&#results)
+
+# Draft abstract
+
+Reminder of prompt:
+
+The NSF award abstract has two parts, which should appear in the following order:
+
+-   Part 1: A nontechnical description of the project, which explains the project's significance and importance. This description also serves as a public justification for NSF funding by articulating how the project serves the national interest, as stated by NSF's mission: to promote the progress of science; to advance the national health, prosperity and welfare; or to secure the national defense. This part of the abstract should describe the fundamental issues the project seeks to address, as well as other potential benefits, such as how the project advances the field, supports education and diversity, or benefits society. This part should be understandable by a broad audience.
+
+    -   Many labor market advancement processes (e.g., hiring, promotions) can be considered competitions. Since competitions can affect a person's labor market outcomes, understanding how a person's gender affects their response to competition may help identify solutions to persistent gender gaps in labor market outcomes. Because women tend to be more risk-averse, less confident, and prefer to opt out of competitions, they may engage in more coping strategies, such as preparation, before entering competitions. Beliefs about gender differences in performance may also factor into the decision to prepare before competing. There are generally stereotypes that men or women perform better on certain tasks. Thus, beliefs about gender differences in performance on tasks may either exacerbate (if in favor of men's performance) or reduce (if in favor of women's performance) any gender differences in the choice to prepare before competition. In this project, we test these hypotheses through a series of online experiments where we manipulate competition and, subsequently, participants' beliefs about gender differences in performance under competition. If competitions exacerbate gender differences in the amount of effort exerted (e.g., preparing or studying) before performance, this may affect women's labor output, career advancement, the ability to achieve a satisfying work-life balance, and even the decision to enter or stay in competitive environments. As this is a new area of research, there are many promising and exciting avenues for future exploration, all of which have the potential to inform policies that mitigate gender disparities in the labor market.
+
+-   Part 2: A technical description of the project that states its goals and scope, the methods and approaches to be used, and its potential contribution. In many cases, the technical project description may be a modified version of the project summary that is submitted with the proposal. However, the technical description should reflect any changes in the project's goals made after the review process.
+
+    -   Competitions are increasingly prevalent in the global labor market and the winners of competitions are disproportionately rewarded. Understanding individual differences in response to competitive situations may help address economic disparities across groups, like persistent gender differences in labor market outcomes. To date, most of the research on gender differences in competitions has focused on either i) explaining the sources of the gender difference or ii) designing interventions to encourage women to compete more. The present proposal builds on prior research by examining how competitions affect gender differences in the amount of time spent preparing for competitions. We hypothesize that women will spend more time preparing than men, especially before competitions, in part because they are, on average, less risk-seeking and confident than men. We will also test boundary conditions of the anticipated interaction by examining how beliefs about gender differences in performance shape the decision to prepare before competition. Overall, the proposed work will advance knowledge by providing the foundation for a fruitful line of work focused on gender differences in the choice to prepare before a competition and its possible economic ramifications for women.
+
+# Budget impact statement
+
+In light of the feedback on the original proposal, we have taken two measures to reduce the budget. First, we have reduced the sample size in both studies from 3250 participants to 1500, which, as shown in the power analysis below, provides power for larger, arguably more practically relevant, effects - in line with comments reviewers 2 and 4. Now, we have 83% power to detect interaction effects of *b* = .3 and 97% power to detect interaction effects of *b* = .4.
+
+Second, we have raised the bonus payment for the competitive payment scheme across both studies, to address the comment from reviewer 3 that the $.02 difference across the two payment schemes might not be large enough to affect people's behavior. Participants will earn \$.10 per question correct if they win under a tournament payment scheme and \$.05 under a piece-rate payment scheme, which we anticipate will be a more motivating payment difference. The psychology department at the University of Pennsylvania has agreed to pay for the extra \$411.75 over the reduced budget of \$20,000.
+
+```{r, message=F,  warning=F, echo = F}
+
+## hiding code chunks globally 
+knitr::opts_chunk$set(echo=F, message = F, warning = F)
+
+
+if(!require('pacman')) {
+  install.packages('pacman')
+  }
+pacman::p_load(tidyverse, here, janitor,knitr, kableExtra)
+
+options(kableExtra.auto_format = FALSE)
+
+
+```
+
+```{r, message=F,  warning=F, echo = F}
+
+## Average performance from study 1 and 2 across all participants. 
+
+## Study 1: 52.79703
+## Study 2: 48.24659
+
+## Average performance of participants from pilot study with matching task across all 3 rounds within 60 seconds= 
+## 53.64688
+
+## Proportion of participants from previous studies guess correctly on conf = about 50% for all studies 
+
+
+study <- c("Study 1", "Study 2")
+guar <- c(2.5, 2.5)
+n <- c(1500, 1500)
+
+total_guar <- guar*n
+
+## for first part, averaging performance from study 1 and 2 across participants. for second part, using performance from pilot
+avg_perf <- c((52.79703+ 48.24659)/2 ,53.64688)
+
+## for the task bonus, multiplying average task performance from respective previous study by the sample size for that specific condition (1/2 for piece-rate, only 1/4 for competition since only half of the half earn it), by the payment for that condition. 
+## don't need to multiply/divide by time in seconds since we are using the same amount of time as previous studies.
+
+bonus_task <- c((.25*n[1]*avg_perf[1]*.1) + (.5*n[1]*avg_perf[1]*.05),.5*n[2]*avg_perf[2]*.1)
+
+avg_bonus_task <- .5*(bonus_task/n)
+conf_prop <- c(.5, .5)
+
+bonus_conf <- c(conf_prop[1]*n[1]*.25, conf_prop[2]*n[2]*.25)
+
+MC_prop <- c(1, 1)
+
+bonus_MC <- c(MC_prop[1]*n[1]*.25, MC_prop[2]*n[2]*.25)
+
+bonus_conf_MC <- bonus_conf + bonus_MC
+
+avg_bonus_conf_MC <- (bonus_conf + bonus_MC)/n
+
+avg_bonus <- avg_bonus_task + avg_bonus_conf_MC
+
+avg_pay <- guar + avg_bonus
+bonus <- bonus_conf_MC +bonus_task 
+
+Mturk_fees <- (total_guar + bonus_conf_MC + bonus_task)*.2
+
+Turkprime_fees <- n*((avg_pay*.05) + .02)
+
+Total <- total_guar + bonus_task + bonus_conf_MC + Mturk_fees + Turkprime_fees
+
+df <- data.frame(study,total_guar,  bonus, Mturk_fees, Turkprime_fees, Total) 
+
+
+df <- df %>%
+  adorn_totals("row")
+
+
+```
+
+<br><br><br><br>
+
+## Updated budget:
+
+```{r, echo = F}
+kable(df, format = "html", digits = 2, col.names = c("Study", "Guaranteed payment", "Bonus payment", "MTurk fees", "Turkprime fees", "Total cost"), caption = "Table 1. Budget calculation", format.args = list(big.mark = ","))  %>% 
+  kable_styling() %>%
+save_kable(here("nsf-application", "new_budget.png"),
+             zoom = 5)
+```
+
+```{r}
+
+knitr::include_graphics(here("nsf-application", "new_budget.png"))
+```
+
+## Power analysis:
+
+-   We conducted *a priori* power analyses in R to determine an adequate sample size for the main hypothesized interaction effect between gender and condition on log transformed time spent preparing before performance [simulations modeled after code from @Hughes2017a]. We ran 5000 simulations while varying the sample size (*N* = 1500, 2000) and the effect size for the interaction effect (*b* = .3, .4). We estimated power for these specific effect sizes because they approximate the effects we saw in our pilot studies. We held other input parameters, namely the effects of gender and condition, constant (both at *b* = .2) across simulations. Based on these simulated estimates, we will recruit 1500 participants across both studies to achieve at least 80% power for our anticipated interaction effects (*b* = .3).
+
+```{r}
+
+knitr::include_graphics(here("nsf-application", "new_power_analysis.png"))
+```

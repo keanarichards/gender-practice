@@ -11,6 +11,19 @@ Funds from the NSF DDIG will be dedicated to paying participants. Each participa
 
 ```{r, message=F,  warning=F, echo = F}
 
+if(!require('pacman')) {
+  install.packages('pacman')
+  }
+pacman::p_load(tidyverse, here, janitor,knitr, kableExtra)
+
+options(kableExtra.auto_format = FALSE)
+
+
+```
+
+
+```{r, message=F,  warning=F, echo = F}
+
 ## Average performance from study 1 and 2 across all participants. 
 
 ## Study 1: 52.79703
@@ -60,17 +73,11 @@ Turkprime_fees <- n*((avg_pay*.05) + .02)
 
 Total <- total_guar + bonus_task + bonus_conf_MC + Mturk_fees + Turkprime_fees
 
-library(janitor)
 df <- data.frame(study,total_guar,  bonus, Mturk_fees, Turkprime_fees, Total) 
 
 
 df <- df %>%
   adorn_totals("row")
-
-library(knitr)
-options(kableExtra.auto_format = FALSE)
-
-library(kableExtra)
 
 
 ```

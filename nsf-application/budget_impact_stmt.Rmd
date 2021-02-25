@@ -1,0 +1,93 @@
+---
+output:
+  word_document:
+    reference_docx: mystyle.docx
+  pdf_document: default
+  html_document:
+    df_print: paged
+bibliography: library.bib
+---
+
+Funds from the NSF DDIG will be dedicated to paying participants. Each participant (*N* = 3250 for each study) will earn \$2.50 as a guaranteed payment. There are two budget costs that will vary based on participants' performance. The first variable cost is the bonus payment for the tasks themselves. We are basing the average expected task performance on participants' performance (i.e., questions completed per minute) in each respective task from our preliminary studies. Additionally, participants' bonus earnings from the follow-up question about confidence will depend on their accuracy, so we use participants' average accuracy on this measure from previous studies to determine the cost here. Finally, Amazon Mechanical Turk charges a fee for using its services (20% of each worker's total compensation) and Turkprime charges $.02 + 5% of the workers' compensation for each participant. We expect that the cost of participant payment across both studies will be, at maximum, \$31, 783.81. Dr. Apicella offers to cover the remaining costs of running the experiments that are not funded by the NSF. 
+
+```{r, message=F,  warning=F, echo = F}
+
+if(!require('pacman')) {
+  install.packages('pacman')
+  }
+pacman::p_load(tidyverse, here, janitor,knitr, kableExtra)
+
+options(kableExtra.auto_format = FALSE)
+
+
+```
+
+
+```{r, message=F,  warning=F, echo = F}
+
+## Average performance from study 1 and 2 across all participants. 
+
+## Study 1: 52.79703
+## Study 2: 48.24659
+
+## Average performance of participants from pilot study with matching task across all 3 rounds within 60 seconds= 
+## 53.64688
+
+## Proportion of participants from previous studies guess correctly on conf = about 50% for all studies 
+
+
+study <- c("Study 1", "Study 2")
+guar <- c(2.5, 2.5)
+n <- c(3250, 3250)
+
+total_guar <- guar*n
+
+## for first part, averaging performance from study 1 and 2 across participants. for second part, using performance from pilot
+avg_perf <- c((52.79703+ 48.24659)/2 ,53.64688)
+
+## for the task bonus, multiplying average task performance from respective previous study by the sample size for that specific condition (1/2 for piece-rate, only 1/4 for competition since only half of the half earn it), by the payment for that condition. 
+## don't need to multiply/divide by time in seconds since we are using the same amount of time as previous studies.
+
+bonus_task <- c((.25*n[1]*avg_perf[1]*.04) + (.5*n[1]*avg_perf[1]*.02),.5*n[2]*avg_perf[2]*.04)
+
+avg_bonus_task <- .5*(bonus_task/n)
+conf_prop <- c(.5, .5)
+
+bonus_conf <- c(conf_prop[1]*n[1]*.25, conf_prop[2]*n[2]*.25)
+
+MC_prop <- c(1, 1)
+
+bonus_MC <- c(MC_prop[1]*n[1]*.25, MC_prop[2]*n[2]*.25)
+
+bonus_conf_MC <- bonus_conf + bonus_MC
+
+avg_bonus_conf_MC <- (bonus_conf + bonus_MC)/n
+
+avg_bonus <- avg_bonus_task + avg_bonus_conf_MC
+
+avg_pay <- guar + avg_bonus
+bonus <- bonus_conf_MC +bonus_task 
+
+Mturk_fees <- (total_guar + bonus_conf_MC + bonus_task)*.2
+
+Turkprime_fees <- n*((avg_pay*.05) + .02)
+
+Total <- total_guar + bonus_task + bonus_conf_MC + Mturk_fees + Turkprime_fees
+
+df <- data.frame(study,total_guar,  bonus, Mturk_fees, Turkprime_fees, Total) 
+
+
+df <- df %>%
+  adorn_totals("row")
+
+
+```
+
+
+<br><br><br><br> 
+
+
+```{r, echo = F}
+kable(df, digits = 2, col.names = c("Study", "Guaranteed payment", "Bonus payment", "MTurk fees", "Turkprime fees", "Total cost"), caption = "Table 1. Budget calculation", format.args = list(big.mark = ",")) %>% as_image(width = 100)
+```
+

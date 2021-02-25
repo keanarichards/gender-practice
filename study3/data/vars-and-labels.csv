@@ -1,0 +1,31 @@
+"col_names","des"
+"age","What is your age (in years)?"
+"gender","What is your gender? - Selected Choice"
+"gender_other","What is your gender? - I identify my gender as: _______ (please specify) - Text"
+"subj_confidence","You will have 2 minutes to complete a multiplication task where you are multiplying numbers from the 1-12 times tables (e.g., 1 X 1, 6 X 6, 12 X 12). How confident do you feel that you will perform well on the upcoming multiplication task? - 1"
+"abs_confidence","Approximately how many multiplication problems do you think you solved correctly during the multiplication task?"
+"control_prep_beliefs","I think that if I had the chance to practice the multiplication task by solving 50 practice MULTIPLICATION questions before completing this test, it would have boosted my performance."
+"better_gender_guess","Do you think men or women in this study correctly solved more multiplication problems on average?"
+"math_gender_prep","For math tasks, do you think men or women generally prepare (i.e., practice and/or study) more?"
+"gen_gender_prep","For most tasks, do you think men or women generally prepare (i.e., practice and/or study) more?"
+"interest","I enjoyed completing the multiplication task."
+"rank_explanations_2","In a previous study, we found a gender difference in the choice to spend time preparing for the multiplication task you just completed, where women were more likely to take the opportunity to prepare. What do you think might explain this gender difference? Please rank the possible explanations from most likely (1) to least likely (5) by clicking and dragging the explanations. 
+
+The previous study found a gender difference in preparation because, on average: - Women are more likely to think that practicing will improve their performance on the multiplication task compared to men"
+"rank_explanations_4","In a previous study, we found a gender difference in the choice to spend time preparing for the multiplication task you just completed, where women were more likely to take the opportunity to prepare. What do you think might explain this gender difference? Please rank the possible explanations from most likely (1) to least likely (5) by clicking and dragging the explanations. 
+
+The previous study found a gender difference in preparation because, on average: - Women enjoy practicing for the multiplication problems more than men"
+"rank_explanations_5","In a previous study, we found a gender difference in the choice to spend time preparing for the multiplication task you just completed, where women were more likely to take the opportunity to prepare. What do you think might explain this gender difference? Please rank the possible explanations from most likely (1) to least likely (5) by clicking and dragging the explanations. 
+
+The previous study found a gender difference in preparation because, on average: - Women are less confident that they will perform well on the multiplication task compared to men"
+"rank_explanations_6","In a previous study, we found a gender difference in the choice to spend time preparing for the multiplication task you just completed, where women were more likely to take the opportunity to prepare. What do you think might explain this gender difference? Please rank the possible explanations from most likely (1) to least likely (5) by clicking and dragging the explanations. 
+
+The previous study found a gender difference in preparation because, on average: - Women enjoy the process of mastering their multiplication tables more than men"
+"rank_explanations_8","In a previous study, we found a gender difference in the choice to spend time preparing for the multiplication task you just completed, where women were more likely to take the opportunity to prepare. What do you think might explain this gender difference? Please rank the possible explanations from most likely (1) to least likely (5) by clicking and dragging the explanations. 
+
+The previous study found a gender difference in preparation because, on average: - Women have more free time to devote to practicing for the multiplication task than men"
+"text_explanation","If there are other explanations that you think might explain the previously observed gender difference not listed above, please indicate them here."
+"unclear","Was anything unclear in the instructions or survey questions? (Optional)"
+"task_score","Score"
+"condition","Condition"
+"total_time","total time spent on the questions during either control or preparation rounds"

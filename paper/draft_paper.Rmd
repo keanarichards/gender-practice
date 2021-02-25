@@ -46,6 +46,13 @@ output            : papaja::apa6_word
 
 # Introduction 
 
+
+Should definitely include Olga’s study in introduction of gender differences in practice paper - in one study looking at delay discouting with opp to study, Shurchkov et al (2020) did not find sig diff in choice to prepare (include N from study). However, this was not the main focus of their research, as a result, they had less power to detect the effects… 
+
+In intro need to motivate --- why did we choose this task? because -- we expect people to improve with prep cite (memory research from NSF)
+
+make sure to go back & incorporate comments from Emily & Coren ICA submission (in this folder)
+
 ```{r child = here::here("paper",  "intro.Rmd")}
 
 ```
