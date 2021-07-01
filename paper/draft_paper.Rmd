@@ -9,19 +9,22 @@ author:
     address       : "3720 Walnut Street, Philadelphia PA 19104"
     email         : "keanari@sas.upenn.edu"
   - name          : "Gideon Nave"
-    affiliation   : "1"
+    affiliation   : "2"
   - name          : "Coren Apicella"
     affiliation   : "1"
 
 affiliation:
   - id            : "1"
-    institution   : "University of Pennsylvania"
+    institution   : "Department of Psychology, University of Pennsylvania, Philadelphia, PA"
+  - id            : "2"
+    institution   : "Marketing Department, The Wharton School, University of Pennsylvania, Philadelphia, PA"
 
 authornote: |
   Correspondence concerning this article should be addressed to Keana S. Richards (email: keanari@sas.upenn.edu) and Coren L. Apicella (email: capicella@psych.upenn.edu), Psychology Department, University of Pennsylvania, 3720 Walnut St., Philadelphia, PA 19104. 
 
 abstract: |
-  Previous research suggests that women compete less than men, even when there are no gender differences in performance. Women’s reluctance to compete may lead to lower earnings and may contribute to the pernicious gender wage gap, with men earning more than women, on average. One mechanism for gender differences in competitiveness is confidence, which leads women to undercompete and men to overcompete (relative to their performance level). Mastery in a task is one important driver of confidence. As such, we conduct two experiments involving over 2000 participants recruited from an online marketplace to causally test whether communicating to men and women that they will have an opportunity to prepare before a competition can reduce gender differences in competitiveness. In study 1, we test whether knowledge about an opportunity to prepare for a task increases willingness to compete. In study 2, we examine whether actual preparation increases willingness to compete. We did not find evidence that preparation affects willingness to compete in either study. And, consistent with prior literature, we document a gender difference in competitiveness. Importantly, we uncover a gender gap in preparation, where, averaged across both studies, women are 47.05% more likely to prepare than men, regardless of whether they choose to compete. This gender difference in preparation also aligns with participants' incentivized beliefs about which gender will prepare more in each of the studies. Taken together, these findings suggest that preparation is not only ineffective at reducing the gender gap in competitiveness, but that opportunities to prepare may inadvertently lead to an additional gender gap. Given the potential opportunity costs associated with preparing, and implications for organizational communication about norms and what is valued, future work should examine whether women overprepare relative to men.  
+  Previous research suggests that women compete less than men, even when there are no gender differences in performance. Women’s reluctance to compete can lead to lower earnings and may contribute to the pernicious gender wage gap. We conducted three experiments involving over X participants recruited from an online marketplace to causally test whether preparation for a task can reduce gender differences in competitiveness by increasing women's willingness to compete. We test this hypothesis in three different ways using a multiplication task. Specifically, we test whether the gender difference in willingness to compete is reduced by 1) informing participants about an opportunity to practice (Study 1), 2) by providing participants with an opportunity to practice a limited number of problems (Study 2), and 3) by providing participants with an opportunity to practice an unlimited number of problems (Study 3). Contrary to our hypotheses, we find no evidence, in any of the studies, that preparation affects willingness to compete in either men or women. Importantly, however, we uncover a sizable gender gap in preparation, where, depending on the study, women are between X% and X% more likely to prepare than men, regardless of whether they choose to compete. This gender difference in preparation also aligns with participants' incentivized beliefs. More than 75% of participants in each study correctly guessed that women would prepare more than men. Our findings suggest that preparation is ineffective at reducing the gender gap in competitiveness. Instead, we uncover a sizable gender difference in preparation. Given the potential opportunity costs associated with preparing, future work should examine whether women overprepare relative to men.
+ 
   
 keywords          : "gender, identity, choice to compete, competitiveness, preparation, practice"
 wordcount         : "5909"
@@ -46,12 +49,6 @@ output            : papaja::apa6_word
 
 # Introduction 
 
-
-Should definitely include Olga’s study in introduction of gender differences in practice paper - in one study looking at delay discouting with opp to study, Shurchkov et al (2020) did not find sig diff in choice to prepare (include N from study). However, this was not the main focus of their research, as a result, they had less power to detect the effects… 
-
-In intro need to motivate --- why did we choose this task? because -- we expect people to improve with prep cite (memory research from NSF)
-
-make sure to go back & incorporate comments from Emily & Coren ICA submission (in this folder)
 
 ```{r child = here::here("paper",  "intro.Rmd")}
 

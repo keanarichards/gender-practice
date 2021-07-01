@@ -20,7 +20,7 @@ Much of the research on gender differences in competitiveness is focused on desi
 
 # Budget impact statement
 
-In light of the feedback on the original proposal, we have taken two measures to reduce the budget. Following the suggestions of reviewers 2 and 4, we have first reduced the sample size in both studies from 3250 participants to 1500, which, as shown in the power analysis below, provides power for larger and arguably, more practically relevant effects. Now, we have 83% power to detect interaction effects of *b* = .3 and 97% power to detect interaction effects of *b* = .4. Based on the feedback from reviewer 3 that the \$.02 difference across the two payment schemes might not be large enough to adequately incentivize behavior, we have also raised the bonus payment for the competitive payment scheme across both studies. Participants will earn \$.10 per question correct if they win under a tournament payment scheme and \$.05 under a piece-rate payment scheme, which we anticipate will be a more motivating payment difference. The psychology department at the University of Pennsylvania has agreed to pay for the extra \$411.75 over the reduced budget of \$20,000.
+In light of the feedback on the original proposal, we have taken two measures to reduce the budget. Following the suggestions of reviewers 2 and 4, we have first reduced the sample size in both studies from 3250 participants to 1400 participants, which, as shown in the power analysis below, provides power for larger and arguably, more practically relevant effects. Now, we have 80.1% power to detect interaction effects of *b* = .3 and 96.2% power to detect interaction effects of *b* = .4. Based on the feedback from reviewer 3 that the \$.02 difference across the two payment schemes might not be large enough to adequately incentivize behavior, we have also raised the bonus payment for the competitive payment scheme across both studies. Participants will earn \$.10 per question correct if they win under a tournament payment scheme and \$.05 under a piece-rate payment scheme, which we anticipate will be a more motivating payment difference. 
 
 ```{r, message=F,  warning=F, echo = F}
 
@@ -53,7 +53,7 @@ options(kableExtra.auto_format = FALSE)
 
 study <- c("Study 1", "Study 2")
 guar <- c(2.5, 2.5)
-n <- c(1500, 1500)
+n <- c(1400, 1400)
 
 total_guar <- guar*n
 
@@ -116,7 +116,7 @@ knitr::include_graphics(here("nsf-application", "new_budget.png"))
 
 ## Power analysis:
 
-We conducted *a priori* power analyses in R to determine an adequate sample size for the main hypothesized interaction effect between gender and condition on log transformed time spent preparing before performance [simulations modeled after code from @Hughes2017a]. We ran 5000 simulations while varying the sample size (*N* = 1500, 2000) and the effect size for the interaction effect (*b* = .3, .4). We estimated power for these specific effect sizes because they approximate the effects we saw in our pilot studies. We held other input parameters, namely the effects of gender and condition, constant (both at *b* = .2) across simulations. Based on these simulated estimates, we will recruit 1500 participants across both studies to achieve at least 80% power for our anticipated interaction effects (*b* = .3).
+We conducted *a priori* power analyses in R to determine an adequate sample size for the main hypothesized interaction effect between gender and condition on log transformed time spent preparing before performance [simulations modeled after code from @Hughes2017a]. We ran 5000 simulations while varying the sample size (*N* = 1400, 2000) and the effect size for the interaction effect (*b* = .3, .4). We estimated power for these specific effect sizes because they approximate the effects we saw in our pilot studies. We held other input parameters, namely the effects of gender and condition, constant (both at *b* = .2) across simulations. Based on these simulated estimates, we will recruit 1400 participants across both studies to achieve at least 80% power for our anticipated interaction effects (*b* = .3).
 
 ```{r}
 

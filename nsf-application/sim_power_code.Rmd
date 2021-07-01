@@ -69,7 +69,7 @@ names(results) <- c('b0_coef', 'b1_coef', 'b2_coef', 'b3_coef', 'b0_p', 'b1_p', 
     #b0=0, b1=.2, b2=.2)
 
 paramtest_results <- grid_search(regression_sim,
-    params=list(n=c(1500, 2000), b3=c(.3, .4)),
+    params=list(n=c(1400, 2000), b3=c(.3, .4)),
     n.iter=5000, output='data.frame', parallel='snow', ncpus=3,
     b0=0, b1=.2, b2=.2)
 

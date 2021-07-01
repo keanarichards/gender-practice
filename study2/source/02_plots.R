@@ -29,7 +29,7 @@ p <- ggplot(data = dat, aes(x = condition, fill = condition)) +
   labs(x = 'Condition', y = 'Percentage Competing') + theme_apa() +
   scale_x_discrete(labels = c("Control", "Prepare")) + theme(panel.border  = element_blank()) +
   #draws x and y axis line
-  theme(axis.line = element_line(color = 'black'))
+  theme(axis.line = element_line(color = 'black')) +theme(legend.position = "none") 
 ggsave(here("study2", "figs", "fig00_comp-choice-women-by-cond.png"), width = 7, height = 7)
 
 
@@ -53,7 +53,8 @@ p <- ggplot(data = dat, aes(x = gender, fill = gender))  +
   geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
   position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
-  theme(axis.line = element_line(color = 'black'))
+  theme(axis.line = element_line(color = 'black'))+
+  geom_hline(yintercept = 50, linetype = "dashed") 
 
 ggsave(here("study2", "figs", "fig01_better-gender-guess.png"), p, width = 7, height = 7)
 
@@ -78,7 +79,8 @@ p <- ggplot(data = dat, aes(x = gender, fill = gender))  +
   scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
   position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
-  theme(axis.line = element_line(color = 'black'))
+  theme(axis.line = element_line(color = 'black'))+
+  geom_hline(yintercept = 50, linetype = "dashed") 
 
 ggsave(here("study2", "figs", "fig02_perc-gender-comp.png"), p, width = 7, height = 7)
 
@@ -103,7 +105,8 @@ p <- ggplot(data = dat, aes(x = gender, fill = gender))  +
   geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05, position=position_dodge(.9)) + theme_apa() +
   scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
-  theme(axis.line = element_line(color = 'black'))
+  theme(axis.line = element_line(color = 'black'))+
+  geom_hline(yintercept = 50, linetype = "dashed") 
 
 ggsave(here("study2", "figs", "fig03_perc-gen-gender-pract.png"), p, width = 7, height = 7)
 

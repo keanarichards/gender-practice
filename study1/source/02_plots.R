@@ -19,20 +19,13 @@ clean <- read_csv(here("study1", "data", "clean.csv"))
 
 # primary hypothesis 1 ----------------------------------------------------
 
-dat <- dplyr::select(clean,gender,comp_choice, condition) %>%
-  dplyr::count(gender, comp_choice, condition) %>% filter(gender == "Woman", comp_choice == "tournament") %>% mutate(percent = n / sum(n),
-                                                                                         error = sqrt((percent * (1-percent))/n))
-dat1 <- dplyr::select(clean,gender,comp_choice, condition) %>%
-  dplyr::count(gender, comp_choice, condition) %>% filter(gender == "Man", comp_choice == "tournament") %>% mutate(percent = n / sum(n),
-                                                                                       error = sqrt((percent * (1-percent))/n))
+dat <- dplyr::select(clean,gender,comp_choice, condition) %>% group_by(condition, gender) %>%  dplyr::count(gender, comp_choice, condition) %>% mutate(percent = n / sum(n), error = sqrt((percent * (1-percent))/n)) %>% filter(comp_choice == "tournament")
 
-
-dat <- rbind(dat1, dat)
 
 p <- ggplot(data = dat, aes(x = condition, fill = gender)) +
   geom_bar(aes(y = percent*100),
-  position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
-  position=position_dodge(.9)) + 
+           position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                                                                  position=position_dodge(.9)) + 
   geom_text(x = 1.5, y = 100, label = "***") + 
   labs(x = 'Condition', y = 'Percentage Competing') +
   scale_fill_manual(values=c("springgreen3", "slateblue1"),  labels = c("Men", "Women")) + theme_apa() +
@@ -41,8 +34,6 @@ p <- ggplot(data = dat, aes(x = condition, fill = gender)) +
   theme(axis.line = element_line(color = 'black'))
 
 ggsave(here("study1", "figs", "fig00_comp-choice-by-gender-and-cond-bar.png"), p, width = 7, height = 7)
-
-
 
 # primary hypothesis 2 ----------------------------------------------------
 
@@ -129,7 +120,8 @@ p <- ggplot(data = dat, aes(x = gender, fill = gender))  +
   geom_bar(aes(y = percent*100), position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
   position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
-  theme(axis.line = element_line(color = 'black'))
+  theme(axis.line = element_line(color = 'black')) +
+  geom_hline(yintercept = 50, linetype = "dashed") 
 
 ggsave(here("study1", "figs", "fig03_perc-task-gender-pract.png"), p, width = 7, height = 7)
 
@@ -151,7 +143,8 @@ p <- ggplot(data = dat, aes(x = gender, fill = gender))  +
   geom_bar(aes(y = percent*100), position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
   position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
-  theme(axis.line = element_line(color = 'black'))
+  theme(axis.line = element_line(color = 'black'))+
+  geom_hline(yintercept = 50, linetype = "dashed") 
 
 ggsave(here("study1", "figs", "fig04_better-gender-guess.png"), p, width = 7, height = 7)
 
@@ -173,7 +166,8 @@ p <- ggplot(data = dat, aes(x = gender, fill = gender))  +
   geom_bar(aes(y = percent*100),     position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
   position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
-  theme(axis.line = element_line(color = 'black'))
+  theme(axis.line = element_line(color = 'black'))+
+  geom_hline(yintercept = 50, linetype = "dashed") 
 ggsave(here("study1", "figs", "fig05_perc-gender-comp.png"), p, width = 7, height = 7)
 
 
@@ -199,7 +193,8 @@ p <- ggplot(data = dat, aes(x = gender, fill = gender))  +
   geom_bar(aes(y = percent*100),     position = "dodge", stat = "identity") +scale_fill_manual(values=c("springgreen3", "slateblue1"))+ geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
   position=position_dodge(.9)) + theme_apa() + scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
-  theme(axis.line = element_line(color = 'black'))
+  theme(axis.line = element_line(color = 'black'))+
+  geom_hline(yintercept = 50, linetype = "dashed") 
 
 ggsave(here("study1", "figs", "fig06_perc-gen-gender-pract.png"), p, width = 7, height = 7)
 
