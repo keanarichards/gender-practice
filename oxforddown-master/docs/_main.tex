@@ -1,0 +1,505 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% OXFORD THESIS TEMPLATE
+
+% Use this template to produce a standard thesis that meets the Oxford University requirements for DPhil submission
+%
+% Originally by Keith A. Gillow (gillow@maths.ox.ac.uk), 1997
+% Modified by Sam Evans (sam@samuelevansresearch.org), 2007
+% Modified by John McManigle (john@oxfordechoes.com), 2015
+% Modified by Ulrik Lyngs (ulrik.lyngs@cs.ox.ac.uk), 2018-, for use with R Markdown
+%
+% Ulrik Lyngs, 25 Nov 2018: Following John McManigle, broad permissions are granted to use, modify, and distribute this software
+% as specified in the MIT License included in this distribution's LICENSE file.
+%
+% John commented this file extensively, so read through to see how to use the various options.  Remember that in LaTeX,
+% any line starting with a % is NOT executed.  Several places below, you have a choice of which line to use
+% out of multiple options (eg draft vs final, for PDF vs for binding, etc.)  When you pick one, add a % to the beginning of
+% the lines you don't want.
+
+
+%%%%% PAGE LAYOUT
+% The most common choices should be below.  You can also do other things, like replacing "a4paper" with "letterpaper", etc.
+
+% This one formats for two-sided binding (ie left and right pages have mirror margins; blank pages inserted where needed):
+%\documentclass[a4paper,twoside]{templates/ociamthesis}
+% This one formats for one-sided binding (ie left margin > right margin; no extra blank pages):
+%\documentclass[a4paper]{ociamthesis}
+% This one formats for PDF output (ie equal margins, no extra blank pages):
+%\documentclass[a4paper,nobind]{templates/ociamthesis}
+
+% As you can see from the uncommented line below, oxforddown template uses the a4paper size, 
+% and passes in the binding option from the YAML header in index.Rmd:
+\documentclass[a4paper, nobind]{templates/ociamthesis}
+
+
+%%%%% ADDING LATEX PACKAGES
+% add hyperref package with options from YAML %
+\usepackage[pdfpagelabels]{hyperref}
+% change the default coloring of links to something sensible
+\usepackage{xcolor}
+
+\definecolor{mylinkcolor}{RGB}{0,0,139}
+\definecolor{myurlcolor}{RGB}{0,0,139}
+\definecolor{mycitecolor}{RGB}{0,33,71}
+
+\hypersetup{
+  hidelinks,
+  colorlinks,
+  linktocpage=true,
+  linkcolor=mylinkcolor,
+  urlcolor=myurlcolor,
+  citecolor=mycitecolor
+}
+
+
+
+% add float package to allow manual control of figure positioning %
+\usepackage{float}
+
+% enable strikethrough
+\usepackage[normalem]{ulem}
+
+% use soul package for correction highlighting
+\usepackage{color, soul}
+\definecolor{correctioncolor}{HTML}{CCCCFF}
+\sethlcolor{correctioncolor}
+\newcommand{\ctext}[3][RGB]{%
+  \begingroup
+  \definecolor{hlcolor}{#1}{#2}\sethlcolor{hlcolor}%
+  \hl{#3}%
+  \endgroup
+}
+\soulregister\ref7
+\soulregister\cite7
+\soulregister\autocite7
+\soulregister\textcite7
+\soulregister\pageref7
+
+%%%%% FIXING / ADDING THINGS THAT'S SPECIAL TO R MARKDOWN'S USE OF LATEX TEMPLATES
+% pandoc puts lists in 'tightlist' command when no space between bullet points in Rmd file,
+% so we add this command to the template
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+ 
+% UL 1 Dec 2018, fix to include code in shaded environments
+
+% User-included things with header_includes or in_header will appear here
+% kableExtra packages will appear here if you use library(kableExtra)
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+
+
+%UL set section header spacing
+\usepackage{titlesec}
+% 
+\titlespacing\subsubsection{0pt}{24pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+
+
+%UL set whitespace around verbatim environments
+\usepackage{etoolbox}
+\makeatletter
+\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+\makeatother
+
+
+
+%%%%%%% PAGE HEADERS AND FOOTERS %%%%%%%%%
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\fancyhf{} % clear the header and footers
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter. #1}{\thechapter. #1}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection. #1}} 
+\renewcommand{\headrulewidth}{0pt}
+
+\fancyhead[LO]{\emph{\leftmark}} 
+\fancyhead[RE]{\emph{\rightmark}} 
+
+% UL page number position 
+\fancyfoot[C]{\emph{\thepage}} %regular pages
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\emph{\thepage}}} %chapter pages
+
+% JEM fix header on cleared pages for openright
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+   \hbox{}
+   \fancyfoot[C]{}
+   \newpage
+   \if@twocolumn\hbox{}\newpage
+   \fi
+   \fancyhead[LO]{\emph{\leftmark}} 
+   \fancyhead[RE]{\emph{\rightmark}} 
+   \fi\fi}
+
+
+%%%%% SELECT YOUR DRAFT OPTIONS
+% This adds a "DRAFT" footer to every normal page.  (The first page of each chapter is not a "normal" page.)
+
+% IP feb 2021: option to include line numbers in PDF
+
+% for line wrapping in code blocks
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+% This highlights (in blue) corrections marked with (for words) \mccorrect{blah} or (for whole
+% paragraphs) \begin{mccorrection} . . . \end{mccorrection}.  This can be useful for sending a PDF of
+% your corrected thesis to your examiners for review.  Turn it off, and the blue disappears.
+\correctionstrue
+
+
+%%%%% BIBLIOGRAPHY SETUP
+% Note that your bibliography will require some tweaking depending on your department, preferred format, etc.
+% If you've not used LaTeX before, I recommend reading a little about biblatex/biber and getting started with it.
+% If you're already a LaTeX pro and are used to natbib or something, modify as necessary.
+% Either way, you'll have to choose and configure an appropriate bibliography format...
+
+
+\usepackage[style=authoryear, sorting=nyt, backend=biber, maxcitenames=2, useprefix, doi=true, isbn=false, uniquename=false]{biblatex}
+\newcommand*{\bibtitle}{Works Cited}
+
+\addbibresource{bibliography/library.bib}
+\addbibresource{bibliography/additional-references.bib}
+
+
+% This makes the bibliography left-aligned (not 'justified') and slightly smaller font.
+\renewcommand*{\bibfont}{\raggedright\small}
+
+
+% Uncomment this if you want equation numbers per section (2.3.12), instead of per chapter (2.18):
+%\numberwithin{equation}{subsection}
+
+
+%%%%% THESIS / TITLE PAGE INFORMATION
+% Everybody needs to complete the following:
+\title{\texttt{oxforddown}:\\
+An Oxford University Thesis\\
+Template for R Markdown}
+\author{Author Name}
+\college{Your College}
+
+% Master's candidates who require the alternate title page (with candidate number and word count)
+% must also un-comment and complete the following three lines:
+
+% Uncomment the following line if your degree also includes exams (eg most masters):
+%\renewcommand{\submittedtext}{Submitted in partial completion of the}
+% Your full degree name.  (But remember that DPhils aren't "in" anything.  They're just DPhils.)
+\degree{Doctor of Philosophy}
+% Term and year of submission, or date if your board requires (eg most masters)
+\degreedate{Michaelmas 2018}
+
+
+%%%%% YOUR OWN PERSONAL MACROS
+% This is a good place to dump your own LaTeX macros as they come up.
+
+% To make text superscripts shortcuts
+	\renewcommand{\th}{\textsuperscript{th}} % ex: I won 4\th place
+	\newcommand{\nd}{\textsuperscript{nd}}
+	\renewcommand{\st}{\textsuperscript{st}}
+	\newcommand{\rd}{\textsuperscript{rd}}
+
+%%%%% THE ACTUAL DOCUMENT STARTS HERE
+\begin{document}
+
+%%%%% CHOOSE YOUR LINE SPACING HERE
+% This is the official option.  Use it for your submission copy and library copy:
+\setlength{\textbaselineskip}{22pt plus2pt}
+% This is closer spacing (about 1.5-spaced) that you might prefer for your personal copies:
+%\setlength{\textbaselineskip}{18pt plus2pt minus1pt}
+
+% You can set the spacing here for the roman-numbered pages (acknowledgements, table of contents, etc.)
+\setlength{\frontmatterbaselineskip}{17pt plus1pt minus1pt}
+
+% UL: You can set the line and paragraph spacing here for the separate abstract page to be handed in to Examination schools
+\setlength{\abstractseparatelineskip}{13pt plus1pt minus1pt}
+\setlength{\abstractseparateparskip}{0pt plus 1pt}
+
+% UL: You can set the general paragraph spacing here - I've set it to 2pt (was 0) so
+% it's less claustrophobic
+\setlength{\parskip}{2pt plus 1pt}
+
+%
+% Oxford University logo on title page
+%
+\def\crest{{\includegraphics[width=5cm]{templates/beltcrest.pdf}}}
+\renewcommand{\university}{University of Oxford}
+\renewcommand{\submittedtext}{A thesis submitted for the degree of}
+
+
+% Leave this line alone; it gets things started for the real document.
+\setlength{\baselineskip}{\textbaselineskip}
+
+
+%%%%% CHOOSE YOUR SECTION NUMBERING DEPTH HERE
+% You have two choices.  First, how far down are sections numbered?  (Below that, they're named but
+% don't get numbers.)  Second, what level of section appears in the table of contents?  These don't have
+% to match: you can have numbered sections that don't show up in the ToC, or unnumbered sections that
+% do.  Throughout, 0 = chapter; 1 = section; 2 = subsection; 3 = subsubsection, 4 = paragraph...
+
+% The level that gets a number:
+\setcounter{secnumdepth}{2}
+% The level that shows up in the ToC:
+\setcounter{tocdepth}{1}
+
+
+%%%%% ABSTRACT SEPARATE
+% This is used to create the separate, one-page abstract that you are required to hand into the Exam
+% Schools.  You can comment it out to generate a PDF for printing or whatnot.
+
+% JEM: Pages are roman numbered from here, though page numbers are invisible until ToC.  This is in
+% keeping with most typesetting conventions.
+\begin{romanpages}
+
+% Title page is created here
+\maketitle
+
+%%%%% DEDICATION -- If you'd like one, un-comment the following.
+\begin{dedication}
+  For Yihui Xie
+\end{dedication}
+
+%%%%% ACKNOWLEDGEMENTS -- Nothing to do here except comment out if you don't want it.
+\begin{acknowledgements}
+ 	This is where you will normally thank your advisor, colleagues, family and friends, as well as funding and institutional support. In our case, we will give our praises to the people who developed the ideas and tools that allow us to push open science a little step forward by writing plain-text, transparent, and reproducible theses in R Markdown.
+
+  We must be grateful to John Gruber for inventing the original version of Markdown, to John MacFarlane for creating Pandoc (\url{http://pandoc.org}) which converts Markdown to a large number of output formats, and to Yihui Xie for creating \texttt{knitr} which introduced R Markdown as a way of embedding code in Markdown documents, and \texttt{bookdown} which added tools for technical and longer-form writing.
+
+  Special thanks to \href{http://chester.rbind.io}{Chester Ismay}, who created the \texttt{thesisdown} package that helped many a PhD student write their theses in R Markdown. And a very special thanks to John McManigle, whose adaption of Sam Evans' adaptation of Keith Gillow's original maths template for writing an Oxford University DPhil thesis in LaTeX provided the template that I in turn adapted for R Markdown.
+
+  Finally, profuse thanks to JJ Allaire, the founder and CEO of \href{http://rstudio.com}{RStudio}, and Hadley Wickham, the mastermind of the tidyverse without whom we'd all just given up and done data science in Python instead. Thanks for making data science easier, more accessible, and more fun for us all.
+
+  \begin{flushright}
+  Ulrik Lyngs \\
+  Linacre College, Oxford \\
+  2 December 2018
+  \end{flushright}
+\end{acknowledgements}
+
+
+%%%%% ABSTRACT -- Nothing to do here except comment out if you don't want it.
+\begin{abstract}
+	This \emph{R Markdown} template is for writing an Oxford University thesis. The template is built using Yihui Xie's \texttt{bookdown} package, with heavy inspiration from Chester Ismay's \texttt{thesisdown} and the \texttt{OxThesis} \LaTeX~template (most recently adapted by John McManigle).
+
+ This template's sample content include illustrations of how to write a thesis in R Markdown, and largely follows the structure from \href{https://ulyngs.github.io/rmarkdown-workshop-2019/}{this R Markdown workshop}.
+
+ Congratulations for taking a step further into the lands of open, reproducible science by writing your thesis using a tool that allows you to transparently include tables and dynamically generated plots directly from the underlying data. Hip hooray!
+\end{abstract}
+
+%%%%% MINI TABLES
+% This lays the groundwork for per-chapter, mini tables of contents.  Comment the following line
+% (and remove \minitoc from the chapter files) if you don't want this.  Un-comment either of the
+% next two lines if you want a per-chapter list of figures or tables.
+  \dominitoc % include a mini table of contents
+
+% This aligns the bottom of the text of each page.  It generally makes things look better.
+\flushbottom
+
+% This is where the whole-document ToC appears:
+\tableofcontents
+
+\listoffigures
+	\mtcaddchapter
+  	% \mtcaddchapter is needed when adding a non-chapter (but chapter-like) entity to avoid confusing minitoc
+
+% Uncomment to generate a list of tables:
+\listoftables
+  \mtcaddchapter
+%%%%% LIST OF ABBREVIATIONS
+% This example includes a list of abbreviations.  Look at text/abbreviations.tex to see how that file is
+% formatted.  The template can handle any kind of list though, so this might be a good place for a
+% glossary, etc.
+% First parameter can be changed eg to "Glossary" or something.
+% Second parameter is the max length of bold terms.
+\begin{mclistof}{List of Abbreviations}{3.2cm}
+
+\item[1-D, 2-D]
+
+One- or two-dimensional, referring \textbf{in this thesis} to spatial dimensions in an image.
+
+\item[Otter]
+
+One of the finest of water mammals.
+
+\item[Hedgehog]
+
+Quite a nice prickly friend.
+
+\end{mclistof} 
+
+
+% The Roman pages, like the Roman Empire, must come to its inevitable close.
+\end{romanpages}
+
+%%%%% CHAPTERS
+% Add or remove any chapters you'd like here, by file name (excluding '.tex'):
+\flushbottom
+
+% all your chapters and appendices will appear here
+\hypertarget{introduction}{%
+\chapter*{Introduction}\label{introduction}}
+\addcontentsline{toc}{chapter}{Introduction}
+
+\adjustmtc
+\markboth{Introduction}{}
+
+Welcome to \texttt{oxforddown} \autocite{lyngsOxforddown2019}, a thesis template for R Markdown that I created when writing \href{https://ulyngs.github.io/phd-thesis/}{my own PhD thesis} at the University of Oxford.
+This template allows you to write in R Markdown, while formatting the PDF output with the beautiful and time-tested \href{https://github.com/mcmanigle/OxThesis}{OxThesis LaTeX template}.
+The sample content is partly adapted from \href{https://github.com/ismayc/thesisdown}{\texttt{thesisdown}} .
+
+Hopefully, writing your thesis in R Markdown will provide a nicer interface to the OxThesis template if you haven't used TeX or LaTeX before.
+More importantly, \emph{R Markdown} allows you to embed chunks of code within your thesis and generate plots and tables directly from the underlying data, avoiding copy-paste steps.
+This gets you into the habit of doing reproducible research, which will benefit you long-term as a researcher, and also help anyone that is trying to reproduce or build upon your results down the road.
+
+\hypertarget{why-use-it}{%
+\section*{Why use it?}\label{why-use-it}}
+\addcontentsline{toc}{section}{Why use it?}
+
+\emph{R Markdown} creates a simple and straightforward way to interface with the beauty of LaTeX.
+Packages have been written in \textbf{R} to work directly with LaTeX to produce nicely formatting tables and paragraphs.
+In addition to creating a user friendly interface to LaTeX, \emph{R Markdown} allows you to read in your data, analyze it and to visualize it using \textbf{R}, \textbf{Python} or other languages, and provide documentation and commentary on the results of your project.\\
+Further, it allows for results of code output to be passed inline to the commentary of your results.
+You'll see more on this later, focusing on \textbf{R}. If you are more into \textbf{Python} or something else, you can still use \emph{R Markdown} - see \href{https://bookdown.org/yihui/rmarkdown/language-engines.html}{`Other language engines'} in Yihui Xie's \href{https://bookdown.org/yihui/rmarkdown/language-engines.html}{\emph{R Markdown: The Definitive Guide}}.
+
+Using LaTeX together with \emph{Markdown} is more consistent than the output of a word processor, much less prone to corruption or crashing, and the resulting file is smaller than a Word file.
+While you may never have had problems using Word in the past, your thesis is likely going to be about twice as large and complex as anything you've written before, taxing Word's capabilities.
+
+\hypertarget{who-should-use-it}{%
+\section*{Who should use it?}\label{who-should-use-it}}
+\addcontentsline{toc}{section}{Who should use it?}
+
+Anyone who needs to use data analysis, math, tables, a lot of figures, complex cross-references, or who just cares about reproducibility in research can benefit from using \emph{R Markdown}.
+If you are working in `softer' fields, the user-friendly nature of the \emph{Markdown} syntax and its ability to keep track of and easily include figures, automatically generate a table of contents, index, references, table of figures, etc. should still make it of great benefit to your thesis project.
+
+\hypertarget{introduction-1}{%
+\chapter{Introduction}\label{introduction-1}}
+
+\minitoc 
+
+Women have surpassed men in education outcomes, like college attendance and graduation rates \autocite{Blau2017,Goldin2006,Stoet2014}, but are still underrepresented in top management positions in nearly all sectors \autocite{Bertrand2001} and earn less than men, on average \autocite{Blau2017}. Traditional economic variables account for some, but not all, of these disparities \autocite{Blau2017}. As a means of understanding persistent gender gaps in labor market outcomes, researchers have begun to focus on how gender affects one's response to competition \autocite[for review, see][]{Niederle2011}. Seminal work on gender differences in competitiveness operationalized competitiveness as the choice of a tournament payment scheme that reaps potentially higher earnings but requires outperforming an opponent over a piece-rate scheme \autocite{Niederle2007}. This work found that women are less competitive than men, on average, even if they would have earned more by competing \autocite{Niederle2007}.
+
+Follow-up research with nearly identical procedures has replicated the effect of gender on the choice to opt into tournaments \autocite[see][ for review]{Niederle2011}. Notably, this effect has been replicated in diverse populations (e.g., across age groups and cultures) \autocite{Apicella2015,Buser2014,Sutter2016,Andersen2013,Buser2017b,Sutter2010,Dreber2014,Mayr2012} and with a diverse set of tasks \autocite{Apicella2015,Saccardo2018,Bjorvatn2016,Sutter2015,Frick2011,Samek2019}. Additionally, this laboratory measure of competitiveness predicts labor market outcomes, such as education choices \autocite{Buser2014,Zhang2012}, entrepreneurial decisions {[}e.g., investment, employment; \textcite{Berge2015}{]}, and earnings \autocite{Reuben2015}. Thus, competitive preferences may contribute to gender differences in labor market outcomes \autocite{Blau2017}.
+
+Confidence and risk attitudes have been implicated in driving the gender gap in willingness to compete \autocite{Niederle2011,Veldhuizen2017}. However, the extent to which confidence and risk attitudes account for the gender gap in willingness to compete is debated. The seminal research in this literature suggests that confidence and risk attitudes do not completely explain the gender gap in the choice to compete, since there remained a residual gap in the choice to compete after controlling for these factors \autocite{Niederle2007}. The unexplained component of the original gender effect was then taken as evidence of a distinct ``competitiveness'' trait, separate from risk attitudes and confidence \autocite{Niederle2007,Niederle2011}. However, recent work correcting for measurement error \autocite{Gillen2019} and using experimental techniques to isolate the effects of the competitiveness trait \autocite{Veldhuizen2017} suggests that risk attitudes and confidence may fully explain the gender gap in the choice to compete. Regardless of whether competitiveness is a stand-alone trait, it is clear that confidence and risk attitudes can generate differences in how men and women react to competitions. Thus, interventions designed to increase risk-taking or confidence in women may help reduce the gender difference in competitiveness.
+
+Confidence is conceptualized as the accuracy of one's perceived performance or ability on a task \autocite{Beyer1997}. Within the literature on the gender gap in competitiveness, confidence is operationalized as the belief about one's relative performance during a competition, where individuals who have inaccurately high ratings of their performance are deemed overconfident. If an individual does not feel as though their performance is higher than individuals they are competing against, they are unlikely to make the decision to compete for fear of missing the opportunity to earn money, even if they would otherwise outperform their opponent. There is ample research to suggest that women are less (over)confident on average than men across a number of domains \autocite{Mobius2011,Niederle2011,Croson2009,Lundeberg1994,Niederle2007,Bertrand2010a,Beyer1990,Beyer1997}. Though both men and women tend to be overconfident, women are far less likely to fall into the trap of overconfidence, which leads them to compete less often than they should, given their actual ability \autocite{Niederle2007}.
+
+Confidence too may help explain why, in some situations, the gender gap in competitiveness may be reduced or eliminated. For instance, women compete more when tasks are female-typed (i.e., women are expected to perform better based on gender stereotypes) or gender-neutral \autocite{Iriberri2017,Boschini2014,Boschini2019,Apicella2015,Grosse2010,Gunther2010,Dreber2014,Dreber2011,Shurchkov2012} or when they are facing other female opponents \autocite{DattaGupta2013}. Drawing from the psychology literature on stereotype threat \autocite{Steele1997,Spencer1999,Spencer2016}, negative stereotypes about women's ability to perform male-typed tasks (e.g., math, mental rotation) may produce anxiety and undermine performance. As a result, women may decide not to engage in a competition because they either believe the stereotype or because the stereotype provokes enough anxiety to reduce performance \autocite{Gunther2010,Grosse2010,Iriberri2017,Shurchkov2012}.
+
+Confidence on a task can improve with preparation and training \autocite{Gist1992,Schunk1981,Schunk1982,Usher2008}, since, in most cases, people are able to observe a gradual improvement in their skills over time. For instance, \textcite{Lent1996} found that college students listed past accomplishments as the most influential factor in determining their confidence. Other research directly compared the effects of mastery experiences, vicarious experiences (e.g., watching others perform a task), and a control treatment without any intervention on confidence, finding that mastery increased confidence significantly more than vicarious experiences and the control treatment \autocite{Bandura1977a}. Based on previous evidence of the benefits of enactive mastery through preparation and training on confidence, providing women with an adequate opportunity to prepare before a task may alleviate the gender gap in choice to compete. Surprisingly, little work has explored how preparation differentially impacts men and women's confidence or their willingness to compete.
+
+A second variable that has been identified as a possible explanation for gender differences in competitiveness is risk attitudes, typically construed as the preference for a certain gain over a gamble, even if the gamble has an equal or greater monetary expectation \autocite{Kahneman1982}. Several studies across diverse settings have documented a gender difference in risk attitudes, where women tend to be more risk-averse than men on average \autocite{Bertrand2010a,Croson2009,Apicella2017}. Payment based on the outcomes of a competition are inherently riskier than non-competitive payment schemes (e.g., guaranteed payment per unit of output) because in most cases, there is uncertainty surrounding one's relative performance \autocite{Niederle2011}.
+
+While recent work suggests that 28\% of the gender gap in competitive choices can be explained by risk attitudes \autocite{Gillen2019,Veldhuizen2017}, other work suggests that risk attitudes play little role in women's decisions to ``self-compete''. That is, risk attitudes do not affect whether women choose to compete against their own past performance, possibly because there is less uncertainty in the decision \autocite{Apicella2017a}. Thus, to the extent that preparation too can reduce uncertainty in performance, women may be more likely to compete when there are opportunities for preparation.
+
+Notably, both knowing about an opportunity to prepare before competing and the actual act of preparing may encourage high-ability women to enter competitions more often. In knowing one can prepare beforehand, one may assume that they can resolve any discrepancies between their current ability and their desired ability level for competition or that they can reduce uncertainty surrounding their performance by preparing. This knowledge, in and of itself, may be sufficient to reduce gender differences in competitiveness, regardless of whether women actually take advantage of this opportunity. Additionally, the act of preparation may be uniquely motivating, since preparation allows an individual to observe an improvement in their performance over time and/or give them an opportunity to observe their performance, which may reduce the perceived uncertainty of competition. As such, women may choose to compete more after preparing for or practicing a task.
+
+Here, we examined the role of preparation on the gender differences in willingness to compete through two experiments. In the first experiment, we tested whether simply knowing that there will be an opportunity to prepare before performing a task affects the gender gap in willingness to compete. That is, we manipulated participants' knowledge of whether they had unlimited time to prepare before they made their decision to compete. We anticipated that participants with this information would be more inclined to compete compared to participants without this information and that this effect would be stronger for women, who tend to be relatively less confident. Thus, we expected an interaction between gender and condition on the choice to compete, along with a main effect of condition. In the second experiment, we examined how actual preparation influences the decision to compete. That is, we manipulated whether participants were required to prepare before making the decision to compete. Again, we expected that women in the preparation condition would be especially inclined to compete. In both experiments, we measured gender differences in actual preparation after administering the treatment and eliciting preferences to compete. Finally, we monetarily incentivized participants in both studies to correctly predict which gender would prepare and compete more. The research design, hypotheses, measures and analyses were preregistered unless otherwise stated and all analyses were conducted in R statistical software (version 4.0.4).
+
+\hypertarget{study-1}{%
+\chapter{Study 1}\label{study-1}}
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+We recruited workers on Amazon Mechanical Turk for Study 1, and those who opted into the study had to pass several screening questions. Specifically, participants included in the paid portion of the study had to (i) identify their nationality as American and live in the United States, (ii) identify as male or female, and (iii) be using a computer (rather than a phone or tablet). If they did not meet these criteria, they did not proceed to the paid portion of the study. Additionally, upon reviewing the data, we had reason to suspect that some participants completed the study more than once. Specifically, some participants had the same IP address, MTurk ID, and were of the same gender. When entries matched on all three identifiers, we included only the first entry and excluded all subsequent entries. The final sample consisted of 1056 participants (53.6\% women), with an average age of 37.74 (\emph{SD} = 13.19) years. 54 participants (53.7\% women) dropped out of the study before finishing and we use their data when available.
+
+Participants were told they would be completing a multiplication task where they would be able to choose how they would be paid for their performance. We chose a multiplication task because we expect participants will improve with practice. Indeed, research suggests that rehearsing and recalling associative memories can speed up retrieval of those memories \autocite{Rundus1971}. The task involved solving problems from multiplication tables 1-12 as quickly as possible within a two-minute period. They were provided an example of a question with the correct response and had to answer three practice problems correctly to proceed, as a test of their comprehension. After completing the comprehension questions, participants were randomly assigned to either a ``knowledge of preparation'' condition or a control condition. Participants in the ``knowledge of preparation'' condition were presented the following text:
+
+``There is an option to practice/study before completing the multiplication task that is available to all participants. If you take this opportunity to practice/study, we will provide you with materials that may help boost your performance in the multiplication task. You will have unlimited time to practice/study before completing the task. You can stop practicing/studying at any point.''
+
+Participants assigned to the control condition simply proceeded without seeing this text. Then, all participants learned about the two possible payment schemes (either piece-rate or tournament) that they would have the option to choose from and had to correctly answer questions testing their comprehension of the payment schemes.
+
+Under the piece-rate scheme participants were told that they would be paid \$.10 for every problem answered correctly. Under the tournament scheme, participants were told that they would be paid \$.20 for every problem they answered correctly, but only if they answered more questions correctly than a randomly assigned competitor. Participants in the experimental condition were reminded that they had the option to prepare before completing the task. The order of presentation of the tournament and piece-rate payment options was randomized for participants.
+
+After choosing a payment scheme, participants in both conditions were given an opportunity to prepare before the multiplication task. If they chose to prepare, participants were presented with each multiplication table, 1 through 12, in sequential order. Each multiplication table provided products of numbers up to 12. Thus, participants could use the table to study. Additionally, participants were asked if they wanted to complete practice problems. If they said yes, participants were asked to solve all multiples in that table and could only proceed to the next table if they answered all the questions correctly.
+
+Once they completed all practice questions for a given times table, they were shown the multiplication table again and were asked if they would like to continue solving problems from that table or move onto the next multiplication table. This process was repeated for each multiplication table. Thus, we had two measures of preparation behavior: the decision to practice and the total number of times participants completed each multiplication table. The decision to practice measure conceptually captures a participants' baseline willingness to prepare, before they know what the preparation will involve. Thereafter, the total number of preparation rounds reflects participants' willingness to repeatedly prepare.
+
+Following the preparation portion of the study, participants moved on to the paid portion of the study. They were required to solve as many problems as possible in two minutes. After completion, participants were told how many problems they answered correctly and completed a series of incentivized follow-up questions, including confidence and perceptions of gender differences. For these measures, participants were told one of these questions would be selected for a possible bonus payment, and if they answered the selected question correctly, they would earn a bonus of \$.10. For the measure of confidence, participants were asked to correctly predict their relative performance compared to all other participants completing the task by indicating the decile of their score. Notably, the item was phrased so participants did not need to understand the word ``decile,'' but were asked instead: ``If my performance is compared to that of all participants that completed the task, I think my score was\ldots{}'' with the options for responses ranging from ``Better than all other participants'' to ``Better than none of the other participants'' with 10\% increments in between (e.g., ``Better than 50\% of participants''). Participants were also asked to correctly predict which gender 1) correctly solved more problems 2) spent more time practicing before completing the multiplication task, and 3) chose the tournament payment option more.
+
+Finally, participants completed a measure of risk aversion, where they answered if they generally are willing to take risks or try to avoid taking risks \autocite{Dohmen2011} on a 10 point scale with 0 meaning participants are ``Not at all willing to take risks'' and 10 indicating participants are ``Very willing to take risks.'' To determine whether participants used additional tools to improve their performance on the task, we also asked participants about their use of calculators and perceptions of calculator use on the multiplication task. Neither of these measures was incentivized.
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+An equal number of participants were assigned to both conditions (control= 50\%). Of the males who completed the study, 49.9\% were assigned to the control condition. Of the females who completed the study, 50.09\% were assigned to the control condition.
+
+A minority of participants (15.41\%) chose to compete, contrary to previous data in this literature \autocite{Niederle2007}. Despite the small proportion of participants who chose to compete, we still replicate the gender gap in the choice to compete, where a greater share of men (19.59\%) compared to women (10.78\%) chose to compete. A logistic regression revealed that this gender difference in the choice to compete is significant, \(b = -0.73\), 95\% CI \([-1.23\), \(-0.24]\), \(z = -2.90\), \(p = .004\). Contrary to our predictions, we do not find evidence of a significant interaction between gender and condition on the decision to compete, \(b = 0.06\), 95\% CI \([-0.63\), \(0.76]\), \(z = 0.18\), \(p = .861\) (see Figure \ref{fig:s100}), suggesting that women in the knowledge of preparation condition were not uniquely more inclined to compete.
+
+As hypothesized, women were 75.47\% more likely to take advantage of the opportunity to practice relative to men, \(b = 0.56\), 95\% CI \([0.31\), \(0.82]\), \(z = 4.37\), \(p < .001\), while controlling for the decision to compete (see Figure \ref{fig:s101}). As an exploratory analysis, we tested whether gender and the choice to compete interact to predict the choice to prepare, but did not find evidence for an interaction, \(b = 0.12\), 95\% CI \([-0.60\), \(0.86]\), \(z = 0.33\), \(p = .740\).
+
+In further support of gender differences in preparation, women completed 68.59\% more rounds of preparation relative to men, \(b = 0.52\), 95\% CI \([0.36\), \(0.69]\), \(z = 6.14\), \(p < .001\) (see Figure \ref{fig:s102}). Thus, we have evidence that women prepare more both 1) before they know what the preparation entails and 2) after they have had the chance to experience the preparation. One can imagine that these would be driven by distinct psychological mechanisms, where 1) captures whether a person generally takes advantage of any opportunity to prepare, regardless of what it involves, while 2) measures a person's willingness to persist in their preparation, even after exerting effort previously during preparation. The fact that we find gender differences across two different forms of willingness to prepare suggests that the findings are robust. This gender difference aligned with participants' predictions about gender differences in preparation, where participants expected women, relative to men, to spend more time preparing for the multiplication task, \(\chi^2(1, n = 1056) = 15.67\), \(p < .001\) (see Figure \ref{fig:s103}), and in general, \(\chi^2(1, n = 1056) = 447.11\), \(p < .001\) (see Figure \ref{fig:s106}). One possible explanation for participants' predictions is that they expected men to outperform women on the task, which would lead women to compensate by preparing more. However, participants did not expect any gender differences in performance on the task, \(\chi^2(1, n = 1056) = 1.02\), \(p = .313\) (see Figure \ref{fig:s104}). Additionally, participants accurately predicted that women were less likely to choose to compete, \(\chi^2(1, n = 1056) = 716.24\), \(p < .001\) (see Figure \ref{fig:s105}), suggesting that they did not believe women prepare more because they were more likely to compete.
+
+\hypertarget{study-2}{%
+\chapter{Study 2}\label{study-2}}
+
+\hypertarget{methods-1}{%
+\section{Methods}\label{methods-1}}
+
+Participants were recruited on Amazon Mechanical Turk using the same screening criteria as Study 1. Also, if participants had an identical IP address, MTurkID, and gender, we excluded their second response. The final sample consisted of 1076 participants (50.56\% women), with an average age of 38.57 (\emph{SD} = 12.52) years. 62 participants (51.61\% women) dropped out of the study before finishing.
+
+As in Study 1, participants included in the study were told they would be completing a two-minute multiplication task (identical to the one used in Study 1) and would be able to choose a payment scheme for their performance. The instructions and payment per question were identical to Study 1. After being told about the rules for the multiplication task and passing the same comprehension questions used in Study 1, participants were assigned to either a preparation condition, where they were told they would complete several rounds of preparation before completing the multiplication task, or a control condition, where they were told they would complete several rounds of a counting task before continuing. Participants were randomly assigned to each condition. The participants in the preparation condition completed 12 rounds (one round per multiplication table), with 6 problems per round. The problems for each round were selected at random. Participants in the control condition were asked to complete 5 questions where they counted the number of zeros in a matrix of zeros and ones. After a 30-second break following completion of their respective tasks, all participants chose a payment scheme for the multiplication task, where the order of presentation was counterbalanced. That is, half of participants saw the tournament scheme presented as the first option and half saw the piece-rate payment scheme presented first.
+
+After choosing a payment scheme, participants in both conditions had the option to spend (extra) time preparing for the multiplication task. Again, we had two measures of preparation behavior: the decision to practice and the total number of times participants completed the multiplication table. If they chose to prepare, participants were given two minutes to complete a randomly selected set of problems from all 12 multiplication tables. Once they finished the first two-minute preparation round, participants could opt into 4 more rounds of preparation, each two minutes long, before they moved on to the paid portion of the study.
+
+Then, participants completed the paid multiplication task for two minutes. We included many of the same follow-up questions as in Study 1, including risk aversion, confidence, and perceptions of gender differences in preparation, competitiveness, and performance. Participants were incentivized to answer the questions about their confidence and perceptions of gender differences correctly, and were paid at the same rate as Study 1. We also asked participants if they wished they had more time to prepare for the multiplication task and included measures of their fatigue, field-specific ability beliefs, and interest in the multiplication task all on 1 (Strongly disagree) to 7 (Strongly agree) scales. For the fatigue scale, participants rated how fatigued and mentally exhausted they felt \autocite{Milyavskaya2018}. Participants indicated the degree to which they ``enjoyed completing the multiplication task'' for the interest scale \autocite{Milyavskaya2018}. Finally, to measure field-specific ability beliefs, we asked participants how much they perceived success in math depends on ability versus effort through six questions (e.g., ``If you want to succeed in math, hard work alone just won't cut it; you need to have an innate gift or talent'') \autocite{Meyer2015}.
+
+\hypertarget{results-1}{%
+\section{Results}\label{results-1}}
+
+An equal number of participants were assigned to both conditions (control= 50\%). Of the males who completed the study, 50\% were assigned to the control condition and of the females who completed the study, 50\% were assigned to the control condition.
+
+We replicated the effect of gender on the choice to compete: 19.36\% of men chose to compete compared to 13.6\% of women. However, we do not find evidence of a significant effect of condition on the choice to compete among women, \emph{z} = -1, \emph{p} = 0.16 (see Figure \ref{fig:s200}), contrary to our hypotheses.
+
+Despite no evidence for the effect of condition on the choice to compete among women, we replicate the effects found in Study 1, where women were significantly more likely to prepare for the task, even after being forced to prepare in the preparation condition (see Figure \ref{fig:s204}). Women were 18.62\% more likely to take advantage of the opportunity to prepare relative to men \(b = 0.11\), 95\% CI \([-0.39\), \(0.62]\), \(z = 0.45\), \(p = .653\), while controlling for the decision to compete (see Figure \ref{fig:s204}). Again, we find that these results align with participants' expectations, where they were significantly more likely to expect women to choose to prepare in general, \(\chi^2(1, n = 1076) = 511.06\), \(p < .001\) (see Figure \ref{fig:s203}), despite expecting men to choose to compete more often, \(\chi^2(1, n = 1076) = 578.07\), \(p < .001\) (see Figure \ref{fig:s202}) and expecting no gender differences in performance on the task, \(\chi^2(1, n = 1076) = 0.61\), \(p = .434\) (see Figure \ref{fig:s201}).
+
+\hypertarget{discussion}{%
+\chapter{Discussion}\label{discussion}}
+
+Previous research suggests that women tend to be more risk-averse \autocite{Croson2009,Dohmen2011b,Eckel2008,Bertrand2010a} and less confident \autocite{Bertrand2010,Lundeberg1994,Mobius2011,Barber2001,Croson2009}, which affects their decisions to compete. Since confidence and risk attitudes may be affected by the opportunity to prepare, women may be more likely to compete when they have the opportunity to prepare before entering a competition. Through two experiments, we explored whether the opportunity to prepare affects gender differences in competitiveness and whether there are gender differences in willingness to prepare. First, we find no evidence that preparation increases men or women's willingness to compete. However, and notably, we discovered a sizable gender difference in preparation. In study 1, we found that women were 75.47\% more likely to choose to practice. We replicated this finding in study 2, where women were 18.62\% more likely to practice, even though half of participants were required to prepare for several minutes beforehand. This effect is especially noteworthy since we are drawing from a participant pool (MTurk) where participants could be earning money for their participation through a nearly limitless supply of other studies, so the opportunity costs of preparing may be greater for MTurkers.
+
+To our knowledge, these studies are the first to demonstrate a gender difference in preparation among adults who must explicitly opt into preparation. However, previous findings within educational contexts \emph{have} found that women are more likely than men to value dedication and mastery \autocite{Leslie2015,Kenney-Benson2006}, emphasize the importance of hard work \autocite{Mccrea2008,Hirt2009,Mccrea2008a}, and spend more time preparing than men for an intellectual evaluation when they were told that practice improved future performance \autocite{Kimble2005}. For instance, in a study examining school-aged children's approach to learning math, researchers found that girls, compared to boys, reported being more motivated to ``master'' their schoolwork and engage in more effortful learning strategies \autocite{Kenney-Benson2006}. In one study looking at whether delaying competition affects gender differences in the willingness to compete while providing opportunity to study, \textcite{Charness2020} did not find a significant difference in the choice to prepare (\emph{N} = 202). Although it is worth noting that, though the effect is non-significant, women are directionally more likely to prepare in this study. Since studying gender differences in the choice to prepare was not one of the main foci of their research, contrary to ours, it is entirely possible they did not have sufficient power to detect the effect of gender on the choice to prepare as a result.
+
+The observed gender difference in preparation may be driven by women's relatively greater desire to reduce uncertainty around their future performance (given their greater average risk aversion) and/or increase their performance (given their lower average confidence). Indeed, mastery is an important driver of confidence \autocites[for review, see][]{Gist1992,Usher2008}. While it is possible that confidence and risk aversion may be driving the gender difference in preparation, it is important to note that preparation in our studies did not increase competitiveness in either men or women. Because participants were able to choose to prepare in study 2, we are unable identify whether preparation causally affected confidence and/or risk aversion. Future work should examine the bidirectional relationships between confidence and preparation and risk and preparation. Of course, other explanations for the gender differences in preparation may also exist, including relative differences in real or perceived opportunity costs, how rewarding it is to prepare, and/or enjoyment on the task.
+
+Again, we find little evidence that preparation affects willingness to compete. However, it is possible that we may have found an effect of preparation had we given participants unlimited time to prepare so that they mastered the material or reached their desired level of proficiency. In fact, by limiting the amount of time to prepare in study 2, we may have unintentionally undermined confidence. For instance, participants may have been made more aware of the discrepancy between their current ability and their desired ability. Even more, having limited time to prepare may also have been stressful to participants and to offset this stress, some participants may have opted for the less stressful piece-rate payment scheme. Thus, future work examining the role of preparation on competition should examine how unlimited preparation and perceived level of mastery influence decisions to compete.
+
+Finally, we showed that participants accurately predicted the observed gender differences in preparation and competitiveness, regardless of their own choice to prepare or compete, suggesting that they observe these behaviors directly in their own lives and/or have learned about stereotypes surrounding these behaviors. There is extensive work suggesting that beliefs about identity-based behavior actually affect behavior \autocite{Babcock2012,Bowles2007,Toosi2019,Smith2014,Benjamin2010c,Bertrand2015,Akerlof2000}. Our findings would suggest that any observed gender differences in behavior may be generalizable to other contexts. In both cases, participants' accuracy in predicting the gender differences in competitiveness and preparation would suggest that these are not isolated findings, but in fact are representative of gender differences in other contexts. One step to improve gender equality within organizations is to take these gender differences into account when making decisions on how to organize reward structures and communicate these structures to employees, and to reward cooperation and other forms of work on par with competition.
+
+While we built off an extensive and laudable literature on gender differences in competitiveness, we have unearthed a new gender difference in preparation. As this is a new area of research, there are many promising and exciting avenues for future exploration, all of which have the potential to inform policy. First, future work should explore whether these results generalize to other populations and tasks. Second, future work should examine the impact of preparation on performance. Do women overprepare? Do men underprepare? What are the opportunity costs to preparing? Also, it would be important to think about ways that women could be equally rewarded \emph{without} having to compete - that is, reimagining how to support women being productive in ways that work for them. And finally, how do competitions themselves affect gender differences in the choice to prepare?
+
+Much of the research on gender differences in competitiveness is focused on designing interventions to increase women's competitiveness, with less attention paid to potential downstream consequences of these interventions. Here we show that preparation has no impact on willingness to compete, while discovering a gender difference in preparation. Future work should explore the implications of these findings further where these effects may have a long-lasting impact on gender differences in economic outcomes.
+
+\startappendices
+
+\hypertarget{the-first-appendix}{%
+\chapter{The First Appendix}\label{the-first-appendix}}
+
+This first appendix includes an R chunk that was hidden in the document (using \texttt{echo\ =\ FALSE}) to help with readibility:
+
+\textbf{In 02-rmd-basics-code.Rmd}
+
+\textbf{And here's another one from the same chapter, i.e.~Chapter \ref{code}:}
+
+\hypertarget{the-second-appendix-for-fun}{%
+\chapter{The Second Appendix, for Fun}\label{the-second-appendix-for-fun}}
+
+
+%%%%% REFERENCES
+\setlength{\baselineskip}{0pt} % JEM: Single-space References
+
+{\renewcommand*\MakeUppercase[1]{#1}%
+\printbibliography[heading=bibintoc,title={\bibtitle}]}
+
+
+\end{document}

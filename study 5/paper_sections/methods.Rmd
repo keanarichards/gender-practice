@@ -1,0 +1,44 @@
+---
+title: "Study 1 methods"
+author: "Keana Richards"
+date: "6/9/2020"
+output:
+  word_document: default
+---
+
+```{r, include = F}
+
+## hiding code chunks globally 
+knitr::opts_chunk$set(echo=FALSE, message = F, warning = F)
+
+
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+options(pillar.sigfig = 2)
+options(repos="https://cran.rstudio.com" )
+# load packages -----------------------------------------------------------
+## Package names
+packages <- c("readr", "tidyverse", "here", "summarytools")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+clean <- read_csv(here("study2", "data", "clean.csv"))
+excluded <- read_csv(here("study2", "data", "excluded.csv"))
+dropped_out <- read_csv(here("study2", "data", "dropped_out.csv"))
+
+```
+
+Participants were recruited on Amazon Mechanical Turk using the same screening criteria as Study 1. Also, if participants had an identical IP address, MTurkID, and gender, we excluded their second response. The final sample consisted of `r nrow(clean)` participants (`r freq(clean$gender, report.nas = F)[6]`% women), with an average age of `r mean(clean$age, na.rm = T)` (*SD* = `r sd(clean$age, na.rm = T)`) years. `r nrow(dropped_out)` participants (`r freq(dropped_out$Gender, report.nas = F)[5]`% women) dropped out of the study before finishing.
+
+As in Study 1, participants included in the study were told they would be completing a two-minute multiplication task (identical to the one used in Study 1) and would be able to choose a payment scheme for their performance. The instructions and payment per question were identical to Study 1. After being told about the rules for the multiplication task and passing the same comprehension questions used in Study 1, participants were assigned to either a preparation condition, where they were told they would complete several rounds of preparation before completing the multiplication task, or a control condition, where they were told they would complete several rounds of a counting task before continuing. Participants were randomly assigned to each condition. The participants in the preparation condition completed 12 rounds (one round per multiplication table), with 6 problems per round. The problems for each round were selected at random. Participants in the control condition were asked to complete 5 questions where they counted the number of zeros in a matrix of zeros and ones. After a 30-second break following completion of their respective tasks, all participants chose a payment scheme for the multiplication task, where the order of presentation was counterbalanced. That is, half of participants saw the tournament scheme presented as the first option and half saw the piece-rate payment scheme presented first.
+
+After choosing a payment scheme, participants in both conditions had the option to spend (extra) time preparing for the multiplication task. Again, we had two measures of preparation behavior: the decision to practice and the total number of times participants completed the multiplication table. If they chose to prepare, participants were given two minutes to complete a randomly selected set of problems from all 12 multiplication tables. Once they finished the first two-minute preparation round, participants could opt into 4 more rounds of preparation, each two minutes long, before they moved on to the paid portion of the study. 
+
+Then, participants completed the paid multiplication task for two minutes. We included many of the same follow-up questions as in Study 1, including risk aversion, confidence, and perceptions of gender differences in preparation, competitiveness, and performance. Participants were incentivized to answer the questions about their confidence and perceptions of gender differences correctly, and were paid at the same rate as Study 1. We also asked participants if they wished they had more time to prepare for the multiplication task and included measures of their fatigue, field-specific ability beliefs, and interest in the multiplication task all on 1 (Strongly disagree) to 7 (Strongly agree) scales. For the fatigue scale, participants rated how fatigued and mentally exhausted they felt [@Milyavskaya2018]. Participants indicated the degree to which they "enjoyed completing the multiplication task" for the interest scale [@Milyavskaya2018]. Finally, to measure field-specific ability beliefs, we asked participants how much they perceived success in math depends on ability versus effort through six questions (e.g., "If you want to succeed in math, hard work alone just won't cut it; you need to have an innate gift or talent") [@Meyer2015]. 
