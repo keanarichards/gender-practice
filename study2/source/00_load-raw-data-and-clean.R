@@ -147,6 +147,8 @@ raw$extra_prep_count_time <- ifelse(raw$extra_prep_count > 0, raw$extra_prep_cou
 
 raw <- raw %>% mutate(perf_extra_prep = unlimited_prep_score/extra_prep_count_time)
 
+## creating combined comp choice var
+
 raw <- raw %>% tidyr::unite("comp_choice", 	c(choice_tourn_first2, choice_PR_first2), remove = T, na.rm = T) 
 
 
@@ -177,6 +179,8 @@ results_fati <- scoreItems(keys = scaleKey, items = raw[items], impute = "none")
 raw$fati <- as.vector(results_fati$scores)
 
 raw$fab <- as.vector(results_fab$scores)
+
+## storing names final dataset
 
 original_names <-intersect(names(raw), names(full_raw))
 

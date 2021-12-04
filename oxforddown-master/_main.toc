@@ -1,0 +1,42 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {english}{}\relax 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{List of Figures}{{\fontencoding {T1}\selectfont vi}}{chapter*.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {xchapter}{}{{\fontencoding {T1}\selectfont vi}}{chapter*.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{List of Tables}{{\fontencoding {T1}\selectfont vii}}{chapter*.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {xchapter}{}{{\fontencoding {T1}\selectfont vii}}{chapter*.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{List of Abbreviations}{{\fontencoding {T1}\selectfont viii}}{chapter*.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {xchapter}{}{{\fontencoding {T1}\selectfont viii}}{chapter*.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Introduction}{1}{chapter*.7}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Why use it?}{1}{section*.8}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Who should use it?}{2}{section*.8}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Study 1}{8}{chapter.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Methods}{8}{section.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Results}{11}{section.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Study 2}{13}{chapter.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Methods}{13}{section.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Results}{15}{section.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Discussion}{16}{chapter.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Appendices}{}{section*.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {A}The First Appendix}{21}{appendix.A}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {B}The Second Appendix, for Fun}{22}{appendix.B}%

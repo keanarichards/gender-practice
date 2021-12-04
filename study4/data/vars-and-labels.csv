@@ -1,102 +1,33 @@
-"col_names","des"
-"gender","What is your gender? - Selected Choice"
-"gender_other","What is your gender? - Other (please specify): - Text"
-"residence","What is your country of residence? - Selected Choice"
-"residence_other","What is your country of residence? - Other (please specify): - Text"
-"nationality","What is your nationality? - Selected Choice"
-"nationality_other","What is your nationality? - Other (please specify): - Text"
-"task_comp_check1","What would you enter if the problem ""4 x 12"" appeared on the screen, as shown below? 
+V1,V2
+filtering variable for excluding potential bots and/or duplicates,filtering variable for excluding potential bots and/or duplicates
+gender,What is your gender? - Selected Choice
+gender_other,What is your gender? - Prefer to self-describe: - Text
+task_comp_check1,"What would you enter if the problem ""4 x 12"" appeared on the screen, as shown below? 
  4 x 12"
-"task_comp_check2","The correct answer to the previous question was ""48."" To proceed you must answer a comprehension question correctly. What would you enter if the problem ""2 x 1"" appeared on the screen, as shown below? 
+task_comp_check2,"The correct answer to the previous question was ""48."" To proceed you must answer a comprehension question correctly. What would you enter if the problem ""2 x 1"" appeared on the screen, as shown below? 
 
 2 x 1"
-"task_comp_check3","The correct answer to the previous question was ""2."" To proceed you must answer a comprehension question correctly. What would you enter if the problem ""6 x 11"" appeared on the screen, as shown below?    
+task_comp_check3,"The correct answer to the previous question was ""2."" To proceed you must answer a comprehension question correctly. What would you enter if the problem ""6 x 11"" appeared on the screen, as shown below?    
 6 x 11"
-"timing_ctrl1q","Timing - Page Submit"
-"timing_ctrl1a","Timing - Page Submit"
-"timing_ctrl2q","Timing - Page Submit"
-"timing_ctrl2a","Timing - Page Submit"
-"timing_ctrl3q","Timing - Page Submit"
-"timing_ctrl3a","Timing - Page Submit"
-"timing_ctrl4q","Timing - Page Submit"
-"timing_ctrl4a","Timing - Page Submit"
-"timing_ctrl5q","Timing - Page Submit"
-"timing_ctrl5a","Timing - Page Submit"
-"timing_prep1q","Timing - Page Submit"
-"timing_prep1a","Timing - Page Submit"
-"timing_prep2q","Timing - Page Submit"
-"timing_prep2a","Timing - Page Submit"
-"timing_prep3q","Timing - Page Submit"
-"timing_prep3a","Timing - Page Submit"
-"timing_prep4q","Timing - Page Submit"
-"timing_prep4a","Timing - Page Submit"
-"timing_prep5q","Timing - Page Submit"
-"timing_prep5a","Timing - Page Submit"
-"timing_prep6q","Timing - Page Submit"
-"timing_prep6a","Timing - Page Submit"
-"timing_prep7q","Timing - Page Submit"
-"timing_prep7a","Timing - Page Submit"
-"timing_prep8q","Timing - Page Submit"
-"timing_prep8a","Timing - Page Submit"
-"timing_prep9q","Timing - Page Submit"
-"timing_prep9a","Timing - Page Submit"
-"timing_prep10q","Timing - Page Submit"
-"timing_prep10a","Timing - Page Submit"
-"timing_prep11q","Timing - Page Submit"
-"timing_prep11a","Timing - Page Submit"
-"timing_prep12q","Timing - Page Submit"
-"timing_prep12a","Timing - Page Submit"
-"comp_check_pr1","How much would you earn if you complete 120 problems under the Piece Rate payment scheme (with $.10 for every problem solved correctly)?"
-"comp_check_pr1_do","How much would you earn if you complete 120 problems under the Piece Rate payment scheme (with $.10 for every problem solved correctly)? - Display Order"
-"comp_check_pr2","How much would you earn if you complete 140 problems under the Piece Rate payment scheme (with $.10 for every problem solved correctly)?"
-"comp_check_pr2_do","How much would you earn if you complete 140 problems under the Piece Rate payment scheme (with $.10 for every problem solved correctly)? - Display Order"
-"comp_check_comp1","How much would you earn if you complete 120 problems under the Tournament payment scheme and your opponent completes 100 problems (with $.20 for every problem solved correctly if you beat your opponent)?"
-"comp_check_comp1_do","How much would you earn if you complete 120 problems under the Tournament payment scheme and your opponent completes 100 problems (with $.20 for every problem solved correctly if you beat your opponent)? - Display Order"
-"comp_check_comp2","How much would you earn if you complete 140 problems under the Tournament payment scheme and your opponent completes 120 problems (with $.20 for every problem solved correctly if you beat your opponent)?"
-"comp_check_comp2_do","How much would you earn if you complete 140 problems under the Tournament payment scheme and your opponent completes 120 problems (with $.20 for every problem solved correctly if you beat your opponent)? - Display Order"
-"comp_check_comp3","How much would you earn if you complete 100 problems under the Tournament payment scheme and your opponent completes 120 problems (with $.20 for every problem solved correctly if you beat your opponent)?"
-"comp_check_comp3_do","How much would you earn if you complete 100 problems under the Tournament payment scheme and your opponent completes 120 problems (with $.20 for every problem solved correctly if you beat your opponent)? - Display Order"
-"comp_check_comp4","How much would you earn if you complete 120 problems under the Tournament payment scheme and your opponent completes 140 problems (with $.20 for every problem solved correctly if you beat your opponent)?"
-"comp_check_comp4_do","How much would you earn if you complete 120 problems under the Tournament payment scheme and your opponent completes 140 problems (with $.20 for every problem solved correctly if you beat your opponent)? - Display Order"
-"conf_rank","As a reminder, your task score was [Field-taskscore]. If my performance is compared to that of all participants that completed the task, I think my score was..."
-"better_gender_guess","Do you think men or women in this study correctly solved more multiplication problems on average?"
-"perc_task_gender_pract","Do you think men or women in this study spent more time practicing/studying before completing the multiplication task?"
-"perc_gender_comp","Do you think men or women in this study chose the tournament payment option more often?"
-"risk","How do you see yourself: Are you generally a person who is fully prepared to take risks or do you try to avoid taking risks?"
-"preparedness","Do you wish you had more time to prepare for the multiplication task?"
-"perc_gen_gender_pract","On most tasks, do you think men or women generally prepare (i.e., practice and/or study) more?"
-"fatigue_1","After completing the multiplication task, I feel... - fatigued"
-"fatigue_2","After completing the multiplication task, I feel... - mentally exhausted"
-"fab_1","Personally, I think that... - Being a top scholar of math requires a special aptitude that just can’t be taught."
-"fab_2","Personally, I think that... - If you want to succeed in math, hard work alone just won’t cut it; you need to have an innate gift or talent."
-"fab_3","Personally, I think that... - With the right amount of effort and dedication, anyone can become a top scholar in math."
-"fab_4","Personally, I think that... - When it comes to math, the most important factors for success are motivation and sustained effort; raw ability is secondary."
-"fab_5","Personally, I think that... - To succeed in math you have to be a special kind of person; not just anyone can be successful in it."
-"fab_6","Personally, I think that... - People who are successful in math are very different from ordinary people."
-"fab_do","Personally, I think that... - Display Order"
-"interest","I enjoyed completing the multiplication task."
-"age","What is your age (in years)?"
-"race_ethnicity","What best describes your race/ethnicity? Please select all that apply. - Selected Choice"
-"race_ethnicity_other","What best describes your race/ethnicity? Please select all that apply. - Other (please specify) - Text"
-"income","What was your total income last year? Take into account all your sources of income, including scholarships, health benefits, fringe benefits, and others. Please note that this is your personal income, not the income of your household."
-"education","What is your highest level of education completed?"
-"unclear","Was anything unclear in the instructions or survey questions? (Optional)"
-"condition","Condition"
-"score_before_task","score_before_task"
-"unlimited_prep_score","unlimited_prep_score"
-"task_score","taskscore"
-"comp_choice_do","Competition Choice - Display Order"
-"comp_choice","choice to compete"
-"bonus_task","bonuses earned during task"
-"task_comp_check_acc","task comprehension check accuracy"
-"pay_comp_check_acc","payment scheme comprehension check accuracy"
-"n_comp_wrong","number of comprehension check questions wrong overall"
-"extra_prep_count","total count of extra rounds reviewing multiplying problems"
-"pract_choice","optional choice (yes or no) to prepare"
-"total_time","total time spent on either control or preparation rounds"
-"time_qs","total time spent on the questions during either control or preparation rounds"
-"perf_fixed_rounds","performance on control or preparation rounds (based on number of questions completed relative to time spent on questions)"
-"extra_prep_count_time","time spent on extra preparation rounds"
-"perf_extra_prep","performance on extra preparation rounds (based on number of questions completed relative to time spent on questions)"
-"fati","composite score for fatigue"
-"fab","composite score for field specific ability beliefs"
+comp_check_pr1,How much would you earn if you complete 120 problems under the Piece Rate payment scheme (with $.10 for every problem solved correctly)?
+comp_check_pr2,How much would you earn if you complete 140 problems under the Piece Rate payment scheme (with $.10 for every problem solved correctly)?
+comp_check_comp1,How much would you earn if you complete 120 problems under the Tournament payment scheme and your opponent completes 100 problems (with $.20 for every problem solved correctly if you beat your opponent)?
+comp_check_comp2,How much would you earn if you complete 140 problems under the Tournament payment scheme and your opponent completes 120 problems (with $.20 for every problem solved correctly if you beat your opponent)?
+comp_check_comp3,How much would you earn if you complete 100 problems under the Tournament payment scheme and your opponent completes 120 problems (with $.20 for every problem solved correctly if you beat your opponent)?
+comp_check_comp4,How much would you earn if you complete 120 problems under the Tournament payment scheme and your opponent completes 140 problems (with $.20 for every problem solved correctly if you beat your opponent)?
+task comprehension check accuracy,task comprehension check accuracy
+payment scheme comprehension check accuracy,payment scheme comprehension check accuracy
+number of comprehension check questions wrong overall,number of comprehension check questions wrong overall
+conf_rank,"Your task score was [Field-taskscore]. If my performance is compared to that of all participants that completed the task, I think my score was..."
+better_gender_guess,Do you think men or women in this study correctly solved more multiplication problems on average?
+perc_task_gender_pract,Do you think men or women in this study spent more time practicing/studying before completing the multiplication task?
+perc_gender_comp,Do you think men or women in this study chose the tournament payment option more often?
+MC,Imagine participants are able to practice with a series of multiplication or counting matrices problems shown below - which do you think would be most helpful for boosting performance on the paid multiplication task you just completed?
+risk,How do you see yourself: Are you generally a person who is fully prepared to take risks or do you try to avoid taking risks?
+perc_gen_gender_pract,"On most tasks, do you think men or women generally prepare (i.e., practice and/or study) more?"
+age,What is your age (in years)?
+education,What is your highest level of education completed?
+condition,Condition
+choice to compete,choice to compete
+optional choice (yes or no) to prepare,optional choice (yes or no) to prepare
+total count of extra rounds reviewing multiplying problems,total count of extra rounds reviewing multiplying problems
