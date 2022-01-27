@@ -15,21 +15,49 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # load data ---------------------------------------------------------------
 
-clean <- read_csv(here("study2", "data", "clean.csv"))
+clean <- read_csv(here("study4", "data", "clean.csv"))
 
 
 # analyses ----------------------------------------------------------------
 
-clean$pract_choice <- factor(clean$pract_choice)
+clean$study_tables_binary <- factor(clean$study_tables_binary)
+clean$practice_problems_binary <- factor(clean$practice_problems_binary)
 
-sec_exploratory1 <- glm(extra_prep_count  ~ gender+comp_choice, family="poisson", data=clean)
+
+## exploring other ways of measuring practice choice
+ 
+exploratory1 <- lm(study_tables_time ~ gender*comp_choice, data=clean)
 
 
-sec_exploratory2 <- glm(pract_choice ~ gender*comp_choice , data = clean, family = binomial())
+exploratory2 <- glm(study_tables_binary ~ gender*comp_choice, data = clean, family = binomial())
 
-practice_cond <- clean %>% filter(condition == "pract")
+exploratory3 <- glm(practice_problems_binary ~ gender*comp_choice, data = clean, family = binomial())
 
-sec_exploratory3 <- glm(pract_choice ~ gender+comp_choice, data = practice_cond, family = binomial())
-sec_exploratory4 <- lm(task_score ~pract_choice + comp_choice + gender, data = clean)
 
-sec_exploratory5 <- lm(task_score ~condition, data = clean)
+## exploring follow-up questions 
+
+## starting with gender diff questions
+
+t1 <- table(clean$better_gender_guess)
+exploratory4 <- chisq.test(t1, p = c(1/3, 1/3, 1/3))
+
+t2 <- table(clean$perc_gender_comp)
+exploratory5 <-chisq.test(t2, p = c(1/3, 1/3, 1/3))
+
+
+t3 <- table(clean$perc_gen_gender_pract)
+exploratory6 <-chisq.test(t3,p = c(1/3, 1/3, 1/3))
+
+## make sure to filter only ppts in practice cond
+t4 <- table(clean %>% filter(condition == "pract") %>% select(perc_task_gender_pract))
+exploratory7 <-chisq.test(t4, p = c(1/3, 1/3, 1/3))
+
+## filtering question to see if there is a difference in perceptions between genders (aka exclude no diff option)
+
+t5 <- table(clean %>% filter(condition == "pract", perc_task_gender_pract != "No difference" ) %>% select(perc_task_gender_pract))
+exploratory8 <-chisq.test(t5, p = c(1/2, 1/2))
+
+## how useful do ppts find the practice? do they think multiplication practice will boost performance? 
+
+t6 <- table(clean  %>% select(MC))
+exploratory9 <-chisq.test(t6, p = c(1/3, 1/3, 1/3))

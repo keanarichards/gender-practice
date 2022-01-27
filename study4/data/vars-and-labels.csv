@@ -1,7 +1,9 @@
 V1,V2
-filtering variable for excluding potential bots and/or duplicates,filtering variable for excluding potential bots and/or duplicates
+workerId,workerId
+task_score,taskscore
+exclude,
 gender,What is your gender? - Selected Choice
-gender_other,What is your gender? - Prefer to self-describe: - Text
+gender_other,What is your gender? - I prefer to self-describe - Text
 task_comp_check1,"What would you enter if the problem ""4 x 12"" appeared on the screen, as shown below? 
  4 x 12"
 task_comp_check2,"The correct answer to the previous question was ""48."" To proceed you must answer a comprehension question correctly. What would you enter if the problem ""2 x 1"" appeared on the screen, as shown below? 
@@ -15,19 +17,21 @@ comp_check_comp1,How much would you earn if you complete 120 problems under the 
 comp_check_comp2,How much would you earn if you complete 140 problems under the Tournament payment scheme and your opponent completes 120 problems (with $.20 for every problem solved correctly if you beat your opponent)?
 comp_check_comp3,How much would you earn if you complete 100 problems under the Tournament payment scheme and your opponent completes 120 problems (with $.20 for every problem solved correctly if you beat your opponent)?
 comp_check_comp4,How much would you earn if you complete 120 problems under the Tournament payment scheme and your opponent completes 140 problems (with $.20 for every problem solved correctly if you beat your opponent)?
-task comprehension check accuracy,task comprehension check accuracy
-payment scheme comprehension check accuracy,payment scheme comprehension check accuracy
-number of comprehension check questions wrong overall,number of comprehension check questions wrong overall
-conf_rank,"Your task score was [Field-taskscore]. If my performance is compared to that of all participants that completed the task, I think my score was..."
+task_comp_check_acc,
+pay_comp_check_acc,
+n_comp_wrong,
+conf_rank,"Your task score was [Field-taskscore]. If my performance is compared to that of all participants that completed the task, I think my score will be..."
 better_gender_guess,Do you think men or women in this study correctly solved more multiplication problems on average?
 perc_task_gender_pract,Do you think men or women in this study spent more time practicing/studying before completing the multiplication task?
 perc_gender_comp,Do you think men or women in this study chose the tournament payment option more often?
-MC,Imagine participants are able to practice with a series of multiplication or counting matrices problems shown below - which do you think would be most helpful for boosting performance on the paid multiplication task you just completed?
+MC,"Some participants in this study were randomly assigned to complete subtraction problems before the paid multiplication task, while other participants were randomly assigned to complete multiplication problems before the paid multiplication task (see below for example questions). Which task do you think was more helpful in boosting participants' scores on the paid multiplication task?"
 risk,How do you see yourself: Are you generally a person who is fully prepared to take risks or do you try to avoid taking risks?
 perc_gen_gender_pract,"On most tasks, do you think men or women generally prepare (i.e., practice and/or study) more?"
 age,What is your age (in years)?
-education,What is your highest level of education completed?
+education,"What is the highest degree or level of school you have completed? If currently enrolled, indicate highest degree completed."
 condition,Condition
-choice to compete,choice to compete
-optional choice (yes or no) to prepare,optional choice (yes or no) to prepare
-total count of extra rounds reviewing multiplying problems,total count of extra rounds reviewing multiplying problems
+comp_choice,
+extra_practice_rounds_count,
+study_tables_binary,Would you like to study the multiplication times table before you complete the paid multiplication task?
+practice_problems_binary,Would you like to practice problems from the multiplication times table  before you complete  the paid multiplication task?
+study_tables_time,Timing - Page Submit

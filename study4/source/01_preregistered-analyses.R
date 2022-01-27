@@ -15,6 +15,12 @@ clean$gender <- factor(clean$gender)
 clean$comp_choice <- factor(clean$comp_choice)
 clean$condition <- factor(clean$condition)
 
+
+## creating practice cond only dataset
+
+practice <- clean %>% filter(condition == "pract")
+
+
 # primary hypothesis 1 ----------------------------------------------------
 
 prep_comp <- nrow(clean %>% filter(gender == "Woman" & condition == "pract" & comp_choice == "tournament"))
@@ -35,22 +41,22 @@ z.prop = function(x1,x2,n1,n2){
 }
 
 hypothesis1_z <- z.prop(prep_comp, con_comp, total_prep, total_con)
-hypothesis1_pval <- pnorm(primary_hypothesis1_z)  
+hypothesis1_pval <- pnorm(hypothesis1_z)  
 
 
 # primary hypothesis 2 ----------------------------------------------------
 
-hypothesis2a <- glm(pract_count ~ gender,family="poisson",data = clean)
+hypothesis2a <- glm(extra_practice_rounds_count ~ gender,family="poisson",data = practice)
 
-hypothesis2b <- glm(pract_count ~ gender + task_score,family="poisson",data = clean)
+hypothesis2b <- glm(extra_practice_rounds_count ~ gender + task_score,family="poisson",data = practice)
 
-hypothesis2c <- glm(pract_count ~ gender + task_score + risk + conf_rank,family="poisson",data = clean)
+hypothesis2c <- glm(extra_practice_rounds_count ~ gender + task_score + risk + conf_rank,family="poisson",data = practice)
 
 # primary hypothesis 3 ----------------------------------------------------
 
-hypothesis3a <- glm(comp_choice ~ gender,family=binomial,data = clean)
+hypothesis3a <- glm(comp_choice ~ gender*condition,family=binomial,data = clean)
 
-hypothesis3b <- glm(comp_choice ~ gender + task_score,family=binomial,data = clean)
+hypothesis3b <- glm(comp_choice ~ gender*condition + task_score,family=binomial,data = clean)
 
-hypothesis3c <- glm(comp_choice ~ gender + task_score + risk + conf_rank,family=binomial,data = clean)
+hypothesis3c <- glm(comp_choice ~ gender*condition + task_score + risk + conf_rank,family=binomial,data = clean)
 

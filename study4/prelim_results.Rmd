@@ -1,0 +1,234 @@
+---
+title: "prelim_results"
+author: "Keana Richards"
+output:
+  html_document:
+    chunk_output_type: console
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r, include = F}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = F)
+
+
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+options(repos="https://cran.rstudio.com" )
+
+# load packages -----------------------------------------------------------
+
+if(!require('pacman')) {
+  install.packages('pacman')
+  }
+pacman::p_load(tidyverse, here, hablar, psych, qualtRics, summarytools, varhandle, sjPlot, papaja)
+
+
+source(here("study4", "source", "01_preregistered-analyses.R"))
+source(here("study4", "source", "03_exploratory-analyses.R"))
+
+
+## Install the stable development versions from GitHub
+# if(!"papaja" %in% rownames(installed.packages())) devtools::install_github("crsh/papaja")
+# if(!"emo" %in% rownames(installed.packages())) devtools::install_github("hadley/emo")
+# library(emo)
+# library(papaja)
+
+
+# na_drop <- clean %>% drop_na(condition) 
+extrafont::loadfonts(device="win")
+
+
+options(scipen=999)
+par(mar = c(2,2,2,2))
+
+
+```
+
+
+# Summary: 
+
+* Final sample N = `r nrow(clean)`
+* All graphs represent SE
+
+# Pre-registered analyses:
+
+## Primary hypothesis 1: 
+Women in the unlimited preparation condition will be significantly more likely to compete compared to women in the control condition.
+
+*	Model: Two-proportions z-test
+a) Predictor(s): Condition
+b) Outcome: Willingness to compete
+
+* Women in control condition are significantly more likely to compete, *z* = `r hypothesis1_z`, *p* = `r hypothesis1_pval`
+
+```{r, fig.retina=NULL, out.width="1000px",  fig.align="center", fig.cap = "% of women competing based on condition. Error bars represent SE."}
+knitr::include_graphics(here::here("study4", "figs","fig00_comp-choice-women-by-cond.png"))
+```
+
+```{r, results = "asis"}
+woman <- clean %>% filter(gender == "Woman")
+print(ctable(woman$comp_choice, woman$condition))
+
+```
+
+
+## Primary hypothesis 2: 
+Women will attempt more practice problems than men.
+
+*	Model: Poisson regression (incrementally adding variables)
+a) Predictor(s): 
+
+- Regression 1 (Gender)
+- Regression 2 (Gender,performance)
+- Regression 3 (Gender, performance, risk tolerance, confidence)
+
+b) Outcome: Number of extra practice rounds chosen 
+
+
+```{r}
+tab_model(hypothesis2a, hypothesis2b, hypothesis2c)
+```
+
+
+## Primary hypothesis 3: 
+The gender difference in competition choice will be smaller in the treatment condition than the control condition
+*	Model: Logistic regression (incrementally adding variables)
+a) Predictor(s): 
+
+- Regression 1 (Gender, condition, gender*condition)
+- Regression 2 (Gender, condition, gender*condition, performance)
+- Regression 3 (Gender, condition, gender*condition, performance, risk tolerance, confidence)
+
+b) Outcome: Willingness to compete
+
+```{r}
+tab_model(hypothesis3a, hypothesis3b, hypothesis3c)
+```
+
+```{r, fig.retina=NULL, out.width="1000px",  fig.align="center", fig.cap = "Choice to compete based on condition and gender. Error bars represent SE."}
+knitr::include_graphics(here::here("study4", "figs","fig02_comp-choice-by-gender-and-cond-bar.png"))
+```
+
+
+```{r, results = "asis"}
+print(stby(list(clean$gender, clean$condition), INDICES = clean$comp_choice, FUN = ctable))
+```
+
+# Exploratory analyses:
+
+## Effect of gender on time spent studying tables 
+
+*	Model: Linear regression
+
+a) Predictor(s): Gender
+
+b)	Outcome: Time spent studying tables
+
+```{r}
+tab_model(exploratory1)
+```
+
+## Effect of gender on choice to study 
+
+*	Model: Logistic regression
+
+a) Predictor(s): Gender
+
+b)	Outcome: Choice to study tables (binary)
+
+```{r}
+tab_model(exploratory2)
+```
+
+
+## Effect of gender on choice to practice 
+
+*	Model: Logistic regression
+
+a) Predictor(s): Gender
+
+b)	Outcome: Choice to practice (binary)
+
+```{r}
+tab_model(exploratory3)
+```
+
+
+## Follow-up questions
+
+### Do you think men or women in this study correctly solved more multiplication problems on average?
+
+Chi-square Goodness of Fit Test: `r apa_print(exploratory4, n = nrow(clean))$statistic`
+
+```{r}
+print(t1)
+```
+
+
+### Do you think men or women in this study chose the tournament payment option more often? 
+
+Chi-square Goodness of Fit Test: `r apa_print(exploratory5, n = nrow(clean))$statistic`
+
+```{r}
+print(t2)
+```
+
+### On most tasks, do you think men or women generally prepare (i.e., practice and/or study) more?
+
+Chi-square Goodness of Fit Test: `r apa_print(exploratory6, n = nrow(clean))$statistic`
+
+```{r}
+print(t3)
+```
+
+
+### Do you think men or women spent more time practicing/studying before multiplication task? (only practice condition)
+
+Chi-square Goodness of Fit Test: `r apa_print(exploratory7, n = nrow(clean %>% filter(condition == "pract")))$statistic`
+
+```{r}
+print(t4)
+```
+
+#### filtering question to see if there is a difference in perceptions between genders (aka exclude no diff option)
+
+
+Chi-square Goodness of Fit Test: `r apa_print(exploratory8, n = nrow(clean %>% filter(condition == "pract", perc_task_gender_pract != "No difference")))$statistic`
+
+```{r}
+print(t5)
+```
+
+### Which task do you think was more helpful in boosting participants' scores on the paid multiplication task?
+
+Chi-square Goodness of Fit Test: `r apa_print(exploratory9, n = nrow(clean))$statistic`
+
+```{r}
+print(t6)
+```
+
+
+# Summary of dataset 
+
+
+```{r, results = "asis"}
+dfSummary(clean,  plain.ascii = FALSE, style = 'grid', graph.magnif = 0.75, 
+          valid.col = FALSE, tmp.img.dir = "/tmp")
+```
+
+
+```{r}
+inspect.na(clean)
+
+```
+
