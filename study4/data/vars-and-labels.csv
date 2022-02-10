@@ -1,9 +1,31 @@
 V1,V2
-workerId,workerId
-task_score,taskscore
-exclude,
+StartDate,Start Date
+EndDate,End Date
+Status,Response Type
+Progress,Progress
+Duration (in seconds),Duration (in seconds)
+Finished,Finished
+RecordedDate,Recorded Date
+ResponseId,Response ID
+DistributionChannel,Distribution Channel
+UserLanguage,User Language
+Q_RecaptchaScore,Q_RecaptchaScore
+Q_RelevantIDDuplicate,Q_RelevantIDDuplicate
+Q_RelevantIDDuplicateScore,Q_RelevantIDDuplicateScore
+Q_RelevantIDFraudScore,Q_RelevantIDFraudScore
+Q_RelevantIDLastStartDate,Q_RelevantIDLastStartDate
+Phone/tablet,Are you completing this survey on a mobile device or tablet?
 gender,What is your gender? - Selected Choice
 gender_other,What is your gender? - I prefer to self-describe - Text
+Residence,Do you live in the continental United States of America?
+Nationality,I am a citizen of: - Selected Choice
+Nationality_2_TEXT,I am a citizen of: - Other (please specify): - Text
+del7,"As an example, if the following sequence appears on your screen:
+
+8 x 4
+
+
+You would enter ""32"" in the text box. Please press next to continue."
 task_comp_check1,"What would you enter if the problem ""4 x 12"" appeared on the screen, as shown below? 
  4 x 12"
 task_comp_check2,"The correct answer to the previous question was ""48."" To proceed you must answer a comprehension question correctly. What would you enter if the problem ""2 x 1"" appeared on the screen, as shown below? 
@@ -11,27 +33,782 @@ task_comp_check2,"The correct answer to the previous question was ""48."" To pro
 2 x 1"
 task_comp_check3,"The correct answer to the previous question was ""2."" To proceed you must answer a comprehension question correctly. What would you enter if the problem ""6 x 11"" appeared on the screen, as shown below?    
 6 x 11"
+Q1302_First Click,Timing - First Click
+Q1302_Last Click,Timing - Last Click
+study_tables_time,Timing - Page Submit
+Q1302_Click Count,Timing - Click Count
+1_Q2631,11 - 6 - What is the answer to [Field-1]?
+1_Q2632,11 - 6 - What is the answer to [Field-2]?
+1_Q2633,11 - 6 - What is the answer to [Field-3]?
+1_Q2634,11 - 6 - What is the answer to [Field-4]?
+1_Q2635,11 - 6 - What is the answer to [Field-5]?
+1_Q2636,11 - 6 - What is the answer to [Field-6]?
+1_Q2637,11 - 6 - What is the answer to [Field-7]?
+1_Q2638,11 - 6 - What is the answer to [Field-8]?
+1_Q2639,11 - 6 - What is the answer to [Field-9]?
+1_Q2640,11 - 6 - What is the answer to [Field-10]?
+1_Q2641,
+2_Q2631,19 - 9 - What is the answer to [Field-1]?
+2_Q2632,19 - 9 - What is the answer to [Field-2]?
+2_Q2633,19 - 9 - What is the answer to [Field-3]?
+2_Q2634,19 - 9 - What is the answer to [Field-4]?
+2_Q2635,19 - 9 - What is the answer to [Field-5]?
+2_Q2636,19 - 9 - What is the answer to [Field-6]?
+2_Q2637,19 - 9 - What is the answer to [Field-7]?
+2_Q2638,19 - 9 - What is the answer to [Field-8]?
+2_Q2639,19 - 9 - What is the answer to [Field-9]?
+2_Q2640,19 - 9 - What is the answer to [Field-10]?
+2_Q2641,
+3_Q2631,11 - 11 - What is the answer to [Field-1]?
+3_Q2632,11 - 11 - What is the answer to [Field-2]?
+3_Q2633,11 - 11 - What is the answer to [Field-3]?
+3_Q2634,11 - 11 - What is the answer to [Field-4]?
+3_Q2635,11 - 11 - What is the answer to [Field-5]?
+3_Q2636,11 - 11 - What is the answer to [Field-6]?
+3_Q2637,11 - 11 - What is the answer to [Field-7]?
+3_Q2638,11 - 11 - What is the answer to [Field-8]?
+3_Q2639,11 - 11 - What is the answer to [Field-9]?
+3_Q2640,11 - 11 - What is the answer to [Field-10]?
+3_Q2641,
+4_Q2631,8 - 4 - What is the answer to [Field-1]?
+4_Q2632,8 - 4 - What is the answer to [Field-2]?
+4_Q2633,8 - 4 - What is the answer to [Field-3]?
+4_Q2634,8 - 4 - What is the answer to [Field-4]?
+4_Q2635,8 - 4 - What is the answer to [Field-5]?
+4_Q2636,8 - 4 - What is the answer to [Field-6]?
+4_Q2637,8 - 4 - What is the answer to [Field-7]?
+4_Q2638,8 - 4 - What is the answer to [Field-8]?
+4_Q2639,8 - 4 - What is the answer to [Field-9]?
+4_Q2640,8 - 4 - What is the answer to [Field-10]?
+4_Q2641,
+5_Q2631,16 - 6 - What is the answer to [Field-1]?
+5_Q2632,16 - 6 - What is the answer to [Field-2]?
+5_Q2633,16 - 6 - What is the answer to [Field-3]?
+5_Q2634,16 - 6 - What is the answer to [Field-4]?
+5_Q2635,16 - 6 - What is the answer to [Field-5]?
+5_Q2636,16 - 6 - What is the answer to [Field-6]?
+5_Q2637,16 - 6 - What is the answer to [Field-7]?
+5_Q2638,16 - 6 - What is the answer to [Field-8]?
+5_Q2639,16 - 6 - What is the answer to [Field-9]?
+5_Q2640,16 - 6 - What is the answer to [Field-10]?
+5_Q2641,
+6_Q2631,21 - 11 - What is the answer to [Field-1]?
+6_Q2632,21 - 11 - What is the answer to [Field-2]?
+6_Q2633,21 - 11 - What is the answer to [Field-3]?
+6_Q2634,21 - 11 - What is the answer to [Field-4]?
+6_Q2635,21 - 11 - What is the answer to [Field-5]?
+6_Q2636,21 - 11 - What is the answer to [Field-6]?
+6_Q2637,21 - 11 - What is the answer to [Field-7]?
+6_Q2638,21 - 11 - What is the answer to [Field-8]?
+6_Q2639,21 - 11 - What is the answer to [Field-9]?
+6_Q2640,21 - 11 - What is the answer to [Field-10]?
+6_Q2641,
+7_Q2631,5 - 4 - What is the answer to [Field-1]?
+7_Q2632,5 - 4 - What is the answer to [Field-2]?
+7_Q2633,5 - 4 - What is the answer to [Field-3]?
+7_Q2634,5 - 4 - What is the answer to [Field-4]?
+7_Q2635,5 - 4 - What is the answer to [Field-5]?
+7_Q2636,5 - 4 - What is the answer to [Field-6]?
+7_Q2637,5 - 4 - What is the answer to [Field-7]?
+7_Q2638,5 - 4 - What is the answer to [Field-8]?
+7_Q2639,5 - 4 - What is the answer to [Field-9]?
+7_Q2640,5 - 4 - What is the answer to [Field-10]?
+7_Q2641,
+8_Q2631,14 - 5 - What is the answer to [Field-1]?
+8_Q2632,14 - 5 - What is the answer to [Field-2]?
+8_Q2633,14 - 5 - What is the answer to [Field-3]?
+8_Q2634,14 - 5 - What is the answer to [Field-4]?
+8_Q2635,14 - 5 - What is the answer to [Field-5]?
+8_Q2636,14 - 5 - What is the answer to [Field-6]?
+8_Q2637,14 - 5 - What is the answer to [Field-7]?
+8_Q2638,14 - 5 - What is the answer to [Field-8]?
+8_Q2639,14 - 5 - What is the answer to [Field-9]?
+8_Q2640,14 - 5 - What is the answer to [Field-10]?
+8_Q2641,
+9_Q2631,9 - 5 - What is the answer to [Field-1]?
+9_Q2632,9 - 5 - What is the answer to [Field-2]?
+9_Q2633,9 - 5 - What is the answer to [Field-3]?
+9_Q2634,9 - 5 - What is the answer to [Field-4]?
+9_Q2635,9 - 5 - What is the answer to [Field-5]?
+9_Q2636,9 - 5 - What is the answer to [Field-6]?
+9_Q2637,9 - 5 - What is the answer to [Field-7]?
+9_Q2638,9 - 5 - What is the answer to [Field-8]?
+9_Q2639,9 - 5 - What is the answer to [Field-9]?
+9_Q2640,9 - 5 - What is the answer to [Field-10]?
+9_Q2641,
+10_Q2631,10 - 7 - What is the answer to [Field-1]?
+10_Q2632,10 - 7 - What is the answer to [Field-2]?
+10_Q2633,10 - 7 - What is the answer to [Field-3]?
+10_Q2634,10 - 7 - What is the answer to [Field-4]?
+10_Q2635,10 - 7 - What is the answer to [Field-5]?
+10_Q2636,10 - 7 - What is the answer to [Field-6]?
+10_Q2637,10 - 7 - What is the answer to [Field-7]?
+10_Q2638,10 - 7 - What is the answer to [Field-8]?
+10_Q2639,10 - 7 - What is the answer to [Field-9]?
+10_Q2640,10 - 7 - What is the answer to [Field-10]?
+10_Q2641,
+11_Q2631,5 - 2 - What is the answer to [Field-1]?
+11_Q2632,5 - 2 - What is the answer to [Field-2]?
+11_Q2633,5 - 2 - What is the answer to [Field-3]?
+11_Q2634,5 - 2 - What is the answer to [Field-4]?
+11_Q2635,5 - 2 - What is the answer to [Field-5]?
+11_Q2636,5 - 2 - What is the answer to [Field-6]?
+11_Q2637,5 - 2 - What is the answer to [Field-7]?
+11_Q2638,5 - 2 - What is the answer to [Field-8]?
+11_Q2639,5 - 2 - What is the answer to [Field-9]?
+11_Q2640,5 - 2 - What is the answer to [Field-10]?
+11_Q2641,
+12_Q2631,18 - 11 - What is the answer to [Field-1]?
+12_Q2632,18 - 11 - What is the answer to [Field-2]?
+12_Q2633,18 - 11 - What is the answer to [Field-3]?
+12_Q2634,18 - 11 - What is the answer to [Field-4]?
+12_Q2635,18 - 11 - What is the answer to [Field-5]?
+12_Q2636,18 - 11 - What is the answer to [Field-6]?
+12_Q2637,18 - 11 - What is the answer to [Field-7]?
+12_Q2638,18 - 11 - What is the answer to [Field-8]?
+12_Q2639,18 - 11 - What is the answer to [Field-9]?
+12_Q2640,18 - 11 - What is the answer to [Field-10]?
+12_Q2641,
+13_Q2631,5 - 3 - What is the answer to [Field-1]?
+13_Q2632,5 - 3 - What is the answer to [Field-2]?
+13_Q2633,5 - 3 - What is the answer to [Field-3]?
+13_Q2634,5 - 3 - What is the answer to [Field-4]?
+13_Q2635,5 - 3 - What is the answer to [Field-5]?
+13_Q2636,5 - 3 - What is the answer to [Field-6]?
+13_Q2637,5 - 3 - What is the answer to [Field-7]?
+13_Q2638,5 - 3 - What is the answer to [Field-8]?
+13_Q2639,5 - 3 - What is the answer to [Field-9]?
+13_Q2640,5 - 3 - What is the answer to [Field-10]?
+13_Q2641,
+14_Q2631,8 - 7 - What is the answer to [Field-1]?
+14_Q2632,8 - 7 - What is the answer to [Field-2]?
+14_Q2633,8 - 7 - What is the answer to [Field-3]?
+14_Q2634,8 - 7 - What is the answer to [Field-4]?
+14_Q2635,8 - 7 - What is the answer to [Field-5]?
+14_Q2636,8 - 7 - What is the answer to [Field-6]?
+14_Q2637,8 - 7 - What is the answer to [Field-7]?
+14_Q2638,8 - 7 - What is the answer to [Field-8]?
+14_Q2639,8 - 7 - What is the answer to [Field-9]?
+14_Q2640,8 - 7 - What is the answer to [Field-10]?
+14_Q2641,
+15_Q2631,8 - 8 - What is the answer to [Field-1]?
+15_Q2632,8 - 8 - What is the answer to [Field-2]?
+15_Q2633,8 - 8 - What is the answer to [Field-3]?
+15_Q2634,8 - 8 - What is the answer to [Field-4]?
+15_Q2635,8 - 8 - What is the answer to [Field-5]?
+15_Q2636,8 - 8 - What is the answer to [Field-6]?
+15_Q2637,8 - 8 - What is the answer to [Field-7]?
+15_Q2638,8 - 8 - What is the answer to [Field-8]?
+15_Q2639,8 - 8 - What is the answer to [Field-9]?
+15_Q2640,8 - 8 - What is the answer to [Field-10]?
+15_Q2641,
+16_Q2631,12 - 11 - What is the answer to [Field-1]?
+16_Q2632,12 - 11 - What is the answer to [Field-2]?
+16_Q2633,12 - 11 - What is the answer to [Field-3]?
+16_Q2634,12 - 11 - What is the answer to [Field-4]?
+16_Q2635,12 - 11 - What is the answer to [Field-5]?
+16_Q2636,12 - 11 - What is the answer to [Field-6]?
+16_Q2637,12 - 11 - What is the answer to [Field-7]?
+16_Q2638,12 - 11 - What is the answer to [Field-8]?
+16_Q2639,12 - 11 - What is the answer to [Field-9]?
+16_Q2640,12 - 11 - What is the answer to [Field-10]?
+16_Q2641,
+17_Q2631,7 - 5 - What is the answer to [Field-1]?
+17_Q2632,7 - 5 - What is the answer to [Field-2]?
+17_Q2633,7 - 5 - What is the answer to [Field-3]?
+17_Q2634,7 - 5 - What is the answer to [Field-4]?
+17_Q2635,7 - 5 - What is the answer to [Field-5]?
+17_Q2636,7 - 5 - What is the answer to [Field-6]?
+17_Q2637,7 - 5 - What is the answer to [Field-7]?
+17_Q2638,7 - 5 - What is the answer to [Field-8]?
+17_Q2639,7 - 5 - What is the answer to [Field-9]?
+17_Q2640,7 - 5 - What is the answer to [Field-10]?
+17_Q2641,
+18_Q2631,14 - 10 - What is the answer to [Field-1]?
+18_Q2632,14 - 10 - What is the answer to [Field-2]?
+18_Q2633,14 - 10 - What is the answer to [Field-3]?
+18_Q2634,14 - 10 - What is the answer to [Field-4]?
+18_Q2635,14 - 10 - What is the answer to [Field-5]?
+18_Q2636,14 - 10 - What is the answer to [Field-6]?
+18_Q2637,14 - 10 - What is the answer to [Field-7]?
+18_Q2638,14 - 10 - What is the answer to [Field-8]?
+18_Q2639,14 - 10 - What is the answer to [Field-9]?
+18_Q2640,14 - 10 - What is the answer to [Field-10]?
+18_Q2641,
+19_Q2631,15 - 8 - What is the answer to [Field-1]?
+19_Q2632,15 - 8 - What is the answer to [Field-2]?
+19_Q2633,15 - 8 - What is the answer to [Field-3]?
+19_Q2634,15 - 8 - What is the answer to [Field-4]?
+19_Q2635,15 - 8 - What is the answer to [Field-5]?
+19_Q2636,15 - 8 - What is the answer to [Field-6]?
+19_Q2637,15 - 8 - What is the answer to [Field-7]?
+19_Q2638,15 - 8 - What is the answer to [Field-8]?
+19_Q2639,15 - 8 - What is the answer to [Field-9]?
+19_Q2640,15 - 8 - What is the answer to [Field-10]?
+19_Q2641,
+20_Q2631,2 - 2 - What is the answer to [Field-1]?
+20_Q2632,2 - 2 - What is the answer to [Field-2]?
+20_Q2633,2 - 2 - What is the answer to [Field-3]?
+20_Q2634,2 - 2 - What is the answer to [Field-4]?
+20_Q2635,2 - 2 - What is the answer to [Field-5]?
+20_Q2636,2 - 2 - What is the answer to [Field-6]?
+20_Q2637,2 - 2 - What is the answer to [Field-7]?
+20_Q2638,2 - 2 - What is the answer to [Field-8]?
+20_Q2639,2 - 2 - What is the answer to [Field-9]?
+20_Q2640,2 - 2 - What is the answer to [Field-10]?
+20_Q2641,
+21_Q2631,10 - 5 - What is the answer to [Field-1]?
+21_Q2632,10 - 5 - What is the answer to [Field-2]?
+21_Q2633,10 - 5 - What is the answer to [Field-3]?
+21_Q2634,10 - 5 - What is the answer to [Field-4]?
+21_Q2635,10 - 5 - What is the answer to [Field-5]?
+21_Q2636,10 - 5 - What is the answer to [Field-6]?
+21_Q2637,10 - 5 - What is the answer to [Field-7]?
+21_Q2638,10 - 5 - What is the answer to [Field-8]?
+21_Q2639,10 - 5 - What is the answer to [Field-9]?
+21_Q2640,10 - 5 - What is the answer to [Field-10]?
+21_Q2641,
+22_Q2631,17 - 12 - What is the answer to [Field-1]?
+22_Q2632,17 - 12 - What is the answer to [Field-2]?
+22_Q2633,17 - 12 - What is the answer to [Field-3]?
+22_Q2634,17 - 12 - What is the answer to [Field-4]?
+22_Q2635,17 - 12 - What is the answer to [Field-5]?
+22_Q2636,17 - 12 - What is the answer to [Field-6]?
+22_Q2637,17 - 12 - What is the answer to [Field-7]?
+22_Q2638,17 - 12 - What is the answer to [Field-8]?
+22_Q2639,17 - 12 - What is the answer to [Field-9]?
+22_Q2640,17 - 12 - What is the answer to [Field-10]?
+22_Q2641,
+23_Q2631,9 - 4 - What is the answer to [Field-1]?
+23_Q2632,9 - 4 - What is the answer to [Field-2]?
+23_Q2633,9 - 4 - What is the answer to [Field-3]?
+23_Q2634,9 - 4 - What is the answer to [Field-4]?
+23_Q2635,9 - 4 - What is the answer to [Field-5]?
+23_Q2636,9 - 4 - What is the answer to [Field-6]?
+23_Q2637,9 - 4 - What is the answer to [Field-7]?
+23_Q2638,9 - 4 - What is the answer to [Field-8]?
+23_Q2639,9 - 4 - What is the answer to [Field-9]?
+23_Q2640,9 - 4 - What is the answer to [Field-10]?
+23_Q2641,
+24_Q2631,17 - 10 - What is the answer to [Field-1]?
+24_Q2632,17 - 10 - What is the answer to [Field-2]?
+24_Q2633,17 - 10 - What is the answer to [Field-3]?
+24_Q2634,17 - 10 - What is the answer to [Field-4]?
+24_Q2635,17 - 10 - What is the answer to [Field-5]?
+24_Q2636,17 - 10 - What is the answer to [Field-6]?
+24_Q2637,17 - 10 - What is the answer to [Field-7]?
+24_Q2638,17 - 10 - What is the answer to [Field-8]?
+24_Q2639,17 - 10 - What is the answer to [Field-9]?
+24_Q2640,17 - 10 - What is the answer to [Field-10]?
+24_Q2641,
+25_Q2631,8 - 1 - What is the answer to [Field-1]?
+25_Q2632,8 - 1 - What is the answer to [Field-2]?
+25_Q2633,8 - 1 - What is the answer to [Field-3]?
+25_Q2634,8 - 1 - What is the answer to [Field-4]?
+25_Q2635,8 - 1 - What is the answer to [Field-5]?
+25_Q2636,8 - 1 - What is the answer to [Field-6]?
+25_Q2637,8 - 1 - What is the answer to [Field-7]?
+25_Q2638,8 - 1 - What is the answer to [Field-8]?
+25_Q2639,8 - 1 - What is the answer to [Field-9]?
+25_Q2640,8 - 1 - What is the answer to [Field-10]?
+25_Q2641,
+26_Q2631,10 - 10 - What is the answer to [Field-1]?
+26_Q2632,10 - 10 - What is the answer to [Field-2]?
+26_Q2633,10 - 10 - What is the answer to [Field-3]?
+26_Q2634,10 - 10 - What is the answer to [Field-4]?
+26_Q2635,10 - 10 - What is the answer to [Field-5]?
+26_Q2636,10 - 10 - What is the answer to [Field-6]?
+26_Q2637,10 - 10 - What is the answer to [Field-7]?
+26_Q2638,10 - 10 - What is the answer to [Field-8]?
+26_Q2639,10 - 10 - What is the answer to [Field-9]?
+26_Q2640,10 - 10 - What is the answer to [Field-10]?
+26_Q2641,
+1_Q2597,9 X 5 - What is the answer to [Field-1]?
+1_Q2598,9 X 5 - What is the answer to [Field-2]?
+1_Q2599,9 X 5 - What is the answer to [Field-3]?
+1_Q2600,9 X 5 - What is the answer to [Field-4]?
+1_Q2601,9 X 5 - What is the answer to [Field-5]?
+1_Q2602,9 X 5 - What is the answer to [Field-6]?
+1_Q2603,9 X 5 - What is the answer to [Field-7]?
+1_Q2604,9 X 5 - What is the answer to [Field-8]?
+1_Q2605,9 X 5 - What is the answer to [Field-9]?
+1_Q2606,9 X 5 - What is the answer to [Field-10]?
+1_Q1292,
+2_Q2597,12 X 8 - What is the answer to [Field-1]?
+2_Q2598,12 X 8 - What is the answer to [Field-2]?
+2_Q2599,12 X 8 - What is the answer to [Field-3]?
+2_Q2600,12 X 8 - What is the answer to [Field-4]?
+2_Q2601,12 X 8 - What is the answer to [Field-5]?
+2_Q2602,12 X 8 - What is the answer to [Field-6]?
+2_Q2603,12 X 8 - What is the answer to [Field-7]?
+2_Q2604,12 X 8 - What is the answer to [Field-8]?
+2_Q2605,12 X 8 - What is the answer to [Field-9]?
+2_Q2606,12 X 8 - What is the answer to [Field-10]?
+2_Q1292,
+3_Q2597,7 X 6 - What is the answer to [Field-1]?
+3_Q2598,7 X 6 - What is the answer to [Field-2]?
+3_Q2599,7 X 6 - What is the answer to [Field-3]?
+3_Q2600,7 X 6 - What is the answer to [Field-4]?
+3_Q2601,7 X 6 - What is the answer to [Field-5]?
+3_Q2602,7 X 6 - What is the answer to [Field-6]?
+3_Q2603,7 X 6 - What is the answer to [Field-7]?
+3_Q2604,7 X 6 - What is the answer to [Field-8]?
+3_Q2605,7 X 6 - What is the answer to [Field-9]?
+3_Q2606,7 X 6 - What is the answer to [Field-10]?
+3_Q1292,
+4_Q2597,11 X 12 - What is the answer to [Field-1]?
+4_Q2598,11 X 12 - What is the answer to [Field-2]?
+4_Q2599,11 X 12 - What is the answer to [Field-3]?
+4_Q2600,11 X 12 - What is the answer to [Field-4]?
+4_Q2601,11 X 12 - What is the answer to [Field-5]?
+4_Q2602,11 X 12 - What is the answer to [Field-6]?
+4_Q2603,11 X 12 - What is the answer to [Field-7]?
+4_Q2604,11 X 12 - What is the answer to [Field-8]?
+4_Q2605,11 X 12 - What is the answer to [Field-9]?
+4_Q2606,11 X 12 - What is the answer to [Field-10]?
+4_Q1292,
+5_Q2597,4 X 10 - What is the answer to [Field-1]?
+5_Q2598,4 X 10 - What is the answer to [Field-2]?
+5_Q2599,4 X 10 - What is the answer to [Field-3]?
+5_Q2600,4 X 10 - What is the answer to [Field-4]?
+5_Q2601,4 X 10 - What is the answer to [Field-5]?
+5_Q2602,4 X 10 - What is the answer to [Field-6]?
+5_Q2603,4 X 10 - What is the answer to [Field-7]?
+5_Q2604,4 X 10 - What is the answer to [Field-8]?
+5_Q2605,4 X 10 - What is the answer to [Field-9]?
+5_Q2606,4 X 10 - What is the answer to [Field-10]?
+5_Q1292,
+6_Q2597,5 X 7 - What is the answer to [Field-1]?
+6_Q2598,5 X 7 - What is the answer to [Field-2]?
+6_Q2599,5 X 7 - What is the answer to [Field-3]?
+6_Q2600,5 X 7 - What is the answer to [Field-4]?
+6_Q2601,5 X 7 - What is the answer to [Field-5]?
+6_Q2602,5 X 7 - What is the answer to [Field-6]?
+6_Q2603,5 X 7 - What is the answer to [Field-7]?
+6_Q2604,5 X 7 - What is the answer to [Field-8]?
+6_Q2605,5 X 7 - What is the answer to [Field-9]?
+6_Q2606,5 X 7 - What is the answer to [Field-10]?
+6_Q1292,
+7_Q2597,10 X 7 - What is the answer to [Field-1]?
+7_Q2598,10 X 7 - What is the answer to [Field-2]?
+7_Q2599,10 X 7 - What is the answer to [Field-3]?
+7_Q2600,10 X 7 - What is the answer to [Field-4]?
+7_Q2601,10 X 7 - What is the answer to [Field-5]?
+7_Q2602,10 X 7 - What is the answer to [Field-6]?
+7_Q2603,10 X 7 - What is the answer to [Field-7]?
+7_Q2604,10 X 7 - What is the answer to [Field-8]?
+7_Q2605,10 X 7 - What is the answer to [Field-9]?
+7_Q2606,10 X 7 - What is the answer to [Field-10]?
+7_Q1292,
+8_Q2597,7 X 3 - What is the answer to [Field-1]?
+8_Q2598,7 X 3 - What is the answer to [Field-2]?
+8_Q2599,7 X 3 - What is the answer to [Field-3]?
+8_Q2600,7 X 3 - What is the answer to [Field-4]?
+8_Q2601,7 X 3 - What is the answer to [Field-5]?
+8_Q2602,7 X 3 - What is the answer to [Field-6]?
+8_Q2603,7 X 3 - What is the answer to [Field-7]?
+8_Q2604,7 X 3 - What is the answer to [Field-8]?
+8_Q2605,7 X 3 - What is the answer to [Field-9]?
+8_Q2606,7 X 3 - What is the answer to [Field-10]?
+8_Q1292,
+9_Q2597,12 X 5 - What is the answer to [Field-1]?
+9_Q2598,12 X 5 - What is the answer to [Field-2]?
+9_Q2599,12 X 5 - What is the answer to [Field-3]?
+9_Q2600,12 X 5 - What is the answer to [Field-4]?
+9_Q2601,12 X 5 - What is the answer to [Field-5]?
+9_Q2602,12 X 5 - What is the answer to [Field-6]?
+9_Q2603,12 X 5 - What is the answer to [Field-7]?
+9_Q2604,12 X 5 - What is the answer to [Field-8]?
+9_Q2605,12 X 5 - What is the answer to [Field-9]?
+9_Q2606,12 X 5 - What is the answer to [Field-10]?
+9_Q1292,
+10_Q2597,3 X 10 - What is the answer to [Field-1]?
+10_Q2598,3 X 10 - What is the answer to [Field-2]?
+10_Q2599,3 X 10 - What is the answer to [Field-3]?
+10_Q2600,3 X 10 - What is the answer to [Field-4]?
+10_Q2601,3 X 10 - What is the answer to [Field-5]?
+10_Q2602,3 X 10 - What is the answer to [Field-6]?
+10_Q2603,3 X 10 - What is the answer to [Field-7]?
+10_Q2604,3 X 10 - What is the answer to [Field-8]?
+10_Q2605,3 X 10 - What is the answer to [Field-9]?
+10_Q2606,3 X 10 - What is the answer to [Field-10]?
+10_Q1292,
+11_Q2597,9 X 1 - What is the answer to [Field-1]?
+11_Q2598,9 X 1 - What is the answer to [Field-2]?
+11_Q2599,9 X 1 - What is the answer to [Field-3]?
+11_Q2600,9 X 1 - What is the answer to [Field-4]?
+11_Q2601,9 X 1 - What is the answer to [Field-5]?
+11_Q2602,9 X 1 - What is the answer to [Field-6]?
+11_Q2603,9 X 1 - What is the answer to [Field-7]?
+11_Q2604,9 X 1 - What is the answer to [Field-8]?
+11_Q2605,9 X 1 - What is the answer to [Field-9]?
+11_Q2606,9 X 1 - What is the answer to [Field-10]?
+11_Q1292,
+12_Q2597,9 X 10 - What is the answer to [Field-1]?
+12_Q2598,9 X 10 - What is the answer to [Field-2]?
+12_Q2599,9 X 10 - What is the answer to [Field-3]?
+12_Q2600,9 X 10 - What is the answer to [Field-4]?
+12_Q2601,9 X 10 - What is the answer to [Field-5]?
+12_Q2602,9 X 10 - What is the answer to [Field-6]?
+12_Q2603,9 X 10 - What is the answer to [Field-7]?
+12_Q2604,9 X 10 - What is the answer to [Field-8]?
+12_Q2605,9 X 10 - What is the answer to [Field-9]?
+12_Q2606,9 X 10 - What is the answer to [Field-10]?
+12_Q1292,
+13_Q2597,10 X 1 - What is the answer to [Field-1]?
+13_Q2598,10 X 1 - What is the answer to [Field-2]?
+13_Q2599,10 X 1 - What is the answer to [Field-3]?
+13_Q2600,10 X 1 - What is the answer to [Field-4]?
+13_Q2601,10 X 1 - What is the answer to [Field-5]?
+13_Q2602,10 X 1 - What is the answer to [Field-6]?
+13_Q2603,10 X 1 - What is the answer to [Field-7]?
+13_Q2604,10 X 1 - What is the answer to [Field-8]?
+13_Q2605,10 X 1 - What is the answer to [Field-9]?
+13_Q2606,10 X 1 - What is the answer to [Field-10]?
+13_Q1292,
+14_Q2597,7 X 3 - What is the answer to [Field-1]?
+14_Q2598,7 X 3 - What is the answer to [Field-2]?
+14_Q2599,7 X 3 - What is the answer to [Field-3]?
+14_Q2600,7 X 3 - What is the answer to [Field-4]?
+14_Q2601,7 X 3 - What is the answer to [Field-5]?
+14_Q2602,7 X 3 - What is the answer to [Field-6]?
+14_Q2603,7 X 3 - What is the answer to [Field-7]?
+14_Q2604,7 X 3 - What is the answer to [Field-8]?
+14_Q2605,7 X 3 - What is the answer to [Field-9]?
+14_Q2606,7 X 3 - What is the answer to [Field-10]?
+14_Q1292,
+15_Q2597,5 X 1 - What is the answer to [Field-1]?
+15_Q2598,5 X 1 - What is the answer to [Field-2]?
+15_Q2599,5 X 1 - What is the answer to [Field-3]?
+15_Q2600,5 X 1 - What is the answer to [Field-4]?
+15_Q2601,5 X 1 - What is the answer to [Field-5]?
+15_Q2602,5 X 1 - What is the answer to [Field-6]?
+15_Q2603,5 X 1 - What is the answer to [Field-7]?
+15_Q2604,5 X 1 - What is the answer to [Field-8]?
+15_Q2605,5 X 1 - What is the answer to [Field-9]?
+15_Q2606,5 X 1 - What is the answer to [Field-10]?
+15_Q1292,
+16_Q2597,9 X 12 - What is the answer to [Field-1]?
+16_Q2598,9 X 12 - What is the answer to [Field-2]?
+16_Q2599,9 X 12 - What is the answer to [Field-3]?
+16_Q2600,9 X 12 - What is the answer to [Field-4]?
+16_Q2601,9 X 12 - What is the answer to [Field-5]?
+16_Q2602,9 X 12 - What is the answer to [Field-6]?
+16_Q2603,9 X 12 - What is the answer to [Field-7]?
+16_Q2604,9 X 12 - What is the answer to [Field-8]?
+16_Q2605,9 X 12 - What is the answer to [Field-9]?
+16_Q2606,9 X 12 - What is the answer to [Field-10]?
+16_Q1292,
+17_Q2597,10 X 11 - What is the answer to [Field-1]?
+17_Q2598,10 X 11 - What is the answer to [Field-2]?
+17_Q2599,10 X 11 - What is the answer to [Field-3]?
+17_Q2600,10 X 11 - What is the answer to [Field-4]?
+17_Q2601,10 X 11 - What is the answer to [Field-5]?
+17_Q2602,10 X 11 - What is the answer to [Field-6]?
+17_Q2603,10 X 11 - What is the answer to [Field-7]?
+17_Q2604,10 X 11 - What is the answer to [Field-8]?
+17_Q2605,10 X 11 - What is the answer to [Field-9]?
+17_Q2606,10 X 11 - What is the answer to [Field-10]?
+17_Q1292,
+18_Q2597,4 X 1 - What is the answer to [Field-1]?
+18_Q2598,4 X 1 - What is the answer to [Field-2]?
+18_Q2599,4 X 1 - What is the answer to [Field-3]?
+18_Q2600,4 X 1 - What is the answer to [Field-4]?
+18_Q2601,4 X 1 - What is the answer to [Field-5]?
+18_Q2602,4 X 1 - What is the answer to [Field-6]?
+18_Q2603,4 X 1 - What is the answer to [Field-7]?
+18_Q2604,4 X 1 - What is the answer to [Field-8]?
+18_Q2605,4 X 1 - What is the answer to [Field-9]?
+18_Q2606,4 X 1 - What is the answer to [Field-10]?
+18_Q1292,
+19_Q2597,11 X 3 - What is the answer to [Field-1]?
+19_Q2598,11 X 3 - What is the answer to [Field-2]?
+19_Q2599,11 X 3 - What is the answer to [Field-3]?
+19_Q2600,11 X 3 - What is the answer to [Field-4]?
+19_Q2601,11 X 3 - What is the answer to [Field-5]?
+19_Q2602,11 X 3 - What is the answer to [Field-6]?
+19_Q2603,11 X 3 - What is the answer to [Field-7]?
+19_Q2604,11 X 3 - What is the answer to [Field-8]?
+19_Q2605,11 X 3 - What is the answer to [Field-9]?
+19_Q2606,11 X 3 - What is the answer to [Field-10]?
+19_Q1292,
+20_Q2597,10 X 5 - What is the answer to [Field-1]?
+20_Q2598,10 X 5 - What is the answer to [Field-2]?
+20_Q2599,10 X 5 - What is the answer to [Field-3]?
+20_Q2600,10 X 5 - What is the answer to [Field-4]?
+20_Q2601,10 X 5 - What is the answer to [Field-5]?
+20_Q2602,10 X 5 - What is the answer to [Field-6]?
+20_Q2603,10 X 5 - What is the answer to [Field-7]?
+20_Q2604,10 X 5 - What is the answer to [Field-8]?
+20_Q2605,10 X 5 - What is the answer to [Field-9]?
+20_Q2606,10 X 5 - What is the answer to [Field-10]?
+20_Q1292,
+21_Q2597,11 X 8 - What is the answer to [Field-1]?
+21_Q2598,11 X 8 - What is the answer to [Field-2]?
+21_Q2599,11 X 8 - What is the answer to [Field-3]?
+21_Q2600,11 X 8 - What is the answer to [Field-4]?
+21_Q2601,11 X 8 - What is the answer to [Field-5]?
+21_Q2602,11 X 8 - What is the answer to [Field-6]?
+21_Q2603,11 X 8 - What is the answer to [Field-7]?
+21_Q2604,11 X 8 - What is the answer to [Field-8]?
+21_Q2605,11 X 8 - What is the answer to [Field-9]?
+21_Q2606,11 X 8 - What is the answer to [Field-10]?
+21_Q1292,
+22_Q2597,3 X 10 - What is the answer to [Field-1]?
+22_Q2598,3 X 10 - What is the answer to [Field-2]?
+22_Q2599,3 X 10 - What is the answer to [Field-3]?
+22_Q2600,3 X 10 - What is the answer to [Field-4]?
+22_Q2601,3 X 10 - What is the answer to [Field-5]?
+22_Q2602,3 X 10 - What is the answer to [Field-6]?
+22_Q2603,3 X 10 - What is the answer to [Field-7]?
+22_Q2604,3 X 10 - What is the answer to [Field-8]?
+22_Q2605,3 X 10 - What is the answer to [Field-9]?
+22_Q2606,3 X 10 - What is the answer to [Field-10]?
+22_Q1292,
+23_Q2597,9 X 4 - What is the answer to [Field-1]?
+23_Q2598,9 X 4 - What is the answer to [Field-2]?
+23_Q2599,9 X 4 - What is the answer to [Field-3]?
+23_Q2600,9 X 4 - What is the answer to [Field-4]?
+23_Q2601,9 X 4 - What is the answer to [Field-5]?
+23_Q2602,9 X 4 - What is the answer to [Field-6]?
+23_Q2603,9 X 4 - What is the answer to [Field-7]?
+23_Q2604,9 X 4 - What is the answer to [Field-8]?
+23_Q2605,9 X 4 - What is the answer to [Field-9]?
+23_Q2606,9 X 4 - What is the answer to [Field-10]?
+23_Q1292,
+24_Q2597,2 X 8 - What is the answer to [Field-1]?
+24_Q2598,2 X 8 - What is the answer to [Field-2]?
+24_Q2599,2 X 8 - What is the answer to [Field-3]?
+24_Q2600,2 X 8 - What is the answer to [Field-4]?
+24_Q2601,2 X 8 - What is the answer to [Field-5]?
+24_Q2602,2 X 8 - What is the answer to [Field-6]?
+24_Q2603,2 X 8 - What is the answer to [Field-7]?
+24_Q2604,2 X 8 - What is the answer to [Field-8]?
+24_Q2605,2 X 8 - What is the answer to [Field-9]?
+24_Q2606,2 X 8 - What is the answer to [Field-10]?
+24_Q1292,
+25_Q2597,6 X 4 - What is the answer to [Field-1]?
+25_Q2598,6 X 4 - What is the answer to [Field-2]?
+25_Q2599,6 X 4 - What is the answer to [Field-3]?
+25_Q2600,6 X 4 - What is the answer to [Field-4]?
+25_Q2601,6 X 4 - What is the answer to [Field-5]?
+25_Q2602,6 X 4 - What is the answer to [Field-6]?
+25_Q2603,6 X 4 - What is the answer to [Field-7]?
+25_Q2604,6 X 4 - What is the answer to [Field-8]?
+25_Q2605,6 X 4 - What is the answer to [Field-9]?
+25_Q2606,6 X 4 - What is the answer to [Field-10]?
+25_Q1292,
+26_Q2597,4 X 4 - What is the answer to [Field-1]?
+26_Q2598,4 X 4 - What is the answer to [Field-2]?
+26_Q2599,4 X 4 - What is the answer to [Field-3]?
+26_Q2600,4 X 4 - What is the answer to [Field-4]?
+26_Q2601,4 X 4 - What is the answer to [Field-5]?
+26_Q2602,4 X 4 - What is the answer to [Field-6]?
+26_Q2603,4 X 4 - What is the answer to [Field-7]?
+26_Q2604,4 X 4 - What is the answer to [Field-8]?
+26_Q2605,4 X 4 - What is the answer to [Field-9]?
+26_Q2606,4 X 4 - What is the answer to [Field-10]?
+26_Q1292,
+del100_First Click,Timing - First Click
+del100_Last Click,Timing - Last Click
+del100_Page Submit,Timing - Page Submit
+del100_Click Count,Timing - Click Count
 comp_check_pr1,How much would you earn if you complete 120 problems under the Piece Rate payment scheme (with $.10 for every problem solved correctly)?
 comp_check_pr2,How much would you earn if you complete 140 problems under the Piece Rate payment scheme (with $.10 for every problem solved correctly)?
 comp_check_comp1,How much would you earn if you complete 120 problems under the Tournament payment scheme and your opponent completes 100 problems (with $.20 for every problem solved correctly if you beat your opponent)?
 comp_check_comp2,How much would you earn if you complete 140 problems under the Tournament payment scheme and your opponent completes 120 problems (with $.20 for every problem solved correctly if you beat your opponent)?
 comp_check_comp3,How much would you earn if you complete 100 problems under the Tournament payment scheme and your opponent completes 120 problems (with $.20 for every problem solved correctly if you beat your opponent)?
 comp_check_comp4,How much would you earn if you complete 120 problems under the Tournament payment scheme and your opponent completes 140 problems (with $.20 for every problem solved correctly if you beat your opponent)?
-task_comp_check_acc,
-pay_comp_check_acc,
-n_comp_wrong,
+comp_choice,
+Q257_First Click,Timing - First Click
+Q257_Last Click,Timing - Last Click
+Q257_Page Submit,Timing - Page Submit
+Q257_Click Count,Timing - Click Count
+Q261,10 x 8
+Q263,Please enter your answers to the addition problems below as quickly as you can. 10 + 8
+Q265,1 x 10
+Q267,3 x 3
+Q269,1 x 9
+Q271,1 x 4
+Q273,12 x 6
+Q275,3 x 3
+Q277,3 x 12
+Q279,4 x 5
+Q281,11 x 6
+Q283,9 x 2
+Q285,10 x 3
+Q287,11 x 5
+Q289,10 x 9
+Q291,7 x 2
+Q293,6 x 5
+Q295,6 x 2
+Q297,8 x 4
+Q299,2 x 6
+Q301,6 x 8
+Q303,3 x 4
+Q305,1 x 7
+Q307,5 x 11
+Q309,3 x 5
+Q311,5 x 9
+Q313,11 x 2
+Q315,5 x 4
+Q317,3 x 2
+Q319,6 x 1
+Q321,11 x 8
+Q323,3 x 11
+Q325,2 x 11
+Q327,7 x 11
+Q329,7 x 2
+Q331,12 x 8
+Q333,11 x 8
+Q335,1 x 7
+Q337,2 x 7
+Q339,7 x 6
+Q341,1 x 10
+Q343,6 x 11
+Q345,1 x 1
+Q347,11 x 3
+Q349,3 x 2
+Q351...667,8 x 5
+Q353...668,7 x 5
+Q355...669,8 x 4
+Q357...670,2 x 12
+Q359...671,6 x 7
+Q361...672,4 x 3
+Q363...673,2 x 11
+Q365...674,4 x 7
+Q367...675,1 x 9
+Q369...676,3 x 2
+Q371,8 x 9
+Q373,1 x 7
+Q375,6 x 4
+Q377,4 x 11
+Q379,11 x 9
+Q381,11 x 1
+Q383,1 x 1
+Q385,11 x 7
+Q387,1 x 9
+Q389,1 x 4
+Q391,12 x 9
+Q393,8 x 1
+Q395,5 x 3
+Q397,3 x 3
+Q399,6 x 5
+Q401,9 x 12
+Q403,10 x 6
+Q405,6 x 8
+Q407,3 x 10
+Q409,6 x 8
+Q411,11 x 3
+Q413,8 x 4
+Q415...699,3 x 12
+Q417...700,9 x 2
+Q419...701,2 x 5
+Q351...702,3 x 10
+Q352,2 x 7
+Q353...704,6 x 5
+Q354,11 x 1
+Q355...706,5 x 10
+Q356,8 x 12
+Q357...708,2 x 4
+Q358,1 x 3
+Q359...710,10 x 10
+Q360,7 x 12
+Q361...712,11 x 9
+Q362,5 x 12
+Q363...714,10 x 10
+Q364,11 x 9
+Q365...716,2 x 8
+Q366,10 x 1
+Q367...718,10 x 11
+Q368,10 x 8
+Q370,11 x 2
+Q369...721,6 x 7
+Q415...722,12 x 6
+Q416,11 x 12
+Q417...724,10 x 11
+Q418,8 x 2
+Q419...726,7 x 5
+Q420,12 x 8
+Q421,10 x 5
+Q422,2 x 3
+Q423,6 x 1
+Q424,8 x 6
+Q425,12 x 4
+Q426,8 x 1
+Q427,11 x 1
+Q428,8 x 8
+Q429,6 x 4
+Q430,1 x 5
+Q431,2 x 2
+Q432,2 x 2
+Q433,5 x 12
+Q434,3 x 12
+Q504,6 x 7
+Q505,3 x 2
+Q506,12 x 12
+Q507,3 x 6
+Q508,2 x 7
+Q509,12 x 5
+Q510,10 x 12
+Q511,7 x 6
+Q512,11 x 1
+Q513,7 x 11
+Q514,3 x 7
+Q515,2 x 5
+Q516,2 x 8
+Q517,7 x 9
+Q518,8 x 5
+Q519,3 x 9
+Q520,10 x 11
+Q521,11 x 3
+Q522,2 x 12
+Q523,2 x 12
+Q524,4 x 10
+Q525,6 x 1
+Q526,11 x 9
+Q527,5 x 9
+Q528,4 x 7
+Q529,6 x 5
+Q530,1 x 5
+Q531,4 x 6
+Q532,2 x 3
+Q533,1 x 12
+Q534,7 x 7
+Q535,1 x 11
+Q536,2 x 5
+Q537,7 x 12
+Q538,11 x 4
+Q539,8 x 8
+Q540,4 x 8
+Q541,11 x 12
+Q542,6 x 6
+Q543,4 x 10
 conf_rank,"Your task score was [Field-taskscore]. If my performance is compared to that of all participants that completed the task, I think my score will be..."
-better_gender_guess,Do you think men or women in this study correctly solved more multiplication problems on average?
 perc_task_gender_pract,Do you think men or women in this study spent more time practicing/studying before completing the multiplication task?
+better_gender_guess,Do you think men or women in this study correctly solved more multiplication problems on average?
 perc_gender_comp,Do you think men or women in this study chose the tournament payment option more often?
 MC,"Some participants in this study were randomly assigned to complete subtraction problems before the paid multiplication task, while other participants were randomly assigned to complete multiplication problems before the paid multiplication task (see below for example questions). Which task do you think was more helpful in boosting participants' scores on the paid multiplication task?"
 risk,How do you see yourself: Are you generally a person who is fully prepared to take risks or do you try to avoid taking risks?
 perc_gen_gender_pract,"On most tasks, do you think men or women generally prepare (i.e., practice and/or study) more?"
 age,What is your age (in years)?
 education,"What is the highest degree or level of school you have completed? If currently enrolled, indicate highest degree completed."
+unclear,"We value hearing from the communities we research and we take concerns from participants very seriously, please let us know if there was anything on this survey you would like to provide feedback on."
+SC0,Score
+EndLoop,EndLoop
+id,id
+workerId,workerId
+assignmentId,assignmentId
+hitId,hitId
+Gender...798,Gender
 condition,Condition
-comp_choice,
-extra_practice_rounds_count,
+hideButtons,hideButtons
+task_score,taskscore
+task_comp_check_acc,
+pay_comp_check_acc,
+n_comp_wrong,
 study_tables_binary,Would you like to study the multiplication times table before you complete the paid multiplication task?
 practice_problems_binary,Would you like to practice problems from the multiplication times table  before you complete  the paid multiplication task?
-study_tables_time,Timing - Page Submit
+extra_practice_rounds_count,
+practice_nonempty,
+fraud,

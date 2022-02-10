@@ -1,7 +1,6 @@
 ---
 title: "results"
 author: "Keana Richards"
-date: "6/10/2020"
 output:
   bookdown::word_document2:
   fig_caption: yes 
@@ -40,33 +39,78 @@ if(!"papaja" %in% rownames(installed.packages())) devtools::install_github("crsh
 
 library(papaja)
 
-source(here("study2", "source", "01_preregistered-analyses.R"))
-source(here("study2", "source", "03_exploratory-analyses.R"))
+source(here("study4", "source", "01_preregistered-analyses.R"))
+source(here("study4", "source", "03_exploratory-analyses.R"))
 
 
 na_drop <- clean %>% drop_na(condition) 
-
-```
-
-An equal number of participants were assigned to both conditions (control= `r freq(na_drop$condition)[5]`%). Of the males who completed the study, `r ctable(na_drop$gender, na_drop$condition)$proportions[1]*100`% were assigned to the control condition and of the females who completed the study, `r ctable(na_drop$gender, na_drop$condition)$proportions[2]*100`% were assigned to the control condition. 
-
-```{r, results = "asis"}
-## print(ctable(na_drop$gender, na_drop$condition))
-```
-
-
-We replicated the effect of gender on the choice to compete: `r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`% of men chose to compete compared to `r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`% of women. However, we do not find evidence of a significant effect of condition on the choice to compete among women, *z* = `r primary_hypothesis1_z`, *p* = `r primary_hypothesis1_pval` (see Figure \@ref(fig:s200)), contrary to our hypotheses. 
-
-```{r, results = "asis"}
+practice <- clean %>% filter(condition == "pract")
 woman <- clean %>% filter(gender == "Woman")
+
+```
+
+## Contrasting results with previously found effects - gender effects on risk attitudes, confidence, choice to compete, and performance 
+
+We start by exploring gender differences across the main variables of interest to compare the characteristics of our sample to previous samples and provide context for the subsequent analyses. First, we replicated the effect from the previous studies of gender on the choice to compete when gender is included as the only predictor in the model: `r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`% of men chose to compete compared to `r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`% of women, `r apa_print(hypothesis3a)$full_result$genderWoman`. However, like the previous two studies, when running regressions including control variables (i.e., task score, risk attitudes, confidence), we find that the effect of gender on the choice to compete is not significant, `r apa_print(hypothesis3c)$full_result$genderWoman`, suggesting the effect is explained fully by risk attitudes, `r apa_print(hypothesis3c)$full_result$risk`, and task score, `r apa_print(hypothesis3c)$full_result$task_score`. 
+
+On the other hand, we replicate effects from the literature of gender on both confidence, INSERT MODEL, and risk attitudes, INSERT MODEL, where women tend to be less confident with regards to their performance on the task and generally more risk averse relative to men.
+
+Another important consideration when interpreting any main effects found in this study is whether there are gender differences in task scores. If there are differences in task scores, it may explain any observed differences in the choice to prepare and the perceived benefits of the preparation condition overall. When including gender by itself as predictor of performance, we find that women have significantly lower task scores (INSERT MODEL 03: exploratory19). However, when controlling for confidence and risk attitudes, the effect of gender is not significant, (INSERT MODEL 03: exploratory19), suggesting that these variables completely explain the gender difference in task scores. Specifically, we find that confidence positively predicts task scores (that is, those who are more confident tend to have higher task scores), while risk attitudes negatively predict task scores (that is, individuals who are more risk seeking tend to have lower scores) (INSERT MODEL 03: exploratory20).
+
+## Main hypotheses about effects of condition on choice to compete (both among women & in general) & related exploratory analyses 
+
+Contrary to our a priori hypotheses, we find evidence of a significant effect of condition on the choice to compete among women, INSERT MODEL (see Figure 1), such that women in the control condition are significantly more likely to compete, even after controlling for the effects of risk attitudes, confidence, and task score, INSERT MODEL. This effect holds when excluding potentially fraudulent responses based on the aforementioned criteria, INSERT MODEL. 
+
+```{r fig.cap="Proportion of participants that identify as women who chose to compete by condition. We do not find evidence of the hypothesized effect of condition on the choice to compete. On the contrary, women in the control condition were significantly more likely to choose to compete than women in the preparation condition. Error bars represent standard errors.", results = "asis"}
 ## print(ctable(woman$comp_choice, woman$condition))
 
+knitr::include_graphics(here("study4", "figs", "fig00_comp-choice-women-by-cond.png"))
+
 ```
 
-Despite no evidence for the effect of condition on the choice to compete among women, we replicate the effects found in Study 1, where women were significantly more likely to prepare for the task, even after being forced to prepare in the preparation condition (see Figure \@ref(fig:s204)). Women were `r (exp(coef(sec_exploratory1))[2] - 1)*100`% more likely to take advantage of the opportunity to prepare relative to men `r apa_print(exploratory1)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s204)). Again, we find that these results align with participants' expectations, where they were significantly more likely to expect women to choose to prepare in general, `r apa_print(exploratory3c, n = nrow(clean))$statistic` (see Figure \@ref(fig:s203)), despite expecting men to choose to compete more often, `r apa_print(exploratory3b, n = nrow(clean))$statistic` (see Figure \@ref(fig:s202)) and expecting no gender differences in performance on the task, `r apa_print(exploratory3a, n = nrow(clean))$statistic` (see Figure \@ref(fig:s201)). 
+Importantly, the effect only holds when focusing on the subset of participants that identify as women. When broadening the analyses to the full dataset, the effect of condition on choice to compete is no longer significant, INSERT MODEL (with just condition as a predictor) (see Figure 2). To explore this effect further, we looked into how much women were choosing to practice across conditions, which may provide insight into the motivations behind the greater decision to compete among women in the control condition. That is, it is possible that women in the control condition decided to complete subtraction problems at similar rates as women in the preparation condition, and if so, this may have led them to compete more because the subtraction tables felt easier than the multiplication tables, and therefore boosted their confidence or reduced perceptions of risk. Contrary to this possibility, we find that women in the practice condition tended to choose to study, INSERT MODEL, and practice, INSERT MODEL, the multiplication tables at significantly higher rates relative to women in the control condition. Additionally, we do not find evidence that condition predicts perceptions of risk, INSERT MODEL, nor confidence, INSERT MODEL. Thus, it seems unlikely that the actual act of reviewing and practicing subtraction problems led women to compete more in the control condition by boosting confidence or reducing perceptions of risk (NOTE TO SELF: although one possible issue with this interpretation is that we are asking about a person's general risk attitudes, not specifically how risk-seeking/averse they are feeling in the moment/wrt to the task at hand, unlike confidence - which is measuring how they are feeling about their performance on the task relative to others - so perhaps only confidence should be included as a control within this specific analysis since we're talking about potential explanations for the effects found within the context of the task and how they may be affected by practicing - Coren & Emily, would love to hear thoughts). 
+
+
+```{r fig.cap="Proportion of participants who chose to compete by condition and gender. We do not find evidence of the hypothesized interaction effect between condition and gender on the choice to compete. Error bars represent standard errors.", results = "asis"}
+## print(ctable(woman$comp_choice, woman$condition))
+
+knitr::include_graphics(here("study4", "figs", "fig01_pract-choice-by-gender-and-cond-bar.png"))
+
+```
+
+
+
+```{r}
+# print(stby(list(women$condition,women$practice_problems_binary), INDICES = women$comp_choice, FUN = ctable))
+# print(stby(list(women$condition,women$study_tables_binary), INDICES = women$comp_choice, FUN = ctable))
+
+```
+
+In further evidence of the perceived utility of the preparation condition for improving performance, participants across both conditions tended to believe when asked in the manipulation check that practicing multiplication problems would be more likely to improve performance on the paid multiplication task than practicing subtraction problems, INSERT MODEL. Overall, these effects suggest that women in the preparation condition were less likely to compete when given the opportunity to prepare, despite thinking that preparing helps performance. We explore some possible explanations for the effect of condition on choice to compete among women in light of the effects found in previous studies in the discussion section. 
+
+## Gender differences in the decision to practice 
+
+Our next pre-registered hypothesis focused on the effects of gender on decisions to prepare. Thus, all subsequent analyses focus on the subset of participants that were assigned to the preparation condition (N = `r nrow(practice)`). 
+
+We do not replicate the effect found in both previous studies of gender on the decision to practice multiplication problems, INSERT MODEL (03: exploratory2). However, this discrepancy could be explained by the lower number of participants in the preparation condition relative to previous studies given the random assignment to condition. For this reason, we may have had less power in estimating the effects of gender on the choice to prepare. It is also possible that differences in the design of this study relative to the previous two studies drove the differences, which will be further explored in the discussion section.   
+
+We also explored how many practice problems were left empty as a measure of preparation, and like previous studies, did not find an effect of gender, INSERT MODEL. Finally, we tested whether the number of practice rounds differed across genders, and unlike previous studies, did not find evidence for this hypothesis, INSERT MODEL. There are a few possible explanations that we did not replicate the effect of gender on the number of practice rounds chosen, which will be explored further in the discussion section. 
+
+Unlike the previous studies, this study separated the decision to study tables and amount of time studying tables from the decision to practice and number of problems completed, so we had the novel opportunity to explore questions about gender differences in studying here. Though we do not find evidence that there are gender differences in the decision to study the multiplication tables, INSERT MODEL, among those who did choose to study (N = `r nrow(practice %>% filter(study_tables_binary == "Yes"))`; `r nrow(practice %>% filter(study_tables_binary == "Yes"))/nrow(practice)*100`% of participants in the preparation condition), we find that women studied for INSERT seconds longer than men on average, INSERT MODEL.   
+
+Again, we contrast these results about gender differences in preparation with previous studies in the discussion section, with some possible explanation for the deviation from results found in previous studies. 
+
+
+## Perceptions of gender differences in performance, competition, and preparation
+
+Like the previous two studies in this chapter, we explored participants' perceptions of gender differences to see whether there tends to be consistency in beliefs about gender differences in performance on the multiplication task, along with gender differences in the choice to prepare and compete, and if so, whether these beliefs aligned with the actual results found. Importantly, participants were incentivized to guess the study results correctly to reduce the likelihood that participants would respond in a socially desirable way. 
+
+First, participants were significantly more likely to choose "women" than "men" or "no difference" when asked about gender differences in tendencies to prepare, both on the multiplication task (among participants in the preparation condition), INSERT MODEL, and in general, INSERT MODEL. Though participants consistently expected women to be more likely to prepare than men, they did not expect that there would be a gender difference in performance, where participants were significantly more likely to indicate "no difference" compared to "men" or "women" when asked if they thought men or women correctly solved more multiplication problems on average, INSERT MODEL. Despite thinking that there would be no gender difference in performance and expecting women to prepare for the task more, participants consistently expected men to be more likely to compete, rather than expecting women to compete more or expecting no difference in willingness to compete across genders, INSERT MODEL. Thus, these results mirror results found in previous studies, suggesting that there are consistent beliefs about gender differences in competitiveness and preparation, despite the consistency in beliefs about a *lack* of gender differences in performance. We discuss these findings about participants' beliefs in light of the actual study results in the discussion section. 
 
 ```{r, results = "asis"}
-## print(ctable(clean$gender, clean$better_gender_guess))
+
+
+## print(ctable(practice$gender, practice$practice_problems_binary))
 ```
 
 

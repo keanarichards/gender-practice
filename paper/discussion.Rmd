@@ -17,3 +17,32 @@ Finally, we showed that participants accurately predicted the observed gender di
 While we built off an extensive and laudable literature on gender differences in competitiveness, we have unearthed a new gender difference in preparation. As this is a new area of research, there are many promising and exciting avenues for future exploration, all of which have the potential to inform policy. First, future work should explore whether these results generalize to other populations and tasks. Second, future work should examine the impact of preparation on performance. Do women overprepare? Do men underprepare? What are the opportunity costs to preparing? Also, it would be important to think about ways that women could be equally rewarded *without* having to compete - that is, reimagining how to support women being productive in ways that work for them. And finally, how do competitions themselves affect gender differences in the choice to prepare? 
 
 Much of the research on gender differences in competitiveness is focused on designing interventions to increase women’s competitiveness, with less attention paid to potential downstream consequences of these interventions. Here we show that preparation has no impact on willingness to compete, while discovering a gender difference in preparation. Future work should explore the implications of these findings further where these effects may have a long-lasting impact on gender differences in economic outcomes.
+
+
+
+
+New possible outline: 
+
+some possible takeaways for discussion section: 
+
+- in general, there are no effects of the practice condition on gender differences in choice to compete, with the exception of study 3 where women in control condition actually were more likely to compete: practice might actually make things worse for women, perhaps reducing their confidence - especially if it’s unnecessary practice. since this effect only holds among women, perhaps it’s driven by increased perceptions of risk or reduced confidence when practicing, where women in the condition where they are given the option to practice for the main task may feel like they are underperforming relative to other women.
+    - perhaps for women they think they are not practicing as much as others in multiplication condition, so they feel like they shouldn’t compete (eg even though they might agree to practice, they still don’t feel like they practiced enough relative to others). whereas when the prep task is clearly irrelevant (ie subtraction), they don’t feel this pressure to practice & as a result, don’t feel underprepared, leading them to compete more.
+- replicate effects of gender on choice to compete when gender is included as only predictor in model, but across all 3 studies, gender diff in choice to compete goes away when controlling for task score, risk, and confidence (like apicella et al). and we find evidence that gender consistently predicts risk & confidence across studies, replicating previous effects.
+    - can make a comment about how there might be something unique about the task or online nature (eg like apicella study) that leads us to find slightly different effects than the literature = this is in contrast to the previous studies, which found effects over & above effects of risk & confidence.
+- find evidence that women tend to choose to practice more (when measured as the binary choice to practice, before they know what they are getting into)
+    - although this effect doesn’t quite replicate in study 3, possibly for one of following reasons:
+        - possible explanation is that previous studies measured extra practice AFTER they chose to compete, while this study measures practice before the decision to compete. so there could be effects of the decision to compete or not on choice to practice in previous studies, while decision to practice in new study is made before they choose to compete
+        - perhaps it could be that women are far more likely to prepare the closer they get to actually performing - but they don’t feel the need to do so earlier on.
+        - there are also fewer ppts that are offered opp to practice in the first place - so there may just be less power (possible option for power analysis: [https://rdrr.io/cran/powerMediation/man/powerLogisticBin.html](https://rdrr.io/cran/powerMediation/man/powerLogisticBin.html)???)
+        - finally, it could be explained by the way the practice is structured relative to previous studies (where previous studies didn’t have them make the decision to study first, so perhaps being asked to study first reduced their interest in practicing)
+    - importantly across 2 out of the 3 studies, we find no gender difference in task performance when controlling for gender differences in risk & confidence
+- other ways of measuring practice (eg number of problems left empty; number of rounds of practice) are less robust.
+- Finally, we find robust effects of perceptions of gender differences in willingness to compete and practice among participants across all 3 studies, which seem to generally align with the actual results found.
+- Overall, we do not find strong evidence that practicing affects gender differences in competition. Instead we find evidence for a gender difference in willingness to prepare, along with robust perceptions of gender differences.
+    - we also find evidence that competition choice is related to the decision to spend extra time practicing, such that ppts who chose to compete are more likely to choose to practice relative to ppts who chose the piece rate payment scheme.
+- thus... it is likely that this gender difference in preparation could be exacerbated when ppts are required to compete. == leading into motivation for next chapter of the dissertation.
+
+
+
+
+

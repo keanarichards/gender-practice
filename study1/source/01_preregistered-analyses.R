@@ -36,7 +36,7 @@ primary_hyp2 = glm(pract_choice ~ gender + comp_choice,family=binomial,data = cl
 # primary hypothesis 3 --------------------------------------------------
 
 ## conducted poisson regression instead of originally planned linear regression because of nature of data (count)
-primary_hyp3 <- glm(total_review_count ~ gender, family="poisson", data=clean)
+primary_hyp3 <- glm(total_review_count ~ gender + comp_choice, family="poisson", data=clean)
 
 
 # primary hypothesis 4 --------------------------------------------------
@@ -51,7 +51,7 @@ exploratory1 = glm(comp_choice ~ gender+ risk + conf_rank,family=binomial,data =
 
 # exploratory analysis 2 --------------------------------------------------
 
-exploratory2 = glm(comp_choice ~ gender+ risk + conf_rank + condition + gender*condition,family=binomial,data = clean)
+exploratory2 = glm(comp_choice ~ gender+ risk + conf_rank + condition + gender*condition + task_score,family=binomial,data = clean)
 
 # exploratory analysis 3a -------------------------------------------------
 ## accounting for typo on prereg doc - cannot analyze because there is no time information

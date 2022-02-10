@@ -21,14 +21,14 @@ full_raw <- read_csv(here("study1", "data", "raw.csv"))
 
 # removing participants who don't meet inclusion criteria and row 2 from dataset----------------
 
-raw <- full_raw %>% slice(-2) %>%  dplyr::filter(Nationality == "American" , Gender != "Other (please specify):",
+raw <- full_raw %>% slice(-2) %>%  dplyr::filter(Nationality == "American" , Gender...19 != "Other (please specify):",
   Residence == "United States" , `Phone/tablet` == "No", DistributionChannel =="anonymous")
 
 # remove duplicate IPs ----------------------------------------------------
 
 ## first sort by date of completion (starting with earliest), remove people who have matching IP address, gender, and MTurkID
 raw <- raw[order(raw$StartDate),]
-raw <- raw[!duplicated(raw[c("IPAddress", "MTurkID", "Gender")]),]
+raw <- raw[!duplicated(raw[c("IPAddress", "MTurkID", "Gender...19")]),]
 
 ## because there were people who had invalid MTurkIDs, need to subset people who have invalid MTurkID & remove duplicate IP addresses for those people.
 ## need to inspect & make sure MTurk IDs are different manually 
@@ -98,6 +98,22 @@ s <- as.data.frame(s, col.names = paste0("pract_count", c(1:12)))
 
 raw <- cbind(raw, s)
 
+## creating and storing number of practice problems attempted var: 
+
+## first selecting all vars that represent practice problems then removing cols asking about whether they would like to keep practicing:
+
+names_all <- raw %>% select(Q1201:`15_Q1501`) %>% names(.)
+
+names_remove <- names(c(ones, twos, threes, fours, fives, sixes, sevens, eights, nines, tens, elevens, twelves))
+
+practice_probs <- names_all[!names_all%in%names_remove]
+
+
+## creating practice problems attempted variable (any practice problems not left blank): 
+
+raw %<>% ungroup(.) %>% mutate(practice_nonempty = rowSums(!is.na(raw %>% select(practice_probs))))
+
+## check that some of the rows were coded correctly: raw %>% filter(practice_nonempty > 0) %>% select(practice_nonempty, practice_probs) %>% remove_empty(., which = "cols") %>% slice(5) %>% dplyr::select_if(~!all(is.na(.)))
 
 # identify participants who didn't finish -----------------------------------
 
@@ -109,7 +125,7 @@ write.csv(dropped_out, here("study1", "data", "dropped_out.csv"), row.names = F)
 
 
 raw <- raw %>% dplyr::select(-c(47:2463, Preparation1times_DO:Review12times_DO, StartDate:UserLanguage, Example,  
-  MTurkID, `Phone/tablet`, Q1201:Q1212, `Q257_First Click`:Q543, SC0, Gender_1, `2_Q1382 - Topics`, FL_80_DO, FL_203_DO))
+  MTurkID, `Phone/tablet`, Q1201:Q1212, `Q257_First Click`:Q543, SC0,  `2_Q1382 - Topics`, FL_80_DO, FL_203_DO))
 
 
 ## selecting original var names to be used for export vars and labels
@@ -164,7 +180,7 @@ loc <- match(original_names, names(raw))
 
 
 raw <- raw %>% dplyr::rename(
-  gender = Gender, gender_other = Gender_3_TEXT, residence = Residence, residence_other = Residence_3_TEXT, 
+  gender = Gender...19, gender_other = Gender_3_TEXT, residence = Residence, residence_other = Residence_3_TEXT, 
   nationality = Nationality,  nationality_other = Nationality_2_TEXT,income = ownincome, age = Age,  
   pract_choice = prep_choice,  better_gender_guess =gender_perform,
   race_ethnicity = `Race/ethnicity`, race_ethnicity_other = `Race/ethnicity_7_TEXT`,
@@ -189,11 +205,11 @@ col_names_des <- data.frame(cbind(names(raw[loc]), des))
 
 col_names_des <- col_names_des %>% dplyr::rename(col_names = V1)
 
-col_names_des <- col_names_des %>% add_row(col_names = raw %>% dplyr::select(-all_of(loc)) %>% names(), 
-  des = c("choice to compete", "display order for choice to compete", paste("count of practice for", seq(1:12), "times tables", "total_review_count"), 
-  "task comprehension check accuracy", "payment scheme comprehension check accuracy", "number of comprehension check questions wrong overall", "total number of rounds reviewing multiplying problems"))
-
-write.csv(col_names_des, here("study1", "data", "vars-and-labels.csv"), row.names = F)
+# col_names_des <- col_names_des %>% add_row(col_names = raw %>% dplyr::select(-all_of(loc)) %>% names(), 
+#   des = c("choice to compete", "display order for choice to compete", paste("count of practice for", seq(1:12), "times tables", "total_review_count"), 
+#   "task comprehension check accuracy", "payment scheme comprehension check accuracy", "number of comprehension check questions wrong overall", "total number of rounds reviewing multiplying problems"))
+# 
+# write.csv(col_names_des, here("study1", "data", "vars-and-labels.csv"), row.names = F)
 
 # recode vars -----------------------------------------------------------
 

@@ -17,7 +17,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 full_raw <- read_csv(here("study2", "data", "raw.csv"))
 
-raw <- full_raw %>% slice(-2) %>%  dplyr::filter(Nationality == "American" , Gender != "Other (please specify):",
+raw <- full_raw %>% slice(-2) %>%  dplyr::filter(Nationality == "American" , Gender...19 != "Other (please specify):",
   Residence == "United States" , `Phone/tablet` == "No",DistributionChannel =="anonymous") 
 
 
@@ -51,13 +51,6 @@ raw <- left_join(raw, total_pay[c("combined_pay", "MTurkID")], by = "MTurkID")
 dropped_out <- raw %>% filter(Finished == "FALSE")
 write.csv(dropped_out, here("study2", "data", "dropped_out.csv"), row.names = F)
 
-
-# removing extra columns --------------------------------------------------
-
-raw <- raw %>% dplyr::select(-c(contains("Click"), StartDate:UserLanguage,MTurkID, `Phone/tablet`, starts_with("del"), contains("ctrl_task"), matches("^prep_[0-9]|^prep[0-9]"), starts_with("Q"), 
-  Gender_1, SC0, FL_203_DO, FL_80_DO, FL_258_DO, preparationround1_DO,
-  prepround2_DO, prepround3_DO, prepround4_DO, prepround5_DO, Multiplicationtask_DO, `Confidence/gender_DO`,
-  `Demographics,risk,genderperceptionsofpractice,interest,fatigue,fab_DO`))
 
 # creating vars necessary for analysis -------------------------------------------------
 
@@ -99,53 +92,58 @@ raw$n_comp_wrong <- raw$pay_comp_check_acc + raw$task_comp_check_acc
 
 raw$extra_prep_count <-ifelse(raw$extra_prep1 == "No", 0, ifelse(raw$`extra-prep2` == "No", 1, ifelse(raw$extraprep3 == "No", 2, ifelse(raw$extraprep4 == "No", 3, ifelse(raw$extraprep5 == "No", 4, 5)))))
 
-raw <- raw %>% dplyr::select(-c(extra_prep1:extraprep5))
-
 ## creating "choice to prepare" variable. If extra_prep_count equals 0, then they did not choose to prepare, otherwise, encode as "yes" 
 
 raw$pract_choice <- ifelse(raw$extra_prep_count == 0, "No","Yes")
+
+
+## creating practice problems attempted variable (any practice problems not left blank): 
+
+raw %<>% ungroup(.) %>% mutate(practice_nonempty = rowSums(!is.na(raw %>% select(Q1734:Q1893, Q1896:Q2055, Q2058:Q2217, Q2220:Q2379, Q2382:Q2541))))
+
+## checking var was created correctly: View(raw %>% filter(practice_nonempty > 0) %>% select(practice_nonempty, Q1734:Q1893, Q1896:Q2055, Q2058:Q2217, Q2220:Q2379, Q2382:Q2541))
 
 
 ## creating total time spent on task var: 
 ## imputing mean of timing  within each participant across all control tasks for 5a page submit (control) (error in Qualtrics so was not stored): 
 
 
+# raw <-raw %>% retype()
+# 
+# mean_timing_ctrl5a <- rowMeans(raw[grep("^timing_ctrl[1_4]a", names(raw))], na.rm = TRUE)
+# raw$`timing_ctrl5a_Page Submit` <- as.numeric(ifelse(is.na(raw$`timing_ctrl5b_Page Submit`) == FALSE, mean_timing_ctrl5a, raw$`timing_ctrl5a_Page Submit`))
+
 raw <-raw %>% retype()
-
-mean_timing_ctrl5a <- rowMeans(raw[grep("^timing_ctrl[1_4]a", names(raw))], na.rm = TRUE)
-raw$`timing_ctrl5a_Page Submit` <- as.numeric(ifelse(is.na(raw$`timing_ctrl5b_Page Submit`) == FALSE, mean_timing_ctrl5a, raw$`timing_ctrl5a_Page Submit`))
-
-raw <-raw %>% retype()
-
-total_timing_ctrl <-rowSums(raw[grep("^timing_ctrl[0-9]", names(raw))], na.rm = TRUE)
-
-total_timing_prep <-rowSums(raw[grep("^prep_timing[0-9]", names(raw))], na.rm = TRUE)
-
-
-raw$total_time <- ifelse(is.na(raw$`timing_ctrl1a_Page Submit`) == FALSE, total_timing_ctrl,total_timing_prep)
+# 
+# total_timing_ctrl <-rowSums(raw[grep("^timing_ctrl[0-9]", names(raw))], na.rm = TRUE)
+# 
+# total_timing_prep <-rowSums(raw[grep("^prep_timing[0-9]", names(raw))], na.rm = TRUE)
+# 
+# 
+# raw$total_time <- ifelse(is.na(raw$`timing_ctrl1a_Page Submit`) == FALSE, total_timing_ctrl,total_timing_prep)
 
 ## creating total time spent on answering questions (for measuring performance):
 
-qs_timing_ctrl <-rowSums(raw[grep("^timing_ctrl[0-9]a", names(raw))], na.rm = TRUE)
+# qs_timing_ctrl <-rowSums(raw[grep("^timing_ctrl[0-9]a", names(raw))], na.rm = TRUE)
+# 
+# qs_timing_prep <-rowSums(raw[grep("^prep_timing[0-9]a|^prep-timing1[0-9]a|^prep-timing[0-9]a|prep_timing11_Page Submit", names(raw))], na.rm = TRUE)
 
-qs_timing_prep <-rowSums(raw[grep("^prep_timing[0-9]a|^prep-timing1[0-9]a|^prep-timing[0-9]a|prep_timing11_Page Submit", names(raw))], na.rm = TRUE)
 
-
-raw$time_qs <- ifelse(is.na(raw$`timing_ctrl1a_Page Submit`), qs_timing_prep,qs_timing_ctrl)
-
-raw$total_time <-ifelse(raw$total_time == 0, NA, raw$total_time)
-raw$time_qs <- ifelse(raw$time_qs == 0, NA, raw$time_qs)
+# raw$time_qs <- ifelse(is.na(raw$`timing_ctrl1a_Page Submit`), qs_timing_prep,qs_timing_ctrl)
+# 
+# raw$total_time <-ifelse(raw$total_time == 0, NA, raw$total_time)
+# raw$time_qs <- ifelse(raw$time_qs == 0, NA, raw$time_qs)
 
 
 ## creating performance on the fixed preparation rounds (units = ?s completed/second):
 
-raw$perf_fixed_rounds <- (raw$score_before_task/raw$time_qs)
+# raw$perf_fixed_rounds <- (raw$score_before_task/raw$time_qs)
+# 
+# ## creating performance on the extra preparation rounds - multiplying count of extra prep rounds by 2 minutes, since that was the fixed amount of time they were given to complete the problems: 
+# 
+# raw$extra_prep_count_time <- ifelse(raw$extra_prep_count > 0, raw$extra_prep_count*120, NA)
 
-## creating performance on the extra preparation rounds - multiplying count of extra prep rounds by 2 minutes, since that was the fixed amount of time they were given to complete the problems: 
-
-raw$extra_prep_count_time <- ifelse(raw$extra_prep_count > 0, raw$extra_prep_count*120, NA)
-
-raw <- raw %>% mutate(perf_extra_prep = unlimited_prep_score/extra_prep_count_time)
+# raw <- raw %>% mutate(perf_extra_prep = unlimited_prep_score/extra_prep_count_time)
 
 ## creating combined comp choice var
 
@@ -180,6 +178,15 @@ raw$fati <- as.vector(results_fati$scores)
 
 raw$fab <- as.vector(results_fab$scores)
 
+
+# removing extra columns --------------------------------------------------
+
+raw <- raw %>% dplyr::select(-c(contains("Click"), StartDate:UserLanguage,MTurkID, `Phone/tablet`, starts_with("del"), contains("ctrl_task"), matches("^prep_[0-9]|^prep[0-9]"), starts_with("Q"), 
+ Gender_3_TEXT, SC0, FL_203_DO, FL_80_DO, FL_258_DO, preparationround1_DO,
+ prepround2_DO, prepround3_DO, prepround4_DO, prepround5_DO, Multiplicationtask_DO, `Confidence/gender_DO`,
+ `Demographics,risk,genderperceptionsofpractice,interest,fatigue,fab_DO`, extra_prep1:extraprep5))
+
+
 ## storing names final dataset
 
 original_names <-intersect(names(raw), names(full_raw))
@@ -189,7 +196,7 @@ loc <- match(original_names, names(raw))
 # rename columns --------------------------------------------------------
 
 raw <- raw %>% dplyr::rename(
-  gender = Gender, gender_other = Gender_3_TEXT, residence = Residence, residence_other = Residence_3_TEXT, 
+  gender = Gender...19, residence = Residence, residence_other = Residence_3_TEXT, 
   nationality = Nationality,  nationality_other = Nationality_2_TEXT,income = ownincome, age = Age,
   better_gender_guess =gender_perform,
   race_ethnicity = `Race/ethnicity`, race_ethnicity_other = `Race/ethnicity_7_TEXT`,
@@ -224,15 +231,15 @@ col_names_des <- data.frame(cbind(names(raw[loc]), des))
 
 ## find names in "original_names" that are not in "full_raw" 
 
-col_names_des <- col_names_des %>% dplyr::rename(col_names = V1)
-
-col_names_des <- col_names_des %>% add_row(col_names = raw %>% dplyr::select(-all_of(loc)) %>% names(), 
-  des = c("choice to compete","bonuses earned during task","task comprehension check accuracy",
-  "payment scheme comprehension check accuracy", "number of comprehension check questions wrong overall",
-  "total count of extra rounds reviewing multiplying problems", "optional choice (yes or no) to prepare", "total time spent on either control or preparation rounds", 
-  "total time spent on the questions during either control or preparation rounds", "performance on control or preparation rounds (based on number of questions completed relative to time spent on questions)",
-  "time spent on extra preparation rounds", "performance on extra preparation rounds (based on number of questions completed relative to time spent on questions)",
-  "composite score for fatigue", "composite score for field specific ability beliefs"))
+# col_names_des <- col_names_des %>% dplyr::rename(col_names = V1)
+# 
+# col_names_des <- col_names_des %>% add_row(col_names = raw %>% dplyr::select(-all_of(loc)) %>% names(), 
+#   des = c("choice to compete","bonuses earned during task","task comprehension check accuracy",
+#   "payment scheme comprehension check accuracy", "number of comprehension check questions wrong overall",
+#   "total count of extra rounds reviewing multiplying problems", "optional choice (yes or no) to prepare", "total time spent on either control or preparation rounds", 
+#   "total time spent on the questions during either control or preparation rounds", "performance on control or preparation rounds (based on number of questions completed relative to time spent on questions)",
+#   "time spent on extra preparation rounds", "performance on extra preparation rounds (based on number of questions completed relative to time spent on questions)",
+#   "composite score for fatigue", "composite score for field specific ability beliefs"))
 
 write.csv(col_names_des, here("study2", "data", "vars-and-labels.csv"), row.names = F)
 

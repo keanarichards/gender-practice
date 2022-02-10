@@ -22,31 +22,36 @@ clean$gender <- factor(clean$gender)
 clean$comp_choice <- factor(clean$comp_choice)
 clean$condition <- factor(clean$condition)
 
+women <- clean %>% filter(gender == "Woman")
+
+
 # primary hypothesis 1 ----------------------------------------------------
 
-prep_comp <- nrow(clean %>% filter(gender == "Woman" & condition == "pract" & comp_choice == "tournament"))
-total_prep<- nrow(clean %>% filter(gender == "Woman" & condition == "pract"))
+# prep_comp <- nrow(clean %>% filter(gender == "Woman" & condition == "pract" & comp_choice == "tournament"))
+# total_prep<- nrow(clean %>% filter(gender == "Woman" & condition == "pract"))
+# 
+# con_comp <- nrow(clean %>% filter(gender == "Woman" & condition == "control" & comp_choice == "tournament"))
+# total_con <- nrow(clean %>% filter(gender == "Woman" & condition == "control"))
+# 
+# 
+# ## https://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/
+# 
+# z.prop = function(x1,x2,n1,n2){
+#   numerator = (x1/n1) - (x2/n2)
+#   p.common = (x1+x2) / (n1+n2)
+#   denominator = sqrt(p.common * (1-p.common) * (1/n1 + 1/n2))
+#   z.prop.ris = numerator / denominator
+#   return(z.prop.ris)
+# }
+# 
+# primary_hypothesis1_z <- z.prop(prep_comp, con_comp, total_prep, total_con)
+# primary_hypothesis1_pval <- pnorm(primary_hypothesis1_z)  
 
-con_comp <- nrow(clean %>% filter(gender == "Woman" & condition == "control" & comp_choice == "tournament"))
-total_con <- nrow(clean %>% filter(gender == "Woman" & condition == "control"))
-
-
-## https://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/
-
-z.prop = function(x1,x2,n1,n2){
-  numerator = (x1/n1) - (x2/n2)
-  p.common = (x1+x2) / (n1+n2)
-  denominator = sqrt(p.common * (1-p.common) * (1/n1 + 1/n2))
-  z.prop.ris = numerator / denominator
-  return(z.prop.ris)
-}
-
-primary_hypothesis1_z <- z.prop(prep_comp, con_comp, total_prep, total_con)
-primary_hypothesis1_pval <- pnorm(primary_hypothesis1_z)  
+hypothesis1  <- glm(comp_choice~condition, family = binomial, data = women)
 
 # exploratory analysis 1 --------------------------------------------------
 
-exploratory1 = glm(comp_choice ~ risk + conf_rank + condition + gender*condition,family=binomial,data = clean)
+exploratory1 = glm(comp_choice ~ risk + conf_rank + condition + task_score +gender*condition,family=binomial,data = clean)
 
 # exploratory analysis 2 --------------------------------------------------
 
@@ -140,3 +145,7 @@ exp(cbind(OR = coef(exploratory12), confint(exploratory12)))
 # exploratory analysis 13 --------------------------------------------------
 
 exploratory13 <- lm(perf_extra_prep~comp_choice+ gender + gender*comp_choice, data = clean)
+
+
+
+

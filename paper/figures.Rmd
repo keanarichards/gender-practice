@@ -73,3 +73,8 @@ knitr::include_graphics(here::here("study2", "figs", "fig03_perc-gen-gender-prac
 knitr::include_graphics(here::here("study2", "figs", "fig04_total-rev-count-by-gender-comp-choice.png"))
 
 ```
+
+## Study 3
+
+
+

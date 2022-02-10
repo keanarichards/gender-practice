@@ -86,6 +86,7 @@ raw$n_comp_wrong <- raw$pay_comp_check_acc + raw$task_comp_check_acc
 ## practice problems: `1_Q2631`:`1_Q2640` (for control) or `1_Q2597`:`1_Q2606`. all start with a number representing the number of the loop they are on. max is 26. so last practice problem of last loop in control is 26_Q2640
 ## would you like to continue practicing?: `1_Q1292`:`26_Q1292` (for practice) or `1_Q2641`:`26_Q2641` (for control)
 
+
 ## study_tables_binary: yes/no study tables across conditions on first offer
 
 raw %<>% mutate(study_tables_binary = coalesce(Q1293,Q1294)) %>% select(-c(Q1293,Q1294))
@@ -110,17 +111,25 @@ raw %<>% dplyr::mutate_at(vars(contains("_Q2641")),
 #https://stackoverflow.com/questions/34643633/mutate-data-conditionally-in-dplyr
 raw %<>% rowwise() %>% mutate(extra_practice_rounds_count = ifelse(Condition == 1,sum(across(contains("_Q1292"))),
                               ifelse(Condition == 0, sum(across(contains("_Q2641"))), NA))) 
+
+
+## counting number of practice problems attempted (aka not left blank): 
+
+raw %<>% ungroup(.) %>% mutate(practice_nonempty = rowSums(!is.na(raw %>% select(matches("_Q2597|_Q2598|_Q2599|_Q2600|_Q2601|_Q2602|_Q2603|_Q2604|_Q2605|_Q2606")))))
+
+## checking var was created correctly: View(raw %>% filter(practice_nonempty > 0) %>% select(practice_nonempty, matches("_Q2597|_Q2598|_Q2599|_Q2600|_Q2601|_Q2602|_Q2603|_Q2604|_Q2605|_Q2606")))
+
 ## creating combined choice to compete var 
 
 raw <- raw %>% tidyr::unite("comp_choice", 	c(choice_tourn_first2, choice_PR_first2), remove = T, na.rm = T) 
 
-## storing var for exclusion (using Or function because only one of condition must be met)
+## storing var for exclusion based on qualtrics fraud detecion software (using Or function because only one of condition must be met)
 
-raw %<>% mutate(exclude = ifelse(Q_RecaptchaScore < .5 | isTRUE(Q_RelevantIDDuplicate)| Q_RelevantIDDuplicateScore >= 75| Q_RelevantIDFraudScore >= 30, 1, 0)) 
+raw %<>% mutate(fraud = ifelse(Q_RecaptchaScore < .5 | isTRUE(Q_RelevantIDDuplicate)| Q_RelevantIDDuplicateScore >= 75| Q_RelevantIDFraudScore >= 30, 1, 0)) 
 
 # removing extra columns --------------------------------------------------
 
-raw <- raw %>% dplyr::select(c(workerId, taskscore, exclude, `Gender...17`, `Gender_14_TEXT`, contains("comp_check"), n_comp_wrong, conf_rank, gender_perform, task_gender_prep, gender_compete, MC, risk, gen_gender_prep, Age, education, Condition, contains("Comp_check"), contains("choice"), extra_practice_rounds_count, study_tables_binary, practice_problems_binary, `Q1302_Page Submit`, MC)) 
+raw <- raw %>% dplyr::select(c(workerId, taskscore, exclude, `Gender...17`, `Gender_14_TEXT`, contains("comp_check"), n_comp_wrong, conf_rank, gender_perform, task_gender_prep, gender_compete, MC, risk, gen_gender_prep, Age, education, Condition, contains("Comp_check"), contains("choice"), extra_practice_rounds_count, study_tables_binary, practice_problems_binary, `Q1302_Page Submit`, MC, practice_nonempty)) 
 
 raw %<>% select(-contains("_DO_"))
 

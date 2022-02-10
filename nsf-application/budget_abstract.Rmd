@@ -44,6 +44,9 @@ options(kableExtra.auto_format = FALSE)
 
 ## Study 1: 52.79703
 ## Study 2: 48.24659
+## Study 3: 48 
+
+## average: (52.79703+ 48.24659 + 48)/3  === 49.68121
 
 ## Average performance of participants from pilot study with matching task across all 3 rounds within 60 seconds= 
 ## 53.64688
@@ -51,14 +54,14 @@ options(kableExtra.auto_format = FALSE)
 ## Proportion of participants from previous studies guess correctly on conf = about 50% for all studies 
 
 
-study <- c("Study 1", "Study 2")
-guar <- c(2.5, 2.5)
-n <- c(1400, 1400)
+study <- c("30 seconds with 3000", "30 seconds with 3500")
+guar <- c(1.2, 1.2)
+n <- c(3000, 3500)
 
 total_guar <- guar*n
 
 ## for first part, averaging performance from study 1 and 2 across participants. for second part, using performance from pilot
-avg_perf <- c((52.79703+ 48.24659)/2 ,53.64688)
+avg_perf <- c(49.68121/4,49.68121/4)
 
 ## for the task bonus, multiplying average task performance from respective previous study by the sample size for that specific condition (1/2 for piece-rate, only 1/4 for competition since only half of the half earn it), by the payment for that condition. 
 ## don't need to multiply/divide by time in seconds since we are using the same amount of time as previous studies.

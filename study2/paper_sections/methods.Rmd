@@ -1,5 +1,5 @@
 ---
-title: "Study 1 methods"
+title: "Study 2 methods"
 author: "Keana Richards"
 date: "6/9/2020"
 output:
