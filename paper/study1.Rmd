@@ -8,13 +8,13 @@ output:
 
 
 
-## Methods 
+### Methods 
 
-```{r child = here::here("study1", "paper_sections", "methods.Rmd") %>% str_remove("/oxforddown-master")}
-## creating dissertation version: to create paper version, cut the 
+```{r child = here::here("study1", "paper_sections", "methods.Rmd") }
+
 ```
 
-## Results
+### Results
 
 ```{r child = here::here("study1", "paper_sections", "results.Rmd")}
 

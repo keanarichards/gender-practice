@@ -52,6 +52,8 @@ Since competitions, by definition, compare the performance among two or more ind
 
 discussion - 
 
+this is in contrast to the previous studies, which found effects over & above effects of risk & confidence. 
+
 and there is no theoretical or empirical reason to suspect that women would be less concerned with mastery than men. In fact, research suggests that women are just as likely as men to compete when competing against their own past performance, suggesting an equal desire for self-improvement [@Apicella2017a].
 
 We also found that neither the knowledge of the opportunity to prepare nor the act of preparation itself affected participants' willingness to compete, which was surprising, given the previous literature suggesting that mastery is one of the most important determinants of confidence in tasks [for review, see @Gist1992; @Usher2008]. Since confidence and risk attitude were measured after providing the additional option to prepare, we cannot identify whether these factors drove the null effect of condition. 

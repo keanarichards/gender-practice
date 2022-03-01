@@ -318,24 +318,43 @@ $else$
 $endif$
 
 %%%%% DEDICATION -- If you'd like one, un-comment the following.
-$if(dedication)$
-\begin{dedication}
-  $dedication$
-\end{dedication}
-$endif$
+%%%%% $if(dedication)$
+%%%%% \begin{dedication}
+%%%%%  $dedication$
+%%%%% \end{dedication}
+%%%%% $endif$
 
 %%%%% ACKNOWLEDGEMENTS -- Nothing to do here except comment out if you don't want it.
 $if(acknowledgements)$
+
+$if(show-acknowledgements-in-toc)$
+\addcontentsline{toc}{chapter}{Acknowledgements}
+\renewcommand{\numberstyleacks}{plain}
+\renewcommand{\numberstyleabstract}{plain}
+
+$endif$
+
 \begin{acknowledgements}
  	$acknowledgements$
 \end{acknowledgements}
+
 $endif$
 
 
 %%%%% ABSTRACT -- Nothing to do here except comment out if you don't want it.
+$if(abstract)$
+
+$if(show-abstract-in-toc)$
+\addcontentsline{toc}{chapter}{$abstract-heading$}
+\renewcommand{\numberstyleabstract}{plain}
+$endif$
+
+\renewcommand{\abstracttitle}{$abstract-heading$}
 \begin{abstract}
 	$abstract$
 \end{abstract}
+
+$endif$
 
 %%%%% MINI TABLES
 % This lays the groundwork for per-chapter, mini tables of contents.  Comment the following line

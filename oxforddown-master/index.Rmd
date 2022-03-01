@@ -20,21 +20,24 @@ title: |
   `oxforddown`: \
   An Oxford University Thesis \
   Template for R Markdown
-author: Author Name
-college: Your College
-university: University of Oxford
+author: Keana Richards
+college: University of Pennsylvania
+university: University of Pennsylvania
 university-logo: templates/beltcrest.pdf
 university-logo-width: 5cm
 submitted-text: A thesis submitted for the degree of
 degree: Doctor of Philosophy
 degreedate: Michaelmas 2018
-abstract: |
-  `r paste(readLines("front-and-back-matter/_abstract.Rmd"), collapse = '\n  ')`
+dedication: For my mom 
 acknowledgements: |
   `r paste(readLines("front-and-back-matter/_acknowledgements.Rmd"), collapse = '\n  ')`
-dedication: For Yihui Xie
-abbreviations: |
-  `r paste(readLines("front-and-back-matter/_abbreviations.Rmd"), collapse = '\n  ')`
+show-acknowledgements-in-toc: true
+abstract-heading: "ABSTRACT"
+abstract: |
+  `r paste(readLines("front-and-back-matter/_abstract.Rmd"), collapse = '\n  ')`
+show-abstract-in-toc: true
+# add a second abstract with abstract-second-heading: "Abstract two", and abstract-second: "My abstract"
+
 
 #######################
 ## bibliography path ##
@@ -54,10 +57,6 @@ word-count: "10,052"
 # if you want to use a different title page altogether, provide a path to a 
 # .tex file here and it will override the default Oxford one
 # alternative-title-page: templates/alt-title-page-example.tex
-
-### abbreviations ###
-abbreviations-width: 3.2cm
-abbreviations-heading: List of Abbreviations
 
 
 ### citation and bibliography style ###

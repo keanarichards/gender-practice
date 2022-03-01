@@ -6,13 +6,13 @@ output:
   word_document: default
 ---
 
-## Methods
+### Methods
 
 ```{r child = here::here("study2", "paper_sections", "methods.Rmd")}
 
 ```
 
-## Results
+### Results
 
 ```{r child = here::here("study2", "paper_sections", "results.Rmd")}
 

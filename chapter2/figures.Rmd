@@ -1,0 +1,50 @@
+---
+output:
+  word_document: default
+---
+
+
+```{r s100, fig.cap="Proportion of male and female participants who chose to compete by condition. We do not find evidence for the hypothesized interaction between gender and condition on the choice to compete, nor do we see a main effect of condition on the choice to compete. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study1", "figs", "fig00_comp-choice-by-gender-and-cond-bar.png"))
+
+```
+
+```{r s101, fig.cap="Proportion of male and female participants who chose to prepare by choice to compete. Women are significantly more willing to prepare, even before they know what the preparation involves. There is no interaction between gender and choice to compete on the decision to prepare. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study1", "figs", "fig01_pract-choice-by-gender-and-comp-choice-bar.png"))
+
+```
+
+
+```{r s102, fig.cap="Average (log-transformed) practice count based on participant gender and competition choice. We find further evidence of a gender difference in the choice to prepare using a different metric of the choice to prepare: the number of times a participant chooses to persist in their practice effort by repeatedly practicing. Here, we find evidence of a significant interaction between gender and the choice to compete on the choice to practice, where women who chose to compete are significantly more likely to practice. However, the small size of this cell must be considered when interpreting this interaction. Future research is needed to ensure this effect replicates. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study1", "figs", "fig02_total-rev-count-by-gender-comp-choice.png"))
+
+
+```
+
+
+```{r s103, fig.cap="Participants' perceptions of gender differences in the choice to practice on the task. Both men and women correctly anticipate that women will be more willing to practice before completing the multiplication task. Women are especially likely to state women will prepare more for the task. Error bars represent standard errors."}
+
+knitr::include_graphics(here::here("study1", "figs", "fig03_perc-task-gender-pract.png"))
+
+```
+
+```{r s104, fig.cap="Participants' perceptions of gender differences in performance on the task. Participants were equally likely to predict that women (vs. men) would perform better on the task, suggesting that participants did not have strong stereotypes about gender differences in performance on the multiplication task. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study1", "figs", "fig04_better-gender-guess.png"))
+
+```
+
+
+```{r s105, fig.cap="Participants' perceptions of gender differences in choice to compete. Both men and women were significantly more likely than chance to correctly state that men would be more likely to choose to compete during the multiplication task, suggesting strong stereotypes about gender differences in competitiveness. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study1", "figs", "fig05_perc-gender-comp.png"))
+
+```
+
+
+```{r s106, fig.cap="Participants' perceptions of general gender differences in choice to practice. Both men and women (but especially women) were significantly more likely than chance to say that women prepare more in general than men. Again, these findings suggest that participants observe these gender differences directly or are aware of stereotypes about gender differences in the choice to prepare. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study1", "figs", "fig06_perc-gen-gender-pract.png"))
+
+```
+
+
+
+

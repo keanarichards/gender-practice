@@ -54,8 +54,7 @@ An equal number of participants were assigned to both conditions (control= `r fr
 ## print(ctable(na_drop$gender, na_drop$condition))
 ```
 
-
-We replicated the effect of gender on the choice to compete: `r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`% of men chose to compete compared to `r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`% of women. However, we do not find evidence of a significant effect of condition on the choice to compete among women, *z* = `r primary_hypothesis1_z`, *p* = `r primary_hypothesis1_pval` (see Figure \@ref(fig:s200)), contrary to our hypotheses. 
+We replicated the effect of gender on the choice to compete: `r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`% of men chose to compete compared to `r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`% of women. However, we do not find evidence of a significant effect of condition on the choice to compete among women, `r apa_print(hypothesis1)$full_result$conditionpract` (see Figure \@ref(fig:s200)), contrary to our hypotheses. 
 
 ```{r, results = "asis"}
 woman <- clean %>% filter(gender == "Woman")

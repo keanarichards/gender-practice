@@ -54,9 +54,9 @@ options(kableExtra.auto_format = FALSE)
 ## Proportion of participants from previous studies guess correctly on conf = about 50% for all studies 
 
 
-study <- c("30 seconds with 3000", "30 seconds with 3500")
+study <- c("30 seconds with 3500", "30 seconds with 4000")
 guar <- c(1.2, 1.2)
-n <- c(3000, 3500)
+n <- c(3500, 4000)
 
 total_guar <- guar*n
 

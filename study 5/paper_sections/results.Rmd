@@ -40,8 +40,8 @@ if(!"papaja" %in% rownames(installed.packages())) devtools::install_github("crsh
 
 library(papaja)
 
-source(here("study2", "source", "01_preregistered-analyses.R"))
-source(here("study2", "source", "03_exploratory-analyses.R"))
+source(here("study5", "source", "01_preregistered-analyses.R"))
+source(here("study5", "source", "03_exploratory-analyses.R"))
 
 
 na_drop <- clean %>% drop_na(condition) 

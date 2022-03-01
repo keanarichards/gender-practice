@@ -94,7 +94,7 @@ exploratory6 <-lm(task_score~condition, data = clean)
 
 # exploratory analysis 7 --------------------------------------------------
 
-exploratory7 <-lm(total_time~condition, data = clean)
+# exploratory7 <-lm(total_time~condition, data = clean)
 
 # exploratory analysis 8 --------------------------------------------------
 
@@ -102,7 +102,7 @@ exploratory8 <- glm(extra_prep_count ~ gender + condition + fab + gender*fab,fam
 
 # exploratory analysis 9 --------------------------------------------------
 
-exploratory9 <- lm(perf_extra_prep~interest + fati + gender + condition, data = clean)
+# exploratory9 <- lm(perf_extra_prep~interest + fati + gender + condition, data = clean)
 
 
 # exploratory analysis 10 --------------------------------------------------
@@ -117,34 +117,34 @@ prep_F <- nrow(clean %>% filter(gender == "Woman" & preparedness == "Yes"))
 
 total_Fprep<- nrow(clean %>% filter(gender == "Woman"))
 
-exploratory10 <- z.prop(prep_M, prep_F, total_Mprep, total_Fprep)
+# exploratory10 <- z.prop(prep_M, prep_F, total_Mprep, total_Fprep)
 
 # exploratory analysis 11 --------------------------------------------------
 
 ## IV on M
-sub <- clean %>% dplyr::select(bonus_task, gender, perf_extra_prep) %>% na.omit(.)
-
-medModel <- lm(perf_extra_prep ~ gender,  data = sub)
+# sub <- clean %>% dplyr::select(bonus_task, gender, perf_extra_prep) %>% na.omit(.)
+# 
+# medModel <- lm(perf_extra_prep ~ gender,  data = sub)
 
 
 ## IV & M on DV
 
 
-outModel <- lm(bonus_task~ gender + perf_extra_prep, data = sub)
-
-exploratory11 <- mediate(model.m = medModel, model.y = outModel, treat = "gender", mediator = "perf_extra_prep", data = sub)
+# outModel <- lm(bonus_task~ gender + perf_extra_prep, data = sub)
+# 
+# exploratory11 <- mediate(model.m = medModel, model.y = outModel, treat = "gender", mediator = "perf_extra_prep", data = sub)
 
 
 # exploratory analysis 12 --------------------------------------------------
 
-
-exploratory12 <- glm(comp_choice~ perf_fixed_rounds, family = binomial, data = clean)
-
-exp(cbind(OR = coef(exploratory12), confint(exploratory12)))
+# 
+# exploratory12 <- glm(comp_choice~ perf_fixed_rounds, family = binomial, data = clean)
+# 
+# exp(cbind(OR = coef(exploratory12), confint(exploratory12)))
 
 # exploratory analysis 13 --------------------------------------------------
 
-exploratory13 <- lm(perf_extra_prep~comp_choice+ gender + gender*comp_choice, data = clean)
+# exploratory13 <- lm(perf_extra_prep~comp_choice+ gender + gender*comp_choice, data = clean)
 
 
 

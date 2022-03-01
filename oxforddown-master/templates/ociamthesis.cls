@@ -232,10 +232,13 @@
 % themselves appear in a quote environment, i.e. tabbed in at both sides, and
 % on its own page.
 
+
+\newcommand{\numberstyleacks}{empty}
+
 \newenvironment{acknowledgements}%
-{   \begin{alwayssingle}\chapter*{Acknowledgements}
-    \thispagestyle{empty}
-	\pagestyle{empty}
+{ \begin{alwayssingle}\chapter*{Acknowledgements}
+  \thispagestyle{\numberstyleacks}
+	\pagestyle{\numberstyleacks}
 	\setlength{\baselineskip}{\frontmatterbaselineskip}
 }
 {\end{alwayssingle}}
@@ -247,10 +250,12 @@
 %the top of the page. The abstract itself appears in a quote environment,
 %i.e. tabbed in at both sides, and on its own page.
 
+\newcommand{\abstracttitle}{Abstract}
+\newcommand{\numberstyleabstract}{empty}
 \renewenvironment{abstract}%
-{   \begin{alwayssingle}\chapter*{Abstract}
-    \thispagestyle{empty}
-    \pagestyle{empty}
+{   \begin{alwayssingle}\chapter*{\abstracttitle}
+    \thispagestyle{\numberstyleabstract}
+    \pagestyle{\numberstyleabstract}
    \setlength{\baselineskip}{\frontmatterbaselineskip}}
 {\end{alwayssingle}}
 
