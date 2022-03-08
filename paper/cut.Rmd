@@ -93,6 +93,15 @@ Much of the research on gender differences in competitiveness has focused on des
 
 
 
+### Effects of prep on choice to compete 
+
+Again, we find little evidence that preparation affects willingness to compete. However, it is possible that we may have found an effect of preparation had we given participants unlimited time to prepare so that they mastered the material or reached their desired level of proficiency. In fact, by limiting the amount of time to prepare in Study 2, we may have unintentionally undermined confidence. For instance, participants may have been made more aware of the discrepancy between their current ability and their desired ability. Even more, having limited time to prepare may also have been stressful to participants and to offset this stress, some participants may have opted for the less stressful piece-rate payment scheme. Thus, future work examining the role of preparation on competition should examine how unlimited preparation and perceived level of mastery influence decisions to compete. 
+
+
+One step to improve gender equality within organizations is to take these gender differences into account when making decisions on how to organize reward structures and communicate these structures to employees, and to reward cooperation and other forms of work on par with competition.
+TO BE INTEGRATED: 
+- Finally, we find robust effects of perceptions of gender differences in willingness to compete and practice among participants across all three studies, which seem to generally align with the actual results found.
+
 future directions: 
 
 

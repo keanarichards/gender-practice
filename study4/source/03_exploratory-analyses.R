@@ -1,17 +1,10 @@
-
 # load packages -----------------------------------------------------------
 
-## Package names
-packages <- c("tidyverse", "here")
-
-## Install packages not yet installed
-installed_packages <- packages %in% rownames(installed.packages())
-if (any(installed_packages == FALSE)) {
-  install.packages(packages[!installed_packages])
+if(!require('pacman')) {
+  install.packages('pacman')
 }
+pacman::p_load(tidyverse, here, conflicted)
 
-## Packages loading
-invisible(lapply(packages, library, character.only = TRUE))
 
 # load data ---------------------------------------------------------------
 
@@ -27,7 +20,6 @@ practice <- clean %>% filter(condition == "pract")
 no_fraud <- clean %>% filter(fraud == 0)
 women <- clean %>% filter(gender == "Woman")
   
-
 
 # analyses ----------------------------------------------------------------
 
@@ -57,12 +49,12 @@ t3 <- table(clean$perc_gen_gender_pract)
 exploratory6 <-chisq.test(t3,p = c(1/3, 1/3, 1/3))
 
 ## make sure to filter only ppts in practice cond
-t4 <- table(clean %>% filter(condition == "pract") %>% select(perc_task_gender_pract))
+t4 <- table(clean %>% filter(condition == "pract") %>% dplyr::select(perc_task_gender_pract))
 exploratory7 <-chisq.test(t4, p = c(1/3, 1/3, 1/3))
 
 ## filtering question to see if there is a difference in perceptions between genders (aka exclude no diff option)
 
-t5 <- table(clean %>% filter(condition == "pract", perc_task_gender_pract != "No difference" ) %>% select(perc_task_gender_pract))
+t5 <- table(clean %>% filter(condition == "pract", perc_task_gender_pract != "No difference" ) %>% dplyr::select(perc_task_gender_pract))
 exploratory8 <-chisq.test(t5, p = c(1/2, 1/2))
 
 ## how useful do ppts find the practice? do they think multiplication practice will boost performance? 

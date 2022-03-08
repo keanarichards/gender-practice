@@ -77,4 +77,18 @@ knitr::include_graphics(here::here("study2", "figs", "fig04_total-rev-count-by-g
 ## Study 3
 
 
+```{r s300, fig.cap="Proportion of participants that identify as women who chose to compete by condition. We do not find evidence of the hypothesized effect of condition on the choice to compete. On the contrary, women in the control condition were significantly more likely to choose to compete than women in the preparation condition. Error bars represent standard errors."}
+## print(ctable(woman$comp_choice, woman$condition))
+
+knitr::include_graphics(here("study4", "figs", "fig00_comp-choice-women-by-cond.png"))
+
+```
+
+```{r s301, fig.cap="Proportion of participants who chose to compete by condition and gender. We do not find evidence of the hypothesized interaction effect between condition and gender on the choice to compete. Error bars represent standard errors."}
+## print(ctable(woman$comp_choice, woman$condition))
+
+knitr::include_graphics(here("study4", "figs", "fig01_pract-choice-by-gender-and-cond-bar.png"))
+
+```
+
 

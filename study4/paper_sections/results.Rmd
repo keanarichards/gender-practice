@@ -23,7 +23,7 @@ if(!"devtools" %in% rownames(installed.packages())) install.packages("devtools")
 
 
 ## Package names
-packages <- c("readr", "tidyverse", "here", "devtools", "knitr", "officer", "summarytools")
+packages <- c("readr", "tidyverse", "here", "devtools", "knitr", "officer", "summarytools", "conflicted")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -38,6 +38,9 @@ invisible(lapply(packages, library, character.only = TRUE))
 if(!"papaja" %in% rownames(installed.packages())) devtools::install_github("crsh/papaja")
 
 library(papaja)
+
+conflict_prefer("select", "dplyr")
+conflict_prefer("filter", "dplyr")
 
 source(here("study4", "source", "01_preregistered-analyses.R"))
 source(here("study4", "source", "03_exploratory-analyses.R"))
@@ -59,25 +62,10 @@ Another important consideration when interpreting any main effects found in this
 
 ## Main effects of condition on choice to compete (both among women & in general) & related exploratory analyses 
 
-Contrary to our a priori hypotheses, we find evidence of a significant effect of condition on the choice to compete among women, INSERT MODEL (see Figure 1), such that women in the control condition are significantly more likely to compete, even after controlling for the effects of risk attitudes, confidence, and task score, INSERT MODEL. This effect holds when excluding potentially fraudulent responses based on the aforementioned criteria, INSERT MODEL. 
-
-```{r fig.cap="Proportion of participants that identify as women who chose to compete by condition. We do not find evidence of the hypothesized effect of condition on the choice to compete. On the contrary, women in the control condition were significantly more likely to choose to compete than women in the preparation condition. Error bars represent standard errors.", results = "asis"}
-## print(ctable(woman$comp_choice, woman$condition))
-
-knitr::include_graphics(here("study4", "figs", "fig00_comp-choice-women-by-cond.png"))
-
-```
-
-Importantly, the effect only holds when focusing on the subset of participants that identify as women. When broadening the analyses to the full dataset, the effect of condition on choice to compete is no longer significant, INSERT MODEL (with just condition as a predictor) (see Figure 2). To explore this effect further, we looked into how much women were choosing to practice across conditions, which may provide insight into the motivations behind the greater decision to compete among women in the control condition. That is, it is possible that women in the control condition decided to complete subtraction problems at similar rates as women in the preparation condition, and if so, this may have led them to compete more because the subtraction tables felt easier than the multiplication tables, and therefore boosted their confidence or reduced perceptions of risk. Contrary to this possibility, we find that women in the practice condition tended to choose to study, INSERT MODEL, and practice, INSERT MODEL, the multiplication tables at significantly higher rates relative to women in the control condition. Additionally, we do not find evidence that condition predicts perceptions of risk, INSERT MODEL, nor confidence, INSERT MODEL. Thus, it seems unlikely that the actual act of reviewing and practicing subtraction problems led women to compete more in the control condition by boosting confidence or reducing perceptions of risk (NOTE TO SELF: although one possible issue with this interpretation is that we are asking about a person's general risk attitudes, not specifically how risk-seeking/averse they are feeling in the moment/wrt to the task at hand, unlike confidence - which is measuring how they are feeling about their performance on the task relative to others - so perhaps only confidence should be included as a control within this specific analysis since we're talking about potential explanations for the effects found within the context of the task and how they may be affected by practicing - Coren & Emily, would love to hear thoughts). 
+Contrary to our a priori hypotheses, we find evidence of a significant effect of condition on the choice to compete among women, INSERT MODEL (see Figure \@ref(fig:s300)), such that women in the control condition are significantly more likely to compete, even after controlling for the effects of risk attitudes, confidence, and task score, INSERT MODEL. This effect holds when excluding potentially fraudulent responses based on the aforementioned criteria, INSERT MODEL. 
 
 
-```{r fig.cap="Proportion of participants who chose to compete by condition and gender. We do not find evidence of the hypothesized interaction effect between condition and gender on the choice to compete. Error bars represent standard errors.", results = "asis"}
-## print(ctable(woman$comp_choice, woman$condition))
-
-knitr::include_graphics(here("study4", "figs", "fig01_pract-choice-by-gender-and-cond-bar.png"))
-
-```
-
+Importantly, the effect only holds when focusing on the subset of participants that identify as women. When broadening the analyses to the full dataset, the effect of condition on choice to compete is no longer significant, INSERT MODEL (with just condition as a predictor) (see Figure \@ref(fig:s301)). To explore this effect further, we looked into how much women were choosing to practice across conditions, which may provide insight into the motivations behind the greater decision to compete among women in the control condition. That is, it is possible that women in the control condition decided to complete subtraction problems at similar rates as women in the preparation condition, and if so, this may have led them to compete more because the subtraction tables felt easier than the multiplication tables, and therefore boosted their confidence or reduced perceptions of risk. Contrary to this possibility, we find that women in the practice condition tended to choose to study, INSERT MODEL, and practice, INSERT MODEL, the multiplication tables at significantly higher rates relative to women in the control condition. Additionally, we do not find evidence that condition predicts perceptions of risk, INSERT MODEL, nor confidence, INSERT MODEL. Thus, it seems unlikely that the actual act of reviewing and practicing subtraction problems led women to compete more in the control condition by boosting confidence or reducing perceptions of risk (NOTE TO SELF: although one possible issue with this interpretation is that we are asking about a person's general risk attitudes, not specifically how risk-seeking/averse they are feeling in the moment/wrt to the task at hand, unlike confidence - which is measuring how they are feeling about their performance on the task relative to others - so perhaps only confidence should be included as a control within this specific analysis since we're talking about potential explanations for the effects found within the context of the task and how they may be affected by practicing - Coren & Emily, would love to hear thoughts). 
 
 
 ```{r}

@@ -43,6 +43,14 @@ here::i_am("flag_project_root.R")
 
 ```
 
+
+## Study 3
+
+```{r child = here("paper", "study3.Rmd")}
+
+```
+
+
 ## Discussion
 
 ```{r child = here("paper", "discussion.Rmd")}
