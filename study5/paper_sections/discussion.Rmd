@@ -1,0 +1,8 @@
+---
+title: "discussion"
+author: "Keana Richards"
+date: "17/3/2022"
+output: word_document
+---
+
+To summarize, in this study from Chapter 2 we find that wo

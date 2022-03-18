@@ -18,3 +18,9 @@ output:
 
 ```
 
+### Discussion
+
+```{r child = here::here("study2", "paper_sections", "discussion.Rmd")}
+
+```
+

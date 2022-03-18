@@ -1,0 +1,52 @@
+---
+output:
+  bookdown::pdf_document2:
+    template: templates/brief_template.tex
+    citation_package: biblatex
+  bookdown::html_document2: default
+  bookdown::word_document2: default
+documentclass: book
+---
+
+
+
+```{r echo=FALSE, message = F, warning=F}
+
+if(!require('pacman')) {
+  install.packages('pacman')
+  }
+pacman::p_load(tidyverse, here)
+
+
+### going up a level to gender-practice folder to pull from study folders, idea here: https://stackoverflow.com/questions/51712725/use-the-here-function-to-go-up-a-level-above-root-directory
+here::i_am("flag_project_root.R")
+```
+
+# Chapter 2: INSERT TITLE 
+
+## Introduction 
+
+
+```{r child = here::here("chapter2", "intro.Rmd")}
+
+```
+
+
+```{r}
+## put back in once methods & results are figured out in more detail:  child = here("chapter2", "study5.Rmd")
+```
+
+## Discussion
+
+```{r child = here("chapter2", "discussion.Rmd")}
+
+```
+
+
+## Figures
+
+```{r}
+## put back in once methods & results are figured out in more detail: child = here("chapter2", "figures.Rmd")
+
+```
+

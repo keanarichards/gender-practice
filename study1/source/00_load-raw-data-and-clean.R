@@ -15,6 +15,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 conflict_prefer("filter", "dplyr")
 conflict_prefer("select", "dplyr")
 conflict_prefer("here", "here")
+conflict_prefer("mutate", "dplyr")
 # load data ---------------------------------------------------------------
 
 full_raw <- read_csv(here("study1", "data", "raw.csv"))

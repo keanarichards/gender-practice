@@ -5,20 +5,17 @@
 <!-- If you feel it necessary to include an appendix, it goes here. The first appendix should include the commands above. -->
 
 
-# The First Appendix
-
-This first appendix includes an R chunk that was hidden in the document (using `echo = FALSE`) to help with readibility:
-
-**In 02-rmd-basics-code.Rmd**
-
-```{r ref.label='chunk-parts', eval=FALSE, echo = TRUE}
-```
-
-**And here's another one from the same chapter, i.e. Chapter \@ref(code):**
-
-```{r ref.label='oxford-logo-rotated', eval=FALSE, echo = TRUE}
-```
+## Chapter 1 
 
 
+### Study 3: Comparing results with vs. without fradulent responses
 
-# The Second Appendix, for Fun
+
+- In Keana's last study, she used this software to detect fraudulent responses (n=67). For her dissertation, she planned to run the analyses using the full data set and then again with the fraudulent responses removed. I suggested that for this prior study, she remove the "fraudulent responses" from her main analyses, noting this departure from her preregistration. I also suggested that she include the analyses for the full sample in her appendix, but that she should note in her dissertation that the results remain largely unchanged (I assume they do). Does this approach sound ok to everyone? 
+
+
+## Chapter 2 
+
+### Comparing results with vs. without fradulent responses
+
+- See Chapter 1 appendix section 

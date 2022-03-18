@@ -45,31 +45,49 @@ library(papaja)
 source(here("study1", "source", "01_preregistered-analyses.R"))
 source(here("study1", "source", "03_exploratory-analyses.R"))
 
-na_drop <- clean %>% drop_na(condition) 
+na_drop <- clean %>% drop_na(condition, pract_choice) 
 
 ```
 
-An equal number of participants were assigned to both conditions (control= `r freq(na_drop$condition)[5]`%). Of the males who completed the study, `r ctable(na_drop$gender, na_drop$condition)$proportions[1]*100`% were assigned to the control condition. Of the females who completed the study, `r ctable(na_drop$gender, na_drop$condition)$proportions[2]*100`% were assigned to the control condition. 
+An equal number of participants were assigned to both conditions (control= `r freq(na_drop$condition)[5]`%). Of the men who completed the study, `r ctable(na_drop$gender, na_drop$condition)$proportions[1]*100`% were randomly assigned to the control condition. Of the women who completed the study, `r ctable(na_drop$gender, na_drop$condition)$proportions[2]*100`% were randomly assigned to the control condition. 
+
+to be edited later: 
+*Concerns: calculator use*
+
+There may be concern that participants will use a calculator to answer the multiplication questions, which could affect the interpretation of the results if there is a gender difference in calculator use and/or calculator use is related to the choice to practice. Our previous work suggests participants are unlikely to use calculators to complete the task and more importantly, there are no gender differences in the choice to use a calculator. In our first study we ran using a multiplication task, participants who completed the task were asked i) whether they thought using a calculator would help them answer the multiplication problems more quickly and ii) whether they used a calculator to complete the multiplication task (they were told their response would not affect their payment). Based on their responses, it is unlikely that participants will use calculators in the first place, since `r round(prop.table(table(clean$calc1))[2]*100, digits =0)`% of participants indicated that they thought using a calculator to answer the multiplication questions would slow them down and `r round(prop.table(table(clean$calc2))[1]*100, digits =0)`% of participants said they did not use a calculator. Importantly, there were no gender differences in perceptions of how calculators would affect performance, `r apa_print(exploratory5a, n = nrow(clean))$statistic`. Additionally, we did not find evidence of gender differences in actual calculator use, `r apa_print(exploratory5b, n = nrow(clean))$statistic`. Since we are recruiting participants through the same platform using the same task in the current study, we expect these findings will generalize to the current study, and thus, do not have evidence that gender differences in calculator use will be a confound when interpreting our results.
+
+
+
+
+
 
 ```{r, results = "asis"}
 ## print(ctable(na_drop$gender, na_drop$condition))
 ```
 
-A minority of participants (`r freq(na_drop$comp_choice)[6]`%) chose to compete, contrary to previous data in this literature [@Niederle2007]. Despite the small proportion of participants who chose to compete, we still replicate the gender gap in the choice to compete, where a greater share of men (`r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`%) compared to women (`r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`%) chose to compete. A logistic regression revealed that this gender difference in the choice to compete is significant, `r apa_print(primary_hyp1)$full_result$genderWoman`. Contrary to our predictions, we do not find evidence of a significant interaction between gender and condition on the decision to compete, `r apa_print(primary_hyp1)$full_result$conditionpract_genderWoman` (see Figure \@ref(fig:s100)), suggesting that women in the knowledge of preparation condition were not uniquely more inclined to compete. 
+Contrary to previous data in this literature [@Niederle2007], a minority of participants (`r freq(na_drop$comp_choice)[6]`%) chose to compete. Despite the small proportion of participants who chose to compete, we still replicate the gender gap in the choice to compete, where a greater share of men (`r ctable(clean$gender, clean$comp_choice)$proportions[4]*100`%) compared to women (`r ctable(clean$gender, clean$comp_choice)$proportions[5]*100`%) chose to compete. A logistic regression revealed that this gender difference in the choice to compete is significant, `r apa_print(primary_hyp1)$full_result$genderWoman`. Contrary to our predictions, we do not find evidence of a significant interaction between gender and condition on the decision to compete, `r apa_print(primary_hyp1)$full_result$conditionpract_genderWoman` (see Figure \@ref(fig:s100)), suggesting knowledge of the ability to prepare did not change women and men’s behavior to different degrees. 
 
 ```{r, results = "asis"}
 ## print(stby(list(clean$gender, clean$condition), INDICES = clean$comp_choice, FUN = ctable))
 ```
 
-As hypothesized, women were `r (exp(coef(primary_hyp2))[2] - 1)*100`% more likely to take advantage of the opportunity to practice relative to men, `r apa_print(primary_hyp2)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s101)). As an exploratory analysis, we tested whether gender and the choice to compete interact to predict the choice to prepare, but did not find evidence for an interaction, `r apa_print(sec_exploratory2)$full_result$genderWoman_comp_choicetournament`. 
-
+As hypothesized, a logistic regression shows that a greater proportion of women (`r ctable(clean$gender, clean$pract_choice)$proportions[5]*100`%) took advantage of the opportunity to practice relative to men (`r ctable(clean$gender, clean$pract_choice)$proportions[4]*100`%), `r apa_print(primary_hyp2)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s101)).
 
 ```{r t1, results = "asis"}
 ## print(stby(list(clean$gender, clean$comp_choice), INDICES = clean$pract_choice, FUN = ctable))
 
 ```
 
-In further support of gender differences in preparation, women  completed `r (exp(coef(primary_hyp3))[2] - 1)*100`% more rounds of preparation relative to men, `r apa_print(primary_hyp3)$full_result$genderWoman` (see Figure \@ref(fig:s102)). Thus, we have evidence that women prepare more both 1) before they know what the preparation entails and 2) after they have had the chance to experience the preparation. One can imagine that these would be driven by distinct psychological mechanisms, where 1) captures whether a person generally takes advantage of any opportunity to prepare, regardless of what it involves, while 2) measures a person's willingness to persist in their preparation, even after exerting effort previously during preparation. The fact that we find gender differences across two different forms of willingness to prepare suggests that the findings are robust. This gender difference aligned with participants' predictions about gender differences in preparation, where participants expected women, relative to men, to spend more time preparing for the multiplication task, `r apa_print(primary_hyp4, n= nrow(clean))$statistic` (see Figure \@ref(fig:s103)), and in general, `r apa_print(exploratory7c, n = nrow(clean))$statistic` (see Figure \@ref(fig:s106)). One possible explanation for participants' predictions is that they expected men to outperform women on the task, which would lead women to compensate by preparing more. However, participants did not expect any gender differences in performance on the task, `r apa_print(exploratory7a, n = nrow(clean))$statistic` (see Figure \@ref(fig:s104)). Additionally, participants accurately predicted that women were less likely to choose to compete, `r apa_print(exploratory7b, n = nrow(clean))$statistic` (see Figure \@ref(fig:s105)), suggesting that they did not believe women prepare more because they were more likely to compete. 
+In further support of gender differences in preparation, women  completed `r (exp(coef(primary_hyp3))[2] - 1)*100`% more rounds of preparation relative to men, Mwomen=INSERT, SD=INSERT; Mmen=INSERT, sd=INSERT, `r apa_print(primary_hyp3)$full_result$genderWoman` (see Figure \@ref(fig:s102)). 
+
+Since participants were asked both if they would like to practice each times table and if they would like to 
+
+Here, rounds of preparation are defined as follows: if they said they would like to either choose to review a given times table OR if they would like to  
+
+
+Thus, we have evidence that women prepare more both 1) before they know what the preparation entails and 2) after they have had the chance to experience the preparation. One can imagine that these would be driven by distinct psychological mechanisms, where 1) captures whether a person generally takes advantage of any opportunity to prepare, regardless of what it involves, while 2) measures a person's willingness to persist in their preparation, even after exerting effort previously during preparation. The fact that we find gender differences across two different forms of willingness to prepare suggests that the findings are robust. 
+
+This gender difference in preparation aligned with participants' incentivized predictions about gender differences in preparation, where participants expected women, relative to men, to spend more time preparing for the multiplication task, `r apa_print(primary_hyp4, n= nrow(clean))$statistic` (see Figure \@ref(fig:s103)), and in general, `r apa_print(exploratory7c, n = nrow(clean))$statistic` (see Figure \@ref(fig:s106)). One possible explanation for participants' predictions is that they expected men to outperform women on the task, which would lead women to compensate by preparing more. However, participants did not expect any gender differences in performance on the task, `r apa_print(exploratory7a, n = nrow(clean))$statistic` (see Figure \@ref(fig:s104)). Additionally, participants accurately predicted that women were less likely to choose to compete, `r apa_print(exploratory7b, n = nrow(clean))$statistic` (see Figure \@ref(fig:s105)), suggesting that they did not believe women prepare more because they were more likely to compete. 
 
 
 ```{r, results = "asis"}

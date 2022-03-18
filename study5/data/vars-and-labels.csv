@@ -1,0 +1,36 @@
+V1,V2
+workerId,workerId
+task_score,taskscore
+gender,What is your gender? - Selected Choice
+gender_other,What is your gender? - I prefer to self-describe - Text
+task_comp_check1,"What would you enter if the problem ""4 x 12"" appeared on the screen, as shown below? 
+ 4 x 12"
+task_comp_check2,"The correct answer to the previous question was ""48."" To proceed you must answer a comprehension question correctly. What would you enter if the problem ""2 x 1"" appeared on the screen, as shown below? 
+
+2 x 1"
+task_comp_check3,"The correct answer to the previous question was ""2."" To proceed you must answer a comprehension question correctly. What would you enter if the problem ""6 x 11"" appeared on the screen, as shown below?    
+6 x 11"
+number of comprehension check questions wrong overall,number of comprehension check questions wrong overall
+practice_problems_binary,"Would you like to practice problems from the multiplication times table  before you complete  the paid, timed multiplication task?"
+perc_practice_all,"If the number of practice problems I completed is compared to the number of practice problems all other participants completed, I think I would have practiced..."
+perc_practice_men,"If the number of practice problems I completed is compared to the number of practice problems all men in the study completed, I think I would have practiced..."
+perc_practice_women,"If the number of practice problems I completed is compared to the number of practice problems all women in the study completed, I think I would have practiced..."
+conf_rank,"Your task score was [Field-taskscore]. If my performance is compared to that of all participants that completed the task, I think my score will be..."
+better_gender_guess,Do you think men or women in this study correctly solved more multiplication problems on average?
+perc_task_gender_pract,Do you think men or women in this study were more likely to choose to practice/study before completing the multiplication task?
+perc_gender_comp_F,"If given the opportunity to choose between the two payment schemes (Piece Rate or Tournament), do you think women in this study would choose the piece rate or the tournament payment scheme more often?"
+perc_gender_comp_M,"If given the opportunity to choose between the two payment schemes (Piece Rate or Tournament), do you think men in this study would choose the piece rate or the tournament payment scheme more often?"
+risk,How do you see yourself: Are you generally a person who is fully prepared to take risks or do you try to avoid taking risks?
+perc_gen_gender_pract,"On most tasks, do you think men or women generally prepare (i.e., practice and/or study) more?"
+age,What is your age (in years)?
+education,"What is the highest degree or level of school you have completed? If currently enrolled, indicate highest degree completed."
+condition,Condition
+extra_practice_rounds_count,total count of extra rounds reviewing multiplying problems
+practice_nonempty,total number of practice questions that were not left blank
+fraud,total count of extra rounds reviewing multiplying problems
+Q_RecaptchaScore,Q_RecaptchaScore
+Q_RelevantIDDuplicate,Q_RelevantIDDuplicate
+Q_RelevantIDDuplicateScore,Q_RelevantIDDuplicateScore
+Q_RelevantIDFraudScore,Q_RelevantIDFraudScore
+total_pract_time,total number of practice questions that were not left blank
+Finished,Finished

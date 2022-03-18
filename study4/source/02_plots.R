@@ -143,6 +143,20 @@ ggsave(here("study4", "figs", "fig05_pract-choice-by-gender-and-comp-choice-bar.
 
 
 
+## exploratory - confirm if including later: 
+
+dat <- dplyr::select(clean,gender, condition, practice_problems_binary, perc_task_gender_pract)  %>% filter(condition == "pract", perc_task_gender_pract != "No difference") %>% 
+  dplyr::count(gender, perc_task_gender_pract, practice_problems_binary) %>%  filter(practice_problems_binary == "Yes") %>% mutate(percent = n / sum(n),
+                                                                                                           error = sqrt((percent * (1-percent))/n))
+p <- ggplot(data = dat, aes(x = perc_task_gender_pract, fill = gender)) +
+  geom_bar(aes(y = percent*100),
+           position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
+                                                                  position=position_dodge(.9)) +theme(legend.position = "none") + 
+  theme_apa() + theme(panel.border  = element_blank()) +
+  #draws x and y axis line
+  theme(axis.line = element_line(color = 'black')) 
+
+
 
 
 
@@ -309,3 +323,4 @@ ggsave(here("study4", "figs", "fig05_pract-choice-by-gender-and-comp-choice-bar.
 # )
 # ggsave(here("nsf-application", "nsf2.png"), p, width = 7, height = 7)
 # 
+

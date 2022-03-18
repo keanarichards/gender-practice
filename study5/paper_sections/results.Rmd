@@ -1,0 +1,112 @@
+---
+title: "results"
+author: "Keana Richards"
+date: "6/10/2020"
+output:
+  bookdown::word_document2:
+  fig_caption: yes 
+---
+
+```{r, include = F}
+
+## hiding code chunks globally 
+knitr::opts_chunk$set(echo=F, message = F, warning = F)
+
+
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+options(repos="https://cran.rstudio.com" )
+# load packages -----------------------------------------------------------
+
+
+## Install devtools package if necessary
+if(!"devtools" %in% rownames(installed.packages())) install.packages("devtools")
+
+
+## Package names
+packages <- c("readr", "tidyverse", "here", "devtools", "knitr", "officer", "summarytools")
+
+## Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+## Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+## Install the stable development versions from GitHub
+if(!"papaja" %in% rownames(installed.packages())) devtools::install_github("crsh/papaja")
+
+library(papaja)
+
+source(here("study5", "source", "01_preregistered-analyses.R"))
+source(here("study5", "source", "03_exploratory-analyses.R"))
+
+
+na_drop <- clean %>% drop_na(condition) 
+
+```
+
+## Descriptive statistics 
+
+An equal number of participants were assigned to both conditions (control= `r freq(na_drop$condition)[5]`%). Of the men who completed the study, `r ctable(na_drop$gender, na_drop$condition)$proportions[1]*100`% were assigned to the control condition and of the women who completed the study, `r ctable(na_drop$gender, na_drop$condition)$proportions[2]*100`% were assigned to the control condition. 
+
+
+Like all studies in the first chapter gender on risk & confidence 
+
+gender predicting task score - is significant even after controlling for risk & confidence and testing interaction between gender & condition. could have been driven by change in timing of task - there is a lot more pressure on a typing task of 30 seconds relative to a typing task of 2 mins. perhaps it had something to do with the higher risk nature of the task (both in terms of half being forced to compete, but also having only 30 seconds to earn as much as possible)
+
+### practicing, main DV  
+
+In general, INSERT% of participants chose to practice, with INSERT% choosing to practice in the piece-rate payment condition and INSERT% choosing to practice in the tournament payment condition. Participants spent an average of X seconds practicing across all rounds of practice and of those who chose to practice, completed X total rounds of practice problems. 
+
+
+```{r, results = "asis"}
+## print(ctable(na_drop$gender, na_drop$condition))
+```
+
+## Effects of gender and condition on both the choice to practice and perceptions of one's relative practicing 
+
+
+Through a logistic regression, we replicate the effect of gender on the choice to practice found in Chapter 1, where INSERT% of women chose to prepare relative to INSERT% of men. However, we do not find an interaction between gender and condition, contrary to our hypothesis that women would be especially likely to prepare when assigned to tournament payment scheme relative to the piece-rate payment scheme.  
+
+
+## Accuracy of levels of practicing based on participant gender 
+
+see exploratory 1a-2b
+
+
+should have summary stats of this variable - with t t-test of how accurate people were in general. then more specifically how accurate men & women were. 
+
+
+## Perceptions of gender differences in behavior
+
+Replicating effects found in the previous studies, participants tended to think that women would be more likely to practice during the task, would be more likely to choose the piece-rate payment scheme and more likely to practice in general relative to men. Like the previous Chapter, the majority of participants (INSERT%) still held beliefs about gender differences in competitiveness and tendencies to practice despite expecting that there would be no gender difference in performance. 
+
+
+
+```{r, results = "asis"}
+woman <- clean %>% filter(gender == "Woman")
+## print(ctable(woman$comp_choice, woman$condition))
+
+```
+
+Despite no evidence for the effect of condition on the choice to compete among women, we replicate the effects found in Study 1, where women were significantly more likely to prepare for the task, even after being forced to prepare in the preparation condition (see Figure \@ref(fig:s204)). Women were `r (exp(coef(sec_exploratory1))[2] - 1)*100`% more likely to take advantage of the opportunity to prepare relative to men `r apa_print(exploratory1)$full_result$genderWoman`, while controlling for the decision to compete (see Figure \@ref(fig:s204)). Again, we find that these results align with participants' expectations, where they were significantly more likely to expect women to choose to prepare in general, `r apa_print(exploratory3c, n = nrow(clean))$statistic` (see Figure \@ref(fig:s203)), despite expecting men to choose to compete more often, `r apa_print(exploratory3b, n = nrow(clean))$statistic` (see Figure \@ref(fig:s202)) and expecting no gender differences in performance on the task, `r apa_print(exploratory3a, n = nrow(clean))$statistic` (see Figure \@ref(fig:s201)). 
+
+```{r, results = "asis"}
+## print(ctable(clean$gender, clean$better_gender_guess))
+```
+
+
+```{r, results = "asis"}
+## print(ctable(clean$gender, clean$perc_gender_comp))
+```
+
+
+
+```{r, results = "asis"}
+## print(ctable(clean$gender, clean$perc_gen_gender_pract))
+```
+
+

@@ -2,6 +2,11 @@
 output: html_document
 ---
 
+
+idea from Coren to integrate: 
+
+One thing we should consider, based on Emily's question in the last email, is that perhaps women, compared to men, "take time" before the competition. That is, they might not be studying, but rather are delaying the competition (i.e., taking a breather, prepping emotionally, etc) by looking at their phones, taking a bathroom break etc. In other words, if men are more eager to compete then any differences in time spent in practicing could reflect a gender difference in "eagerness" to get to the competition. I don't want to change anything, of course, but I think we should just be aware of it and perhaps address it in the write-up. Hopefully, we will see a decent relationship between time and #of problems practiced. :)
+
 note to self: pulled from nsf app 01_project-description.Rmd
 
 
@@ -13,6 +18,7 @@ Much of the research on gender differences in competitiveness has focused on des
 Relatedly, if women *expect* that they will prepare more in competitive environments, this may, in turn, impact whether they even enter competitive environments. Thus, while our prior work suggests that merely giving women more time to prepare does not make them more willing to compete (Richards et al., in prep), anticipated effort could still influence labor market outcomes by affecting women’s decisions to enter certain fields or compete for promotions, for instance. In our studies, we use relatively unimportant tasks that are unlikely to greatly impact one’s earnings. Yet, our previous work shows a striking gender difference in preparation, suggesting that our study likely *underestimates* gender differences in choices to prepare for tasks that are more important for one’s career and economic prospects. In this way, our study is providing a conservative test of the gender differences in effort and preparation in the real world. 
 
 
+
 # Future directions
 
 There are a number of avenues for future research in this area. First, we would like to test the robustness of gender differences in preparation outside of online and laboratory settings. Do these findings translate to real-world settings? Exploring the gender difference in preparation cross-culturally would also shed light on the universality of the finding and help to identify cultural, ecological and social factors that exacerbate it. Given Dr. Apicella’s expertise on cross-cultural research, including work with hunter-gatherers [@Apicella2014a; @Apicella2012; @Apicella2017; @Apicella2015; @Apicella2009; @Apicella2015a; @Apicella2018; @Apicella2007; @Apicella2014; @Apicella2016; @Apicella2018a; @Apicella2007a], exploring the generalizability of these findings across cultures is a real possibility.
@@ -20,6 +26,11 @@ There are a number of avenues for future research in this area. First, we would 
 A second important extension of the work would be to examine how anticipated preparation or workload influences women’s decisions to enter competitive environments. While we did not find that giving women time to prepare makes them more likely to compete, it is still possible that women know that they will end up preparing more in competitive situations and thus, select out of them. As mentioned earlier, there are opportunity costs to preparing. 
 
 A third extension of the current work would be to examine whether women are overpreparing. Does preparation negatively impact women? Does it help women? To determine whether men or women are preparing more (or less) than needed, future research should test whether gender and time chosen to prepare interact to affect a participants’ probability of winning a competition [see @Niederle2007]. Another follow-up study could manipulate whether there is a monetary cost for preparing to explore whether gender differences in the choice to prepare persist despite a clear cost, and whether this leads to gender differences in earnings within the study. 
+
+
+-- IMPORTANT: based on the results from these set of studies, we recommend future research explore the concept of changing the systmem, rather than changing women (see https://www.nber.org/system/files/working_papers/w26345/w26345.pdf conclusion section for more cites on changing the system approaches) 
+
+
 
 While we build off an extensive and laudable literature on gender differences in competitiveness, we have unearthed a gender difference in preparation. As this is a new area of research, there are many promising and exciting avenues for future exploration, all of which have the potential to inform policies that mitigate gender disparities in the labor market.
 
