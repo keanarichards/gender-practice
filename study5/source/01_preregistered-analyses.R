@@ -49,7 +49,7 @@ exploratory1a <- t.test(women$perceived_pract_dev, mu = 0, alternative = "two.si
 
 ## for men
 
-exploratory1b <-t.test(men$perceived_pract_dev_F, mu = 0, alternative = "two.sided") 
+exploratory1b <-t.test(men$perceived_pract_dev, mu = 0, alternative = "two.sided") 
 
 # exploratory analysis 2a-b: gender predicting accuracy of perceived practice relative to specific gender (when compared to 0) --------------------------------------------------
 

@@ -16,8 +16,93 @@ documentclass: book
 \markboth{Introduction}{}
 ```
 
+## Will first start with a broad overview of the main results from this dissertation & Contributions of this dissertation
+ 
 
-Welcome to `oxforddown` [@lyngsOxforddown2019], a thesis template for R Markdown that I created when writing [my own PhD thesis](https://ulyngs.github.io/phd-thesis/) at the University of Oxford.
-This template allows you to write in R Markdown, while formatting the PDF output with the beautiful and time-tested [OxThesis LaTeX template](https://github.com/mcmanigle/OxThesis).
-The sample content is partly adapted from [`thesisdown`](https://github.com/ismayc/thesisdown) 
+This dissertation attempted to fill the aforementioned gap in our knowledge on XYZ through 4 studies across 2 Chapters. In the first chapter, we experimentally test whether XYZ. 
+
+
+Interestingly, across all of the studies we do not find evidence that the gender difference in preparation varies based on whether participants are competing - that is, there is not significant interaction between gender and payment scheme on the choice to prepare across any of the studies. 
+
+
+From Emily: another possible explanation that occurs to me here is that maybe women just really wanted to be sure they got money-- if they value their time less, then maybe they practice when they know they have control over the outcome--like why practice a lot if you think you might just lose anyway?
+
+Coren response: That makes sense though hard to know from this design...  though if we find in the study we are about to run that women assigned to compete end up practicing less (rather than more!) this would be a great potential explanation! Let's keep it in mind!
+
+
+Like the famous quote says "you have to work twice as hard to be just as good." it appears the emphasis of work ethic that typically is applied to Black Americans may also be something applied to women, to the extent that the majority of participants across all studies agreed that women prepare more in general, even when they were not incentivized to be accurate in their responses. The robustness of this effect across studies suggest it is a relatively ingrained norm. 
+
+In fact, the most consistent finding in Chapter 1 of this dissertation is the beliefs about gender differences in preparation, both in terms of the multiplication task used across the studies and in general for most tasks. 
+
+
+
+By using the same questions across studies we are able to test the robustness of our effects through replication, which has been proposed as a better alternative relative to pre-analysis plans [@Coffman2015].
+
+
+## Then will discuss the implications of the total set of results as a whole 
+
+
+Since our studies did not find that competition changed women's preparation behaviors substantially, this would suggest that... 
+
+# pulled from old discussion of chapter 2 (aka NSF)
+
+idea from Coren to integrate: 
+
+One thing we should consider, based on Emily's question in the last email, is that perhaps women, compared to men, "take time" before the competition. That is, they might not be studying, but rather are delaying the competition (i.e., taking a breather, prepping emotionally, etc) by looking at their phones, taking a bathroom break etc. In other words, if men are more eager to compete then any differences in time spent in practicing could reflect a gender difference in "eagerness" to get to the competition. I don't want to change anything, of course, but I think we should just be aware of it and perhaps address it in the write-up. Hopefully, we will see a decent relationship between time and #of problems practiced. :)
+
+note to self: pulled from nsf app 01_project-description.Rmd
+
+
+# Broader impacts
+
+Much of the research on gender differences in competitiveness has focused on designing interventions that increase women’s willingness to compete. Less work has paid attention to the downstream consequences of said interventions. If we find that women spend more time preparing on average than men, and possibly overprepare, this would challenge prevailing views that gender differences in labor market outcomes could be reduced or eliminated by simple interventions. Indeed, there are opportunity costs to (over)preparing, including both economic and social costs, such as lost time with family and friends and missed advancement opportunities.
+
+Relatedly, if women *expect* that they will prepare more in competitive environments, this may, in turn, impact whether they even enter competitive environments. Thus, while our prior work suggests that merely giving women more time to prepare does not make them more willing to compete (Richards et al., in prep), anticipated effort could still influence labor market outcomes by affecting women’s decisions to enter certain fields or compete for promotions, for instance. In our studies, we use relatively unimportant tasks that are unlikely to greatly impact one’s earnings. Yet, our previous work shows a striking gender difference in preparation, suggesting that our study likely *underestimates* gender differences in choices to prepare for tasks that are more important for one’s career and economic prospects. In this way, our study is providing a conservative test of the gender differences in effort and preparation in the real world. 
+
+
+
+# Future directions
+
+There are a number of avenues for future research in this area. First, we would like to test the robustness of gender differences in preparation outside of online and laboratory settings. Do these findings translate to real-world settings? Exploring the gender difference in preparation cross-culturally would also shed light on the universality of the finding and help to identify cultural, ecological and social factors that exacerbate it. Given Dr. Apicella’s expertise on cross-cultural research, including work with hunter-gatherers [@Apicella2014a; @Apicella2012; @Apicella2017; @Apicella2015; @Apicella2009; @Apicella2015a; @Apicella2018; @Apicella2007; @Apicella2014; @Apicella2016; @Apicella2018a; @Apicella2007a], exploring the generalizability of these findings across cultures is a real possibility.
+
+- also would be important to explore mechanism in future research, since we hypothesize that it could be driven by either gender differences in risk, confidence, or by gender stereotypes about gender differences in preparing, but since that was not a foci of our research, we likely did not have sufficient power either statistically and/or by design to identify the precise mechanism underlying this phenomenon. 
+
+
+A second important extension of the work would be to examine how anticipated preparation or workload influences women’s decisions to enter competitive environments. While we did not find that giving women time to prepare makes them more likely to compete, it is still possible that women know that they will end up preparing more in competitive situations and thus, select out of them. As mentioned earlier, there are opportunity costs to preparing. 
+
+A third extension of the current work would be to examine whether women are overpreparing. Does preparation negatively impact women? Does it help women? To determine whether men or women are preparing more (or less) than needed, future research should test whether gender and time chosen to prepare interact to affect a participants’ probability of winning a competition [see @Niederle2007]. Another follow-up study could manipulate whether there is a monetary cost for preparing to explore whether gender differences in the choice to prepare persist despite a clear cost, and whether this leads to gender differences in earnings within the study. 
+
+
+
+## Potential drawbacks of competition in the workplace
+
+
+Although there is evidence that competition in the workplace may increase performance [cites], it is important to consider the potential costs of having an exceedingly competitive workplace, especially considering the strong evidence that long-term stress has severely negative effects on productivity and health [cites]. 
+There is evidence that competitive workplaces may elicit high stress responses?  
+
+
+this leads us to the question: is focusing on competitiveness the best approach for improving worker happiness and productivity? Or instead of focusing on accomodating to competitive environments, we make the competitive environments more inclusive to people of all backgrounds and experiences? 
+
+
+
+
+-- IMPORTANT: based on the results from these set of studies, we recommend future research explore the concept of changing the systmem, rather than changing women (see https://www.nber.org/system/files/working_papers/w26345/w26345.pdf conclusion section for more cites on changing the system approaches) - 
+
+For instance, @He2021 show that women are more likely to compete when the default is to enter a competition, suggesting that norms may be an incredibly important driver of behavior. 
+
+@Baldiga2018 show that sponsorship helps
+@Berger2020 random selection increases women's competitiveness  
+
+@Busso2021 shows that women 
+
+
+
+
+
+# Limitations
+
+Since our study does not include other genders - so... 
+
+See NSF & theory paper for other ideas 
+
 

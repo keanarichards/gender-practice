@@ -168,8 +168,7 @@
 \usepackage[style=authoryear, sorting=nyt, backend=biber, maxcitenames=2, useprefix, doi=true, isbn=false, uniquename=false]{biblatex}
 \newcommand*{\bibtitle}{Works Cited}
 
-\addbibresource{bibliography/references.bib}
-\addbibresource{bibliography/additional-references.bib}
+\addbibresource{bibliography/library.bib}
 
 
 % This makes the bibliography left-aligned (not 'justified') and slightly smaller font.
@@ -347,9 +346,17 @@ Template for R Markdown}
 \adjustmtc
 \markboth{Introduction}{}
 
-Welcome to \texttt{oxforddown} \autocite{lyngsOxforddown2019}, a thesis template for R Markdown that I created when writing \href{https://ulyngs.github.io/phd-thesis/}{my own PhD thesis} at the University of Oxford.
-This template allows you to write in R Markdown, while formatting the PDF output with the beautiful and time-tested \href{https://github.com/mcmanigle/OxThesis}{OxThesis LaTeX template}.
-The sample content is partly adapted from \href{https://github.com/ismayc/thesisdown}{\texttt{thesisdown}} .
+1 para = description of big pic prob:
+
+Brief summary (1-3 para): prior lit most relevant to diss \& gap i'm filling through this research
+
+1 para on what this dissertation is composed of \& what it seeks to do = in chapter 1 will address X, in chap 2 will address Y
+
+Chapter 1 = other interventions have been done, BUT they haven't done this
+
+There are some potential negative effects of these interventions. Transition to next chapter
+
+Overall, the insights from this
 
 \hypertarget{chapter-1-insert-title}{%
 \chapter{Chapter 1: INSERT TITLE}\label{chapter-1-insert-title}}
@@ -357,7 +364,13 @@ The sample content is partly adapted from \href{https://github.com/ismayc/thesis
 \hypertarget{introduction-1}{%
 \section{Introduction}\label{introduction-1}}
 
+\hypertarget{gender-gaps-persist-despite-womens-success-in-education---researchers-are-focusing-on-psychological-differences-such-as-competition-preferences-as-explanation}{%
+\section{Gender gaps persist despite women's success in education - researchers are focusing on psychological differences, such as competition preferences, as explanation}\label{gender-gaps-persist-despite-womens-success-in-education---researchers-are-focusing-on-psychological-differences-such-as-competition-preferences-as-explanation}}
+
 Women have surpassed men in education outcomes, like college attendance and graduation rates \autocite{Blau2017,Goldin2006,Stoet2014}, but continue to be underrepresented in top management positions in nearly all sectors \autocite{Bertrand2001}. And, a sizable gender gap still persists worldwide \autocite{Blau2017}. Traditional economic variables, such as household division of labor and discrimination, account for some, but not all, of these disparities \autocite{Blau2017}. As such, researchers have begun to consider psychological gender differences, including the predilection for competition, as means of understanding persistent gender gaps in labor market outcomes \autocite[for review, see][]{Niederle2011}.
+
+\hypertarget{overview-of-lit-on-choice-to-compete}{%
+\section{Overview of lit on choice to compete}\label{overview-of-lit-on-choice-to-compete}}
 
 Research suggests women are, on average, less competitive than men (for review, see \textcite{Niederle2011}). Foundational work on gender differences in competitiveness operationalized competitiveness as the choice of a tournament payment scheme, that reaps potentially higher earnings but requires outperforming an opponent, over a piece-rate scheme, where participants are paid per unit of work they produce \autocite{Niederle2007}. In this paradigm, women are less likely to enter tournaments while completing mathematical problems, even when they would have earned more by competing \autocite{Niederle2007}. Numerous conceptual replications over the past 15 years suggest that the gender difference in willingness to compete is robust \autocites[see][ for review]{Niederle2011,Niederle2017a,Niederle2017b}. Notably, this effect has been replicated in diverse populations (e.g., across age groups and cultures) \autocite{Apicella2015,Buser2014,Sutter2016,Andersen2013,Buser2017b,Sutter2010,Dreber2014,Mayr2012} and with a diverse set of tasks \autocite{Apicella2015,Saccardo2018,Bjorvatn2016,Sutter2015,Frick2011,Samek2019}. However, there is evidence that the task used during competition affects the size of the gender gap. For instance, some research suggests that when the task is female-typed or gender-neutral, the gender gap in willingness to compete may be reduced or eliminated \autocite{Iriberri2017,Boschini2014,Boschini2019,Apicella2015,Grosse2010,Gunther2010,Dreber2014,Dreber2011,Shurchkov2012}. Drawing from the psychology literature on stereotype threat \autocite{Steele1997,Spencer1999,Spencer2016}, negative stereotypes about women's ability to perform male-typed tasks (e.g., math, mental rotation) may produce anxiety and undermine performance. As a result, women may decide not to engage in a competition because they either believe the stereotype or because the stereotype provokes enough anxiety to reduce performance \autocite{Gunther2010,Grosse2010,Iriberri2017,Shurchkov2012}.
 
@@ -438,6 +451,8 @@ This gender difference in preparation aligned with participants' incentivized pr
 
 \hypertarget{discussion}{%
 \subsection{Discussion}\label{discussion}}
+
+We also find that gender predicts task score, over and above previously explanatory predictors (i.e., risk and confidence) contrary to the previous studies. We also tested for an interaction between gender and condition on task score on top of the risk and confidence predictors, given previous literature suggesting that women may perform more poorly when forced to compete {[}cites{]} - but the effect of gender still held. The gender effect in this study could have been driven by the deviation from previous studies in how long participants were given to complete the task, whereas in previous studies participants completed the paid task for two minutes, in this study we shortened the length of the task to 30 seconds to recruit a larger sample and as such, maximize power. With the shortened version of the task, there have been more pressure to perform well, mimicking a competitive environment.
 
 \hypertarget{study-2}{%
 \section{Study 2}\label{study-2}}
@@ -681,6 +696,8 @@ The introduction of Chapter 1 provides an overview of the literature on gender d
 \hypertarget{gender-differences-in-performance-during-competition}{%
 \subsubsection{Gender differences in performance during competition}\label{gender-differences-in-performance-during-competition}}
 
+NOTE TO COREN: for the following sections, do you have any recommendations on citations to include?
+
 Although competitions are generally motivating and designed to improve performance through increased effort \autocite{Connelly2014a,Murayama2012,Miller2019a}, previous research suggests that men perform better under competitive payment schemes relative to non-competitive payment schemes, while women's performance does not respond to competitions \autocite{Gneezy2003,Gneezy2004,Gunther2010,Samak2013}. \textcite{Gneezy2003} show that there is no gender difference in performance when participants are solving mazes following a piece-rate payment scheme, but a significant gender difference in performance arises under a tournament payment scheme, with males performing better. \textcite{Gunther2010} replicate the effect of competition on gender differences in performance for a male-typed task, but find no gender differences in performance during competition for female-typed or gender-neutral tasks.
 
 \hypertarget{after-competition}{%
@@ -707,70 +724,160 @@ There are a number of strategies people may use to cope with entering a competit
 \begin{itemize}
 \tightlist
 \item
-  INSERT list of possible strategies outside of preparation
+  INSERT list of possible strategies outside of preparation with cites, but probably don't need to actually go in-depth
 \end{itemize}
 
 Finally, preparing for a competition, through either practicing or studying, is another potential response to entering a competition. Describe how it may help (draw from intro of previous chapter)
 
 explain why we are focusing on preparation instead of other possible coping mechanisms
 
-\hypertarget{gender-differences-in-preparation-and-beliefs-about-relative-preparation---aka-current-study-hypotheses-what-we-think-is-driving-it.}{%
-\subsubsection{Gender differences in preparation and beliefs about relative preparation - aka current study hypotheses \& what we think is driving it.}\label{gender-differences-in-preparation-and-beliefs-about-relative-preparation---aka-current-study-hypotheses-what-we-think-is-driving-it.}}
+Overall, women may engage in more coping strategies, such as preparation, before entering competitions because they tend to be more risk-averse \autocite{Croson2009,Dohmen2011b,Eckel2008,Bertrand2010a}, less confident \autocite{Bertrand2010,Lundeberg1994,Mobius2011,Barber2001,Croson2009} and prefer to opt out of competitions \autocite{Niederle2011}. In fact, in Chapter 1 of this dissertation, we find evidence of a sizable gender difference in effort, where women were more likely than men to choose to prepare before completing a multiplication task. To be clear, there was no interaction between gender and choice to compete on the choice to prepare in any of the previous studies. That is, women prepared more than men regardless of which payment scheme they had chosen. However, it is not possible to draw conclusions from this because i) we did not manipulate the payment scheme, so there could have been selection effects on one's choice to prepare across payment schemes, such that those who were more likely to choose to compete may have been less likely to prepare, and ii) there was little power to detect any possible interaction effects. For instance, in the first study, only 11\% {[}DOUBLE CHECK{]} of women chose to compete, and in the second, INSERT\% of women made this decision. Through the proposed experiments, we intend to address these limitations by directly manipulating participants' payment scheme and recruiting a large sample to provide power to detect small effects.
+\#\#\#\# Gender differences in preparation and beliefs about relative preparation - aka current study hypotheses \& what we think is driving it.
+
+\hypertarget{main-hypothesis-1-gender-differences-in-the-choice-to-prepare}{%
+\paragraph{Main hypothesis 1: Gender differences in the choice to prepare}\label{main-hypothesis-1-gender-differences-in-the-choice-to-prepare}}
 
 Given previous research suggesting that women and men may respond differently during and after competitions, we expect that they will also employ different behaviors and have different perceptions of themselves and others in advance of a competition.
 Here, we focus on how women and men differentially respond to competition through preparation, expanding upon the studies in Chapter 1 by directly manipulating whether participants are competing.
 
-My previous research provides evidence of this gender difference in preparation. but need to explain why it may not be reliable (repeating from Ch 1)
+My previous research provides evidence of this gender difference in preparation. but need to explain why we didn't find the expected interaction effect of gender and competition choice on the choice to prepare (repeating from Ch 1/pulling from NSF = not enough power etc. = NOTE: this is already above, so probably will not include it)
 
 HYPOTHESIS I: Women will choose to practice problems at a higher rate than men, especially when assigned to the competitive tournament payment scheme (i.e., we anticipate a main effect of gender on practice, and an interaction between gender and condition, such that women will practice more than men in both conditions, but the difference-in-differences between practicing rates across genders will be greater in the competition condition).
 
-We expect that this gender difference is driven by the aforementioned gender differences in risk attitudes and confidence
-
-\begin{itemize}
-\tightlist
-\item
-  could also be driven by both gender stereotypes and task stereotypes
-\end{itemize}
-
-\hypertarget{confidence-and-risk-attitudes-as-possible-explanations-for-gender-difference-in-preparation-especially-when-required-to-compete}{%
-\paragraph{Confidence and risk attitudes as possible explanations for gender difference in preparation, especially when required to compete}\label{confidence-and-risk-attitudes-as-possible-explanations-for-gender-difference-in-preparation-especially-when-required-to-compete}}
-
-Since competitions, by definition, compare the performance among two or more individuals, they naturally lead to self-evaluation and comparative judgments of self with others - processes that are intimately linked to confidence. To the extent that confidence influences how much individuals think they need to prepare in order to win, we may expect to see women preparing more than men, particularly in competitive contexts, which naturally invoke self-other assessments. Thus, less confident individuals may prepare more. Moreover, they may prepare more in order to reduce the negative feelings caused by low confidence independent of any ambitions to win, since mastery is an important driver of confidence \autocite{Gist1992,Usher2008}. There is no theoretical or empirical reason to suspect that women would be less concerned with mastery than men. In fact, research suggests that women are just as likely as men to compete when competing against their own past performance, suggesting, at minimum, an equal desire for self-improvement \autocite{Apicella2017a}. Similarly, given the inherent risk of competitive payment schemes relative to non-competitive payment schemes, it is possible that the aforementioned gender differences in risk attitudes may also lead women to be more likely to cope by preparing before performing in a competition relative to men.
-
-Perceptions of relative preparation
-
-\begin{itemize}
-\tightlist
-\item
-  Even if risk and confidence do not affect actual preparation behavior,
-\end{itemize}
+\hypertarget{main-hypothesis-2-gender-differences-in-perceptions-of-relative-preparation}{%
+\paragraph{Main hypothesis 2: Gender differences in perceptions of relative preparation}\label{main-hypothesis-2-gender-differences-in-perceptions-of-relative-preparation}}
 
 Women may have a tendency to feel as though they are not preparing enough before performance, regardless of how much they actually practice (aka exploratory analysis looking at how much women prepare) - arguably driven by same possible explanations for gender differences in risk and confidence. - although we do not find strong evidence that confidence or risk are strongly related to practicing (2X check)(however, it was not a main hypothesis so the effect would need to be explored further in future studies)
 
 HYPOTHESIS II: Women will be more likely to assume they practice less than others compared to men (that is, the effect of gender on perceived practice deviation will be negative), especially when assigned to the competitive tournament payment scheme (such that women in general will think that they practice less than other participants than men, but this difference will be exacerbated in the competition condition).
 
-Possible explanations:
-- could be driven by gender stereotypes (which we find evidence for in previous Chapter - 2X check)
-- driven by risk \& confidence
+\hypertarget{possible-motivations-for-gender-difference-in-preparation-and-perceptions-of-relative-preparation-especially-when-required-to-compete}{%
+\paragraph{Possible motivations for gender difference in preparation and perceptions of relative preparation, especially when required to compete}\label{possible-motivations-for-gender-difference-in-preparation-and-perceptions-of-relative-preparation-especially-when-required-to-compete}}
 
-Thus, we expect to see both gender differences in actual preparation behavior, along with gender differences in perceptions of relative preparation.
+We expect that this gender difference is driven by the aforementioned gender differences in risk attitudes and confidence
 
-INTEGRATE:
+Since competitions, by definition, compare the performance among two or more individuals, they naturally lead to self-evaluation and comparative judgments of self with others - processes that are intimately linked to confidence. To the extent that confidence influences how much individuals think they need to prepare in order to win, we may expect to see women preparing more than men, particularly in competitive contexts, which naturally invoke self-other assessments. Thus, less confident individuals may prepare more. Moreover, they may prepare more in order to reduce the negative feelings caused by low confidence independent of any ambitions to win, since mastery is an important driver of confidence \autocite{Gist1992,Usher2008}. There is no theoretical or empirical reason to suspect that women would be less concerned with mastery than men. In fact, research suggests that women are just as likely as men to compete when competing against their own past performance, suggesting, at minimum, an equal desire for self-improvement \autocite{Apicella2017a}. Similarly, given the inherent risk of competitive payment schemes relative to non-competitive payment schemes, it is possible that the aforementioned gender differences in risk attitudes may also lead women to be more likely to cope by preparing before performing in a competition relative to men.
 
-Overall, women may engage in more coping strategies, such as preparation, before entering competitions because they tend to be more risk-averse \autocite{Croson2009,Dohmen2011b,Eckel2008,Bertrand2010a}, less confident \autocite{Bertrand2010,Lundeberg1994,Mobius2011,Barber2001,Croson2009} and prefer to opt out of competitions \autocite{Niederle2011}. In fact, in Chapter 1 of this dissertation, we find evidence of a sizable gender difference in effort, where women were more likely than men to choose to prepare before completing a multiplication task. To be clear, there was no interaction between gender and choice to compete on the choice to prepare in any of the previous studies. That is, women prepared more than men regardless of which payment scheme they had chosen. However, it is not possible to draw conclusions from this because i) we did not manipulate the payment scheme, so there could have been selection effects on one's choice to prepare across payment schemes, such that those who were more likely to choose to compete may have been less likely to prepare, and ii) there was little power to detect any possible interaction effects. For instance, in the first study, only 11\% {[}DOUBLE CHECK{]} of women chose to compete, and in the second, INSERT\% of women made this decision. Through the proposed experiments, we intend to address these limitations by directly manipulating participants' payment scheme and recruiting a large sample to provide power to detect small effects.
+\begin{itemize}
+\tightlist
+\item
+  could also be driven by both gender stereotypes and task stereotypes - given our previous findings on robustness of gender stereotypes
+\item
+  could be driven by cultural norms surrounding gender differences in preparation and gender stereotypes (aka society generally expects women to prepare more, so women may be especially susceptible to feelings of underpreparation because they are applying these stereotypes to themselves)
+\end{itemize}
+
+To summarize, we expect to see both gender differences in actual preparation behavior, along with gender differences in perceptions of relative preparation, driven by either risk, confidence, or gender stereotypes.
 
 Chapter 2 of this dissertation builds on prior research by examining how competitions affect gender differences in the amount of time spent preparing for competitions. We hypothesize that women will spend more time preparing than men, especially before competitions, in part because they are, on average, less risk-seeking \autocite{Croson2009,Dohmen2011b,Eckel2008,Bertrand2010a} and confident \autocite{Bertrand2010,Lundeberg1994,Mobius2011,Barber2001,Croson2009} than men. Indeed, both confidence and risk attitude have been implicated in driving the gender gap in willingness to compete \autocite{Niederle2011,Veldhuizen2017} (see Chapter 1 introduction for a more detailed review of the previous literature on gender differences in risk and confidence).
 
-In the study included in this chapter, we tested whether competition exacerbates previously established gender differences in preparation by manipulating participants' assigned payment scheme (i.e., competitive or non-competitive). We also explored whether gender predicts participants' perceptions of their relative amount of preparation, given our hypothesis based on Study 3 of Chapter 1 that women may be especially susceptible to feelings of underpreparation relative to others when they have unlimited time to prepare. The research design, hypotheses, measures and analyses for this chapter were pre-registered on \href{INSERT\%20LINK}{OSF} and all analyses were conducted in R statistical software (version 4.0.4).
+In the study included in this chapter, we tested whether competition exacerbates previously established gender differences in preparation by manipulating participants' assigned payment scheme (i.e., competitive or non-competitive). We also explored whether gender predicts participants' perceptions of their relative amount of preparation, given our hypothesis based on Study 3 of Chapter 1 that women may be especially susceptible to feelings of underpreparation relative to others when they have unlimited time to prepare. The research design, hypotheses, measures and analyses for this chapter were pre-registered on \href{https://osf.io/8bwfz/}{OSF} and all analyses were conducted in R statistical software (version 4.0.4).
+
+\hypertarget{methods-3}{%
+\subsection{Methods}\label{methods-3}}
+
+note to self: pulled from nsf app 01\_project-description.Rmd
+
+\hypertarget{study-1-does-competition-elicit-gender-differences-in-effort}{%
+\chapter{Study 1: Does competition elicit gender differences in effort?}\label{study-1-does-competition-elicit-gender-differences-in-effort}}
+
+\emph{Participants}
+
+Since we anticipate completing the required parts of the study will take no more than 10 minutes on average, we will pay participants \$2.50 (i.e., double the federal and Pennsylvania minimum wage), with the opportunity for bonuses, outlined below. Participants will only be included if they indicate that they are 18 years or older, are American citizens, and identify as female or male while answering initial demographic questions.
+
+Given the difficulty of powering interaction effects \autocites[see][]{Simonsohn2014,Giner-Sorolla2018}, we conducted a power analysis to determine an adequate sample size for the main hypothesized interaction effect in the primary analysis \autocite[simulations modeled after code from][]{Hughes2017a}. We ran 5000 simulations while varying the sample size (\emph{N} = 3000, 3250, 3500) and the effect size for the interaction effect (\emph{b} = .2, .3, .4). Based on these simulated estimates, we will recruit 3250 participants to achieve at least 80\% power for a relatively small effect (\emph{b} = .2) (see Figure 3).
+
+Will also note number of ppts that dropped out during/after learning about condition to asses condition-dependent attrition: clean \%\textgreater\% filter(Finished == ``FALSE'' \& !is.na(condition)) \%\textgreater\% select(Finished, condition)
+
+\includegraphics[width=300px]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/nsf-application/nsf3}
+
+\emph{Manipulation}
+
+Participants will be randomly assigned to follow either a competitive or noncompetitive payment scheme for one round (2 minutes) of multiplication problems. The payment scheme will be manipulated between subjects, where participants in the competition (tournament) condition will be paid 4 cents per problem on the task, but only if they beat another randomly assigned MTurker, while participants assigned to the noncompetitive (piece-rate) payment scheme will be paid 2 cents per problem. Although a within-subjects design would provide more power in detecting the hypothesized interaction effect, we opted to use a between-subjects design to avoid carryover effects. If we followed a within-subjects design, we would only be able to confidently interpret the results for whichever condition were presented first because there would be several carryover effects that could affect the decision to prepare (e.g., fatigue and/or learning effects reducing participants' desire to prepare, demand effects for preparation if participants believe they are expected to prepare more in one condition compared to the other).
+
+\emph{Dependent variable}
+
+After participants in each condition are told which payment scheme they will be following, they will have the option to prepare for the task by completing unlimited practice problems, which they will be told could improve their performance on the subsequent task. To measure their desire to prepare for the task, we will first ask participants whether they would like to spend any time practicing multiplication problems. We chose a multiplication task because we expect participants will improve with practice. Indeed, research suggests that rehearsing and recalling associative memories can speed up retrieval of those memories \autocite{Rundus1971}. Moreover, we have already established a robust gender difference in both the choice to prepare and compete using this task (Richards et al., in prep). For participants who agree to practice, they will be be able to practice for as long as they want, with the option to pause in case of any unexpected interruptions, such as children coming into the room. Also, participants will have the option to exit the preparation and move onto the task at any point via an ``Exit'' button in the bottom right corner of the survey screen. The dependent variable will be quantified as the total number of seconds of preparation, excluding the amount of time participants paused during the practice.
+
+\emph{Task performance}
+
+After practicing, participants in each condition will complete the paid multiplication task. Participants' scores on the task will be quantified as the number of questions correct within the two-minute time frame allotted, without any penalties for incorrect responses. Afterwards, participants will be informed of the number of questions they answered correctly. We do not include any information about their relative performance since we ask them to guess their relative performance in the confidence measure. Thus, participants following the tournament payment scheme will not be told whether they won, since this serves as an indicator of relative performance.
+
+\emph{Post-manipulation measures}
+
+After completing the task, participants will complete a series of measures to be used for exploratory analyses. All questions will be counterbalanced. A confidence measure will incentivize participants to guess their relative performance compared to all other participants that completed the task by indicating the decile of their score relative to other participants. If correct, participants will earn \$.25. We use a measure of relative performance, rather than a measure of absolute performance (e.g., asking participants to guess their score on the task) because perceptions of relative performance will likely be predictive of the choice to practice, especially when an individual is required to compete. The confidence measure draws from previous research \autocite{Niederle2007}, but instead of asking participants to indicate whether they won against a randomly selected opponent, we ask them to guess their relative decile to provide us with more information about their relative confidence. Given the difficulty of guessing one's exact percentile without any information about other participants, deciles are used rather than percentiles to make earning the bonus seem more achievable. Also, the item will be phrased so participants do not need to understand the word ``decile,'' but will be asked ``If my performance is compared to that of all participants that completed the task, I think my score was\ldots{}'' with the options for responses ranging from ``Better than all other participants'' to ``Better than none of the other participants'' with 10\% increments in between (e.g., ``Better than 50\% of participants''). Since task-specific confidence measures tend to be better predictors of behavior than general measures of confidence \autocite[see][ for review]{Oney2015}, the confidence measure assesses participants' beliefs within the context of the task used. We will also measure risk attitude by asking participants to indicate on a 0-10 scale ``How do you see yourself: Are you generally a person who is fully prepared to take risks or do you try to avoid taking risks?'' \autocite{Dohmen2011b}. There is evidence that risky behavior (i.e., lottery choices) is strongly associated with the risk measure included in the current proposal \autocite{Dohmen2011b}. Additionally, risk attitude tends to be explained by one underlying trait, with a relatively smaller amount of variation in risk attitude explained by context (e.g., risk attitude during career, health, or financial decisions). Thus, across contexts, risk attitude is likely to be stable and predictive of behavior \autocite{Dohmen2011b}. These measures are included after completing the task largely because the confidence measure requires participants to state their perceived relative performance on the task.
+
+make sure to mention self-rated decile variable and how perceived practice deviation variable will be created from that.
+
+\hypertarget{results-3}{%
+\subsection{Results}\label{results-3}}
+
+\hypertarget{describing-main-variables-of-interest}{%
+\section{Describing main variables of interest}\label{describing-main-variables-of-interest}}
+
+First, we confirmed that condition was assigned evenly across participants (control= 50.21\%). Of the men who completed the study, 50.38\% were assigned to the control condition and of the women who completed the study, 49.72\% were assigned to the control condition.
+
+Like all studies in the first chapter, we replicate the effect of gender on risk, \(b = -0.86\), 95\% CI \([-1.01\), \(-0.70]\), \(t(3920) = -10.71\), \(p < .001\), and confidence, \(b = -8.46\), 95\% CI \([-10.12\), \(-6.79]\), \(t(3978) = -9.96\), \(p < .001\), such that women were more risk averse and less confident relative to men.
+
+Contrary to the majority of studies in the first chapter, we find a significant effect of gender on task score, Mwomen=10.45, SD=4.47; Mmen= 12.29, sd=7.28, even when including risk, confidence, and an interaction between gender and condition in the model, \(b = -1.38\), 95\% CI \([-1.89\), \(-0.86]\), \(t(3916) = -5.20\), \(p < .001\).
+
+Next we explored the characteristics of the main practice variables in the dataset. 45.51\% of participants chose to practice, with 0.48\% choosing to practice in the piece-rate payment condition and 0.52\% choosing to practice in the tournament payment condition. Participants spent an average of 29.12 seconds practicing across all rounds of practice and of those who chose to practice, completed 0.14 total rounds of extra practice problems (COME BACK TO THIS ONCE DECIDED).
+
+\hypertarget{effects-of-gender-and-condition-on-both-practicing-and-perceptions-of-ones-relative-practicing}{%
+\section{Effects of gender and condition on both practicing and perceptions of one's relative practicing}\label{effects-of-gender-and-condition-on-both-practicing-and-perceptions-of-ones-relative-practicing}}
+
+Through a logistic regression, we replicate the effect of gender on the choice to practice found in Chapter 1, \(b = 0.51\), 95\% CI \([0.33\), \(0.69]\), \(z = 5.49\), \(p < .001\), where 0.51\% of women chose to prepare relative to 0.38\% of men (see Figure \ref{fig:INSERT}). However, we do not find an interaction between gender and condition, \(b = 0.08\), 95\% CI \([-0.18\), \(0.34]\), \(z = 0.60\), \(p = .547\), contrary to our hypothesis that the gender difference in the choice to prepare would be exacerbated under the tournament payment scheme relative to the piece-rate payment scheme.
+
+As part of our pre-registered analyses, we also explored other measures of practice to test the robustness of the effect of gender on practicing. We find that women, relative to men, completed a significantly higher number of practice problems, INSERT exploratory4a, more rounds of extra practice (INSERT, COME BACK TO THIS ONCE DECIDED), and spent more time completing practice problems, INSERT.
+
+Based on previous literature on risk aversion and confidence affecting competition entry, we expected participants with especially high levels of risk aversion and/or low levels of confidence would be especially likely to choose to practice before entering a competition, and that this effect may interact with gender. Thus, we tested possible three-way interactions between gender, condition, and risk aversion or confidence on the choice to practice problems through two logistic regressions, but did not find evidence that risk aversion, INSERT, nor confidence, INSERT, interacted with gender and condition.
+
+\hypertarget{accuracy-of-levels-of-practicing-based-on-participant-gender}{%
+\section{Accuracy of levels of practicing based on participant gender}\label{accuracy-of-levels-of-practicing-based-on-participant-gender}}
+
+Next, we ran a linear regression with gender, condition, and the interaction between those two variables predicting the aforementioned perceived practice deviation (that is, subtracting each participants' percentile based on number of practice problems completed from their self-rated decile) to test our second hypothesis that women would be more likely to assume they practice less than others compared to men, especially under the competitive tournament payment scheme. Though we did not find evidence of the anticipated interaction effect, \(b = -3.25\), 95\% CI \([-10.26\), \(3.76]\), \(t(3959) = -0.91\), \(p = .364\), we find a significant effect of gender on perceived practice deviation, such that women (relative to men) were significantly less likely to assume they practice more than others compared to men, \(b = -14.49\), 95\% CI \([-19.43\), \(-9.55]\), \(t(3959) = -5.75\), \(p < .001\), Mwomen=23.56, SD=56.11; Mmen= 39.69, sd=54.87 (see Figure \ref{fig:INSERT}). We performed a more targeted exploratory analysis to see if the effect held when participants have actually practiced (and as a result, the question about their relative practicing may feel more relevant), and find that among this subset of the data, women (again, relative to men) were still significantly less likely to believe that they practiced more than others, \(b = -3.25\), 95\% CI \([-10.26\), \(3.76]\), \(t(3959) = -0.91\), \(p = .364\).
+
+Since this is the first time we have used the perceived practice deviation variable and are not able to attest to its robustness, we also explored another way of testing this hypothesized effect by using participants' self-rated decile as the dependent variable instead of perceived practice deviation and then controlling for number of practice problems attempted in a linear regression. Again, we find that women are significantly less likely to say they practice more than others compared to men, INSERT, although this effect does not hold when focusing on the subset of participants who chose to practice, INSERT.
+
+On top of the differences in how much women and men in this study perceived they practiced relative to others, we also tested men and women's accuracy of their relative practice through a series of t-tests comparing the perceived practice deviation variable to 0 (which would represent a participant guessing their exact decile correctly). Across the full dataset, most participants tended to overestimate how much they practiced relative to others, INSERT. After honing in on each gender included in the study, we find that this effect holds among both women, INSERT, and men, INSERT. Notably, participants who chose to practice were significantly more likely to underestimate their relative practice, both among women, INSERT, and men, INSERT.
+
+We also explored how self-rated decile changes based on whether participants were asked to compare their amount of practicing to men or women in the study specifically, and find that participants' perceptions of how much they practiced relative to women in the study are significantly lower than perceptions of much they practiced relative to men, \(M_d = -8.09\), 95\% CI \([-9.03\), \(-7.14]\), \(t(3,979) = -16.85\), \(p < .001\).
+
+\hypertarget{perceptions-of-gender-differences-in-behavior}{%
+\section{Perceptions of gender differences in behavior}\label{perceptions-of-gender-differences-in-behavior}}
+
+Across all measures of perceptions of gender differences in behavior, we replicate effects found in the previous studies. First, the majority of participants (59.57\%) said that women would be more likely to practice/study for the task, which was significantly higher than the proportion of participants that said men would be more likely to practice/study than women (4.73\%) and the proportion of participants that said there was no difference in the likelihood that men and women would practice/study (35.7\%), \(\chi^2(2, n = 4172) = 1,782.43\), \(p < .001\).
+
+Similarly, participants were significantly more likely to say that women prepare more in general (68.28\% of participants) than men (4.41\% of participants) or that there is no difference in how much men and women prepare (27.31\% of participants), \(\chi^2(2, n = 4172) = 2,464.02\), \(p < .001\).
+
+Yet, participants did not expect a gender difference in performance on the main multiplication task used, \(\chi^2(2, n = 4172) = 781.11\), \(p < .001\), where 54.17\% of participants said that there was no difference in how many multiplication problems men and women correctly solved, while 20.56\% said men correctly solved more multiplication problems than women and 25.27\% said women had a performance advantage over men.
+
+Finally, 64.24\% of participants expected women would be more likely to choose the piece-rate payment scheme than the tournament payment scheme, which was a significantly higher proportion of participants than those who expected women would choose each payment scheme equally 20.9\% and than those who expected Women would choose tournament more often than piece rate, 14.86\%, \(\chi^2(2, n = 4172) = 1,707.40\), \(p < .001\). On the contrary, when asked about how much men in the study would compete, a significant majority of participants (63.5\%) expected men to be more likely to choose the tournament payment scheme over the piece-rate payment scheme, relative to the proportion of participants who said men would choose each payment scheme equally (15.8\%) and the proportion who said men would choose piece rate more often than tournament (20.7\%), \(\chi^2(2, n = 4172) = 1,620.33\), \(p < .001\).
+
+\hypertarget{figures-1}{%
+\section{Figures}\label{figures-1}}
 
 \hypertarget{discussion-4}{%
-\section{Discussion}\label{discussion-4}}
+\chapter*{Discussion}\label{discussion-4}}
+\addcontentsline{toc}{chapter}{Discussion}
+
+\adjustmtc
+\markboth{Introduction}{}
+
+Like the famous quote says ``you have to work twice as hard to be just as good.'' it appears the emphasis of work ethic that typically is applied to Black Americans may also be something applied to women, to the extent that the majority of participants across all studies agreed that women prepare more in general, even when they were not incentivized to be accurate in their responses. The robustness of this effect across studies suggest it is a relatively ingrained norm.
+
+\hypertarget{pulled-from-old-discussion-of-chapter-2-aka-nsf}{%
+\chapter{pulled from old discussion of chapter 2 (aka NSF)}\label{pulled-from-old-discussion-of-chapter-2-aka-nsf}}
 
 idea from Coren to integrate:
 
 One thing we should consider, based on Emily's question in the last email, is that perhaps women, compared to men, ``take time'' before the competition. That is, they might not be studying, but rather are delaying the competition (i.e., taking a breather, prepping emotionally, etc) by looking at their phones, taking a bathroom break etc. In other words, if men are more eager to compete then any differences in time spent in practicing could reflect a gender difference in ``eagerness'' to get to the competition. I don't want to change anything, of course, but I think we should just be aware of it and perhaps address it in the write-up. Hopefully, we will see a decent relationship between time and \#of problems practiced. :)
 
 note to self: pulled from nsf app 01\_project-description.Rmd
+
+\hypertarget{contribution-of-this-dissertation}{%
+\chapter{Contribution of this dissertation}\label{contribution-of-this-dissertation}}
+
+By using the same questions across studies we are able to test the robustness of our effects through replication, which has been proposed as a better alternative relative to pre-analysis plans \autocite{Coffman2015}.
 
 \hypertarget{broader-impacts}{%
 \chapter{Broader impacts}\label{broader-impacts}}
@@ -792,19 +899,12 @@ A third extension of the current work would be to examine whether women are over
 
 While we build off an extensive and laudable literature on gender differences in competitiveness, we have unearthed a gender difference in preparation. As this is a new area of research, there are many promising and exciting avenues for future exploration, all of which have the potential to inform policies that mitigate gender disparities in the labor market.
 
-\hypertarget{figures-1}{%
-\section{Figures}\label{figures-1}}
+\hypertarget{limitations}{%
+\chapter{Limitations}\label{limitations}}
 
-\hypertarget{discussion-5}{%
-\chapter*{Discussion}\label{discussion-5}}
-\addcontentsline{toc}{chapter}{Discussion}
+Since our study does not include other genders - so\ldots{}
 
-\adjustmtc
-\markboth{Introduction}{}
-
-Welcome to \texttt{oxforddown} \autocite{lyngsOxforddown2019}, a thesis template for R Markdown that I created when writing \href{https://ulyngs.github.io/phd-thesis/}{my own PhD thesis} at the University of Oxford.
-This template allows you to write in R Markdown, while formatting the PDF output with the beautiful and time-tested \href{https://github.com/mcmanigle/OxThesis}{OxThesis LaTeX template}.
-The sample content is partly adapted from \href{https://github.com/ismayc/thesisdown}{\texttt{thesisdown}}
+See NSF \& theory paper for other ideas
 
 \startappendices
 

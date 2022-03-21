@@ -4,97 +4,83 @@ output:
   html_document: default
 ---
 
-Possibly cut: 
-
-
-As the research on gender differences in performance during competition suggests [@Gneezy2003; @Gneezy2004; @Gunther2010; @Gill2014; @Buser2019; @Samak2013; @Miller2019a], it is important to consider potential downstream consequences of women's entry into competitions - before, during, and after a competition. 
-
-Another potential dimension of preparation that may manifest gender differences in preparation is the gender stereotypes about gender differences in preparation. talk about importance of stereotypes in driving behavior. and how people tend to feel good when they align with gender typical behavior (could draw from theory paper here). The most consistent finding in Chapter 1 of this dissertation is the beliefs about gender differences in preparation, both in terms of the multiplication task used across the studies and in general for most tasks. 
-
 
 ## Rising use of performance pay, especially competitive pay over time - and how it may contribute to the gender wage gap/other gender diff in labor market outcomes 
 
 Compensation packages based on performance pay, such as bonuses, commissions, and piece-rate payments, have risen in popularity relative to hourly/salaried pay, especially among workers in the highest tiers of occupations [@Hall1998; @Murphy1999; @Cunat2005; @Lemiuex2009]. There is evidence that the increasing use of performance pay lends itself to wage inequality. @Lemiuex2009 showed that an increased dependence on performance pay during the late 1970’s and early 1990’s accounted for 21% of the observed growth in variance of male wages. Bonuses and commissions, arguably the most competitive compensation schemes, may be especially important in driving the large disparity between the highest and lowest percentile earners within organizations [@Bell2010; @Bell2014; @Benabou2016]. Importantly, performance pay may contribute to the gender wage gap too. Using data from the National Longitudinal Surveys of Youth, @McGee2015 show that women are less likely to be employed in occupations that receive bonuses, and simultaneously are more likely to receive piece-rate pay – the least competitive of all forms of performance pay, where workers are paid based on their absolute output. 
 
-## Summary of literature on gender differences in competitiveness 
+## Gender differences in competitiveness as possible contributor to labor market gaps 
 
-Since competition is relevant to labor market outcomes, researchers began to focus on how a person’s gender affects their competitiveness, both in terms of willingness to enter competitions and response when required to enter a competition. To date, most of the research on gender differences in competitiveness has focused on either i) explaining the sources of the gender difference [e.g., @Veldhuizen2017] or ii) designing interventions to encourage women to compete more [@Balafoutas2012; @Sutter2016; @Cassar2016; @Brandts2015; @Niederle2013; @Brandts2015; @Healy2011; @Alan2018]. Less consideration has been paid to how competitions differentially, and negatively, impact women.
+Since competition is relevant to labor market outcomes, researchers began to focus on how a person’s gender affects their competitiveness, both in terms of willingness to enter competitions and response when required to enter a competition. To date, most of the research on gender differences in competitiveness has focused on either i) explaining the sources of the gender difference [e.g., @Veldhuizen2017] or ii) designing interventions to encourage women to compete more [@Balafoutas2012; @Sutter2016; @Cassar2016; @Brandts2015; @Niederle2013; @Brandts2015; @Healy2011; @Alan2018]. Less consideration has been paid to how competitions may differentially, and perhaps negatively, impact women.
 
 The introduction of Chapter 1 provides an overview of the literature on gender differences in willingness to compete, so we will only review the literature on gender differences in response to entering competitive environments here. There are three major time points at which competition may affect men and women differently: before, during, and after competition. The majority of previous studies in this space have examined gender differences in response to competition during and after performance, which we will briefly review here. 
 
+NOTE TO COREN: what do you think of these sections breaking down competition into 3 time points and reviewing some of the literature in these areas? Is this a useful way to break it down or do you prefer another way? 
+
 ## Gender differences in response to competitive environments
+
+NOTE TO COREN: for the following sections, if included, do you have any recommendations on citations to include outside of what is listed below? 
 
 ### During competition
 
-#### Gender differences in performance during competition 
+Gender differences in performance during competition: Although competitions are generally motivating and designed to improve performance by increasing effort [@Connelly2014a; @Murayama2012; @Miller2019a], previous research suggests that men perform better under competitive payment schemes relative to non-competitive payment schemes, while women's performance does not respond to competitions [@Gneezy2003; @Gneezy2004; @Gunther2010; @Samak2013]. @Gneezy2003 show that there is no gender difference in performance when participants are solving mazes following a piece-rate payment scheme, but a significant gender difference in performance arises under a tournament payment scheme, with males performing better. @Gunther2010 replicate the effect of competition on gender differences in performance for a male-typed task, but find no gender differences in performance during competition for female-typed or gender-neutral tasks. 
 
-Although competitions are generally motivating and designed to improve performance through increased effort [@Connelly2014a; @Murayama2012; @Miller2019a], previous research suggests that men perform better under competitive payment schemes relative to non-competitive payment schemes, while women's performance does not respond to competitions [@Gneezy2003; @Gneezy2004; @Gunther2010; @Samak2013]. @Gneezy2003 show that there is no gender difference in performance when participants are solving mazes following a piece-rate payment scheme, but a significant gender difference in performance arises under a tournament payment scheme, with males performing better. @Gunther2010 replicate the effect of competition on gender differences in performance for a male-typed task, but find no gender differences in performance during competition for female-typed or gender-neutral tasks. 
+INSERT OTHER CITES:
+
+- Evidence that women's performance doesn't strongly respond to competition compared to men: https://onlinelibrary.wiley.com/doi/full/10.1111/ecca.12417
+
+- Suggests that women may not respond well to competitive pressure (aka when stress is kept to a minimum, there are no gender differences in performance, but when certain knock-out rules are applied, a difference emerges): https://www.sciencedirect.com/science/article/pii/S0167268121001785?casa_token=1G3VrTCCNu8AAAAA:dsOsjejPKHnunOTRSqkEHU-odJMjDPhHUBXy-dTr9_JPX4KqAqrH4bihs5riR7gypyza2Rko_vg
+
+- there is a growing literature showing that women are less willing to guess on exams [@Pekkarinen2015; @Baldiga2014; @Iriberri2021], which in turn negatively impacts performance on said exams [@Pekkarinen2015; @Baldiga2014] - which they argue may driven by women being less confident in their probability of answering correctly or being more risk averse. @Riener2018a suggests this phenomenon starts at an early age, with girls as young as 8 years of age being significantly less willing to guess on exams relative to men 
+
+- @Paserman2007: "Data on serve speed, on first serve percentages and on rally length suggest that women play a more conservative and less aggressive strategy as points become more important."
 
 ### After competition
 
-#### Gender differences in response to losing 
+Gender differences in response to losing: During repeated competition, women tend to perform worse in subsequent performance rounds after losing, even if the monetary prize they lost was relatively meager, while men only perform worse in subsequent rounds if they lost the chance to win a large monetary prize [@Gill2014]. Other research suggests women stop competing altogether after losing if given the choice. @Buser2019, who examine the effects of losing while competing in the Dutch Math Olympiad on the choice to compete in subsequent years, show that men are just as likely to compete even if they lost the previous year, while women are less likely to compete again if they lost before. Overall, this body of literature suggests that competitions may differentially impact women and men, both during and after the competition. 
 
-Relatedly, during repeated competition, women tend to perform worse in subsequent performance rounds after losing, even if the monetary prize they lost was relatively meager, while men only perform worse in subsequent rounds if they lost the chance to win a large monetary prize [@Gill2014]. Other research suggests women stop competing altogether after losing if given the choice. @Buser2019, who examine the effects of losing while competing in the Dutch Math Olympiad on the choice to compete in subsequent years, show that men are just as likely to compete even if they lost the previous year, while women are less likely to compete again if they lost before. Overall, this body of literature suggests that competitions may differentially impact women and men, both during and after the competition. 
+INSERT OTHER CITES:
+
+- negative feedback increases women's likelihood of dropping out of their major: @Astorne-Figari2018
+
+- https://drive.google.com/file/d/1eMZJpkqa0QvDhcf76r2U8bkuelVa1Byt/view: "We find that, among assistant professors, a flat rejection reduces the confidence in publishing the paper in any leading journal to a significantly greater extent for women than it does for men. We find no gender differences among associate and full professors, likely due to survivorship bias."
+
+- https://www.nber.org/system/files/working_papers/w29382/w29382.pdf: "We find that, holding fixed performance and decisions before feedback, women update their beliefs and choices more negatively than men do after bad news."
 
 ### Before competition
 
-As mentioned previously, little research has examined how competitions may affect gender differences in behavior during arguably the most critical period: before an individual enters a competition, where they have the most control of their subsequent performance in the competition. For that reason, we provide a broad overview of how people generally respond before competitions based on the feelings they tend to elicit, which leads us to our hypotheses about gender differences in behavior before competition entry. 
+As mentioned previously, little research has examined how competitions may affect gender differences in behavior during arguably the most critical period: before an individual enters a competition, where they have the most control of their subsequent performance in the competition. Given previous research suggesting that women and men may respond differently during and after competitions, we expect that they will also employ different behaviors and have different perceptions of themselves and others in advance of a competition. 
 
-#### What feelings does competition cause before entry? What does previous research suggest about how people feel/respond before they compete that may cause them to use coping mechanisms? (May not be a necessary section)
+We only know of a few studies that explore this open question: insert possible cites if relevant 
 
-#### Coping strategies people may use before entering a competition (may not be necessary to include others, just prep)
+#### Preparation as a coping strategy before competition & possible mechanisms  
 
-There are a number of strategies people may use to cope with entering a competition and how it may help with aforementioned feelings before competing
+Preparing for a competition, through either practicing or studying, is a coping strategy individuals may employ before entering a competition. Since competitions, by definition, compare the performance among two or more individuals, they naturally lead to self-evaluation and comparative judgments of self with others - processes that are intimately linked to confidence. To the extent that confidence influences how much individuals think they need to prepare in order to win, we may expect to see women preparing more than men, particularly in competitive contexts, which naturally invoke self-other assessments. Thus, less confident individuals may prepare more. Moreover, they may prepare more in order to reduce the negative feelings caused by low confidence independent of any ambitions to win, since mastery is an important driver of confidence [@Gist1992; @Usher2008]. There is no theoretical or empirical reason to suspect that women would be less concerned with mastery than men. In fact, research suggests that women are just as likely as men to compete when competing against their own past performance, suggesting, at minimum, an equal desire for self-improvement [@Apicella2017a]. Similarly, given the inherent risk of competitive payment schemes relative to non-competitive payment schemes, it is possible that the aforementioned gender differences in risk attitudes may also lead women to be more likely to cope by preparing before performing in a competition relative to men. 
 
-- INSERT list of possible strategies outside of preparation 
+#### Gender stereotypes as a possible mechanism 
 
-Finally, preparing for a competition, through either practicing or studying, is another potential response to entering a competition. Describe how it may help (draw from intro of previous chapter)
+A novel prediction deriving from the results showing robust perceptions of gender differences in preparation across all studies in Chapter 1 is that gender differences in preparing may be driven by persistent stereotypes of men and womens' tendencies to prepare before performance. 
 
+NOTE to coren: is it useful to have this broad overview of gender stereotypes? or just skip to the section about evidence that gender stereotypes affect behavior
 
-explain why we are focusing on preparation instead of other possible coping mechanisms
+##### Prominence and characteristics of gender stereotypes 
 
-#### Gender differences in preparation and beliefs about relative preparation - aka current study hypotheses & what we think is driving it. 
+- Gender stereotypes derive from observers' automatic tendency to make correspondent inferences about men and women's dispositions [@Gilbert1995; @Ross1977; @Jones1967; @Gawronski2004]. These correspondent inferences have led to prominent gender stereotypes that exist across cultures [@Williams1990; @Williams1982; @Steinmetz2014; @Fiske2017].
+- Stereotypes involve prescriptive, proscriptive, and descriptive components [@Prentice2002], where prescriptive and proscriptive stereotypes reflect cognitive representations of the characteristics women and men should and should not have, respectively, while descriptive stereotypes are representations of the typical man and woman [@Burgess1999]. 
+- Gender stereotypes encompass a variety of attributes. For instance, there are physical (e.g., women are dainty), cognitive (e.g., men are analytical), and personality-based (e.g., women are nurturing) stereotypes [@Cejka1999; @Deaux1984].
 
-Given previous research suggesting that women and men may respond differently during and after competitions, we expect that they will also employ different behaviors and have different perceptions of themselves and others in advance of a competition. 
-Here, we focus on how women and men differentially respond to competition through preparation, expanding upon the studies in Chapter 1 by directly manipulating whether participants are competing. 
+##### Implications of gender stereotypes for behavior 
 
-My previous research provides evidence of this gender difference in preparation. but need to explain why it may not be reliable (repeating from Ch 1)
+- Importantly, there is evidence that gender stereotypes can affect behavior [INSERT cites]. For instance, @Coffman2014a show that both men and women are less likely to contribute ideas to a group decision in gender-incongruent decision-making domains (e.g., women contributing ideas to a decision in the domain of sports), even when the group would have made a better decision with their contribution. [INSERT other example showing stereotypes affecting behavior].  
 
+Given the extensive evidence that gender stereotypes affect subsequent behavior, we expect that our findings of robust perceptions of gender differences in preparation likely contribute to gender differences in actual preparation behavior. 
 
-HYPOTHESIS I: Women will choose to practice problems at a higher rate than men, especially when assigned to the competitive tournament payment scheme (i.e., we anticipate a main effect of gender on practice, and an interaction between gender and condition, such that women will practice more than men in both conditions, but the difference-in-differences between practicing rates across genders will be greater in the competition condition). 
+## The current experiment 
 
-We expect that this gender difference is driven by the aforementioned gender differences in risk attitudes and confidence 
+Overall, women may engage in more coping strategies than men, such as preparation, before entering competitions because they tend to be more risk-averse [@Croson2009; @Dohmen2011b; @Eckel2008; @Bertrand2010a] and less confident [@Bertrand2010; @Lundeberg1994; @Mobius2011; @Barber2001; @Croson2009], and/or may be adhering to gender stereotypes [insert coffman etc cites]. In support of this possibility, in Chapter 1 of this dissertation, we found evidence of a sizable gender difference in preparation, where women were more likely than men to choose to prepare before completing a multiplication task. 
 
-- could also be driven by both gender stereotypes and task stereotypes 
+Here, we focus on how women and men differentially respond to competition through preparation. We expect to see both gender differences in actual preparation behavior, along with gender differences in perceptions of relative preparation, especially when men and women are required to compete (relative to non-competitive environments). More specifically, in the study included in this chapter, we tested whether competition exacerbates previously established gender differences in preparation by manipulating participants’ assigned payment scheme (i.e., competitive tournament payment scheme or non-competitive piece-rate payment scheme). We hypothesized that women will choose to practice problems at a higher rate than men, especially when assigned to the competitive tournament payment scheme (i.e., we anticipate a main effect of gender on the choice to practice, and an interaction between gender and condition, such that women will practice more than men in both conditions, but the difference-in-differences between practicing rates across genders will be greater in the competition condition). To be clear, there was no interaction between gender and choice to compete on the choice to prepare in any of the previous studies from Chapter 1. That is, women prepared more than men regardless of which payment scheme they had chosen. However, it is not possible to draw conclusions from this because i) we did not manipulate the payment scheme, so there could have been selection effects on one’s choice to prepare across payment schemes, such that those who were more likely to choose to compete may have been less likely to prepare, and ii) there was little power to detect any possible interaction effects. For instance, an average of only INSERT% (*N* = INSERT) of all women across the three studies in Chapter 1 chose to compete. Through the proposed experiment, we intend to expand upon the studies in Chapter 1 by directly manipulating participants' payment scheme and recruiting a large sample to provide power to detect small effects.
 
-##### Confidence and risk attitudes as possible explanations for gender difference in preparation, especially when required to compete 
+We also tested whether gender predicts participants' perceptions of their relative amount of preparation, given our hypothesis based on Study 3 of Chapter 1 that women may be especially susceptible to feelings of underpreparation relative to others when they have unlimited time to prepare. More concretely, we expected women will be more likely to assume they practice less than others compared to men (that is, the effect of gender on perceptions of relative practice will be negative), especially when assigned to the competitive tournament payment scheme (such that women in general will think that they practice less than other participants than men, but this difference will be exacerbated in the competition condition). 
 
-Since competitions, by definition, compare the performance among two or more individuals, they naturally lead to self-evaluation and comparative judgments of self with others - processes that are intimately linked to confidence. To the extent that confidence influences how much individuals think they need to prepare in order to win, we may expect to see women preparing more than men, particularly in competitive contexts, which naturally invoke self-other assessments. Thus, less confident individuals may prepare more. Moreover, they may prepare more in order to reduce the negative feelings caused by low confidence independent of any ambitions to win, since mastery is an important driver of confidence [@Gist1992; @Usher2008]. There is no theoretical or empirical reason to suspect that women would be less concerned with mastery than men. In fact, research suggests that women are just as likely as men to compete when competing against their own past performance, suggesting, at minimum, an equal desire for self-improvement [@Apicella2017a]. Similarly, given the inherent risk of competitive payment schemes relative to non-competitive payment schemes, it is possible that the aforementioned gender differences in risk attitudes may also lead women to be more likely to cope by preparing before performing in a competition relative to men. 
-
-
-Perceptions of relative preparation
-
-- Even if risk and confidence do not affect actual preparation behavior, 
-
-Women may have a tendency to feel as though they are not preparing enough before performance, regardless of how much they actually practice (aka exploratory analysis looking at how much women prepare) - arguably driven by same possible explanations for gender differences in risk and confidence. - although we do not find strong evidence that confidence or risk are strongly related to practicing (2X check)(however, it was not a main hypothesis so the effect would need to be explored further in future studies) 
-
-HYPOTHESIS II: Women will be more likely to assume they practice less than others compared to men (that is, the effect of gender on perceived practice deviation will be negative), especially when assigned to the competitive tournament payment scheme (such that women in general will think that they practice less than other participants than men, but this difference will be exacerbated in the competition condition). 
-
-
-Possible explanations: 
-- could be driven by gender stereotypes (which we find evidence for in previous Chapter - 2X check)
-- driven by risk & confidence 
-
-Thus, we expect to see both gender differences in actual preparation behavior, along with gender differences in perceptions of relative preparation. 
-
-
-INTEGRATE: 
-
-
-
-
-Overall, women may engage in more coping strategies, such as preparation, before entering competitions because they tend to be more risk-averse [@Croson2009; @Dohmen2011b; @Eckel2008; @Bertrand2010a], less confident [@Bertrand2010; @Lundeberg1994; @Mobius2011; @Barber2001; @Croson2009] and prefer to opt out of competitions [@Niederle2011]. In fact, in Chapter 1 of this dissertation, we find evidence of a sizable gender difference in effort, where women were more likely than men to choose to prepare before completing a multiplication task. To be clear, there was no interaction between gender and choice to compete on the choice to prepare in any of the previous studies. That is, women prepared more than men regardless of which payment scheme they had chosen. However, it is not possible to draw conclusions from this because i) we did not manipulate the payment scheme, so there could have been selection effects on one’s choice to prepare across payment schemes, such that those who were more likely to choose to compete may have been less likely to prepare, and ii) there was little power to detect any possible interaction effects. For instance, in the first study, only 11% [DOUBLE CHECK] of women chose to compete, and in the second, INSERT% of women made this decision. Through the proposed experiments, we intend to address these limitations by directly manipulating participants' payment scheme and recruiting a large sample to provide power to detect small effects. 
-
-Chapter 2 of this dissertation builds on prior research by examining how competitions affect gender differences in the amount of time spent preparing for competitions. We hypothesize that women will spend more time preparing than men, especially before competitions, in part because they are, on average, less risk-seeking [@Croson2009; @Dohmen2011b; @Eckel2008; @Bertrand2010a] and confident [@Bertrand2010; @Lundeberg1994; @Mobius2011; @Barber2001; @Croson2009] than men. Indeed, both confidence and risk attitude have been implicated in driving the gender gap in willingness to compete [@Niederle2011; @Veldhuizen2017] (see Chapter 1 introduction for a more detailed review of the previous literature on gender differences in risk and confidence).  
-
-In the study included in this chapter, we tested whether competition exacerbates previously established gender differences in preparation by manipulating participants’ assigned payment scheme (i.e., competitive or non-competitive). We also explored whether gender predicts participants' perceptions of their relative amount of preparation, given our hypothesis based on Study 3 of Chapter 1 that women may be especially susceptible to feelings of underpreparation relative to others when they have unlimited time to prepare. The research design, hypotheses, measures and analyses for this chapter were pre-registered on [OSF](INSERT LINK) and all analyses were conducted in R statistical software (version `r paste0(R.Version()$major,".", R.Version()$minor)`). 
+The research design, hypotheses, measures and analyses for this chapter were pre-registered on [OSF](https://osf.io/8bwfz/) and all analyses were conducted in R statistical software (version `r paste0(R.Version()$major,".", R.Version()$minor)`). 

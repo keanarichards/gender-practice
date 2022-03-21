@@ -97,7 +97,7 @@ raw %<>% mutate(fraud=
 
 raw <- raw %>% dplyr::select(c(workerId, taskscore,  `Gender...17`, `Gender_14_TEXT`, contains("comp_check"), Q2615, perc_practice_all, perc_practice_men, perc_practice_women, 
                                conf_rank, gender_perform, task_gender_prep, gender_compete_F, gender_compete_M, risk, gen_gender_prep, Age, education, Condition,  
-                               extra_practice_rounds_count, practice_nonempty, fraud, Q_RecaptchaScore, Q_RelevantIDDuplicate, Q_RelevantIDDuplicateScore, Q_RelevantIDFraudScore, total_pract_time, extra_practice_rounds_count, Finished)) 
+                               extra_practice_rounds_count, practice_nonempty, fraud, Q_RecaptchaScore, Q_RelevantIDDuplicate, Q_RelevantIDDuplicateScore, Q_RelevantIDFraudScore, total_pract_time, Finished)) 
 
 # rename columns --------------------------------------------------------
 
@@ -184,6 +184,8 @@ raw$perceived_pract_dev_M <-raw$perc_practice_men - percent_rank(raw$practice_no
 #           practice_nonempty == 10 ~60)
 # 
 # quantile(women$practice_nonempty, probs = seq(0, 1, by = .1))
+
+raw$condition <- recode(raw$condition,"1" = "tournament", "0" = "piecerate")
 
 
 # export clean ------------------------------------------------------------------

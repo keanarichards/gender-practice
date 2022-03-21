@@ -14,9 +14,9 @@ conflict_prefer("filter", "dplyr")
 
 clean <- read_csv(here("study5", "data", "clean.csv"))
 
-clean$study_tables_binary <- factor(clean$study_tables_binary)
+clean$gender <- factor(clean$gender)
+clean$condition <- factor(clean$condition)
 clean$practice_problems_binary <- factor(clean$practice_problems_binary)
-clean$comp_choice <- factor(clean$comp_choice)
 
 # creating filtered versions of datasets ----------------------------------
 
@@ -99,5 +99,11 @@ sec_exploratory6 <- t.test(clean_fraud_removed$perc_practice_women, clean_fraud_
 
 sec_exploratory7 <- lm(risk~gender, data = clean_fraud_removed)
 sec_exploratory8 <- lm(conf_rank~gender, data = clean_fraud_removed)
+
+
+sec_exploratory9  <- glm(practice_problems_binary~risk, family = binomial, data = clean_fraud_removed)
+sec_exploratory10  <- glm(practice_problems_binary~conf_rank, family = binomial, data = clean_fraud_removed)
+
+sec_exploratory11  <- glm(practice_problems_binary~condition, family = binomial, data = clean_fraud_removed)
 
 

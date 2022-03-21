@@ -1,10 +1,10 @@
 ---
 output:
+  bookdown::word_document2: default
+  bookdown::html_document2: default
   bookdown::pdf_document2:
     template: templates/brief_template.tex
     citation_package: biblatex
-  bookdown::html_document2: default
-  bookdown::word_document2: default
 documentclass: book
 ---
 
@@ -32,21 +32,13 @@ here::i_am("flag_project_root.R")
 ```
 
 
-```{r}
-## put back in once methods & results are figured out in more detail:  child = here("chapter2", "study5.Rmd")
-```
-
-## Discussion
-
-```{r child = here("chapter2", "discussion.Rmd")}
-
+```{r child = here("chapter2", "study5.Rmd")}
 ```
 
 
 ## Figures
 
-```{r}
-## put back in once methods & results are figured out in more detail: child = here("chapter2", "figures.Rmd")
+```{r child = here("chapter2", "figures.Rmd")}
 
 ```
 

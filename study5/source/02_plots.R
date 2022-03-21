@@ -6,6 +6,7 @@ if(!require('pacman')) {
 }
 pacman::p_load(tidyverse, here, jtools)
 
+
 # load data ---------------------------------------------------------------
 
 clean <- read_csv(here("study5", "data", "clean.csv"))
@@ -32,7 +33,7 @@ p <- ggplot(data = dat, aes(x = condition, fill = gender)) +
            position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
                                                                   position=position_dodge(.9)) + 
   geom_text(x = 1.5, y = 100, label = "***") + 
-  labs(x = 'Condition', y = 'Percentage Practicing') +scale_fill_manual(values=c("springgreen3", "slateblue1"),  labels = c("Men", "Women")) + 
+  labs(x = 'Condition', y = 'Percentage practicing') +scale_fill_manual(values=c("springgreen3", "slateblue1"),  labels = c("Men", "Women")) + 
   theme_apa() +
   scale_x_discrete(labels = c("Control", "Prepare"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
@@ -50,18 +51,18 @@ dat1 <- dplyr::select(clean,gender,practice_problems_binary)%>% na.omit(practice
   dplyr::count(gender, practice_problems_binary) %>% filter(gender == "Man") %>% mutate(percent = n / sum(n),
                                                                                                                                       error = sqrt((percent * (1-percent))/n))
 
-dat <- rbind(dat1, dat)
+dat <- rbind(dat1, dat) %>% filter (practice_problems_binary == "Yes")
 
-p <- ggplot(data = dat, aes(x = gender)) +
+p <- ggplot(data = dat, aes(x = gender, fill = gender)) +
   geom_bar(aes(y = percent*100),
            position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =(percent*100)-(error*100), ymax =(percent*100)+(error*100)), width=.05,
                                                                   position=position_dodge(.9)) + 
   geom_text(x = 1.5, y = 100, label = "***") + 
-  labs(x = 'Gender', y = 'Percentage Practicing') + 
-  theme_apa() +
-  scale_x_discrete(labels = c("Control", "Prepare"))+ theme(panel.border  = element_blank()) +
+  labs(x = 'Gender', y = 'Percentage practicing') + 
+  theme_apa()+theme(legend.position = "none") + guides (fill = "none") +
+  scale_x_discrete(labels = c("Men", "Women"))+ theme(panel.border  = element_blank()) +
   #draws x and y axis line
-  theme(axis.line = element_line(color = 'black'))
+  theme(axis.line = element_line(color = 'black')) +scale_fill_manual(values=c("springgreen3", "slateblue1"))
 
 ggsave(here("study5", "figs", "fig01_pract-choice-by-gender.png"), p, width = 7, height = 7)
 
@@ -78,16 +79,17 @@ ub <- function(x) {mean(x) + sd(x)/sqrt((count(clean_fraud_removed)))}
 sumld <- clean %>%
   dplyr::select(perceived_pract_dev, gender) %>% group_by(gender) %>% summarise_all(list(mean = mean, lower = lb, upper = ub))
 
-p <- ggplot(data = sumld, aes(x = gender)) +
+p <- ggplot(data = sumld, aes(x = gender, fill= gender)) +
   geom_bar(aes(y = mean),
            position = "dodge", stat = "identity") + geom_errorbar(aes(ymin =lower$n, ymax =upper$n), width=.05,
                                                                   position=position_dodge(.9)) +
-  labs(x = "Competition choice", y = 'Average (log) practice count') + theme_apa() +
-  scale_fill_manual(values=c("springgreen3", "slateblue1"), labels = c("Men", "Women"))+
-  scale_x_discrete(labels = c("Piece-rate", "Tournament")) + theme(panel.border  = element_blank()) +
+  labs(x = "Gender", y = 'Average perceived practice deviation') + theme_apa() +
+  scale_fill_manual(values=c("springgreen3", "slateblue1")) + theme(panel.border  = element_blank()) +
   #draws x and y axis line
-  theme(axis.line = element_line(color = 'black'))
+  theme(axis.line = element_line(color = 'black')) +
+  scale_x_discrete(labels = c("Men", "Women")) + 
+  theme_apa()+theme(legend.position = "none") + guides (fill = "none")
 
-ggsave(here("study5", "figs", "fig04_total-rev-count-by-gender-comp-choice.png"), p, width = 7, height = 7)
+ggsave(here("study5", "figs", "fig02_perceived-prac-dev-by-gender.png"), p, width = 7, height = 7)
 
 

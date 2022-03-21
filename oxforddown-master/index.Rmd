@@ -42,7 +42,7 @@ show-abstract-in-toc: true
 #######################
 ## bibliography path ##
 #######################
-bibliography: [bibliography/references.bib, bibliography/additional-references.bib]
+bibliography: [bibliography/library.bib]
 
 ########################
 ## PDF layout options ###

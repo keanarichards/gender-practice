@@ -6,3 +6,9 @@ output:
   word_document: default
 ---
 
+
+
+We also find that gender predicts task score, over and above previously explanatory predictors (i.e., risk and confidence) contrary to the previous studies. We also tested for an interaction between gender and condition on task score on top of the risk and confidence predictors, given previous literature suggesting that women may perform more poorly when forced to compete [cites] - but the effect of gender still held. The gender effect in this study could have been driven by the deviation from previous studies in how long participants were given to complete the task, whereas in previous studies participants completed the paid task for two minutes, in this study we shortened the length of the task to 30 seconds to recruit a larger sample and as such, maximize power. With the shortened version of the task, there have been more pressure to perform well, mimicking a competitive environment.
+
+
+
