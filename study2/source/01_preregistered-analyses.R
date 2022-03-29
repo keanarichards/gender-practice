@@ -51,7 +51,7 @@ hypothesis1  <- glm(comp_choice~condition, family = binomial, data = women)
 
 # exploratory analysis 1 --------------------------------------------------
 
-exploratory1 = glm(comp_choice ~ risk + conf_rank + condition + task_score +gender*condition,family=binomial,data = clean)
+exploratory1 = glm(comp_choice ~ risk + conf_rank + task_score +gender*condition,family=binomial,data = clean)
 
 # exploratory analysis 2 --------------------------------------------------
 

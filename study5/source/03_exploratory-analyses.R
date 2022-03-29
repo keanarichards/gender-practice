@@ -106,4 +106,87 @@ sec_exploratory10  <- glm(practice_problems_binary~conf_rank, family = binomial,
 
 sec_exploratory11  <- glm(practice_problems_binary~condition, family = binomial, data = clean_fraud_removed)
 
+sec_exploratory12 <- lm(task_score~gender, data = clean_fraud_removed)
+sec_exploratory13  <- glm(practice_problems_binary~condition*gender + task_score + risk + conf_rank, family = binomial, data = clean_fraud_removed)
+
+
+# performing more targeted analysis of gender diff questions --------------
+
+## left off at t5 above, so starting at t6
+
+## better_gender_guess = expecting no diff is selected more than other response options, so need to check if no diff is sig higher than ppts saying men AND women as options 
+
+## compared to men
+
+t6 <- table(clean_fraud_removed  %>% filter(better_gender_guess != "Women correctly solved more multiplication problems than men" ) %>% dplyr::select(better_gender_guess))
+sec_exploratory14 <- chisq.test(t6, p = c(1/2, 1/2))
+
+
+## compared to women
+
+t7 <- table(clean_fraud_removed  %>% filter(better_gender_guess != "Men correctly solved more multiplication problems than women" ) %>% dplyr::select(better_gender_guess))
+sec_exploratory15 <- chisq.test(t7, p = c(1/2, 1/2))
+
+
+## perc_task_gender_pract = expecting select women is selected more than other response options, so need to check if women is sig higher than ppts saying no diff AND men as options 
+
+## compared to no diff
+t8 <- table(clean_fraud_removed  %>% filter( perc_task_gender_pract != "Men were more likely to practice/study than women" ) %>% dplyr::select(perc_task_gender_pract))
+sec_exploratory16 <- chisq.test(t8, p = c(1/2, 1/2))
+
+
+## compared to men
+t9 <- table(clean_fraud_removed  %>% filter( perc_task_gender_pract != "There was no difference in how likely men and women were to practice/study" ) %>% dplyr::select(perc_task_gender_pract))
+sec_exploratory17 <- chisq.test(t9, p = c(1/2, 1/2))
+
+
+
+## perc_gen_gender_pract = expecting select women is selected more than other response options, so need to check if women is sig higher than ppts saying no diff AND men as options 
+
+## compared to no diff
+t10 <- table(clean_fraud_removed  %>% filter(perc_gen_gender_pract != "Men prepare more than women" ) %>% dplyr::select(perc_gen_gender_pract))
+sec_exploratory18 <- chisq.test(t10, p = c(1/2, 1/2))
+
+
+## compared to men
+t11 <- table(clean_fraud_removed  %>% filter(perc_gen_gender_pract != "There is no difference in how much men and women prepare" ) %>% dplyr::select(perc_gen_gender_pract))
+sec_exploratory19 <- chisq.test(t11, p = c(1/2, 1/2))
+
+
+## perc_gender_comp_M = expecting select tournament is selected more than other response options, so need to check if tourn is sig higher than ppts saying no diff AND PR as options 
+
+## NOTE: this was separated into two questions so need to repeat for each
+
+## compared to no diff
+t12 <- table(clean_fraud_removed  %>% filter(perc_gender_comp_M != "Men would choose piece rate more often than tournament" ) %>% dplyr::select(perc_gender_comp_M))
+sec_exploratory20 <- chisq.test(t12, p = c(1/2, 1/2))
+
+
+## compared to PR
+
+t13 <- table(clean_fraud_removed  %>% filter(perc_gender_comp_M != "Men would choose each payment scheme equally" ) %>% dplyr::select(perc_gender_comp_M))
+sec_exploratory21 <- chisq.test(t13, p = c(1/2, 1/2))
+
+
+
+## perc_gender_comp_F = expecting select PR is selected more than other response options, so need to check if PR is sig higher than ppts saying no diff AND tournament as options 
+
+
+## compared to no diff
+t14 <- table(clean_fraud_removed  %>% filter(perc_gender_comp_F != "Women would choose tournament more often than piece rate" ) %>% dplyr::select(perc_gender_comp_F))
+sec_exploratory22 <- chisq.test(t14, p = c(1/2, 1/2))
+
+
+## compared to tournament
+
+t15 <- table(clean_fraud_removed  %>% filter(perc_gender_comp_F != "Women would choose each payment scheme equally" ) %>% dplyr::select(perc_gender_comp_F))
+sec_exploratory23 <- chisq.test(t15, p = c(1/2, 1/2))
+
+
+## testing sig diff in condition assn 
+
+t16 <- table(clean_fraud_removed$gender, clean_fraud_removed$condition)
+sec_exploratory24 <- chisq.test(t16)
+
+sec_exploratory25 <- glm(practice_problems_binary ~ gender, data = clean_fraud_removed, family = binomial())
 

@@ -5,10 +5,39 @@ date: "16/3/2022"
 output:
   word_document: default
 ---
+## Summary of main experimental results 
 
+
+Women are significantly more willing to prepare, even before they know what the preparation involves. 
+
+
+
+Thus, we have evidence that women prepare more both 1) before they know what the preparation entails and 2) after they have had the chance to experience the preparation. One can imagine that these would be driven by distinct psychological mechanisms, where 1) captures whether a person generally takes advantage of any opportunity to prepare, regardless of what it involves, while 2) measures a person's willingness to persist in their preparation, even after exerting effort previously during preparation. The fact that we find gender differences across two different forms of willingness to prepare suggests that the findings are robust. 
+
+## Summary of perception variables 
+
+One possible explanation for participants' predictions is that they expected men to outperform women on the task, which would lead women to compensate by preparing more. Yet, they don't expect that. 
+
+Participants were equally likely to predict that women (vs. men) would perform better on the task, suggesting that participants did not have strong stereotypes about gender differences in performance on the multiplication task.
+
+Both men and women were significantly more likely than chance to correctly state that men would be more likely to choose to compete during the multiplication task, suggesting strong stereotypes about gender differences in competitiveness. 
+
+
+Both men and women (but especially women) were significantly more likely than chance to say that women prepare more in general than men. Again, these findings suggest that participants observe these gender differences directly or are aware of stereotypes about gender differences in the choice to prepare. 
+
+Both men and women (but especially women) were significantly more likely than chance to say that women prepare more in general than men. Again, these findings suggest that participants observe these gender differences directly or are aware of stereotypes about gender differences in the choice to prepare. 
+
+, suggesting that they did not believe women prepare more because they were more likely to compete
+
+## Additional findings 
+
+We find that, relative to previous studies, a relatively small proportion of men and women chose to compete. For instance, @Niederle2007 finds that 35% of women and 73% of men chose to compete. It is possible that the online nature of the task may have contributed to this result, which we explore further in the broader discussion section summarizing results across studies.   
 
 
 We also find that gender predicts task score, over and above previously explanatory predictors (i.e., risk and confidence) contrary to the previous studies. We also tested for an interaction between gender and condition on task score on top of the risk and confidence predictors, given previous literature suggesting that women may perform more poorly when forced to compete [cites] - but the effect of gender still held. The gender effect in this study could have been driven by the deviation from previous studies in how long participants were given to complete the task, whereas in previous studies participants completed the paid task for two minutes, in this study we shortened the length of the task to 30 seconds to recruit a larger sample and as such, maximize power. With the shortened version of the task, there have been more pressure to perform well, mimicking a competitive environment.
 
+
+
+There may be concern that participants used a calculator to answer the multiplication questions, which could affect the interpretation of the results if there is a gender difference in calculator use and/or calculator use is related to the choice to practice. Based on their responses, it is unlikely that participants will use calculators in the first place. Our previous work suggests participants are unlikely to use calculators to complete the task and more importantly, there are no gender differences in the choice to use a calculator. In our first study we ran using a multiplication task, participants who completed the task were asked i) whether they thought using a calculator would help them answer the multiplication problems more quickly and ii) whether they used a calculator to complete the multiplication task (they were told their response would not affect their payment). Since we are recruiting participants through the same platform using the same task in the current study, we expect these findings will generalize to the current study, and thus, do not have evidence that gender differences in calculator use will be a confound when interpreting our results.
 
 

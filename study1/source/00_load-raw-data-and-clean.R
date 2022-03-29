@@ -236,6 +236,8 @@ raw$gender <- recode(raw$gender, "Male" = "Man", "Female" = "Woman")
 
 raw <- raw %>% retype()
 
+raw %<>% mutate(ifelse(total_review_count>1, total_review_count - 1, total_review_count)) 
+
 # export clean ------------------------------------------------------------------
 ## adding in id variable
 

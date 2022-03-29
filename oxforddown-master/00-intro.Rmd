@@ -15,11 +15,13 @@ documentclass: book
 \markboth{Introduction}{}
 ```
 
-1 para = description of big pic prob: possibly pulling from theory paper here 
+INSERT COMMENT: Per meeting on 3/16, this is the structure that Emily suggested: 1 para = description of big pic prob;
+Brief summary (1-3 para) = prior lit most relevant to diss & gap i’m filling through this research; 1 para on what this dissertation is composed of & what it seeks to do = in chapter 1 will address X, in chap 2 will address Y -  
+Chapter 1 = other interventions have been done, BUT they haven’t done this; Chapter 2 = there are some potential negative effects of these interventions. Transition to chapter 1  
 
+## Description of big picture prob: 
 
-More specific detail about evidence that women's labor market outcomes are improving: Women's labor force participation has increased exponentially over the past several decades [@Goldin2006a; @Statistics2020], rising from 32% to 57% between 1960 and 2018 (where women here are defined as 16 years or older) [@Statistics2020; @Blau2017; @Eagly2019], while men's participation has decreased over the same period (from 82% to 69%). As a result, the gender gap in labor force participation fell to a 12% difference. Additionally, women have been increasingly entering male-dominated occupations [@Blau2013; @Reskin2009; @England2010].
-
+Women's labor force participation has increased exponentially over the past several decades [@Goldin2006a; @Statistics2020], rising from 32% to 57% between 1960 and 2018 (where women here are defined as 16 years or older) [@Statistics2020; @Blau2017; @Eagly2019], while men's participation has decreased over the same period (from 82% to 69%). As a result, the gender gap in labor force participation fell to a 12% difference. Additionally, women have been increasingly entering male-dominated occupations [@Blau2013; @Reskin2009; @England2010].
 
 Despite incredible progress towards gender equality (e.g., women's suffrage, a reversal of the gender education gap, women's increased participation in the labor market) [@Goldin2014; @Goldin2006a; @Goldin2006; @Blau2010; @Blau2013; @Blau2014; @Bianchi2012; @Sayer2005], gender gaps in the labor market persist [@Blau2017; @Goldin2014; @Hegewisch2014; @Bertrand2001; @Blau2014; @Levanon2016; @Blau2006b; @Blau2006a]. One of the most highly cited and tangible metrics for gender disparities in the labor market is the gender wage gap [@Blau2000; @Blau2017; @Nyhus2012; @McGee2015; @Goldin2014; @Hegewisch2014; @Bertrand2001; @Blau2006b]. Recent unadjusted estimates suggest women earn only 79.3% of what men earn [@Blau2017]. 
 
@@ -27,7 +29,7 @@ In the past, classic human capital variables (e.g., gender gaps in education and
 
 Since women's labor market progress has stalled over the past two decades [@Blau2006b; @Goldin2014], identifying and understanding the factors that perpetuate gender differences in labor market outcomes is crucial for achieving gender equality in the long-term. 
 
-Brief summary (1-3 para): prior lit most relevant to diss & gap i’m filling through this research 
+## Previous research and goals of the current dissertation  
 
 
 1 para on what this dissertation is composed of & what it seeks to do = in chapter 1 will address X, in chap 2 will address Y 

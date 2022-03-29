@@ -10,9 +10,12 @@ pacman::p_load(tidyverse, here, jtools)
 
 clean <- read_csv(here("study4", "data", "clean.csv"))
 
+clean_fraud_removed <- clean %>% filter(fraud == 0) 
+
+
 # primary hypothesis 1 ----------------------------------------------------
 
-dat <- dplyr::select(clean,gender,comp_choice, condition) %>% filter(gender == "Woman") %>%
+dat <- dplyr::select(clean_fraud_removed,gender,comp_choice, condition) %>% filter(gender == "Woman") %>%
   dplyr::count(comp_choice, condition) %>%  filter(comp_choice == "tournament") %>% mutate(percent = n / sum(n),
   error = sqrt((percent * (1-percent))/n))
 p <- ggplot(data = dat, aes(x = condition, fill = condition)) +
@@ -31,11 +34,11 @@ ggsave(here("study4", "figs", "fig00_comp-choice-women-by-cond.png"), width = 7,
 ## will use binary choice to practice for now: 
 
 
-dat <- dplyr::select(clean,gender,condition, practice_problems_binary)  %>% na.omit(practice_problems_binary) %>% 
+dat <- dplyr::select(clean_fraud_removed,gender,condition, practice_problems_binary)  %>% na.omit(practice_problems_binary) %>% 
   dplyr::count(gender, condition, practice_problems_binary) %>% filter(gender == "Woman", practice_problems_binary == "Yes") %>% mutate(percent = n / sum(n),
                                                                                                                                           error = sqrt((percent * (1-percent))/n))
 
-dat1 <- dplyr::select(clean,gender,condition, practice_problems_binary)%>% na.omit(practice_problems_binary) %>% 
+dat1 <- dplyr::select(clean_fraud_removed,gender,condition, practice_problems_binary)%>% na.omit(practice_problems_binary) %>% 
   dplyr::count(gender, condition, practice_problems_binary) %>% filter(gender == "Man", practice_problems_binary == "Yes") %>% mutate(percent = n / sum(n),
                                                                                                                                         error = sqrt((percent * (1-percent))/n))
 
@@ -86,11 +89,11 @@ ggsave(here("study4", "figs", "fig01_pract-choice-by-gender-and-cond-bar.png"), 
 
 # primary hypothesis 3 ----------------------------------------------------
 
-dat <- dplyr::select(clean,gender,condition, comp_choice)  %>% na.omit(comp_choice) %>% 
+dat <- dplyr::select(clean_fraud_removed,gender,condition, comp_choice)  %>% na.omit(comp_choice) %>% 
   dplyr::count(gender, condition, comp_choice) %>% filter(gender == "Woman", comp_choice == "tournament") %>% mutate(percent = n / sum(n),
                                                                                                                                         error = sqrt((percent * (1-percent))/n))
 
-dat1 <- dplyr::select(clean,gender,condition, comp_choice)%>% na.omit(comp_choice) %>% 
+dat1 <- dplyr::select(clean_fraud_removed,gender,condition, comp_choice)%>% na.omit(comp_choice) %>% 
   dplyr::count(gender, condition, comp_choice) %>% filter(gender == "Man", comp_choice == "tournament") %>% mutate(percent = n / sum(n),
                                                                                                                                       error = sqrt((percent * (1-percent))/n))
 
@@ -118,11 +121,11 @@ ggsave(here("study4", "figs", "fig02_comp-choice-by-gender-and-cond-bar.png"), p
 # exploring effect of condition and competition choice on practice choice ----------------------------------------------------
 
 
-dat <- dplyr::select(clean,gender,comp_choice, practice_problems_binary)  %>% na.omit(practice_problems_binary) %>% 
+dat <- dplyr::select(clean_fraud_removed,gender,comp_choice, practice_problems_binary)  %>% na.omit(practice_problems_binary) %>% 
   dplyr::count(gender, comp_choice, practice_problems_binary) %>% filter(gender == "Woman", practice_problems_binary == "Yes") %>% mutate(percent = n / sum(n),
                                                                                                                   error = sqrt((percent * (1-percent))/n))
 
-dat1 <- dplyr::select(clean,gender,comp_choice, practice_problems_binary)%>% na.omit(practice_problems_binary) %>% 
+dat1 <- dplyr::select(clean_fraud_removed,gender,comp_choice, practice_problems_binary)%>% na.omit(practice_problems_binary) %>% 
   dplyr::count(gender, comp_choice, practice_problems_binary) %>% filter(gender == "Man", practice_problems_binary == "Yes") %>% mutate(percent = n / sum(n),
                                                                                                                 error = sqrt((percent * (1-percent))/n))
 
@@ -145,7 +148,7 @@ ggsave(here("study4", "figs", "fig05_pract-choice-by-gender-and-comp-choice-bar.
 
 ## exploratory - confirm if including later: 
 
-dat <- dplyr::select(clean,gender, condition, practice_problems_binary, perc_task_gender_pract)  %>% filter(condition == "pract", perc_task_gender_pract != "No difference") %>% 
+dat <- dplyr::select(clean_fraud_removed,gender, condition, practice_problems_binary, perc_task_gender_pract)  %>% filter(condition == "pract", perc_task_gender_pract != "No difference") %>% 
   dplyr::count(gender, perc_task_gender_pract, practice_problems_binary) %>%  filter(practice_problems_binary == "Yes") %>% mutate(percent = n / sum(n),
                                                                                                            error = sqrt((percent * (1-percent))/n))
 p <- ggplot(data = dat, aes(x = perc_task_gender_pract, fill = gender)) +
@@ -188,11 +191,11 @@ p <- ggplot(data = dat, aes(x = perc_task_gender_pract, fill = gender)) +
 
 # exploratory analysis 3a ---------------------------------------------------
 
-# dat <- dplyr::select(clean, better_gender_guess, gender) %>%
+# dat <- dplyr::select(clean_fraud_removed, better_gender_guess, gender) %>%
 #   dplyr::count(better_gender_guess, gender) %>% filter (gender == "Woman") %>%   mutate(percent = n / sum(n),
 #                                                 error = sqrt((percent * (1-percent))/n))
 # 
-# dat1 <- dplyr::select(clean, better_gender_guess, gender) %>%
+# dat1 <- dplyr::select(clean_fraud_removed, better_gender_guess, gender) %>%
 #   dplyr::count(better_gender_guess, gender) %>% filter (gender == "Man") %>%   mutate(percent = n / sum(n),
 #                                                                                         error = sqrt((percent * (1-percent))/n))
 # dat <- rbind(dat1, dat)
@@ -212,11 +215,11 @@ p <- ggplot(data = dat, aes(x = perc_task_gender_pract, fill = gender)) +
 # 
 # # exploratory analysis 3b ---------------------------------------------------
 # 
-# dat <- dplyr::select(clean, perc_gender_comp, gender) %>%
+# dat <- dplyr::select(clean_fraud_removed, perc_gender_comp, gender) %>%
 #   dplyr::count(perc_gender_comp, gender) %>% filter(gender == "Woman") %>%  mutate(percent = n / sum(n),
 #   error = sqrt((percent * (1-percent))/n))
 # 
-# dat1 <- dplyr::select(clean, perc_gender_comp, gender) %>%
+# dat1 <- dplyr::select(clean_fraud_removed, perc_gender_comp, gender) %>%
 #   dplyr::count(perc_gender_comp, gender) %>% filter(gender == "Man") %>%  mutate(percent = n / sum(n),
 #   error = sqrt((percent * (1-percent))/n))
 # 
@@ -238,11 +241,11 @@ p <- ggplot(data = dat, aes(x = perc_task_gender_pract, fill = gender)) +
 # 
 # # exploratory analysis 3c ---------------------------------------------------
 # 
-# dat <- dplyr::select(clean, perc_gen_gender_pract, gender) %>% filter(!is.na(perc_gen_gender_pract)) %>% dplyr::count(perc_gen_gender_pract, gender) %>% 
+# dat <- dplyr::select(clean_fraud_removed, perc_gen_gender_pract, gender) %>% filter(!is.na(perc_gen_gender_pract)) %>% dplyr::count(perc_gen_gender_pract, gender) %>% 
 #   filter(gender == "Woman") %>%   mutate(percent = n / sum(n),
 #   error = sqrt((percent * (1-percent))/n))
 # 
-# dat1 <- dplyr::select(clean, perc_gen_gender_pract, gender) %>% filter(!is.na(perc_gen_gender_pract)) %>% dplyr::count(perc_gen_gender_pract, gender) %>% 
+# dat1 <- dplyr::select(clean_fraud_removed, perc_gen_gender_pract, gender) %>% filter(!is.na(perc_gen_gender_pract)) %>% dplyr::count(perc_gen_gender_pract, gender) %>% 
 #   filter(gender == "Man") %>%   mutate(percent = n / sum(n),
 #   error = sqrt((percent * (1-percent))/n))
 # 
@@ -264,15 +267,15 @@ p <- ggplot(data = dat, aes(x = perc_task_gender_pract, fill = gender)) +
 # 
 # # true exploratory 1 ------------------------------------------------------
 # 
-# lb <- function(x){mean(x) - sd(x)/sqrt((count(clean)))}
-# ub <- function(x) {mean(x) + sd(x)/sqrt((count(clean)))} 
+# lb <- function(x){mean(x) - sd(x)/sqrt((count(clean_fraud_removed)))}
+# ub <- function(x) {mean(x) + sd(x)/sqrt((count(clean_fraud_removed)))} 
 # 
-# clean$logextra_prep_count <- log10(clean$extra_prep_count +1)
+# clean_fraud_removed$logextra_prep_count <- log10(clean_fraud_removed$extra_prep_count +1)
 # 
 # ## calculating mean & SEM within gender and comp choice
 # 
 # 
-# sumld <- clean %>% 
+# sumld <- clean_fraud_removed %>% 
 #   dplyr::select(logextra_prep_count, gender, comp_choice) %>% na.omit(comp_choice) %>% 
 #   group_by(gender, comp_choice) %>% summarise_all(list(mean = mean, lower = lb, upper = ub))
 # 
@@ -291,11 +294,11 @@ p <- ggplot(data = dat, aes(x = perc_task_gender_pract, fill = gender)) +
 # 
 # # true exploratory 2 ------------------------------------------------------
 # 
-# dat <- dplyr::select(clean,gender,comp_choice, pract_choice) %>%
+# dat <- dplyr::select(clean_fraud_removed,gender,comp_choice, pract_choice) %>%
 #   dplyr::count(gender, comp_choice, pract_choice) %>% filter(gender == "Woman", pract_choice == "Yes") %>% mutate(percent = n / sum(n),
 #                                                                                                                   error = sqrt((percent * (1-percent))/n))
 # 
-# dat1 <- dplyr::select(clean,gender,comp_choice, pract_choice) %>%
+# dat1 <- dplyr::select(clean_fraud_removed,gender,comp_choice, pract_choice) %>%
 #   dplyr::count(gender, comp_choice, pract_choice) %>% filter(gender == "Man", pract_choice == "Yes") %>% mutate(percent = n / sum(n),
 #                                                                                                                 error = sqrt((percent * (1-percent))/n))
 # 

@@ -9,17 +9,22 @@ pacman::p_load(tidyverse, here)
 
 clean <- read_csv(here("study4", "data", "clean.csv"))
 
+
 ## recoding to factors for vars used in logits
 
 clean$gender <- factor(clean$gender)
 clean$comp_choice <- factor(clean$comp_choice)
 clean$condition <- factor(clean$condition)
 
+## fraud only version of dataset
+
+clean_fraud_removed <- clean %>% filter(fraud == 0) 
+
 
 ## creating practice cond & women only versions of dataset
 
-practice <- clean %>% filter(condition == "pract")
-women <- clean %>% filter(gender == "Woman")
+practice <- clean_fraud_removed %>% filter(condition == "pract")
+women <- clean_fraud_removed %>% filter(gender == "Woman")
 
 # primary hypothesis 1 ----------------------------------------------------
 
@@ -58,9 +63,9 @@ hypothesis2c <- glm(extra_practice_rounds_count ~ gender + task_score + risk + c
 
 # primary hypothesis 3 ----------------------------------------------------
 
-hypothesis3a <- glm(comp_choice ~ gender*condition,family=binomial,data = clean)
+hypothesis3a <- glm(comp_choice ~ gender*condition,family=binomial,data = clean_fraud_removed)
 
-hypothesis3b <- glm(comp_choice ~ gender*condition + task_score,family=binomial,data = clean)
+hypothesis3b <- glm(comp_choice ~ gender*condition + task_score,family=binomial,data = clean_fraud_removed)
 
-hypothesis3c <- glm(comp_choice ~ gender*condition + task_score + risk + conf_rank,family=binomial,data = clean)
+hypothesis3c <- glm(comp_choice ~ gender*condition + task_score + risk + conf_rank,family=binomial,data = clean_fraud_removed)
 

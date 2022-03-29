@@ -6,3 +6,15 @@ output: word_document
 ---
 
 To summarize, in this study from Chapter 2 we find that wo
+
+Like the previous two studies in this chapter, we explored participants' perceptions of gender differences to see whether there tends to be consistency in beliefs about gender differences in performance on the multiplication task, along with gender differences in the choice to prepare and compete, and if so, whether these beliefs aligned with the actual results found. Importantly, participants were incentivized to guess the study results correctly to reduce the likelihood that participants would respond in a socially desirable way. 
+INSERT perceptions results 
+Thus, these results mirror results found in previous studies, suggesting that there are consistent beliefs about gender differences in competitiveness and preparation, despite the consistency in beliefs about a *lack* of gender differences in performance. 
+
+There are a few possible explanations that we did not replicate the effect of gender on the choice to practice nor on the number of practice rounds chosen. 
+
+The discrepancy could be explained by the lower number of participants in the preparation condition relative to previous studies given the random assignment to condition. For this reason, we may have had less power in estimating the effects of gender on the choice to prepare. It is also possible that differences in the design of this study relative to the previous two studies drove the differences, which will be further explored in the discussion section.   
+
+It is possible that women are especially susceptible to feelings of underpreparation relative to others when they have unlimited time to prepare, which may lead to a range of possible adverse outcomes, such as unnecessary overpreparation. Since we cannot directly test this hypothesis within the context of the current study, we include questions about perceptions of one's own preparation in the study in Chapter 2 and explore how gender relates to perceptions of relative preparation when participants are granted unlimited time to prepare within that chapter. 
+
+

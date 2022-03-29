@@ -45,8 +45,17 @@ sec_exploratory6 <- lm(practice_nonempty ~ gender + comp_choice, data = clean)
 sec_exploratory7 <- glm(comp_choice~gender, family = binomial, data = clean)
 sec_exploratory8 <- lm(risk~gender, data = clean)
 sec_exploratory9 <- lm(conf_rank~gender, data = clean)
-sec_exploratory10 <- lm(task_score~gender, data = clean)
-sec_exploratory11 <- lm(task_score~gender + conf_rank + risk, data = clean)
+sec_exploratory10 <- lm(task_score~gender*condition + conf_rank + risk, data = clean)
+
+sec_exploratory11 <- glm(pract_choice ~ gender*comp_choice , data = clean, family = binomial())
+
+sec_exploratory12 <- glm(extra_prep_count  ~ gender*comp_choice, family="poisson", data=clean)
+sec_exploratory13 <- glm(pract_choice ~ gender*comp_choice + conf_rank + risk + task_score, data = clean, family = binomial())
+
+sec_exploratory14 <- glm(comp_choice~gender*condition, family = binomial, data = clean)
 
 
+t1a <- table(clean$gender, clean$condition)
+sec_exploratory15 <- chisq.test(t1a)
 
+sec_exploratory16 <- glm(pract_choice ~ gender, data = clean, family = binomial())

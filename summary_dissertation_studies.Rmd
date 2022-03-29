@@ -1,0 +1,317 @@
+---
+title: "summary of main results across dissertation studies"
+author: "Keana Richards"
+output:
+  html_document:
+    chunk_output_type: console
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+editor_options: 
+  chunk_output_type: console
+---
+
+
+- [Table showing analyses run across studies](https://www.notion.so/8fd828e48c6141d8be7173e7dc16c201?v=74078e30124e47289cc447b01a760617) 
+
+# Study 1.1 
+
+```{r, include = F}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = F)
+
+
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+options(repos="https://cran.rstudio.com" )
+
+# load packages -----------------------------------------------------------
+
+if(!require('pacman')) {
+  install.packages('pacman')
+  }
+pacman::p_load(tidyverse, here, hablar, psych, qualtRics, summarytools, varhandle, sjPlot, papaja, gtsummary, report)
+
+
+source(here("study1", "source", "01_preregistered-analyses.R"))
+source(here("study1", "source", "03_exploratory-analyses.R"))
+
+
+## Install the stable development versions from GitHub
+# if(!"papaja" %in% rownames(installed.packages())) devtools::install_github("crsh/papaja")
+# if(!"emo" %in% rownames(installed.packages())) devtools::install_github("hadley/emo")
+# library(emo)
+# library(papaja)
+
+
+# na_drop <- clean %>% drop_na(condition) 
+extrafont::loadfonts(device="win")
+
+
+options(scipen=999)
+par(mar = c(2,2,2,2))
+
+
+```
+
+
+## Main analyses to be included 
+
+
+```{r}
+
+## need to run chi square tests individually 
+
+exploratory7d
+ exploratory7c
+ exploratory7b
+ exploratory7a
+ 
+
+models_study1b <- list(sec_exploratory7,
+                     sec_exploratory8,
+                     sec_exploratory9,
+                     sec_exploratory12, 
+                     sec_exploratory2,
+                     sec_exploratory13,
+                     sec_exploratory14,
+                     sec_exploratory6,
+                     sec_exploratory11,
+                     primary_hyp1,
+                     sec_exploratory15
+ )
+
+map(models_study1b, report)
+
+
+
+```
+
+
+
+## Dataset summary (overall)
+
+```{r}
+# clean %>%  tbl_summary()
+
+```
+
+## Dataset summary (by gender)
+
+```{r}
+## see Penn -> cnl -> narratives -> demographics_table_study1.R & 
+## https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html for inspo
+
+# clean %>%  tbl_summary(by = gender)
+
+
+
+```
+
+
+# Study 1.2
+
+
+```{r}
+source(here("study2", "source", "01_preregistered-analyses.R"))
+source(here("study2", "source", "03_exploratory-analyses.R"))
+
+```
+
+
+## Main analyses to be included 
+
+
+```{r}
+
+## need to run chi square tests individually 
+
+
+exploratory3d
+ exploratory3c
+ exploratory3b
+ exploratory3a
+
+models_study2b <- list( sec_exploratory8,
+ sec_exploratory9,
+ exploratory4,
+ sec_exploratory10,
+ sec_exploratory11,
+ sec_exploratory12,
+ sec_exploratory13,
+ sec_exploratory7,
+ exploratory1,
+ sec_exploratory14,
+ exploratory5
+ )
+
+map(models_study2b, report)
+
+
+
+```
+
+
+
+## Dataset summary (overall)
+
+```{r}
+# clean %>%  tbl_summary()
+
+```
+
+## Dataset summary (by gender)
+
+```{r}
+## see Penn -> cnl -> narratives -> demographics_table_study1.R & 
+## https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html for inspo
+
+# clean %>%  tbl_summary(by = gender)
+
+
+
+```
+
+
+
+# Study 1.3
+
+```{r}
+source(here("study4", "source", "01_preregistered-analyses.R"))
+source(here("study4", "source", "03_exploratory-analyses.R"))
+
+```
+
+## Main analyses to be included 
+
+```{r}
+
+## need to run chi square tests individually 
+
+exploratory7
+ exploratory6
+ exploratory5
+ exploratory4
+exploratory30
+exploratory31
+exploratory32
+exploratory33
+exploratory34
+exploratory35
+ exploratory36
+ exploratory37
+ 
+
+models_study3b <- list( exploratory17,
+ exploratory18,
+ exploratory19,
+ exploratory20,
+ exploratory3,
+ exploratory28,
+ exploratory29,
+ exploratory16,
+ hypothesis3c,
+ hypothesis3a,
+ exploratory22
+ )
+
+map(models_study3b, report)
+
+
+
+```
+
+
+## Dataset summary (overall)
+
+```{r}
+# clean_fraud_removed %>%  tbl_summary()
+
+```
+
+## Dataset summary (by gender)
+
+```{r}
+## see Penn -> cnl -> narratives -> demographics_table_study1.R & 
+## https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html for inspo
+
+# clean_fraud_removed %>%  tbl_summary(by = gender)
+
+
+
+```
+
+
+
+# Study 2.1 
+
+```{r}
+source(here("study5", "source", "01_preregistered-analyses.R"))
+source(here("study5", "source", "03_exploratory-analyses.R"))
+
+```
+
+## Main analyses to be included 
+
+```{r}
+
+## need to run chi square tests individually 
+
+sec_exploratory3b
+sec_exploratory3e
+ sec_exploratory3c 
+ sec_exploratory3d
+ sec_exploratory3a
+sec_exploratory14
+sec_exploratory15
+sec_exploratory16
+sec_exploratory17
+sec_exploratory18
+sec_exploratory19
+sec_exploratory20
+sec_exploratory21
+sec_exploratory22
+sec_exploratory23
+
+
+models_study4b <- list( sec_exploratory7,
+ sec_exploratory8,
+ sec_exploratory12,
+ sec_exploratory4,
+ hypothesis1,
+ exploratory4b,
+ sec_exploratory13
+ )
+
+map(models_study4b, report)
+
+
+
+```
+
+## Dataset summary (overall)
+
+```{r}
+# clean_fraud_removed %>%  tbl_summary()
+
+```
+
+## Dataset summary (by gender)
+
+```{r}
+## see Penn -> cnl -> narratives -> demographics_table_study1.R & 
+## https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html for inspo
+
+# clean_fraud_removed %>%  tbl_summary(by = gender)
+
+
+
+```
+
+
+
+

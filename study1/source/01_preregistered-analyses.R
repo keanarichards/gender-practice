@@ -23,6 +23,10 @@ clean$comp_choice <- factor(clean$comp_choice)
 clean$condition <- factor(clean$condition)
 clean$pract_choice <- factor(clean$pract_choice)
 
+
+women <- clean %>% filter(gender == "Woman")
+men <- clean %>% filter(gender == "Man")
+
 ## note: for all analyses, the time spent preparing data is not available, so we will replace with choice to prepare when possible
  
 # primary hypothesis 1 ----------------------------------------------------
@@ -136,5 +140,7 @@ t14 <- table(clean$perc_gen_gender_pract)
 exploratory7c= chisq.test(t14)
 
 t15 <- table(clean$perc_task_gender_pract)
-exploratory7c= chisq.test(t15)
+exploratory7d= chisq.test(t15)
+
+
 
