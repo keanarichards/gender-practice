@@ -1,0 +1,4 @@
+[0] Config.pm:307> INFO - This is Biber 2.17
+[0] Config.pm:310> INFO - Logfile is '00-intro.blg'
+[436] biber-MSWIN32:340> INFO - === 
+[593] Biber.pm:418> INFO - Reading '00-intro.bcf'
