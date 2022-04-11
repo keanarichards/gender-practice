@@ -3,7 +3,7 @@
 if(!require('pacman')) {
   install.packages('pacman')
 }
-pacman::p_load(tidyverse, here, conflicted)
+pacman::p_load(tidyverse, here, conflicted, pscl)
 conflict_prefer("filter", "dplyr")
 conflict_prefer("select", "dplyr")
 # load data ---------------------------------------------------------------
@@ -171,3 +171,15 @@ t15 <- table(clean_fraud_removed$gender, clean_fraud_removed$condition)
 sec_exploratory38 <- chisq.test(t15)
 
 sec_exploratory39 <- glm(practice_problems_binary ~ gender, data = clean_fraud_removed, family = binomial())
+
+
+# exploring other ways of modeling practice rounds count variable ---------
+
+sec_exploratory40 <- hurdle(total_practice_rounds_count ~ gender*comp_choice, data = practice)
+
+
+## does conf & risk predict choice to compete
+
+sec_exploratory41 <- glm(comp_choice ~ risk +conf_rank, data = clean_fraud_removed, family = binomial())
+
+

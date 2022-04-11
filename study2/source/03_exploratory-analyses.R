@@ -2,7 +2,7 @@
 # load packages -----------------------------------------------------------
 
 ## Package names
-packages <- c("tidyverse", "here")
+packages <- c("tidyverse", "here", "pscl")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -59,3 +59,21 @@ t1a <- table(clean$gender, clean$condition)
 sec_exploratory15 <- chisq.test(t1a)
 
 sec_exploratory16 <- glm(pract_choice ~ gender, data = clean, family = binomial())
+
+sec_exploratory17 <- hurdle(extra_prep_count ~ gender*comp_choice, data = clean)
+
+## does choice to prepare &/or condition predict fatigue? - NOTE: no evidnce that women feel more fatigued 
+
+sec_exploratory18 <- lm(fati ~ pract_choice*condition + gender, data = clean)
+
+
+## does practice and/or gender, regardless of condition, predict feelings of preparedness? 
+
+sec_exploratory19 <- glm(factor(preparedness) ~ pract_choice*gender + condition, family = "binomial",data = clean)
+
+
+sec_exploratory20 <- lm(fab ~ gender, data = clean)
+
+sec_exploratory21 <- lm(interest ~ pract_choice*condition + gender, data = clean)
+
+sec_exploratory22 <- glm(comp_choice ~ conf_rank + risk, family = "binomial", data = clean)

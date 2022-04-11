@@ -187,6 +187,7 @@ raw$perceived_pract_dev_M <-raw$perc_practice_men - percent_rank(raw$practice_no
 
 raw$condition <- recode(raw$condition,"1" = "tournament", "0" = "piecerate")
 
+raw %<>% mutate(practice_problems_binary_numeric = as.numeric(ifelse(practice_problems_binary == "Yes", 1, 0)), total_practice_rounds_count = practice_problems_binary_numeric+ extra_practice_rounds_count)
 
 # export clean ------------------------------------------------------------------
 

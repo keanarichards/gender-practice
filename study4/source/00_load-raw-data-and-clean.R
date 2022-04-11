@@ -180,6 +180,8 @@ raw <- raw %>% retype()
 
 raw %<>% mutate(log_study_tables_time = log(study_tables_time)) 
 
+raw %<>% mutate(practice_problems_binary_numeric = as.numeric(ifelse(practice_problems_binary == "Yes", 1, 0)), total_practice_rounds_count = practice_problems_binary_numeric+ extra_practice_rounds_count)
+
 # export clean ------------------------------------------------------------------
 
 

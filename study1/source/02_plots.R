@@ -2,7 +2,7 @@
 
 
 ## Package names
-packages <- c("tidyverse", "jtools", "here")
+packages <- c("tidyverse", "jtools", "here", "sjPlot", "webshot", "report")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -221,3 +221,82 @@ p <- ggplot(data = sumld, aes(x = gender, fill= gender)) +
 ggsave(here("study1", "figs", "fig08_total-rev-count-by-gender.png"), p, width = 7, height = 7)
 
 
+# models  -----------------------------------------------------------------
+source(here("study1", "source", "01_preregistered-analyses.R"))
+source(here("study1", "source", "03_exploratory-analyses.R"))
+
+## practice choice as DV: 
+  
+tab_model(sec_exploratory17, sec_exploratory2, sec_exploratory14, file = here("study1", "figs","tab_pract-choice1.html"), show.p = F, show.df = F, dv.labels = c("(1)", "(2)", "(3)"))
+webshot(here("study1", "figs","tab_pract-choice1.html"), here("study1", "figs","tab_pract-choice1.png"), selector = "table", zoom= 2)
+
+## Task scores as DV: 
+
+tab_model(sec_exploratory9, sec_exploratory20 , sec_exploratory12, file = here("study1", "figs","tab_task-scores1.html"), show.p = F, show.df = F, dv.labels = c("(1)", "(2)", "(3)"))
+webshot(here("study1", "figs","tab_task-scores1.html"), here("study1", "figs","tab_task-scores1.png"), selector = "table", zoom= 2)
+
+
+## Comp choice as DV: 
+
+tab_model(sec_exploratory6, primary_hyp1, sec_exploratory11, file = here("study1", "figs","tab_comp-choice1.html"), show.p = F, show.df = F, dv.labels = c("(1)", "(2)", "(3)"))
+webshot(here("study1", "figs","tab_comp-choice1.html"), here("study1", "figs","tab_comp-choice1.png"), selector = "table", zoom= 2)
+
+
+## table showing pre-registered analyses
+
+## creating table with main hypotheses: 
+
+hypotheses <- c("There will be an interaction between gender and condition, where we will observe the typical gender gap in willingness to compete in the control condition. However, women in the preparation condition will be more likely to compete than women in the control condition, and the effect will be greater than the equivalent effect in men. Therefore, we expect all coefficients for all of the predictors to be significant.", 
+  "Women will be more likely to take advantage of the opportunity to prepare (collapsed across both conditions), so the coefficient for gender will be significant.",
+  "Women will spend more time preparing for the multiplication task relative to men (collapsed across both conditions), so the coefficient for gender will be significant.",
+  "Participants will expect women to spend more time preparing for the multiplication task relative to men (collapsed across both conditions), so the coefficient for gender will be significant.", rep("NA", 6))
+
+models <- c(report(primary_hyp1), report(primary_hyp2), report(primary_hyp3), report(primary_hyp1), 
+            report(exploratory1), report(exploratory2), report(exploratory3b), report(exploratory4),
+           rep("INSERT"), 15) 
+
+study1_models <- data.frame(hypotheses, models)
+
+gt_tbl <- gt(study1_models) %>%
+  tab_style(
+    style = cell_borders(
+      sides = c("top", "bottom"),
+      color = "white",
+      style = "solid"
+    ),
+    locations = cells_body(columns = everything(), rows = everything())
+  ) %>%
+  tab_header(title = md("")) %>%
+  opt_align_table_header(align = "left")
+gt::gtsave(gt_tbl, file = here("study1","figs", "pre-reg1.png"))
+
+
+
+# creating summary tables -------------------------------------------------
+
+## will use gtsummary - split table by gender 
+
+clean %>% select(task_score, comp_choice, pract_choice, risk, conf_rank,
+            gender) %>% tbl_summary(by = gender, missing = "no") %>%   modify_header(label = "**Variable**") %>% 
+            as_gt() %>%  tab_style(
+              style = cell_borders(
+                sides = c("top", "bottom"),
+                color = "white",
+                style = "solid"
+              ),
+              locations = cells_body(columns = everything(), rows = everything())
+            ) %>%
+  tab_header(title = md("")) %>%
+  opt_align_table_header(align = "left") %>% gt::gtsave(., file = here("study1","figs", "summary-table-gender1.png"))
+
+clean %>% select(better_gender_guess,perc_task_gender_pract,  perc_gender_comp, perc_gen_gender_pract) %>% tbl_summary(missing= "no") %>% 
+  as_gt() %>%  tab_style(
+    style = cell_borders(
+      sides = c("top", "bottom"),
+      color = "white",
+      style = "solid"
+    ),
+    locations = cells_body(columns = everything(), rows = everything())
+  ) %>%
+  tab_header(title = md("")) %>%
+  opt_align_table_header(align = "left") %>% gt::gtsave(., file = here("study1","figs", "summary-table-beliefs1.png"))

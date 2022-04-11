@@ -2,7 +2,7 @@
 # load packages -----------------------------------------------------------
 
 ## Package names
-packages <- c("tidyverse", "here")
+packages <- c("tidyverse", "here", "pscl")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -53,4 +53,8 @@ sec_exploratory16 <- chisq.test(t1a)
 
 sec_exploratory17 <- glm(pract_choice ~ gender, data = clean, family = binomial())
 
+sec_exploratory18 <- hurdle(total_review_count ~ gender*condition, data = clean)
 
+sec_exploratory19 <- glm(comp_choice ~ risk+conf_rank, data = clean, family = binomial())
+
+sec_exploratory20 <- lm(task_score ~ gender*condition,data = clean)

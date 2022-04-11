@@ -16,6 +16,7 @@ conflict_prefer("filter", "dplyr")
 conflict_prefer("select", "dplyr")
 conflict_prefer("here", "here")
 conflict_prefer("mutate", "dplyr")
+
 # load data ---------------------------------------------------------------
 
 full_raw <- read_csv(here("study1", "data", "raw.csv"))
@@ -236,7 +237,7 @@ raw$gender <- recode(raw$gender, "Male" = "Man", "Female" = "Woman")
 
 raw <- raw %>% retype()
 
-raw %<>% mutate(ifelse(total_review_count>1, total_review_count - 1, total_review_count)) 
+raw %<>% mutate(practice_choice_numeric = as.numeric(ifelse(pract_choice == "Yes", 1, 0)), total_review_count = total_review_count +practice_choice_numeric)
 
 # export clean ------------------------------------------------------------------
 ## adding in id variable

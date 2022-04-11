@@ -3,7 +3,10 @@ output:
   word_document: default
 ---
 
+
 ## Study 1
+
+### Figures 
 
 ```{r s100, fig.cap="Proportion of men and women who chose to compete by condition. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study1", "figs", "fig00_comp-choice-by-gender-and-cond-bar.png"))
@@ -40,53 +43,117 @@ knitr::include_graphics(here::here("study1", "figs", "fig06_perc-gen-gender-prac
 ```
 
 
-```{r s107, fig.cap="Participants' perceptions of general gender differences in choice to practice. Error bars represent standard errors."}
+```{r s107, fig.cap="Proportion of men and women who chose to prepare. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study1", "figs", "fig07_pract-choice-by-gender.png"))
 
+```
+
+### Tables
+
+
+```{r tab-pract-choice1, fig.align="center", fig.cap = "effects changing", out.width='85%'}
+knitr::include_graphics(here("study1", "figs", "tab_pract-choice1.png"))
+```
+
+```{r tab-task-scores1, fig.align="center", fig.cap = "Stopping cars", out.width='85%'}
+knitr::include_graphics(here("study1", "figs", "tab_task-scores1.png"))
+```
+
+```{r tab-comp-choice1, fig.align="center", fig.cap = "Stopping", out.width='85%'}
+knitr::include_graphics(here("study1", "figs", "tab_comp-choice1.png"))
+```
+
+```{r insert1, fig.align="center", fig.cap = "Stopping", out.width='85%'}
+knitr::include_graphics(here("study1","figs", "summary-table-beliefs1.png"))
+```
+
+```{r insert2, fig.align="center", fig.cap = "Stopping", out.width='85%'}
+knitr::include_graphics(here("study1","figs", "summary-table-gender1.png"))
 ```
 
 
 ## Study 2 
 
-```{r s200, fig.cap='Proportion of women who chose to compete by condition. We do not find evidence of the hypothesized effect of condition on the choice to compete, there were no significant differences in entry into competition between women in the control vs. prepare conditions. Error bars represent standard errors.'}
-knitr::include_graphics(here::here("study2", "figs", "fig00_comp-choice-women-by-cond.png"))
+```{r s200, fig.cap="Proportion of men and women who chose to compete by condition. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study2", "figs", "fig06_comp-choice-by-gender-and-cond-bar.png"))
 
 ```
 
-```{r s201,fig.cap="Participants' perceptions of gender differences in performance on the task. We replicate the effect from Study 1, where participants were not significantly more likely than chance to anticipate that one gender would perform better on the task. Error bars represent standard errors."}
+```{r s201, fig.cap="Proportion of men and women who chose to prepare by choice to compete. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study2", "figs", "fig05_pract-choice-by-gender-and-comp-choice-bar.png"))
+
+```
+
+
+```{r s203, fig.cap="Participants' perceptions of gender differences in the choice to practice on the task. Error bars represent standard errors."}
+
+knitr::include_graphics(here::here("study2", "figs", "fig08_perc-task-gender-pract.png"))
+
+```
+
+```{r s204, fig.cap="Participants' perceptions of gender differences in performance on the task. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study2", "figs", "fig01_better-gender-guess.png"))
 
 ```
 
-```{r s202,fig.cap="Participants' perceptions of gender differences in choice to compete. Replicating the finding from Study 1, participants (especially men) in Study 2 are significantly more likely than chance to state that men chose the competitive payment scheme. Error bars represent standard errors."}
+
+```{r s205, fig.cap="Participants' perceptions of gender differences in choice to compete. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study2", "figs", "fig02_perc-gender-comp.png"))
 
 ```
 
-```{r s203,fig.cap="Participants' perceptions of general gender differences in choice to prepare. We replicate the findings from Study 1, where participants (especially women) are significantly more likely than chance to state that women prepare more in general than men. Error bars represent standard errors."}
+
+```{r s206, fig.cap="Participants' perceptions of general gender differences in choice to practice. Error bars represent standard errors."}
 knitr::include_graphics(here::here("study2", "figs", "fig03_perc-gen-gender-pract.png"))
 
 ```
 
-```{r s204,fig.cap="Gender differences in the number of extra preparation rounds chosen across participants' choice in a payment scheme. Here, we show that the gender gap in the choice to prepare is robust, even when half of the women are forced to prepare in the preparation condition. Error bars represent standard errors."}
-knitr::include_graphics(here::here("study2", "figs", "fig04_total-rev-count-by-gender-comp-choice.png"))
+
+```{r s207, fig.cap="Proportion of men and women who chose to prepare. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study2", "figs", "fig07_pract-choice-by-gender.png"))
 
 ```
 
 ## Study 3
 
 
-```{r s300, fig.cap="Proportion of participants that identify as women who chose to compete by condition. We do not find evidence of the hypothesized effect of condition on the choice to compete. On the contrary, women in the control condition were significantly more likely to choose to compete than women in the preparation condition. Error bars represent standard errors."}
-## print(ctable(woman$comp_choice, woman$condition))
-
-knitr::include_graphics(here("study4", "figs", "fig00_comp-choice-women-by-cond.png"))
+```{r s300, fig.cap="Proportion of men and women who chose to compete by condition. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study4", "figs", "fig02_comp-choice-by-gender-and-cond-bar.png"))
 
 ```
 
-```{r s301, fig.cap="Proportion of participants who chose to compete by condition and gender. Error bars represent standard errors."}
-## print(ctable(woman$comp_choice, woman$condition))
+```{r s301, fig.cap="Proportion of men and women who chose to prepare by choice to compete. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study4", "figs", "fig05_pract-choice-by-gender-and-comp-choice-bar.png"))
 
-knitr::include_graphics(here("study4", "figs", "fig01_pract-choice-by-gender-and-cond-bar.png"))
+```
+
+
+```{r s303, fig.cap="Participants' perceptions of gender differences in the choice to practice on the task. Error bars represent standard errors."}
+
+knitr::include_graphics(here::here("study4", "figs", "fig07_perc-task-gender-pract.png"))
+
+```
+
+```{r s304, fig.cap="Participants' perceptions of gender differences in performance on the task. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study4", "figs", "fig10_better-gender-guess.png"))
+
+```
+
+
+```{r s305, fig.cap="Participants' perceptions of gender differences in choice to compete. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study4", "figs", "fig09_perc-gender-comp.png"))
+
+```
+
+
+```{r s306, fig.cap="Participants' perceptions of general gender differences in choice to practice. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study4", "figs", "fig08_perc-gen-gender-pract.png"))
+
+```
+
+
+```{r s307, fig.cap="Proportion of men and women who chose to prepare. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study4", "figs", "fig06_pract-choice-by-gender.png"))
 
 ```
 

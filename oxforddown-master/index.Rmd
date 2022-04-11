@@ -7,7 +7,7 @@
 # The format options are: 'pdf', 'bs4', 'gitbook', 'word'
 # E.g. you can build both pdf and html with 'thesis_formats <- c("pdf", "bs4")'
 knit: (function(input, ...) {
-    thesis_formats <- "pdf";
+    thesis_formats <- "word";
     
     source("scripts_and_filters/knit-functions.R");
     knit_thesis(input, thesis_formats, ...)
@@ -17,9 +17,8 @@ knit: (function(input, ...) {
 ## thesis metadata ##
 #####################
 title: |
-  `oxforddown`: \
-  An Oxford University Thesis \
-  Template for R Markdown
+  Women prepare more than men in competitive and non-competitive environments, \
+  which aligns with gender stereotypes
 author: Keana Richards
 college: University of Pennsylvania
 university: University of Pennsylvania

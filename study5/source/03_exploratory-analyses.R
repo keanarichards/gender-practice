@@ -3,7 +3,7 @@
 if(!require('pacman')) {
   install.packages('pacman')
 }
-pacman::p_load(tidyverse, here, conflicted)
+pacman::p_load(tidyverse, here, conflicted, easystats, pscl)
 
 ## declaring conflicts
 
@@ -189,4 +189,45 @@ t16 <- table(clean_fraud_removed$gender, clean_fraud_removed$condition)
 sec_exploratory24 <- chisq.test(t16)
 
 sec_exploratory25 <- glm(practice_problems_binary ~ gender, data = clean_fraud_removed, family = binomial())
+
+
+
+# testing effects of outliers on gender task score model  -----------------
+
+
+outliers <- check_outliers(clean_fraud_removed$task_score)
+
+as.numeric(outliers)
+
+clean_fraud_removed <- cbind(outliers, clean_fraud_removed)
+clean_fraud_removed_outlier_dropped <- clean_fraud_removed %>% filter(outliers == 0)
+
+## https://data.library.virginia.edu/getting-started-with-hurdle-models/
+
+sec_exploratory26 <- hurdle(total_practice_rounds_count ~ gender*condition, data = clean_fraud_removed)
+## storing as summary object to be able to extract p -values & betas 
+
+obj<- summary(sec_exploratory26)
+
+
+# looking at 3 way interaction between other variables --------------------
+
+sec_exploratory27 <- lm(total_pract_time ~ condition*gender*conf_rank, data = clean_fraud_removed)
+sec_exploratory28 <- lm(total_pract_time ~ condition*gender*risk, data = clean_fraud_removed)
+
+
+sec_exploratory29 <- hurdle(practice_nonempty ~ condition*gender*conf_rank, data = clean_fraud_removed)
+sec_exploratory30 <- hurdle(practice_nonempty ~ condition*gender*risk, data = clean_fraud_removed)
+
+## creating version of dataset flagging people who don't finish to run chi square test. 
+
+clean_fraud_removed %<>% mutate(dropped_out_post_condition = ifelse(Finished == "FALSE" & !is.na(condition), "Yes", "No"))
+
+t17 <- table(clean_fraud_removed$gender, clean_fraud_removed$dropped_out_post_condition)
+sec_exploratory31 <- chisq.test(t17)
+
+
+sec_exploratory32 <- t.test(practice$perceived_pract_dev, mu = 0, alternative = "two.sided") 
+
+sec_exploratory33 <- t.test(practice$perceived_pract_dev, mu = 0, alternative = "two.sided") 
 

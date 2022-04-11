@@ -7,7 +7,7 @@ pacman::p_load(tidyverse, here, hablar, psych, qualtRics, varhandle, magrittr)
 
 # load data ---------------------------------------------------------------
 
-clean <- read_csv(here("study5", "data", "clean.csv"))
+clean <- read_csv(here::here("study5", "data", "clean.csv"))
 
 # additional questions  ---------------------------------------------------
 
@@ -176,26 +176,59 @@ total_payment$combined_pay <- coalesce(total_payment$tourn_payment, total_paymen
 
 total_payment$combined_pay <- ifelse(is.na(total_payment$combined_pay), 0, total_payment$combined_pay)
 
-total_payment %<>% mutate(combined_pay = combined_pay+ bonus_qs) 
+tourn_selected <- total_payment %>% filter(condition == "tournament" & combined_pay > 0) %>% sample_n(250) 
+PR <- total_payment %>% filter(condition == "tournament")
 
-total_payment %<>% filter(combined_pay > 0) %>% select(workerId, combined_pay)
+total_payment_final <- rbind(tourn_selected, PR) %>% filter(combined_pay > 0) %>% select(workerId, combined_pay)
 
-write_csv(total_payment,here("study5", "data", 'total_payment_output.csv'), col_names = F)
+write_csv(total_payment_final,here("study5", "data", 'total_payment_output.csv'), col_names = F)
 
 
 ## estimating total bonus costs including MTurk fees: 
 
-sum(total_payment$combined_pay)*.20 + sum(total_payment$combined_pay)
+sum(total_payment_final$combined_pay)*.20 + sum(total_payment_final$combined_pay)
 
 
 # splitting workers into groups for cloudresearch  ------------------------
 
-pay <- read_csv(here("study5", "data", 'total_payment_output.csv'), col_names = F)
+pay <- read_csv(here::here("study5", "data", 'total_payment_output.csv'), col_names = F)
 
-## checking ppts' costs with edits to budget: 
 
-pay %<>% mutate(X3 = X2 -.05)
-sum(pay$X3)*.20 + sum(pay$X3) - 632.82
+names(pay) <- c("AmazonIdentifier", "payment")
+
+## have to create separate datasets for each round of running the study 
+
+studydata_full1 <- read_csv(here::here("study5", "data", 'studydata_full1.csv'))
+studydata_full3 <- read_csv(here::here("study5", "data", 'studydata_full3.csv'))
+studydata_pilot <- read_csv(here::here("study5", "data", 'studydata_pilot.csv'))
+
+
+## need to match on the MTurk ID 
+
+studydata_pilot_pay <- match_df(pay, studydata_pilot, on="AmazonIdentifier")
+
+studydata_full1_pay <- match_df(pay, studydata_full1, on="AmazonIdentifier")
+  
+studydata_full3_pay <- match_df(pay, studydata_full3, on="AmazonIdentifier")
+
+## then create separate datasets for each specific round 
+
+write_csv(studydata_pilot_pay %>% unique(.),here::here("study5", "data", 'studydata_pilot_pay.csv'), col_names = F)
+
+write_csv(studydata_full1_pay%>% unique(.),here::here("study5", "data", 'studydata_full1_pay.csv'), col_names = F)
+
+write_csv(studydata_full3_pay %>% unique(.),here::here("study5", "data", 'studydata_full3_pay.csv'), col_names = F)
+
+
+
+combined_subset <- rbind(studydata_pilot_pay, studydata_full1_pay, studydata_full3_pay)
+
+
+
+
+
+
+
 
 pay %>% slice(1:100) %>% write_csv(.,here("study4", "data", 'first.csv'), col_names = F)
 pay %>% slice(101:200) %>% write_csv(.,here("study4", "data", 'second.csv'), col_names = F)
