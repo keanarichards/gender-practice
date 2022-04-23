@@ -1,0 +1,635 @@
+---
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = F, out.width = "63%", dpi = 100)
+options(scipen = 0, digits = 3, tibble.print_max = 50) 
+
+
+if(!require('pacman')) {
+  install.packages('pacman')
+  }
+pacman::p_load(tidyverse, here)
+
+
+xaringanExtra::use_xaringan_extra(include = c("panelset"))
+
+
+```
+
+class: center, middle
+
+# Chapter 1
+---
+
+class: center, middle
+# Does preparation affect gender gap in competition?
+
+???
+
+I’ll start with the main question that drove this research: how do opp to prepare affect the gender differences in the choice to compete?
+
+---
+
+# Study 1: 
+
+Knowledge of preparation does NOT reduce gap in competition 
+
+<center>
+
+```{r}
+
+knitr::include_graphics("./study1/figs_preso/fig00_comp-choice-by-gender-and-cond-bar.png")
+
+```
+</center>
+
+
+
+???
+
+this graph is showing our answer to that question for study 1. 
+
+to help orient you: on the y axis here, we have the % of ppts that chose to compete, which is grouped by gender (where the purple bars represent women, & green bars represent men) and condition on the x axis (knowledge of prep cond & control cond). since the  bars between men & women are overlapping quite a bit here across conditions, we do not find evidence that the knowledge of prep condition reduces the gender gap in competitiveness. 
+
+
+---
+
+# Study 2: 
+
+???
+
+okay so we didn’t find evidence of the hypothesized effect in the first study, but maybe it was because ppts didn’t get to actually experience the practicing firsthand. maybe the key here is to actually SEE improvement in your performance thru practicing. so we expected maybe requiring preparation for a pre-determined amt of time would reduce the gender gap in competitiveness. YET (CLICK)
+
+
+we do not find evidence for that hypothesis in study 2. Again the bars are overlapping between men & women, suggesting that their decisions to compete are not really being strongly affected by the limited preparation cond. 
+
+--
+
+Limited preparation does NOT reduce gap in competition either
+
+<center>
+
+
+```{r}
+
+knitr::include_graphics("./study2/figs_preso/fig06_comp-choice-by-gender-and-cond-bar.png")
+
+```
+</center>
+
+---
+
+# Study 3: 
+
+???
+
+okay so we didn’t find evidence of the hypothesized effect in the second study either. but MAYBE it had something to do with the limited nature of the prep. maybe if ppts were given unlimited time to prepare they would feel as though they could get a leg up on other ppts, whereas with the limited prep, they didn’t feel like it would give them a competitive advantage so to speak. hence, we ran the last study in this chapter where we manipulated whether ppts had the unlimited opp to pre, and find that... (CLICK)
+
+again the unlimited prep cond did not reduce the gender gap in competitiveness. 
+
+--
+
+Unlimited preparation does NOT reduce gap in competition either
+
+
+<center>
+
+
+```{r}
+
+knitr::include_graphics("./study4/figs_preso/fig02_comp-choice-by-gender-and-cond-bar.png")
+
+```
+
+</center>
+
+---
+
+class: center, middle
+# Does gender predict preparation? 
+
+???
+so across these studies we do not find evidence that opportunities to prep reduce the gap in competitiveness. Next we explored our other main question of interest = does providing the opportunity to prepare lend itself to gender diff in preparation?  (CLICK)
+
+
+---
+
+# Study 1: 
+
+
+Women prepare more than men...
+
+<center>
+
+```{r}
+
+knitr::include_graphics("./study1/figs_preso/fig07_pract-choice-by-gender.png")
+
+```
+
+</center>
+
+
+???
+
+here i'm plotting % of ppts that choose to prepare, grouped by gender. This graph shows that in study 1, we find that women are more willing to prepare than men. you can imagine that perhaps the gender diff in preparation is reduced when looking at ppts who choose to compete vs. those who didn't, YET 
+
+---
+# Study 1: 
+
+
+Women prepare more than men... regardless of how much they compete
+
+<center>
+
+
+```{r}
+
+knitr::include_graphics("./study1/figs_preso/fig01_pract-choice-by-gender-and-comp-choice-bar.png")
+
+```
+
+</center>
+
+???
+
+Women prepare more than men regardless of whether they are entering a competitive or non-competitive environment 
+
+
+---
+
+# Study 2: 
+
+
+Women prepare more than men... regardless of how much they compete
+
+.pull-left[
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study2/figs_preso/fig07_pract-choice-by-gender.png")
+
+```
+
+]
+
+.pull-right[
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study2/figs_preso/fig05_pract-choice-by-gender-and-comp-choice-bar.png")
+
+```
+] 
+
+
+
+???
+
+we replicate these effects in study 2 - such that women were more willing to prep (as shown on the left) regardless of whether they chose to compete (as shown on the right)
+
+---
+
+# Study 3: 
+
+
+Women DO NOT prepare more than men
+
+<center>
+
+
+```{r}
+
+knitr::include_graphics("./study4/figs_preso/fig06_pract-choice-by-gender.png")
+
+```
+
+</center>
+
+
+???
+
+however, in our last study where we gave ppts the unlimited opp to prepare we did not find evidence that women prepared more than men. one possible reason we didn’t find the effect here is that there were fewer ppts in this study that were offered the chance to prepare (only around 500, whereas 1000 were offered in studies 1 & 2) - so it may have been harder to show the effect. 
+
+
+---
+
+
+class: center, middle
+
+# Is there a stereotype that women prepare more?
+
+???
+
+I told you earlier that we asked ppts about their perceptions of gender diff in preparation, so now I’ll walk you thru those results.  
+
+---
+
+
+# Study 1: 
+
+Participants think women prepare more than men both on task (left) and in general (right)
+
+.pull-left[
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study1/figs_preso/fig03_perc-task-gender-pract.png")
+
+```
+
+
+]
+
+
+.pull-right[
+
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study1/figs_preso/fig06_perc-gen-gender-pract.png")
+
+```
+
+]
+
+???
+first, we find that women are perceived to spend more time studying before the multiplication task (as shown on the left) AND in general on most tasks  (as shown on the right).
+
+---
+
+# Study 2: 
+
+Participants think women prepare more than men both on task (left) and in general (right)
+
+
+.pull-left[
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study2/figs_preso/fig08_perc-task-gender-pract.png")
+
+```
+
+
+]
+
+
+.pull-right[
+
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study2/figs_preso/fig03_perc-gen-gender-pract.png")
+
+```
+
+]
+
+???
+we replicate both of these effects in study 2... 
+
+
+---
+
+# Study 3: 
+
+???
+
+you’ll see in the next slide that in study 3 we gave ppts the option to answer “no difference” to all of the perception of gender diffs questions on top of the original response options = men or women = this was a way to test the robustness of the effect - perhaps ppts didn’t think there were gender diffs in prep in the prev studies, but they didn’t have any other option other than to choose one gender as a response. however, contrary to that possibility...
+
+---
+
+# Study 3: 
+
+Participants think women prepare more than men both on task (left) and in general (right)
+
+
+.pull-left[
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study4/figs_preso/fig07_perc-task-gender-pract.png")
+
+```
+
+
+]
+
+
+.pull-right[
+
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study4/figs_preso/fig08_perc-gen-gender-pract.png")
+
+```
+
+]
+
+???
+we still find that ppts are significantly more likely to choose women prepare more both in general & on the multiplication task, even when they could’ve have said there were no gender diffs in preparation. thus, we find across all three studies that ppts have a general stereotype that women prepare more than men.   
+
+---
+class: center, middle
+# Do these gender stereotypes translate to behavior? 
+
+???
+now that we have evidence that women prepare more than men, and that ppts generally believe women prepare than men, we became curious... what if those beliefs are actually related to the choice to prep? specifically, it’s possible women who think other women prepare more may be especially likely to choose to prepare. This would suggest that women’s preparation may be influenced by gender stereotypes about gender differences in preparation. fortunately for us, we have all of the ingredients necessary to test if there is a relationship - so of course we explored this open question:   
+
+---
+
+# Study 1: 
+
+
+???
+the next plot I’ll show you has the proportion of ppts who chose to practice on the y axis, based on their gender (like before, purple bars for women & green bars for men) & their response to the questions about gender differences in prep on the x axis (CLICK)
+
+in study 1, we find that women that indicated women prepare more - both on the multiplication task & in general - are significantly more likely to choose to prepare themselves. so the purple bar on the far right of both graphs (which represents ppts who said women prepare more) is much higher than the green bar on the right, while the purple & green bars on the left side of both graphs (which represents ppts who said men prepare more) are not very different
+
+--
+
+Women who say women prepare more - both on task (left) and in general (right) - are more likely to prepare
+
+
+.pull-left[
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study1/figs_preso/pract-choice-by-gender-and-perc-task-prep-bar-study1.png")
+
+```
+
+
+]
+
+
+.pull-right[
+
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study1/figs_preso/pract-choice-by-gender-and-perc-gen-prep-bar-study1.png")
+
+```
+
+]
+
+
+---
+
+# Study 2: 
+
+Women who say women prepare more - both on task (left) and in general (right) - are more likely to prepare
+
+
+.pull-left[
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study2/figs_preso/pract-choice-by-gender-and-perc-task-prep-bar-study2.png")
+
+```
+
+
+]
+
+
+.pull-right[
+
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study2/figs_preso/pract-choice-by-gender-and-perc-gen-prep-bar-study2.png")
+
+```
+
+]
+
+???
+
+we replicate these effects in study 2 
+
+---
+
+# Study 3: 
+
+
+.pull-left[
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study4/figs_preso/pract-choice-by-gender-and-perc-task-prep-bar-study4.png")
+
+```
+
+
+]
+
+
+.pull-right[
+
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study4/figs_preso/pract-choice-by-gender-and-perc-gen-prep-bar-study4.png")
+
+```
+
+]
+
+
+
+
+???
+however, we do not find evidence of this effect in study 3 - after adding the “no difference” option. One thing worth noting though is because ppts were randomly assigned to unlimited preparation - we had a much smaller number of ppts to work with when testing this hyp - which is part of the reason the blacks error bars are so wide compared to the other graphs. therefore, it's entirely possible that we just didn't have a large enough sample to test this hypothesis 
+
+---
+
+
+# Summary of takeaways from Chapter 1
+
+
+- Women prepare more than men, regardless of competition choice
+
+- People believe women prepare more 
+
+- Preparation does not affect gender differences in competitiveness 
+
+
+
+???
+
+to summarize the takeaways from this chapter: these results suggest that women prepare more than men before performing, regardless of whether they were being compensated based on individual performance (piece-rate) or relative to another individual (tournament). And the novel gender difference in preparation discovered in this study aligns with participants’ beliefs about gender differences. Importantly, opportunities to prepare (in various forms) do not affect women’s willingness to compete.
+
+---
+class: center, middle
+
+# Chapter 2 
+
+---
+class: center, middle
+
+
+# Does competition increase the gender difference in preparation? 
+
+
+???
+starting with the primary hypothesis - does competition increase the gender diff in prep? 
+
+
+---
+
+# Chapter 2 study: 
+
+???
+
+well to show that competition affects a gender diff in prep, we have to make sure there is in fact a gender diff in prep. so we looked just at how gender predicts choice to practice (CLICK) and replicate the majority of the results found in chapter 1 where find that women are more willing to prepare than men. so with that basic assumption met, we next looked at whether this gender diff is exacerbated in competitive contexts relative to non-competitive ones.
+
+--
+
+Women prepare more than men...
+
+<center>
+
+```{r}
+
+knitr::include_graphics("./study5/figs_preso/fig01_pract-choice-by-gender.png")
+
+```
+
+</center>
+
+---
+# Chapter 2 study: 
+
+
+Women prepare more than men... regardless of whether they were assigned to compete
+
+<center>
+
+
+```{r}
+
+knitr::include_graphics("./study5/figs_preso/fig00_pract-choice-by-gender-and-cond-bar.png")
+
+```
+
+</center>
+
+???
+
+yet, contrary to our hyp, we find that women prepare more than men regardless of whether they were assigned to a competitive or non-competitive environment 
+
+---
+
+# Is there a stereotype that women prepare more?
+
+
+???
+like all of the studies in chapter 1, we asked ppts about their perceptions of gender diff in preparation, which again we think might be an important influence on our behavior. in this study we again gave them the chance to indicate that there are no differences across all of the questions, as a way to really test the robustness of these results.
+
+---
+# Chapter 2 study: 
+
+Participants think women prepare more than men both on task (left) and in general (right)
+
+
+.pull-left[
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study5/figs_preso/fig03_perc-task-gender-pract.png")
+
+```
+
+
+]
+
+
+.pull-right[
+
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study5/figs_preso/fig04_perc-gen-gender-pract.png")
+
+```
+
+]
+
+???
+we replicate the finding that women are perceived to spend more time preparing BOTH before the multiplication task AND in general on most tasks, even when they were given the option to say there were no gender differences. thus, ppts show yet again that there is a general stereotype that women prepare more than men.   
+---
+class: center, middle
+
+# Do these beliefs translate to behavior? 
+
+???
+now that we have evidence that women prepare more than men, and that ppts generally believe women prepare than men, we tested yet again whether those beliefs are actually related to the prep behavior - do women who think other women prepare more choose to prepare more often?   
+---
+
+# Chapter 2 study:
+
+???
+again the plot I’ll show you has the proportion of ppts who chose to practice on the y axis, based on their gender & their response to the questions about gender differences in prep (both in general & on the multiplication task)(CLICK)
+
+we replicate at least one of the effects found in studies 1 & 2, such that Women who thought women prepare more on the multiplication task were especially likely to choose to practice.
+
+however, when asked about general gender diff in prep, we do not replicate the effect - so women who thought women generally prepare more were not especially likely to choose to practice
+
+--
+
+Women who say women prepare more on task are more likely to prepare (left), but no effect for general question (right)
+
+
+.pull-left[
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study5/figs_preso/pract-choice-by-gender-and-perc-task-prep-bar-study5.png")
+
+```
+
+
+]
+
+
+.pull-right[
+
+
+```{r, out.width = "100%"}
+
+knitr::include_graphics("./study5/figs_preso/pract-choice-by-gender-and-perc-gen-prep-bar-study5.png")
+
+```
+
+]
+
+---
+# Summary of takeaways from Chapter 2
+
+- Women prepare more than men, regardless of whether they are competing 
+
+- People believe women prepare more 
+
+
+???
+
+to summarize the main results in the study from chapter 2, we replicate findings from the studies in Chapter 1 that women choose to prepare more than men. Interestingly, women chose to prepare more regardless of the payment scheme they were randomly assigned to. it’s possible that gender stereotypes are driving these gender differences in prep, given
+our replication of the findings from all three studies in Chapter 1 that participants
+expected women to prepare more both before the specific task used in the study
+and in general 

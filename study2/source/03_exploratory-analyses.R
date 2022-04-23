@@ -45,7 +45,7 @@ sec_exploratory6 <- lm(practice_nonempty ~ gender + comp_choice, data = clean)
 sec_exploratory7 <- glm(comp_choice~gender, family = binomial, data = clean)
 sec_exploratory8 <- lm(risk~gender, data = clean)
 sec_exploratory9 <- lm(conf_rank~gender, data = clean)
-sec_exploratory10 <- lm(task_score~gender*condition + conf_rank + risk, data = clean)
+sec_exploratory10 <- lm(task_score~gender*comp_choice + conf_rank + risk, data = clean)
 
 sec_exploratory11 <- glm(pract_choice ~ gender*comp_choice , data = clean, family = binomial())
 
@@ -62,6 +62,8 @@ sec_exploratory16 <- glm(pract_choice ~ gender, data = clean, family = binomial(
 
 sec_exploratory17 <- hurdle(extra_prep_count ~ gender*comp_choice, data = clean)
 
+summary_sec_exploratory17 <- summary(sec_exploratory17)
+
 ## does choice to prepare &/or condition predict fatigue? - NOTE: no evidnce that women feel more fatigued 
 
 sec_exploratory18 <- lm(fati ~ pract_choice*condition + gender, data = clean)
@@ -77,3 +79,11 @@ sec_exploratory20 <- lm(fab ~ gender, data = clean)
 sec_exploratory21 <- lm(interest ~ pract_choice*condition + gender, data = clean)
 
 sec_exploratory22 <- glm(comp_choice ~ conf_rank + risk, family = "binomial", data = clean)
+
+sec_exploratory23 <- lm(fati ~ gender, data = clean)
+
+sec_exploratory24 <- glm(factor(pract_choice) ~ gender*perc_task_gender_pract, data = clean, family = binomial())
+
+sec_exploratory25 <- glm(factor(pract_choice) ~ gender*perc_gen_gender_pract, data = clean, family = binomial())
+
+sec_exploratory26 <- lm(task_score~gender*comp_choice, data = clean)

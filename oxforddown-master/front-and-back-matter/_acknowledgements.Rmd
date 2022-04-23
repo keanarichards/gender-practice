@@ -1,13 +1,6 @@
-This is where you will normally thank your advisor, colleagues, family and friends, as well as funding and institutional support. In our case, we will give our praises to the people who developed the ideas and tools that allow us to push open science a little step forward by writing plain-text, transparent, and reproducible theses in R Markdown. 
+This project would not have been possible without the support of many people. First, I am incredibly grateful for the support of my mom, Dawn Eden, who has been guiding me in my academic and personal pursuits my whole life. She has sacrificed her own sleep, money, and time on endless occasions to help me get to this point, with an optimism that still inspires and motivates me. I have learned and continue to learn so much from her. I would also like to thank many of my other family members whose support made this dissertation possible. I am especially grateful to my brother, Jared Richards, for being my partner in crime on occasions that would have otherwise been boring and for teaching me so much about spaces that I know very little about. 
 
-We must be grateful to John Gruber for inventing the original version of Markdown, to John MacFarlane for creating Pandoc (<http://pandoc.org>) which converts Markdown to a large number of output formats, and to Yihui Xie for creating `knitr` which introduced R Markdown as a way of embedding code in Markdown documents, and `bookdown` which added tools for technical and longer-form writing.
+Many thanks to my advisers, Coren Apicella and Emily Falk, for their invaluable advice, continuous support, and patience during my PhD journey. I am also grateful for my committee members, Geoffrey Goodwin and Gideon Nave, who offered substantial guidance and support over the last few years of the PhD.
 
-Special thanks to [Chester Ismay](http://chester.rbind.io), who created the `thesisdown` package that helped many a PhD student write their theses in R Markdown. And a very special thanks to John McManigle, whose adaption of Sam Evans' adaptation of Keith Gillow's original maths template for writing an Oxford University DPhil thesis in LaTeX provided the template that I in turn adapted for R Markdown.
+Finally, I would not have been able to finish the thesis if it were not for the numerous friends that have been sources of support, conversation, and laughter during my writing journey. Having enjoyable conversations and experiences to look forward to after writing at the end of the day motivated me to continue working on this project, especially on days where thinking about the thesis was the last thing I wanted to do.      
 
-Finally, profuse thanks to JJ Allaire, the founder and CEO of [RStudio](http://rstudio.com), and Hadley Wickham, the mastermind of the tidyverse without whom we'd all just given up and done data science in Python instead. Thanks for making data science easier, more accessible, and more fun for us all.
-
-\begin{flushright}
-Ulrik Lyngs \\
-Linacre College, Oxford \\
-2 December 2018
-\end{flushright}

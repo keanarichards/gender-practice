@@ -6,26 +6,62 @@ output:
   word_document: default
 ---
 
-## Summary of main experimental results 
+```{r, include = F}
+## hiding code chunks globally 
+knitr::opts_chunk$set(echo=FALSE, message = F, warning = F)
 
-We start with the effects of our manipulation of knowledge of the opportunity to prepare on gender differences in competitiveness. Our results suggest that knowledge of the opportunity to prepare did not change women and men’s behavior to significantly different degrees. We also do not find evidence of any effect of condition on the choice to compete in general, such that participants' who knew they could prepare before choosing to compete, even if they did not necessarily know what the preparation would entail, were not significantly more likely to choose to compete than participants who were not provided this information before deciding whether to compete.  
 
-Despite no evidence of our anticipated effects of condition and the interaction between gender and condition on the choice to compete, we still replicate the gender difference in willingness to compete when gender is included as the sole predictor of competitiveness, but later show that the effect is fully explained by differences risk attitudes, confidence, and task scores when those variables are added to the baseline model. 
+## limiting number of digits to 2 decimal places
+options(digits = 2)
+options(pillar.sigfig = 2)
 
-Interestingly, relative to previous studies, a small proportion of men and women chose to compete. For instance, @Niederle2007 finds that 35% of women and 73% of men chose to compete, while we only find that INSERT% of women and INSERT% of men choose to compete in this study. It is possible that the online nature of the task may have contributed to this result, which we explore further in the broader discussion section summarizing results across studies. We also find that gender predicts task score, over and above other possible variables that likely drive performance (i.e., risk, choice in a payment scheme, confidence), contrary to previous research using similar arithmetic tasks [see review in @Niederle2011]. We discuss implications of this finding further in the context of the rest of the results across studies in the overall discussion section. 
 
-## Stereotypes and gender differences in preparation
 
-We also included several incentivized questions about participants' beliefs about gender differences across many of our behavioral variables of interest to see if participants' perceptions align with the set of results we observe, which could imply that participants observe these gender differences directly or are aware of stereotypes about gender differences. Both men and women were significantly more likely than chance to say that women prepare more than men both before completing the multiplication task used in the study and in general (unincentivized). 
+if(!require('pacman')) {
+  install.packages('pacman')
+  }
+pacman::p_load(tidyverse, here)
 
-Though we cannot directly attest to the general accuracy of these gender differences in preparation, since there is little research that has directly tested these gender differences, our study shows that women do indeed choose to prepare more than men, regardless of the payment scheme that they chose for their performance. Thus, we have our first piece of evidence from this study that gender differences in the choice to prepare and gender stereotypes about preparation are aligned.  
+
+clean <- read_csv(here("study1", "data", "clean.csv"))
+
+
+```
+
+
+#### Summary of main experimental results 
+
+Here we examine how knowledge of an opportunity to prepare influences gender differences in competitiveness. Our results suggest that knowledge of an opportunity to prepare did not change women and men’s behavior to significantly different degrees. We also do not find evidence of any effect of condition on the choice to compete in general, such that participants' who knew they could prepare before choosing to compete were not significantly more likely to choose to compete than participants who were not provided this information before deciding whether to compete.  
+
+Despite no evidence of our anticipated effects of condition and the interaction between gender and condition on the choice to compete, we still find that men choose to compete significantly more than women, an effect that is explained by differences in risk attitudes and task scores. 
+
+Relative to other studies, only a small proportion of men (`r ctable(clean$gender, clean$comp_choice, useNA = "no")$proportions[4]*100`%) and women (`r ctable(clean$gender, clean$comp_choice, useNA ="no")$proportions[5]*100`%) in the current study chose to compete. For instance, @Niederle2007 find that 35% of women and 73% of men chose to compete. It is possible that the online nature of the task may have contributed to this result, which we explore further in the broader discussion section summarizing results across studies. 
+
+Contrary to previous research using similar arithmetic tasks [see review in @Niederle2011], we find that gender predicts task score, over and above other possible variables that likely drive performance (e.g., risk attitudes, choice in a payment scheme, confidence). We discuss implications of this finding further in the context of the rest of the results across studies in the overall discussion section. 
+
+#### Gender differences in preparation 
+
+Based on the binary measure of preparation, we find that women choose to prepare more than men, independent of whether they had chosen the competitive tournament or non-competitive piece-rate payment scheme. However, we do not find evidence that gender predicts the number of practice rounds completed. 
+
+We also included several incentivized questions eliciting participants' beliefs about gender differences across many of our behavioral variables of interest. Both men and women were significantly more likely than chance to say that women prepare more than men both before completing the multiplication task and in general^[Note that the question about general differences in practicing was unincentivized]. Though we cannot directly attest to the general accuracy of these gender differences in preparation, since there is little research that has directly tested these gender differences, our study shows that women do indeed choose to prepare more than men, regardless of the payment scheme that they chose for their performance. Thus, we have our first piece of evidence from this study that gender differences in the choice to prepare and gender stereotypes about preparation are aligned. This alignment suggests that gender stereotypes about practicing exist among the general population represented by our sample and may, at least for the task used in the current study, be accurate. Of course, these beliefs were elicited after participants themselves chose whether or not to practice. As such, their answers may have been influenced by knowledge of their own gender and behavior in the study and may not be reflective of strong gender stereotypes. Future work should explore participants' how beliefs may be shaped by the decision making-process and/or elicit beliefs before participants make any decisions to practice. 
+
+#### Perceptions of gender differences in preparation, performance, and competitiveness
 
 Also, both men and women were significantly more likely than chance to correctly state that men would be more likely to choose to compete during the multiplication task, suggesting strong stereotypes about gender differences in competitiveness that align with observed behavior across the literature. The finding that participants believe women compete less suggests that they did not believe women prepare more because they were more likely to compete and used preparation as a way to increase the probability that they would earn more during the competition. 
 
 One possible explanation for participants' predictions is that they expected men to outperform women on the task, which would lead women to compensate by preparing more. Yet, they don't expect that: participants were equally likely to predict that women (vs. men) would perform better on the task, suggesting that participants did not have strong stereotypes about gender differences in performance on the multiplication task.
 
-## Additional findings 
+
+#### Effects of gender and perceptions on practicing 
+
+On top of the gender differences in practicing and perceptions of said gender differences, we explored whether these perceptions are aligned with individuals' practicing behavior. More specifically, we would expect that women may be especially likely to prepare for the task if they believe that women will prepare more than men, both in general on most tasks and specifically within the context of the multiplication task. We find support for this hypothesis across both questions about perceptions of gender differences in preparation. Though we cannot test this hypothesis causally with this specific set of data, these results would suggest that women's practicing behavior may have been influenced at least in part by beliefs about gender differences in preparation. We cannot test the direction of this effect - that is, practicing may have led participants' to believe that other individuals who have the same gender identity practice more (behavior leading to perception) or the belief that other participants who have the same gender identity practice more may have led participants to practice more (perception leading to behavior). As such, we implore future research to explore these questions through experiments. 
+
+#### Self-reported calculator use and perceptions of calculator use  
 
 There may be concern that participants used a calculator to answer the multiplication questions, which could affect the interpretation of the results if there is a gender difference in calculator use and/or calculator use is related to the choice to prepare. To address that potential concern, we included questions about participants' perceptions of and actual behaviors when it came to using calculators on the paid multiplication task. Based on their responses, it is unlikely that participants used calculators in the first place. We found that participants were unlikely to use calculators to complete the task and more importantly, there were no gender differences in the choice to use a calculator. Overall, we do not have evidence that gender differences in calculator use will be a confound when interpreting our results.
 
+
+#### Summary 
+
+Overall, we find from the first study of Chapter 1 that our manipulation of the knowledge of the opportunity to prepare did not reduce the gender difference in competitiveness. We show that the gender difference in competitiveness itself is explained by gender differences in risk attitudes and task scores. Although the manipulation did not have the anticipated effects on gender differences in competitiveness, women chose to prepare more than men, which aligned with beliefs about gender differences in preparation. We also have evidence that women's preparation behaviors may in fact have been influenced by beliefs about gender differences in preparation. Finally, we show that participants were unlikely to be using calculators while completing the task, so it is unlikely that any of the effects found are confounded by participants' calculator use. Since we did not find evidence that the knowledge of the opportunity to prepare affected gender differences in competitiveness, the next study in Chapter 1 tests experimentally whether the actual experience of preparing through required preparation for a pre-specified number of rounds would affect the gender gap in competitiveness. We expect individuals may need to actually experience improvement in their performance directly for the preparation to affect one's willingness to compete. 
 

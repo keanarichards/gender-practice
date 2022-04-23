@@ -1,10 +1,10 @@
 ---
 output:
-  bookdown::word_document2: default
-  bookdown::html_document2: default
   bookdown::pdf_document2:
     template: templates/brief_template.tex
     citation_package: biblatex
+  bookdown::html_document2: default
+  bookdown::word_document2: default
 documentclass: book
 ---
 
@@ -47,13 +47,6 @@ here::i_am("flag_project_root.R")
 ## Study 3
 
 ```{r child = here("paper", "study3.Rmd")}
-
-```
-
-
-## Figures and Tables
-
-```{r child = here("paper", "figures.Rmd")}
 
 ```
 

@@ -2,9 +2,7 @@
 title: "results"
 author: "Keana Richards"
 date: "6/10/2020"
-output:
-  bookdown::word_document2:
-  fig_caption: yes 
+output: pdf_document
 ---
 
 ```{r, include = F}
@@ -47,47 +45,101 @@ source(here("study1", "source", "03_exploratory-analyses.R"))
 
 ```
 
+#### Describing main variables of interest
 
-```{r, results = "asis"}
-## print(ctable(na_drop$gender, na_drop$condition))
+Contrary to previous data in this literature [@Niederle2007], a minority of participants (`r freq(clean$comp_choice, report.nas = F)[6]`%) chose to compete. Despite the small proportion of participants who chose to compete, we still replicate the gender gap in the choice to compete when gender is included as the only predictor in the model, where a greater share of men (`r ctable(clean$gender, clean$comp_choice, useNA = "no")$proportions[4]*100`%) compared to women (`r ctable(clean$gender, clean$comp_choice, useNA ="no")$proportions[5]*100`%) chose to compete. A logistic regression revealed that this gender difference in the choice to compete is significant, `r apa_print(sec_exploratory6)$full_result$genderWoman`. However, when including control variables, such as risk attitudes, confidence, task scores, and the hypothesized interaction between gender and competition choice, we find that the effect of gender is no longer significant, `r apa_print(sec_exploratory11)$full_result$genderWoman`, while risk attitudes, `r apa_print(sec_exploratory11)$full_result$risk` and task scores, `r apa_print(sec_exploratory11)$full_result$task_score`, are significant, suggesting those variables may fully explain the observed gender difference in willingness to compete (see Figure \@ref(fig:tab-comp-choice-study1)). 
+
+
+```{r tab-comp-choice-study1, fig.align="center", fig.cap = "All models are logistic regressions with choice to compete as the dependent variable, where man and control are the reference categories for participant gender and preparation condition, respectively. The gender difference in the choice to compete is not reduced by preparation condition, but is explained by risk attitudes and task scores. p < .05 is considered significant and bolded.", out.width='100%'}
+knitr::include_graphics(here("study1", "figs", "tab_comp-choice-study1.png"))
+```
+
+In separate linear regressions with gender as the only predictor, we also observed gender differences in both risk attitudes, `r apa_print(sec_exploratory7)$full_result$genderWoman`, and confidence, `r apa_print(sec_exploratory8)$full_result$genderWoman`. When included as the sole predictor in a linear regression, we find that gender significantly predicts task scores on the paid multiplication task, `r apa_print(sec_exploratory9)$full_result$genderWoman`, such that women have lower scores on average, M~women~ =`r printnum(mean(women$task_score, na.rm = T))`, SD~women~ =`r printnum(sd(women$task_score, na.rm = T))`; M~men~ = `r printnum(mean(men$task_score, na.rm = T))`, SD~men~ =`r printnum(sd(men$task_score, na.rm = T))`. The effect of gender on task scores holds in a separate linear regression with other variables included as predictors in the model, `r apa_print(sec_exploratory12)$full_result$genderWoman` (see Figure \@ref(fig:tab-task-scores-study1)). See Figure \@ref(fig:summary-table-gender-study1) for a summary of gender differences in the main variables of interest. 
+
+
+```{r summary-table-gender-study1, fig.align="center", fig.cap = "Gender differences in the main variables of interest, including: task scores, choice to compete, choice to practice, confidence, and risk attitudes. Medians are reported for task score, risk attitudes, and confidence, with IQRs in parentheses. For choice to practice and choice to compete, we report the number and percentage of participants that fall into each category for each respective gender", out.width='50%'}
+knitr::include_graphics(here("study1","figs", "summary-table-gender-study1.png"))
+```
+
+```{r tab-task-scores-study1,  fig.align="center",fig.cap = "All models are linear regressions with task score as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. After controlling for risk attitudes, confidence, and competition choice, women still have lower scores on the multiplication task than men, p < .05 is considered significant and bolded.", out.width='100%'}
+knitr::include_graphics(here("study1", "figs", "tab_task-scores-study1.png"))
+```
+
+#### Effects of knowledge of preparation condition on gender differences in choice to compete  
+
+Contrary to our predictions, we do not find evidence of a significant interaction between gender and condition on the decision to compete, `r apa_print(primary_hyp1)$full_result$conditionpract_genderWoman` (see Figure \@ref(fig:s100)). When included as a sole predictor of the choice to compete in a logistic regression, we did not find evidence that assignment to the knowledge of preparation affected the choice to compete, `r apa_print(sec_exploratory15)$full_result$conditionpract`. 
+
+
+```{r s100, fig.retina=NULL, out.width="300px", fig.align="center", fig.cap="Proportion of men and women in Study 1 who chose to compete based on preparation condition. Knowledge of preparation did not reduce the gender difference in competitiveness. Error bars represent standard errors."}
+knitr::include_graphics(here::here("study1", "figs", "fig00_comp-choice-by-gender-and-cond-bar.png"))
+
+```
+
+#### Gender differences in preparation 
+
+As hypothesized, a logistic regression with gender predicting the choice to practice shows that a greater proportion of women (`r ctable(clean$gender, clean$pract_choice, useNA = "no")$proportions[5]*100`%) took advantage of the opportunity to practice relative to men (`r ctable(clean$gender, clean$pract_choice, useNA = "no")$proportions[4]*100`%), `r apa_print(sec_exploratory17)$full_result$genderWoman` (see right panel of Figure \@ref(fig:panel-study1)). Gender remains a significant predictor of the binary choice to prepare after adding participants' choice to compete and the interaction between gender and the choice to compete in the model, `r apa_print(sec_exploratory2)$full_result$genderWoman`, but we do not find an interaction between gender and the choice to compete, `r apa_print(sec_exploratory2)$full_result$full_result$genderWoman_comp_choicetournament` (see left panel of Figure \@ref(fig:panel-study1)). We also find that the choice to compete positively predicts a participants' likelihood of choosing to practice, `r apa_print(sec_exploratory2)$full_result$comp_choicetournament`. In a subsequent logistic regression with additional possible predictors of the decision to practice, we find that the gender effect holds, `r apa_print(sec_exploratory14)$full_result$genderWoman`, suggesting that it is not explained by the observed gender differences in risk attitudes, confidence, nor task scores (see Figure \@ref(fig:tab-pract-choice-study1)). We also ran a two-part hurdle model with gender, competition choice, and the interaction between those variables predicting the number of practice rounds variable with the assumption that there may be different decision-making processes underlying the choice to prepare when first offered the opportunity versus the choice to continue preparing thereafter. However, we do not find evidence of gender differences in the choice to continue preparing after the initial decision to prepare - that is, the gender predictor in the count part of the model did not show a significant effect on the dependent variable, *b* = `r summary_sec_exploratory18[["coefficients"]][["count"]][[2]]`, 95% CI [`r summary_sec_exploratory18[["coefficients"]]$count[2] - summary_sec_exploratory18[["coefficients"]]$count[6]*1.96`, `r summary_sec_exploratory18[["coefficients"]]$count[2] + summary_sec_exploratory18[["coefficients"]]$count[6]*1.96`], *z* = `r summary_sec_exploratory18[["coefficients"]]$count[10]`, *p* = `r summary_sec_exploratory18[["coefficients"]]$count[14]`. 
+
+
+```{r panel-study1, fig.retina=NULL, fig.align="center",fig.cap="Right panel shows the proportion of men and women in Study 1 who chose to prepare. Left panel shows the proportion of men and women in Study 1 who chose to prepare based on choice to compete. Women choose to prepare more than men, regardless of their decision to compete. Error bars represent standard errors.", out.width='100%'}
+knitr::include_graphics(here::here("study1", "figs", "panel_study1.png"))
+
 ```
 
 
-Contrary to previous data in this literature [@Niederle2007], a minority of participants (`r freq(clean$comp_choice, report.nas = F)[6]`%) chose to compete. Despite the small proportion of participants who chose to compete, we still replicate the gender gap in the choice to compete when gender is included as the only predictor in the model, where a greater share of men (`r ctable(clean$gender, clean$comp_choice, useNA = "no")$proportions[4]*100`%) compared to women (`r ctable(clean$gender, clean$comp_choice, useNA ="no")$proportions[5]*100`%) chose to compete. A logistic regression revealed that this gender difference in the choice to compete is significant, `r apa_print(sec_exploratory6)$full_result$genderWoman`. However, when including control variables, such as risk attitudes, confidence, task scores, and the hypothesized interaction between gender and condition, we find that the effect of gender is no longer significant, `r apa_print(sec_exploratory11)$full_result$genderWoman`, while risk attitudes, `r apa_print(sec_exploratory11)$full_result$risk`, confidence, `r apa_print(sec_exploratory11)$full_result$conf_rank`, and task scores, `r apa_print(sec_exploratory11)$full_result$task_score`, are significant, suggesting those variables may fully explain the observed gender difference in willingness to compete. 
-
-We observed gender differences in both risk attitudes, `r apa_print(sec_exploratory7)$full_result$genderWoman`, and confidence, `r apa_print(sec_exploratory8)$full_result$genderWoman`, in alignment with previous literature (CITES). When included as the sole predictor in a linear regression, we find that gender significantly predicts task scores on the paid multiplication task, `r apa_print(sec_exploratory9)$full_result$genderWoman`, such that women have lower scores on average, Mwomen=`r printnum(mean(women$task_score, na.rm = T))`, SD=`r printnum(sd(women$task_score, na.rm = T))`; Mmen= `r printnum(mean(men$task_score, na.rm = T))`, SD =`r printnum(sd(men$task_score, na.rm = T))`, `r apa_print(sec_exploratory12)$full_result$genderWoman`, which holds in a separate linear regression with other variables included as predictors in the model, `r apa_print(sec_exploratory12)$full_result$genderWoman`. 
-
-Contrary to our predictions, we do not find evidence of a significant interaction between gender and condition on the decision to compete, `r apa_print(primary_hyp1)$full_result$conditionpract_genderWoman` (see Figure \@ref(fig:s100)). When included as a solo predictor of the choice to compete in a logistic regression, we did not find evidence that assignment to the knowledge of preparation affected the choice to compete, `r apa_print(sec_exploratory15)$full_result$conditionpract`. 
-
-```{r, results = "asis"}
-## print(stby(list(clean$gender, clean$condition), INDICES = clean$comp_choice, FUN = ctable))
-```
-
-As hypothesized, a logistic regression with gender predicting the choice to practice shows that a greater proportion of women (`r ctable(clean$gender, clean$pract_choice, useNA = "no")$proportions[5]*100`%) took advantage of the opportunity to practice relative to men (`r ctable(clean$gender, clean$pract_choice, useNA = "no")$proportions[4]*100`%), `r apa_print(sec_exploratory17)$full_result$genderWoman` (see Figure \@ref(fig:s107)). We replicate this effect after adding participants' choice to compete and the interaction between gender and the choice to compete in the model, `r apa_print(sec_exploratory2)$full_result$genderWoman`, but do not find an interaction between gender and the choice to compete, `r apa_print(sec_exploratory2)$full_result$full_result$genderWoman_comp_choicetournament` (see Figure \@ref(fig:s101)). We also find that the choice to compete positively predicts a participants' likelihood of choosing to practice, `r apa_print(sec_exploratory2)$full_result$comp_choicetournament`. In a subsequent logistic regression with additional possible predictors of the decision to practice, we find that the gender effect holds, `r apa_print(sec_exploratory14)$full_result$genderWoman`, suggesting that it is not explained by the observed gender differences in risk attitudes, confidence, nor task scores.^[Note: We also ran a two-part hurdle model with gender, competition choice, and the interaction between those variables predicting the number of practice rounds variable with the assumption that there may be different decision-making processes underlying the choice to prepare when first offered the opportunity versus the choice to continue preparing thereafter. However, we do not find evidence of gender differences in the choice to continue preparing after the initial decision to prepare - that is, the gender predictor in the count part of the model did not show a significant effect on the dependent variable].   
-
-```{r t1, results = "asis"}
-## print(stby(list(clean$gender, clean$comp_choice), INDICES = clean$pract_choice, FUN = ctable))
-
-```
-
-This gender difference in preparation aligned with participants' incentivized predictions about gender differences in preparation, where a greater proportion of participants (`r unname(prop.table(t15)*100)[2]`%) expected women, relative to the proportion that expected men (`r unname(prop.table(t15)*100)[1]`%), to spend more time preparing for the multiplication task, `r apa_print(exploratory7d, n= nrow(clean))$statistic` (see Figure \@ref(fig:s103)). They also expected women to prepare more in general, `r apa_print(exploratory7c, n = nrow(clean))$statistic`, with `r unname(prop.table(t14)*100)[2]`% indicating women prepare more in general and `r unname(prop.table(t14)*100)[1]`% indicating men prepare more in general (see Figure \@ref(fig:s106)). However, participants did not expect any gender differences in performance on the task, `r apa_print(exploratory7a, n = nrow(clean))$statistic` (see Figure \@ref(fig:s104)). Additionally, participants accurately predicted that women were less likely to choose to compete, `r apa_print(exploratory7b, n = nrow(clean))$statistic` (see Figure \@ref(fig:s105)). 
-
-Finally, we analyzed participants responses to the questions about their calculator use and thoughts on using a calculator for the multiplication task. `r round(prop.table(table(clean$calc1))[2]*100, digits =0)`% of participants indicated that they thought using a calculator to answer the multiplication questions would slow them down and `r round(prop.table(table(clean$calc2))[1]*100, digits =0)`% of participants said they did not use a calculator. Importantly, there were no gender differences in perceptions of how calculators would affect performance, `r apa_print(exploratory5a, n = nrow(clean))$statistic`. Additionally, we did not find evidence of gender differences in actual calculator use, `r apa_print(exploratory5b, n = nrow(clean))$statistic`. 
-
-```{r, results = "asis"}
-## print(ctable(clean$gender, clean$perc_task_gender_pract))
-```
-
-```{r, results = "asis"}
-## print(ctable(clean$gender, clean$better_gender_guess))
-```
-
-```{r, results = "asis"}
-## print(ctable(clean$gender, clean$perc_gender_comp))
-```
-
-```{r, results = "asis"}
-##print(ctable(clean$gender, clean$perc_gen_gender_pract))
+```{r tab-pract-choice-study1,  fig.cap = "All models are logistic regressions with choice to prepare as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. Women prepare more than men regardless of competition choice, task score, risk attitudes, or confidence. p < .05 is considered significant and bolded.", out.width='100%', fig.align="center"}
+knitr::include_graphics(here("study1", "figs", "tab_pract-choice-study1.png"))
 ```
 
 
+#### Perceptions of gender differences in preparation, performance, and competitiveness
+
+This gender difference in preparation aligned with participants' incentivized predictions about gender differences in preparation, where a greater proportion of participants (`r unname(prop.table(t15)*100)[2]`%) expected women to spend more time preparing for the multiplication task, `r apa_print(exploratory7d, n= nrow(clean))$statistic` (see Figure \@ref(fig:s103)). They also expected women to prepare more in general, `r apa_print(exploratory7c, n = nrow(clean))$statistic`, with `r unname(prop.table(t14)*100)[2]`% indicating women prepare more in general versus `r unname(prop.table(t14)*100)[1]`% indicating that men prepare more in general (see Figure \@ref(fig:s106)). However, participants did not expect any gender differences in performance on the task, `r apa_print(exploratory7a, n = nrow(clean))$statistic` (see Figure \@ref(fig:s104)). Additionally, participants accurately predicted that women were less likely to choose to compete, `r apa_print(exploratory7b, n = nrow(clean))$statistic` (see Figure \@ref(fig:s105)). See Figure \@ref(fig:summary-table-beliefs-study1)) for a summary of participants' responses to the questions about gender differences in preparation, performance, and competitiveness.
+
+
+```{r summary-table-beliefs-study1, fig.align="center", fig.cap = "Number and percentage of participants that selected each respective option when asked which gender would correctly solve more problems on the multiplication task, spend more time preparing for the multiplication task, choose the tournament payment scheme more often, and spend more time preparing on most tasks", out.width='35%'}
+knitr::include_graphics(here("study1","figs", "summary-table-beliefs-study1.png"))
+```
+
+
+```{r s103, fig.cap="Proportion of participants that predicted women or men would spend more time preparing for the multiplication task. A significantly larger proportion of participants expected women to spend more time preparing for the multiplication task. Error bars represent standard errors.", out.width="300px", fig.align="center"}
+
+knitr::include_graphics(here::here("study1", "figs", "fig03_perc-task-gender-pract.png"))
+
+```
+
+```{r s104, fig.cap="Proportion of participants that predicted women or men would correctly solve more problems on the multiplication task. There was no significant difference in the proportion of participants that expected women or men to perform better on the multiplication task. Error bars represent standard errors.", out.width="300px", fig.align="center"}
+knitr::include_graphics(here::here("study1", "figs", "fig04_better-gender-guess.png"))
+
+```
+
+
+```{r s105, fig.cap="Proportion of participants that predicted women or men would choose the tournament payment scheme more often. A significantly larger proportion of participants expected men to be more likely to choose to compete. Error bars represent standard errors.", out.width="300px", fig.align="center"}
+knitr::include_graphics(here::here("study1", "figs", "fig05_perc-gender-comp.png"))
+
+```
+
+
+```{r s106, fig.cap="Proportion of participants that predicted women or men would spend more time preparing on most tasks. A significantly larger proportion of participants expected women to spend more time preparing on most tasks. Error bars represent standard errors.", out.width="300px", fig.align="center"}
+knitr::include_graphics(here::here("study1", "figs", "fig06_perc-gen-gender-pract.png"))
+
+```
+
+
+#### Effects of gender and perceptions on practicing 
+
+Given our evidence that women choose to prepare more and that participants believe women choose to prepare more, we explored whether women who believed other women prepare more were especially likely to prepare. To that end, we ran a logistic regression with the choice to practice as the dependent variable and gender, beliefs about gender differences in preparation on most tasks, and the interaction between those two variables as the predictors. We find that women who said women generally prepare more on most tasks were especially likely to prepare, `r apa_print(sec_exploratory22)$full_result$genderWoman_perc_gen_gender_practWomen` (see Figure \@ref(fig:pract-choice-by-gender-and-perc-gen-prep-bar-study1)). We ran a nearly identical analysis with participants' beliefs about gender differences in preparation for the multiplication task, gender, and the interaction between the two as predictors instead, and replicate the interaction effect, `r apa_print(sec_exploratory21)$full_result$genderWoman_perc_task_gender_practWomen`, such that women who said women spent more time preparing for the multiplication task were especially likely to prepare (see Figure \@ref(fig:pract-choice-by-gender-and-perc-task-prep-bar-study1)).    
+
+```{r pract-choice-by-gender-and-perc-gen-prep-bar-study1, fig.cap="Proportion of men and women in Study 1 who chose to practice based on whether they thought men or women spend more time preparing on most tasks. Women who thought women generally prepare more were especially likely to choose to practice. Error bars represent standard errors.", out.width="300px", fig.align="center"}
+knitr::include_graphics(here::here("study1", "figs", "pract-choice-by-gender-and-perc-gen-prep-bar-study1.png"))
+
+```
+
+```{r pract-choice-by-gender-and-perc-task-prep-bar-study1, fig.cap="Proportion of men and women in Study 1 who chose to practice based on whether they thought men or women spend more time preparing for the multiplication task. Women who thought women prepare more for the multiplication task were especially likely to choose to practice. Error bars represent standard errors.", out.width="300px", fig.align="center"}
+knitr::include_graphics(here::here("study1", "figs", "pract-choice-by-gender-and-perc-task-prep-bar-study1.png"))
+
+```
+
+
+#### Responses to calculator use questions
+
+Finally, we analyzed participants' responses to the questions about their calculator use and thoughts on using a calculator for the multiplication task. `r round(prop.table(table(clean$calc1))[2]*100, digits =0)`% of participants indicated that they thought using a calculator to answer the multiplication questions would slow them down and `r round(prop.table(table(clean$calc2))[1]*100, digits =0)`% of participants said they did not use a calculator. Importantly, there were no gender differences in perceptions of how calculators would affect performance, `r apa_print(exploratory5a, n = nrow(clean))$statistic`. Additionally, we did not find evidence of gender differences in actual calculator use, `r apa_print(exploratory5b, n = nrow(clean))$statistic`. 

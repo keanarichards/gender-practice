@@ -1,0 +1,61 @@
+---
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = F)
+options(scipen = 0, digits = 3, tibble.print_max = 50) 
+
+
+if(!require('pacman')) {
+  install.packages('pacman')
+  }
+pacman::p_load(tidyverse, here)
+
+### going up a level to gender-practice folder to pull from study folders, idea here: https://stackoverflow.com/questions/51712725/use-the-here-function-to-go-up-a-level-above-root-directory
+here::i_am("flag_project_root.R")
+
+```
+
+
+# Chapter 1 results
+---
+
+# Study 1: Knowledge of preparation does NOT reduce gap in competition 
+
+```{r, fig.width=8, fig.height=5, dpi=75}
+
+knitr::include_graphics(here::here("study1", "figs", "fig00_comp-choice-by-gender-and-cond-bar.png"))
+
+```
+
+
+???
+
+I’ll start with the main question that drove this research: how do opp to prepare affect the gender differences in the choice to compete? this graph is showing our answer to that question for study 1. 
+
+to help orient you: on the y axis here, we have the % of ppts that chose to compete, which is grouped by gender (where the purple bars represent women, & green bars represent men) and condition on the x axis (knowledge of prep cond & control cond). since the  bars between men & women are overlapping quite a bit here across conditions, we do not find evidence that the knowledge of prep condition reduces the gender gap in competitiveness. 
+
+
+---
+
+# Study 2: Limited preparation does NOT reduce gap in competition either
+
+
+
+# Study 3: Unlimited preparation does NOT reduce gap in competition either
+
+
+
+# Chapter 2 results
+

@@ -36,9 +36,3 @@ here::i_am("flag_project_root.R")
 ```
 
 
-## Figures and Tables
-
-```{r child = here("chapter2", "figures.Rmd")}
-
-```
-

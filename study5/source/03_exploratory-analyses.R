@@ -3,7 +3,7 @@
 if(!require('pacman')) {
   install.packages('pacman')
 }
-pacman::p_load(tidyverse, here, conflicted, easystats, pscl)
+pacman::p_load(tidyverse, here, conflicted, easystats, pscl, magrittr)
 
 ## declaring conflicts
 
@@ -231,3 +231,12 @@ sec_exploratory32 <- t.test(practice$perceived_pract_dev, mu = 0, alternative = 
 
 sec_exploratory33 <- t.test(practice$perceived_pract_dev, mu = 0, alternative = "two.sided") 
 
+## interaction is still null when looking at full dataset
+
+sec_exploratory34 <- glm(practice_problems_binary ~ gender*condition,family=binomial,data = clean)
+
+sec_exploratory35 <-glm(factor(practice_problems_binary) ~ gender*perc_task_gender_pract, data = clean_fraud_removed, family = binomial())
+
+sec_exploratory36 <-glm(factor(practice_problems_binary) ~ gender*perc_gen_gender_pract, data = clean_fraud_removed, family = binomial())
+
+sec_exploratory37 <- lm(task_score~gender*condition, data = clean_fraud_removed)

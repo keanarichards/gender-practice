@@ -23,7 +23,8 @@ clean_fraud_removed <- clean %>% filter(fraud == 0)
 practice <- clean_fraud_removed %>% filter(condition == "pract")
 no_fraud <- clean_fraud_removed %>% filter(fraud == 0)
 women <- clean_fraud_removed %>% filter(gender == "Woman")
-  
+men <- clean_fraud_removed %>% filter(gender == "Man")
+
 
 # analyses ----------------------------------------------------------------
 
@@ -59,7 +60,7 @@ exploratory7 <-chisq.test(t4, p = c(1/3, 1/3, 1/3))
 
 ## how useful do ppts find the practice? do they think multiplication practice will boost performance? 
 
-t6 <- table(clean_fraud_removed  %>% select(MC))
+t6 <- table(clean_fraud_removed  %>% dplyr::select(MC))
 exploratory9 <-chisq.test(t6, p = c(1/3, 1/3, 1/3))
 
 ## does condition  interact with gender to predict conf
@@ -96,7 +97,7 @@ exploratory16 <- glm(comp_choice~gender, family = binomial, data = clean_fraud_r
 exploratory17 <- lm(risk~gender, data = clean_fraud_removed)
 exploratory18 <- lm(conf_rank~gender, data = clean_fraud_removed)
 exploratory19 <- lm(task_score~gender, data = clean_fraud_removed)
-exploratory20 <- lm(task_score~gender*condition + conf_rank + risk, data = clean_fraud_removed)
+exploratory20 <- lm(task_score~gender*comp_choice + conf_rank + risk, data = clean_fraud_removed)
 exploratory21 <- glm(comp_choice ~ condition + task_score + risk + conf_rank,family=binomial,data = women)
 exploratory22 <- glm(comp_choice ~ condition,family=binomial,data = clean_fraud_removed)
 exploratory23 <- glm(comp_choice ~ condition*gender + task_score + risk + conf_rank,family=binomial,data = clean_fraud_removed)
@@ -105,7 +106,7 @@ exploratory25 <- glm(study_tables_binary ~ condition,family=binomial,data = wome
 exploratory26 <- lm(conf_rank ~ condition,data = women)
 exploratory27 <- lm(risk ~ condition,data = women)
 exploratory28 <- glm(extra_practice_rounds_count ~ gender*comp_choice,family="poisson",data = practice)
-exploratory29 <- glm(practice_problems_binary ~ gender*comp_choice + conf_rank + task_score + risk,family=binomial(),data = clean_fraud_removed)
+exploratory29 <- glm(practice_problems_binary ~ gender*comp_choice + conf_rank + task_score + risk,family=binomial(),data = practice)
 
 
 # performing more targeted analysis of gender diff questions --------------
@@ -170,16 +171,36 @@ exploratory37 <- chisq.test(t14, p = c(1/2, 1/2))
 t15 <- table(clean_fraud_removed$gender, clean_fraud_removed$condition)
 sec_exploratory38 <- chisq.test(t15)
 
-sec_exploratory39 <- glm(practice_problems_binary ~ gender, data = clean_fraud_removed, family = binomial())
+sec_exploratory39 <- glm(practice_problems_binary ~ gender, data = practice, family = binomial())
 
 
 # exploring other ways of modeling practice rounds count variable ---------
 
 sec_exploratory40 <- hurdle(total_practice_rounds_count ~ gender*comp_choice, data = practice)
-
+summary_sec_exploratory40 <- summary(sec_exploratory40) 
 
 ## does conf & risk predict choice to compete
 
 sec_exploratory41 <- glm(comp_choice ~ risk +conf_rank, data = clean_fraud_removed, family = binomial())
 
+## interaction is still null when looking at full dataset
+
+sec_exploratory42 <- glm(comp_choice ~ gender*condition,family=binomial,data = clean)
+
+## gender is still null when looking at full dataset
+sec_exploratory43 <- glm(practice_problems_binary ~ gender,family=binomial,data = clean %>% filter(condition == "pract"))
+
+sec_exploratory44 <-glm(factor(practice_problems_binary) ~ gender*perc_task_gender_pract, data = practice, family = binomial())
+
+sec_exploratory45 <-glm(factor(practice_problems_binary) ~ gender*perc_gen_gender_pract, data = practice, family = binomial())
+
+exploratory46 <- lm(task_score~gender*comp_choice, data = clean_fraud_removed)
+
+sec_exploratory47 <-glm(factor(practice_problems_binary) ~ condition, data = clean_fraud_removed, family = binomial())
+
+sec_exploratory48 <-glm(factor(study_tables_binary) ~ condition, data = clean_fraud_removed, family = binomial())
+
+
+t16 <- table(clean_fraud_removed  %>% filter(MC != "There will not be a difference in performance between the two groups") %>% dplyr::select(MC))
+exploratory49 <-chisq.test(t16, p = c(1/2, 1/2))
 

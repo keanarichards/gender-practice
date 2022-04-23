@@ -7,7 +7,6 @@ output:
 ---
 
 
-
 ### Methods 
 
 ```{r child = here::here("study1", "paper_sections", "methods.Rmd") }
