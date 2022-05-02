@@ -29,7 +29,7 @@
 
 % As you can see from the uncommented line below, oxforddown template uses the a4paper size, 
 % and passes in the binding option from the YAML header in index.Rmd:
-\documentclass[a4paper, nobind]{templates/ociamthesis}
+\documentclass[letterpaper, nobind]{templates/ociamthesis}
 
 
 %%%%% ADDING LATEX PACKAGES
@@ -113,7 +113,7 @@
 \preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
 \makeatother
 
-
+\counterwithout{footnote}{chapter} 
 
 %%%%%%% PAGE HEADERS AND FOOTERS %%%%%%%%%
 \usepackage{fancyhdr}
@@ -124,17 +124,15 @@
 \renewcommand{\sectionmark}[1]{\markright{\thesection. #1}} 
 \renewcommand{\headrulewidth}{0pt}
 
-\fancyhead[LO]{\emph{\leftmark}} 
-\fancyhead[RE]{\emph{\rightmark}} 
 
 % UL page number position 
-\fancyfoot[C]{\emph{\thepage}} %regular pages
-\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\emph{\thepage}}} %chapter pages
+\fancyhead[C]{\emph{\thepage}} %regular pages
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[C]{\emph{\thepage}}} %chapter pages
 
 % JEM fix header on cleared pages for openright
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
    \hbox{}
-   \fancyfoot[C]{}
+   \fancyhead[C]{}
    \newpage
    \if@twocolumn\hbox{}\newpage
    \fi
@@ -166,7 +164,7 @@
 
 
 \usepackage[style=authoryear, sorting=nyt, backend=biber, maxcitenames=2, useprefix, doi=true, isbn=false, uniquename=false]{biblatex}
-\newcommand*{\bibtitle}{Works Cited}
+\newcommand*{\bibtitle}{Bibliography}
 
 \addbibresource{bibliography/library.bib}
 
@@ -195,7 +193,6 @@ which aligns with gender stereotypes}
 \degree{Doctor of Philosophy}
 % Term and year of submission, or date if your board requires (eg most masters)
 \degreedate{}
-
 
 %%%%% YOUR OWN PERSONAL MACROS
 % This is a good place to dump your own LaTeX macros as they come up.
@@ -229,10 +226,12 @@ which aligns with gender stereotypes}
 %
 % Oxford University logo on title page
 %
-\def\crest{{\includegraphics[width=5cm]{templates/beltcrest.pdf}}}
-\renewcommand{\university}{University of Pennsylvania}
-\renewcommand{\submittedtext}{A thesis submitted for the degree of}
-
+%\def\crest{{\includegraphics[width=5cm]{templates/beltcrest.pdf}}}
+%\renewcommand{\university}{University of Pennsylvania}
+%\renewcommand{\submittedtext}{A thesis submitted for the degree of}
+%\renewcommand{\thesistitlesize}{\fontsize{}{}\selectfont}
+%\renewcommand{\gapbeforecrest}{}
+%\renewcommand{\gapaftercrest}{}
 
 % Leave this line alone; it gets things started for the real document.
 \setlength{\baselineskip}{\textbaselineskip}
@@ -266,12 +265,15 @@ which aligns with gender stereotypes}
 %%%%%  For my mom
 %%%%% \end{dedication}
 %%%%% 
+\phantom{\cite{?}}
+
 %%%%% ACKNOWLEDGEMENTS -- Nothing to do here except comment out if you don't want it.
 
+\cleardoublepage
+\phantomsection
 \addcontentsline{toc}{chapter}{Acknowledgements}
 \renewcommand{\numberstyleacks}{plain}
 \renewcommand{\numberstyleabstract}{plain}
-
 
 \begin{acknowledgements}
  	This project would not have been possible without the support of many people. First, I am incredibly grateful for the support of my mom, Dawn Eden, who has been guiding me in my academic and personal pursuits my whole life. She has sacrificed her own sleep, money, and time on endless occasions to help me get to this point, with an optimism that still inspires and motivates me. I have learned and continue to learn so much from her. I would also like to thank many of my other family members whose support made this dissertation possible. I am especially grateful to my brother, Jared Richards, for being my partner in crime on occasions that would have otherwise been boring and for teaching me so much about spaces that I know very little about.
@@ -285,13 +287,17 @@ which aligns with gender stereotypes}
 
 %%%%% ABSTRACT -- Nothing to do here except comment out if you don't want it.
 
-\addcontentsline{toc}{chapter}{ABSTRACT}
+\addcontentsline{toc}{chapter}{Abstract}
 \renewcommand{\numberstyleabstract}{plain}
 
-\renewcommand{\abstracttitle}{ABSTRACT}
+\renewcommand{\abstracttitle}{Abstract}
 \begin{abstract}
-	Gender gaps in economic outcomes persist, despite women's gains in education. Various explanations have been proposed for these persistent gaps, including gender differences in competitiveness. In both lab and field studies, women tend to compete less than men, despite performing just as well. Various interventions have attempted to reduce the gender difference in competitiveness by encouraging women to compete more. Here we test whether preparation can reduce the gender gap in competitiveness, an intervention that has not been explored in previous research. The opportunity to prepare before a competition likely improves performance, increases confidence, and reduces perceptions of risk associated with competing. And, prior research has found that both confidence and risk attitudes explain some, if not all, of the gender difference in competitiveness. Across three studies in Chapter 1 involving over 3000 participants recruited from an online marketplace in North America, we experimentally test how variations of preparation (i.e., knowledge of an opportunity to prepare, limited opportunity to prepare, and unlimited opportunity to prepare) before performance affect gender differences in willingness to compete. We also measure participants' choice to prepare and elicit their beliefs about whether men or women will prepare more. First, we show that the preparation intervention does not increase women's competitiveness across studies. Instead, we discover a novel gender difference in the choice to prepare before performance regardless of one's competitiveness, risk aversion, and confidence. This finding aligns with participants' incentivized beliefs - the majority of participants correctly predicted that women would practice more than men. Given this novel finding, Chapter 2 experimentally tests whether the gender difference in preparation may be exacerbated in competitive environments relative to non-competitive environments using an online participant pool (N = 3980). Although we replicate the gender difference in preparation, we find no evidence that competitions increase preparation in men or women. This means that women prepare more than men regardless of whether they were assigned to compete. Again, this aligns with participants' incentivized beliefs about gender differences in preparation. This dissertation discusses the downstream and potentially negative consequences of interventions designed to get women to compete, such as the one introduced here. It also discusses both the causes and implications of this newly discovered gender difference in preparation. Future research should explore the boundary conditions, moderators, and mediators of the newly discovered gender difference in preparation. Finally, rather than designing interventions that encourage women to compete more, we implore future research to focus on exploring interventions that change the system to be more gender-inclusive.
+	Gender gaps in economic outcomes persist, despite women's gains in education. Various explanations have been proposed for these persistent gaps, including gender differences in competitiveness. In both lab and field studies, women tend to compete less than men, despite performing just as well. Across three studies in Chapter 1 involving over 3000 participants recruited from Amazon Mechanical Turk, we experimentally test whether variations of preparation (i.e., knowledge of an opportunity to prepare, limited opportunity to prepare, and unlimited opportunity to prepare) before performance reduce gender differences in willingness to compete. We also measure participants' choice to prepare and elicit their beliefs about whether men or women will prepare more. First, we show that the preparation intervention does not increase women's competitiveness across studies. Instead, we discover a novel gender difference in the choice to prepare before performance regardless of one's competitiveness, risk aversion, and confidence.\\
+ \newpage
+
+ This finding aligns with participants' incentivized beliefs - the majority of participants correctly predicted that women would practice more than men. Given this novel finding, Chapter 2 experimentally tests whether the gender difference in preparation may be exacerbated in competitive environments relative to non-competitive environments (N = 3980). Although we replicate the gender difference in preparation, we find no evidence that competitions increase preparation in men or women. This means that women prepare more than men regardless of whether they were assigned to compete. Again, this aligns with participants' incentivized beliefs about gender differences in preparation. This dissertation discusses the downstream and potentially negative consequences of interventions designed to get women to compete, such as the one introduced here. It also discusses both the causes and implications of this newly discovered gender difference in preparation. Future research should explore the boundary conditions, moderators, and mediators of the newly discovered gender difference in preparation. Finally, rather than designing interventions that encourage women to compete more, we implore future research to focus on exploring interventions that change the system to be more gender-inclusive.
 \end{abstract}
+
 
 
 %%%%% MINI TABLES
@@ -306,14 +312,16 @@ which aligns with gender stereotypes}
 % This is where the whole-document ToC appears:
 \tableofcontents
 
+% Uncomment to generate a list of tables:
+\listoftables
+  \mtcaddchapter
+
+
 \listoffigures
 	\mtcaddchapter
   	% \mtcaddchapter is needed when adding a non-chapter (but chapter-like) entity to avoid confusing minitoc
 
-% Uncomment to generate a list of tables:
-% %\listoftables
-%  \mtcaddchapter
-%%%%%% LIST OF ABBREVIATIONS
+%%%%% LIST OF ABBREVIATIONS
 % This example includes a list of abbreviations.  Look at text/abbreviations.tex to see how that file is
 % formatted.  The template can handle any kind of list though, so this might be a good place for a
 % glossary, etc.
@@ -326,9 +334,8 @@ which aligns with gender stereotypes}
 \flushbottom
 
 % all your chapters and appendices will appear here
-\hypertarget{introduction}{%
-\chapter*{Introduction}\label{introduction}}
-\addcontentsline{toc}{chapter}{Introduction}
+\hypertarget{chapter-1-introduction}{%
+\chapter{Chapter 1: Introduction}\label{chapter-1-introduction}}
 
 \adjustmtc
 \markboth{Introduction}{}
@@ -343,16 +350,16 @@ One area that has been explored extensively within the economics literature is g
 
 Thus, it is possible that giving people the chance to prepare would reduce gender disparities in competition. On the other hand, opportunities to prepare might also result in opportunity costs for women, such that women might end up preparing more than necessary before performing. Since prior interventions have not tested the effects of offering individuals the opportunity to prepare before entering a competition, we address this gap in the literature on gender differences in competitiveness through a series of experiments in Chapter 1 where we offer participants variations of the opportunity to prepare (i.e., knowledge of preparation, limited opportunity to prepare, and unlimited opportunity to prepare). We test whether the gender gap in competitiveness is eliminated in the preparation conditions relative to the control conditions. Our research in Chapter 1 also had the explicit goal of identifying whether there are any gender differences in preparation, since any observed gender differences in the tendency to (over)prepare could create opportunity costs for those who choose to prepare. Given the well-established gender differences in risk attitudes and confidence, we reasoned that they might contribute to differences in the desire to prepare before performance. Results from Chapter 1 showed that there are in fact gender differences in preparation, though we did not find gender differences in competitiveness after controlling for gender differences in risk attitudes and confidence. Given these intriguing and novel results, the experiment in Chapter 2 tests whether the gender difference in preparation would be exacerbated in competitive settings, such that women would be especially likely to prepare before entering a competitive, relative to non-competitive, setting. Chapter 2 also seeks to understand the gender difference in preparation further by exploring whether women are more likely to perceive that they prepare less than others relative to men, especially in competitive settings. Overall, these findings have implications for the literature on gender differences in competitiveness and also contribute more generally to our understanding of how interventions intended to reduce gender differences may have negative downstream consequences (e.g., potential opportunity costs of (over)preparing). In addition, we discover a novel gender difference in preparation, which we encourage future research to explore further.
 
-\hypertarget{chapter-1-effects-of-preparation-on-gender-differences-in-willingness-to-compete}{%
-\chapter{Chapter 1: Effects of preparation on gender differences in willingness to compete}\label{chapter-1-effects-of-preparation-on-gender-differences-in-willingness-to-compete}}
+\hypertarget{chapter-2-effects-of-preparation-on-gender-differences-in-willingness-to-compete}{%
+\chapter{Chapter 2: Effects of preparation on gender differences in willingness to compete}\label{chapter-2-effects-of-preparation-on-gender-differences-in-willingness-to-compete}}
 
-\hypertarget{introduction-1}{%
-\section{Introduction}\label{introduction-1}}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
 \hypertarget{gender-gaps-persist-despite-womens-success-in-education}{%
 \subsection{Gender gaps persist despite women's success in education}\label{gender-gaps-persist-despite-womens-success-in-education}}
 
-Women have surpassed men in education outcomes, like college attendance and graduation rates \autocite{Blau2017,Goldin2006,Stoet2014}, but continue to be underrepresented in top management positions in nearly all sectors \autocite{Bertrand2001}. And, a sizable gender gap still persists worldwide \autocite{Blau2017}. Traditional economic variables, such as household division of labor and discrimination, account for some, but not all, of these disparities \autocite{Blau2017}. As such, researchers have begun to consider psychological gender differences, including the predilection for competition, as means of understanding persistent gender gaps in labor market outcomes \autocite[for review, see][]{Niederle2011}. Specifically, they expected that gender differences in competitiveness may explain why women may not compete for promotions and are underrepresented in top-level or highly competitive positions (e.g., CEO) \autocite{Niederle2007}.
+Women have surpassed men in education outcomes, like college attendance and graduation rates \autocite{Blau2017,Goldin2006,Stoet2015}, but continue to be underrepresented in top management positions in nearly all sectors \autocite{Bertrand2001}. And, a sizable gender wage gap still persists \autocite{Blau2017}. Traditional economic variables, such as household division of labor and discrimination, account for some, but not all, of these disparities \autocite{Blau2017}. As such, researchers have begun to consider psychological gender differences, including the predilection for competition, as means of understanding persistent gender gaps in labor market outcomes \autocite[for review, see][]{Niederle2011}. Specifically, they expected that gender differences in competitiveness may explain why women may not compete for promotions and are underrepresented in top-level or highly competitive positions (e.g., CEO) \autocite{Niederle2007}.
 
 \hypertarget{gender-differences-in-competitiveness}{%
 \subsection{Gender differences in competitiveness}\label{gender-differences-in-competitiveness}}
@@ -403,6 +410,8 @@ In the first experiment, we test whether simply knowing that there will be an op
 
 Finally, in experiment 3, we examine how an unlimited amount of preparation affects gender differences in the willingness to compete. Across all experiments, we measured gender differences in actual preparation after administering the treatment and eliciting preferences to compete. Finally, we monetarily incentivized participants in both studies to correctly predict whether men or women would prepare and compete more. The research design, pre-registered hypotheses, measures and analyses are available on \href{https://osf.io/q39a5/}{OSF} and all analyses were conducted in R statistical software (version 4.0.4). All participants across the three experiments were recruited through Amazon Mechanical Turk (or MTurk), with a guaranteed payment and the opportunity to earn bonuses depending on their performance and the performance of others. Recruiting participants on this platform allowed for efficient data collection while meeting acceptable psychometric standards, such as high test-retest and alpha reliability \autocite{Rand2012,Buhrmester2011,Paolacci2014,Chandler2016}.
 
+\newpage
+
 \hypertarget{study-1}{%
 \section{Study 1}\label{study-1}}
 
@@ -412,16 +421,37 @@ Finally, in experiment 3, we examine how an unlimited amount of preparation affe
 \hypertarget{participants}{%
 \subsubsection{Participants}\label{participants}}
 
-All study measures described below are publicly available on OSF both as a \href{https://osf.io/hb9nw/}{.pdf} and \href{https://osf.io/ga24t/}{.qsf}. Participants on Amazon Mechanical Turk who opted into the study had to pass several screening questions. Specifically, participants included in the paid portion of the study had to (i) identify their nationality as American and live in the United States, (ii) identify as a man or a woman, and (iii) be using a computer (rather than a phone or tablet). If they did not meet these criteria, they did not proceed to the paid portion of the study. Additionally, upon reviewing the data, we had reason to suspect that some participants completed the study more than once. Specifically, some participants had the same IP address, MTurk ID, and were of the same gender. When entries matched on all three identifiers, we included only the first entry and excluded all subsequent entries. The final sample consisted of 1056 participants (53.6\% women), with an average age of 37.74 (\emph{SD} = 13.19) years.\footnote{Note: Per our screening criteria for participants, the number of participants who do not identify as men or women is 0 across all studies. Therefore, the proportion of men in the sample is represented by whatever proportion of the full sample does not identify as women} 54 participants (53.7\% women) dropped out of the study before finishing and we use their data when available. See Figure \ref{fig:demographics-table-study1} for all demographic information.
+All study measures described below are publicly available on OSF both as a \href{https://osf.io/hb9nw/}{.pdf} and \href{https://osf.io/ga24t/}{.qsf}. Participants on Amazon Mechanical Turk who opted into the study had to pass several screening questions. Specifically, participants included in the paid portion of the study had to (i) identify their nationality as American and live in the United States, (ii) identify as a man or a woman, and (iii) be using a computer (rather than a phone or tablet). If they did not meet these criteria, they did not proceed to the paid portion of the study. Additionally, upon reviewing the data, we had reason to suspect that some participants completed the study more than once. Specifically, some participants had the same IP address, MTurk ID, and were of the same gender. When entries matched on all three identifiers, we included only the first entry and excluded all subsequent entries. The final sample consisted of 1056 participants (53.6\% women), with an average age of 37.74 (\emph{SD} = 13.19) years.\footnote{Note: Per our screening criteria for participants, the number of participants who do not identify as men or women is 0 across all studies. Therefore, the proportion of men in the sample is represented by whatever proportion of the full sample does not identify as women} 54 participants (53.7\% women) dropped out of the study before finishing and we use their data when available. See Table \ref{tab:demographics-table-study1} for all demographic information.
 
-\begin{figure}
+\newpage
 
-{\centering \includegraphics[width=0.6\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/demographics-table-conds-study1} 
+\begin{center}\includegraphics[width=0.6\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/demographics-table-conds-study1} \end{center}
 
-}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Size of sample in Study 1 with corresponding percentage listed for gender, race, education, and household income, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’.} 
+\label{tab:demographics-table-study1}
+\end{table}
 
-\caption{Size of sample in Study 1 with corresponding percentage listed for gender, race, education, and household income, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’.}\label{fig:demographics-table-study1}
-\end{figure}
+\newpage
+
+\begin{center}\includegraphics[width=0.5\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/demographics-table-gender-study1} \end{center}
+
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Size of sample in Study 1 with corresponding percentage listed for race, education, and household income, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’.} 
+\label{tab:demographics-table-gender-study1}
+\end{table}
 
 \hypertarget{procedures}{%
 \subsubsection{Procedures}\label{procedures}}
@@ -454,41 +484,55 @@ Finally, participants completed a measure of risk attitudes, where they answered
 \hypertarget{describing-main-variables-of-interest}{%
 \subsubsection{Describing main variables of interest}\label{describing-main-variables-of-interest}}
 
-Contrary to previous data in this literature \autocite{Niederle2007}, a minority of participants (15.41\%) chose to compete. Despite the small proportion of participants who chose to compete, we still replicate the gender gap in the choice to compete when gender is included as the only predictor in the model, where a greater share of men (20.25\%) compared to women (11.19\%) chose to compete. A logistic regression revealed that this gender difference in the choice to compete is significant, \(b = -0.70\), 95\% CI \([-1.05\), \(-0.36]\), \(z = -3.95\), \(p < .001\). However, when including control variables, such as risk attitudes, confidence, task scores, and the hypothesized interaction between gender and competition choice, we find that the effect of gender is no longer significant, \(b = -0.42\), 95\% CI \([-0.95\), \(0.10]\), \(z = -1.56\), \(p = .118\), while risk attitudes, \(b = 0.31\), 95\% CI \([0.23\), \(0.39]\), \(z = 7.60\), \(p < .001\) and task scores, \(b = 0.02\), 95\% CI \([0.01\), \(0.02]\), \(z = 3.34\), \(p = .001\), are significant, suggesting those variables may fully explain the observed gender difference in willingness to compete (see Figure \ref{fig:tab-comp-choice-study1}).
+Contrary to previous data in this literature \autocite{Niederle2007}, a minority of participants (15.41\%) chose to compete. Despite the small proportion of participants who chose to compete, we still replicate the gender gap in the choice to compete when gender is included as the only predictor in the model, where a greater share of men (20.25\%) compared to women (11.19\%) chose to compete. A logistic regression revealed that this gender difference in the choice to compete is significant, \(b = -0.70\), 95\% CI \([-1.05\), \(-0.36]\), \(z = -3.95\), \(p < .001\). However, when including control variables, such as risk attitudes, confidence, task scores, and the hypothesized interaction between gender and competition choice, we find that the effect of gender is no longer significant, \(b = -0.42\), 95\% CI \([-0.95\), \(0.10]\), \(z = -1.56\), \(p = .118\), while risk attitudes, \(b = 0.31\), 95\% CI \([0.23\), \(0.39]\), \(z = 7.60\), \(p < .001\) and task scores, \(b = 0.02\), 95\% CI \([0.01\), \(0.02]\), \(z = 3.34\), \(p = .001\), are significant, suggesting those variables may fully explain the observed gender difference in willingness to compete (see Table \ref{tab:tab-comp-choice-study1}).
 
-\begin{figure}
+\begin{center}\includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/tab_comp-choice-study1} \end{center}
 
-{\centering \includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/tab_comp-choice-study1} 
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{All models are logistic regressions with choice to compete as the dependent variable, where man and control are the reference categories for participant gender and preparation condition, respectively. The gender difference in the choice to compete is not reduced by preparation condition, but is explained by risk attitudes and task scores. p < .05 is considered significant and bolded.} 
+\label{tab:tab-comp-choice-study1}
+\end{table}
 
-}
+In separate linear regressions with gender as the only predictor, we also observed gender differences in both risk attitudes, \(b = -0.85\), 95\% CI \([-1.16\), \(-0.54]\), \(t(1002) = -5.36\), \(p < .001\), and confidence, \(b = -8.25\), 95\% CI \([-10.97\), \(-5.54]\), \(t(1002) = -5.97\), \(p < .001\). When included as the sole predictor in a linear regression, we find that gender significantly predicts task scores on the paid multiplication task, \(b = -7.31\), 95\% CI \([-9.81\), \(-4.81]\), \(t(1005) = -5.73\), \(p < .001\), such that women have lower scores on average, M\textsubscript{women} =49.14, SD\textsubscript{women} =18.83; M\textsubscript{men} = 56.44, SD\textsubscript{men} =21.63. The effect of gender on task scores holds in a separate linear regression with other variables included as predictors in the model, \(b = -6.41\), 95\% CI \([-8.95\), \(-3.87]\), \(t(998) = -4.96\), \(p < .001\) (see Table \ref{tab:tab-task-scores-study1}). See Table \ref{tab:summary-table-gender-study1} for a summary of gender differences in the main variables of interest.
 
-\caption{All models are logistic regressions with choice to compete as the dependent variable, where man and control are the reference categories for participant gender and preparation condition, respectively. The gender difference in the choice to compete is not reduced by preparation condition, but is explained by risk attitudes and task scores. p < .05 is considered significant and bolded.}\label{fig:tab-comp-choice-study1}
-\end{figure}
+\begin{center}\includegraphics[width=0.5\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/summary-table-gender-study1} \end{center}
 
-In separate linear regressions with gender as the only predictor, we also observed gender differences in both risk attitudes, \(b = -0.85\), 95\% CI \([-1.16\), \(-0.54]\), \(t(1002) = -5.36\), \(p < .001\), and confidence, \(b = -8.25\), 95\% CI \([-10.97\), \(-5.54]\), \(t(1002) = -5.97\), \(p < .001\). When included as the sole predictor in a linear regression, we find that gender significantly predicts task scores on the paid multiplication task, \(b = -7.31\), 95\% CI \([-9.81\), \(-4.81]\), \(t(1005) = -5.73\), \(p < .001\), such that women have lower scores on average, M\textsubscript{women} =49.14, SD\textsubscript{women} =18.83; M\textsubscript{men} = 56.44, SD\textsubscript{men} =21.63. The effect of gender on task scores holds in a separate linear regression with other variables included as predictors in the model, \(b = -6.41\), 95\% CI \([-8.95\), \(-3.87]\), \(t(998) = -4.96\), \(p < .001\) (see Figure \ref{fig:tab-task-scores-study1}). See Figure \ref{fig:summary-table-gender-study1} for a summary of gender differences in the main variables of interest.
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Gender differences in the main variables of interest, including: task scores, choice to compete, choice to practice, confidence, and risk attitudes. Medians are reported for task score, risk attitudes, and confidence, with IQRs in parentheses. For choice to practice and choice to compete, we report the number and percentage of participants that fall into each category for each respective gender.} 
+\label{tab:summary-table-gender-study1}
+\end{table}
 
-\begin{figure}
+\newpage
 
-{\centering \includegraphics[width=0.5\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/summary-table-gender-study1} 
+\begin{center}\includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/tab_task-scores-study1} \end{center}
 
-}
-
-\caption{Gender differences in the main variables of interest, including: task scores, choice to compete, choice to practice, confidence, and risk attitudes. Medians are reported for task score, risk attitudes, and confidence, with IQRs in parentheses. For choice to practice and choice to compete, we report the number and percentage of participants that fall into each category for each respective gender}\label{fig:summary-table-gender-study1}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/tab_task-scores-study1} 
-
-}
-
-\caption{All models are linear regressions with task score as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. After controlling for risk attitudes, confidence, and competition choice, women still have lower scores on the multiplication task than men, p < .05 is considered significant and bolded.}\label{fig:tab-task-scores-study1}
-\end{figure}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{All models are linear regressions with task score as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. After controlling for risk attitudes, confidence, and competition choice, women still have lower scores on the multiplication task than men, p < .05 is considered significant and bolded.} 
+\label{tab:tab-task-scores-study1}
+\end{table}
 
 \hypertarget{effects-of-knowledge-of-preparation-condition-on-gender-differences-in-choice-to-compete}{%
 \subsubsection{Effects of knowledge of preparation condition on gender differences in choice to compete}\label{effects-of-knowledge-of-preparation-condition-on-gender-differences-in-choice-to-compete}}
 
-Contrary to our predictions, we do not find evidence of a significant interaction between gender and condition on the decision to compete, \(b = 0.06\), 95\% CI \([-0.63\), \(0.76]\), \(z = 0.18\), \(p = .861\) (see Figure \ref{fig:s100}). When included as a sole predictor of the choice to compete in a logistic regression, we did not find evidence that assignment to the knowledge of preparation affected the choice to compete, \(b = 0.01\), 95\% CI \([-0.33\), \(0.35]\), \(z = 0.05\), \(p = .963\).
+Contrary to our predictions, we do not find evidence of a significant interaction between gender and condition on the decision to compete, \(b = 0.06\), 95\% CI \([-0.63\), \(0.76]\), \(z = 0.18\), \(p = .861\) (see Figure \ref{fig:s100}). When included as a sole predictor of the choice to compete in a logistic regression, we did not find evidence that assignment to the knowledge of preparation affected the choice to compete, \(b = 0.01\), 95\% CI \([-0.33\), \(0.35]\), \(z = 0.05\), \(p = .963\). Thus, the point estimate for the effect of the knowledge of preparation condition was positive and the 95\% CI did not include negative effects that were greater in magnitude than 0.33.
 
 \begin{figure}
 
@@ -502,7 +546,7 @@ Contrary to our predictions, we do not find evidence of a significant interactio
 \hypertarget{gender-differences-in-preparation}{%
 \subsubsection{Gender differences in preparation}\label{gender-differences-in-preparation}}
 
-As hypothesized, a logistic regression with gender predicting the choice to practice shows that a greater proportion of women (55.88\%) took advantage of the opportunity to practice relative to men (43.25\%), \(b = 0.51\), 95\% CI \([0.26\), \(0.76]\), \(z = 4.01\), \(p < .001\) (see right panel of Figure \ref{fig:panel-study1}). Gender remains a significant predictor of the binary choice to prepare after adding participants' choice to compete and the interaction between gender and the choice to compete in the model, \(b = 0.54\), 95\% CI \([0.27\), \(0.82]\), \(z = 3.92\), \(p < .001\), but we do not find an interaction between gender and the choice to compete, (see left panel of Figure \ref{fig:panel-study1}). We also find that the choice to compete positively predicts a participants' likelihood of choosing to practice, \(b = 0.50\), 95\% CI \([0.05\), \(0.95]\), \(z = 2.18\), \(p = .030\). In a subsequent logistic regression with additional possible predictors of the decision to practice, we find that the gender effect holds, \(b = 0.55\), 95\% CI \([0.27\), \(0.84]\), \(z = 3.79\), \(p < .001\), suggesting that it is not explained by the observed gender differences in risk attitudes, confidence, nor task scores (see Figure \ref{fig:tab-pract-choice-study1}). We also ran a two-part hurdle model with gender, competition choice, and the interaction between those variables predicting the number of practice rounds variable with the assumption that there may be different decision-making processes underlying the choice to prepare when first offered the opportunity versus the choice to continue preparing thereafter. However, we do not find evidence of gender differences in the choice to continue preparing after the initial decision to prepare - that is, the gender predictor in the count part of the model did not show a significant effect on the dependent variable, \emph{b} = 0.11, 95\% CI {[}-0.12, 0.34{]}, \emph{z} = 0.96, \emph{p} = 0.34.
+As hypothesized, a logistic regression with gender predicting the choice to practice shows that a greater proportion of women (55.88\%) took advantage of the opportunity to practice relative to men (43.25\%), \(b = 0.51\), 95\% CI \([0.26\), \(0.76]\), \(z = 4.01\), \(p < .001\) (see right panel of Figure \ref{fig:panel-study1}). Gender remains a significant predictor of the binary choice to prepare after adding participants' choice to compete and the interaction between gender and the choice to compete in the model, \(b = 0.54\), 95\% CI \([0.27\), \(0.82]\), \(z = 3.92\), \(p < .001\), but we do not find an interaction between gender and the choice to compete, (see left panel of Figure \ref{fig:panel-study1}). We also find that the choice to compete positively predicts a participants' likelihood of choosing to practice, \(b = 0.50\), 95\% CI \([0.05\), \(0.95]\), \(z = 2.18\), \(p = .030\). In a subsequent logistic regression with additional possible predictors of the decision to practice, we find that the gender effect holds, \(b = 0.55\), 95\% CI \([0.27\), \(0.84]\), \(z = 3.79\), \(p < .001\), suggesting that it is not explained by the observed gender differences in risk attitudes, confidence, nor task scores (see Table \ref{tab:tab-pract-choice-study1}). We also ran a two-part hurdle model with gender, competition choice, and the interaction between those variables predicting the number of practice rounds variable with the assumption that there may be different decision-making processes underlying the choice to prepare when first offered the opportunity versus the choice to continue preparing thereafter. However, we do not find evidence of gender differences in the choice to continue preparing after the initial decision to prepare - that is, the gender predictor in the count part of the model did not show a significant effect on the dependent variable, \emph{b} = 0.11, 95\% CI {[}-0.12, 0.34{]}, \emph{z} = 0.96, \emph{p} = 0.34.
 
 \begin{figure}
 
@@ -513,28 +557,38 @@ As hypothesized, a logistic regression with gender predicting the choice to prac
 \caption{Right panel shows the proportion of men and women in Study 1 who chose to prepare. Left panel shows the proportion of men and women in Study 1 who chose to prepare based on choice to compete. Women choose to prepare more than men, regardless of their decision to compete. Error bars represent standard errors.}\label{fig:panel-study1}
 \end{figure}
 
-\begin{figure}
+\newpage
 
-{\centering \includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/tab_pract-choice-study1} 
+\begin{center}\includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/tab_pract-choice-study1} \end{center}
 
-}
-
-\caption{All models are logistic regressions with choice to prepare as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. Women prepare more than men regardless of competition choice, task score, risk attitudes, or confidence. p < .05 is considered significant and bolded.}\label{fig:tab-pract-choice-study1}
-\end{figure}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{All models are logistic regressions with choice to prepare as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. Women prepare more than men regardless of competition choice, task score, risk attitudes, or confidence. p < .05 is considered significant and bolded.} 
+\label{tab:tab-pract-choice-study1}
+\end{table}
 
 \hypertarget{perceptions-of-gender-differences-in-preparation-performance-and-competitiveness}{%
 \subsubsection{Perceptions of gender differences in preparation, performance, and competitiveness}\label{perceptions-of-gender-differences-in-preparation-performance-and-competitiveness}}
 
-This gender difference in preparation aligned with participants' incentivized predictions about gender differences in preparation, where a greater proportion of participants (83.37\%) expected women to spend more time preparing for the multiplication task, \(\chi^2(1, n = 1056) = 447.11\), \(p < .001\) (see Figure \ref{fig:s103}). They also expected women to prepare more in general, \(\chi^2(1, n = 1056) = 625.06\), \(p < .001\), with 89.51\% indicating women prepare more in general versus 10.49\% indicating that men prepare more in general (see Figure \ref{fig:s106}). However, participants did not expect any gender differences in performance on the task, \(\chi^2(1, n = 1056) = 1.02\), \(p = .313\) (see Figure \ref{fig:s104}). Additionally, participants accurately predicted that women were less likely to choose to compete, \(\chi^2(1, n = 1056) = 716.24\), \(p < .001\) (see Figure \ref{fig:s105}). See Figure \ref{fig:summary-table-beliefs-study1}) for a summary of participants' responses to the questions about gender differences in preparation, performance, and competitiveness.
+This gender difference in preparation aligned with participants' incentivized predictions about gender differences in preparation, where a greater proportion of participants (83.37\%) expected women to spend more time preparing for the multiplication task, \(\chi^2(1, n = 1056) = 447.11\), \(p < .001\) (see Figure \ref{fig:s103}). They also expected women to prepare more in general, \(\chi^2(1, n = 1056) = 625.06\), \(p < .001\), with 89.51\% indicating women prepare more in general versus 10.49\% indicating that men prepare more in general (see Figure \ref{fig:s106}). However, participants did not expect any gender differences in performance on the task, \(\chi^2(1, n = 1056) = 1.02\), \(p = .313\) (see Figure \ref{fig:s104}). Additionally, participants accurately predicted that women were less likely to choose to compete, \(\chi^2(1, n = 1056) = 716.24\), \(p < .001\) (see Figure \ref{fig:s105}). See Table \ref{tab:summary-table-beliefs-study1}) for a summary of participants' responses to the questions about gender differences in preparation, performance, and competitiveness.
 
-\begin{figure}
+\begin{center}\includegraphics[width=0.35\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/summary-table-beliefs-study1} \end{center}
 
-{\centering \includegraphics[width=0.35\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study1/figs/summary-table-beliefs-study1} 
-
-}
-
-\caption{Number and percentage of participants that selected each respective option when asked which gender would correctly solve more problems on the multiplication task, spend more time preparing for the multiplication task, choose the tournament payment scheme more often, and spend more time preparing on most tasks}\label{fig:summary-table-beliefs-study1}
-\end{figure}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Number and percentage of participants that selected each respective option when asked which gender would correctly solve more problems on the multiplication task, spend more time preparing for the multiplication task, choose the tournament payment scheme more often, and spend more time preparing on most tasks.} 
+\label{tab:summary-table-beliefs-study1}
+\end{table}
 
 \begin{figure}
 
@@ -631,7 +685,7 @@ One possible explanation for participants' predictions is that they expected men
 \hypertarget{effects-of-gender-and-perceptions-on-practicing-1}{%
 \subsubsection{Effects of gender and perceptions on practicing}\label{effects-of-gender-and-perceptions-on-practicing-1}}
 
-On top of the gender differences in practicing and perceptions of said gender differences, we explored whether these perceptions are aligned with individuals' practicing behavior. More specifically, we would expect that women may be especially likely to prepare for the task if they believe that women will prepare more than men, both in general on most tasks and specifically within the context of the multiplication task. We find support for this hypothesis across both questions about perceptions of gender differences in preparation. Though we cannot test this hypothesis causally with this specific set of data, these results would suggest that women's practicing behavior may have been influenced at least in part by beliefs about gender differences in preparation. We cannot test the direction of this effect - that is, practicing may have led participants' to believe that other individuals who have the same gender identity practice more (behavior leading to perception) or the belief that other participants who have the same gender identity practice more may have led participants to practice more (perception leading to behavior). As such, we implore future research to explore these questions through experiments.
+On top of the gender differences in practicing and perceptions of said gender differences, we explored whether these perceptions are aligned with individuals' practicing behavior. More specifically, we would expect that women may be especially likely to prepare for the task if they believe that women will prepare more than men, both in general on most tasks and specifically within the context of the multiplication task. We find support for this hypothesis across both questions about perceptions of gender differences in preparation. Though we cannot test this hypothesis causally with this specific set of data, these results would suggest that women's practicing behavior may have been influenced at least in part by beliefs about gender differences in preparation (though see Overall Discussion section for considerations of this interpretation).
 
 \hypertarget{self-reported-calculator-use-and-perceptions-of-calculator-use}{%
 \subsubsection{Self-reported calculator use and perceptions of calculator use}\label{self-reported-calculator-use-and-perceptions-of-calculator-use}}
@@ -642,6 +696,8 @@ There may be concern that participants used a calculator to answer the multiplic
 \subsubsection{Summary}\label{summary}}
 
 Overall, we find from the first study of Chapter 1 that our manipulation of the knowledge of the opportunity to prepare did not reduce the gender difference in competitiveness. We show that the gender difference in competitiveness itself is explained by gender differences in risk attitudes and task scores. Although the manipulation did not have the anticipated effects on gender differences in competitiveness, women chose to prepare more than men, which aligned with beliefs about gender differences in preparation. We also have evidence that women's preparation behaviors may in fact have been influenced by beliefs about gender differences in preparation. Finally, we show that participants were unlikely to be using calculators while completing the task, so it is unlikely that any of the effects found are confounded by participants' calculator use. Since we did not find evidence that the knowledge of the opportunity to prepare affected gender differences in competitiveness, the next study in Chapter 1 tests experimentally whether the actual experience of preparing through required preparation for a pre-specified number of rounds would affect the gender gap in competitiveness. We expect individuals may need to actually experience improvement in their performance directly for the preparation to affect one's willingness to compete.
+
+\newpage
 
 \hypertarget{study-2}{%
 \section{Study 2}\label{study-2}}
@@ -654,14 +710,35 @@ Overall, we find from the first study of Chapter 1 that our manipulation of the 
 
 All study measures described below are publicly available on OSF both as a \href{https://osf.io/9pt2e/}{.pdf} and \href{https://osf.io/bxwu2/}{.qsf}. Participants were recruited on Amazon Mechanical Turk via CloudResearch using the same screening criteria as Study 1. For all studies in the dissertation after Study 1 of Chapter 1, we used CloudResearch to filter out participants that had already participated in any of the other studies in this dissertation. Therefore, only MTurkers who were naive to the design were included in the current and subsequent studies. Also, if participants had an identical IP address, MTurkID, and gender, we excluded their second response. The final sample consisted of 1088 participants (50.64\% women), with an average age of 38.54 (\emph{SD} = 12.5) years. 62 participants (51.61\% women) dropped out of the study before finishing\footnote{Note: we use data from participants who dropped out when available}.
 
-\begin{figure}
+\newpage
 
-{\centering \includegraphics[width=0.6\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/demographics-table-conds-study2} 
+\begin{center}\includegraphics[width=0.6\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/demographics-table-conds-study2} \end{center}
 
-}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Size of sample in Study 2 with corresponding percentage listed for gender, race, education, and household income, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’.} 
+\label{tab:demographics-table-study2}
+\end{table}
 
-\caption{Size of sample in Study 2 with corresponding percentage listed for gender, race, education, and household income, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’.}\label{fig:demographics-table-study2}
-\end{figure}
+\newpage
+
+\begin{center}\includegraphics[width=0.5\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/demographics-table-gender-study2} \end{center}
+
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Size of sample in Study 2 with corresponding percentage listed for race, education, and household income, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’.} 
+\label{tab:demographics-table-gender-study2}
+\end{table}
 
 \hypertarget{procedures-1}{%
 \subsubsection{Procedures}\label{procedures-1}}
@@ -680,42 +757,55 @@ Then, participants completed the paid multiplication task for two minutes. We in
 \hypertarget{describing-main-variables-of-interest-1}{%
 \subsubsection{Describing main variables of interest}\label{describing-main-variables-of-interest-1}}
 
-We replicated the effect of gender on the choice to compete when gender is included as the only predictor in the logistic regression: 19.85\% of men chose to compete compared to 13.91\% of women, \(b = -0.43\), 95\% CI \([-0.76\), \(-0.10]\), \(z = -2.56\), \(p = .010\). Like Study 1, the gender effect on competitiveness is no longer significant after adding the same control variables as before (i.e., risk attitudes, confidence, task scores, and the hypothesized interaction between gender and competition choice), where risk attitudes, \(b = 0.34\), 95\% CI \([0.26\), \(0.42]\), \(z = 8.34\), \(p < .001\), confidence, \(b = 0.01\), 95\% CI \([0.01\), \(0.02]\), \(z = 3.04\), \(p = .002\), and task scores, \(b = 0.01\), 95\% CI \([0.00\), \(0.02]\), \(z = 3.10\), \(p = .002\) appear to explain the gender differences in competitiveness (see Figure \ref{fig:tab-comp-choice-study2}).
+We replicated the effect of gender on the choice to compete when gender is included as the only predictor in the logistic regression: 19.85\% of men chose to compete compared to 13.91\% of women, \(b = -0.43\), 95\% CI \([-0.76\), \(-0.10]\), \(z = -2.56\), \(p = .010\). Like Study 1, the gender effect on competitiveness is no longer significant after adding the same control variables as before (i.e., risk attitudes, confidence, task scores, and the hypothesized interaction between gender and competition choice), where risk attitudes, \(b = 0.34\), 95\% CI \([0.26\), \(0.42]\), \(z = 8.34\), \(p < .001\), confidence, \(b = 0.01\), 95\% CI \([0.01\), \(0.02]\), \(z = 3.04\), \(p = .002\), and task scores, \(b = 0.01\), 95\% CI \([0.00\), \(0.02]\), \(z = 3.10\), \(p = .002\) appear to explain the gender differences in competitiveness (see Table \ref{tab:tab-comp-choice-study2}).
 
-\begin{figure}
+\begin{center}\includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/tab_comp-choice-study2} \end{center}
 
-{\centering \includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/tab_comp-choice-study2} 
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{All models are logistic regressions with choice to compete as the dependent variable, where man and control are the reference categories for participant gender and preparation condition, respectively. The gender difference in the choice to compete is not reduced by preparation condition, but is explained by risk attitudes, task scores, and confidence. p < .05 is considered significant and bolded.} 
+\label{tab:tab-comp-choice-study2}
+\end{table}
 
-}
+Again, we find that gender predicts task scores when included by itself as a predictor, \(b = -3.68\), 95\% CI \([-6.27\), \(-1.10]\), \(t(1028) = -2.80\), \(p = .005\). However, unlike Study 1, when other variables are included as predictors in the linear regression, we find that the effect of gender on task scores dissipates, \(b = -0.46\), 95\% CI \([-3.17\), \(2.24]\), \(t(1020) = -0.34\), \(p = .738\), suggesting that the other variables, such as competition choice, \(b = 7.17\), 95\% CI \([2.83\), \(11.52]\), \(t(1020) = 3.24\), \(p = .001\), risk attitudes, \(b = -1.35\), 95\% CI \([-1.85\), \(-0.86]\), \(t(1020) = -5.42\), \(p < .001\), and confidence, \(b = 0.35\), 95\% CI \([0.30\), \(0.41]\), \(t(1020) = 12.54\), \(p < .001\), explained the gender difference in task scores in this study (see \ref{tab:tab-task-scores-study2}). In support of this possibility, we replicate the finding from the Study 1 of this chapter that gender predicts both risk attitudes, \(b = -1.14\), 95\% CI \([-1.46\), \(-0.82]\), \(t(1024) = -7.00\), \(p < .001\) and confidence, \(b = -9.76\), 95\% CI \([-12.49\), \(-7.02]\), \(t(1027) = -6.99\), \(p < .001\). See Table \ref{tab:summary-table-gender-study2} for a summary of gender differences in the main variables of interest.
 
-\caption{All models are logistic regressions with choice to compete as the dependent variable, where man and control are the reference categories for participant gender and preparation condition, respectively. The gender difference in the choice to compete is not reduced by preparation condition, but is explained by risk attitudes, task scores, and confidence. p < .05 is considered significant and bolded.}\label{fig:tab-comp-choice-study2}
-\end{figure}
+\begin{center}\includegraphics[width=0.5\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/summary-table-gender-study2} \end{center}
 
-Again, we find that gender predicts task scores when included by itself as a predictor, \(b = -3.68\), 95\% CI \([-6.27\), \(-1.10]\), \(t(1028) = -2.80\), \(p = .005\). However, unlike Study 1, when other variables are included as predictors in the linear regression, we find that the effect of gender on task scores dissipates, \(b = -0.46\), 95\% CI \([-3.17\), \(2.24]\), \(t(1020) = -0.34\), \(p = .738\), suggesting that the other variables, such as competition choice, \(b = 7.17\), 95\% CI \([2.83\), \(11.52]\), \(t(1020) = 3.24\), \(p = .001\), risk attitudes, \(b = -1.35\), 95\% CI \([-1.85\), \(-0.86]\), \(t(1020) = -5.42\), \(p < .001\), and confidence, \(b = 0.35\), 95\% CI \([0.30\), \(0.41]\), \(t(1020) = 12.54\), \(p < .001\), explained the gender difference in task scores in this study (see \ref{fig:tab-task-scores-study2}). In support of this possibility, we replicate the finding from the Study 1 of this chapter that gender predicts both risk attitudes, \(b = -1.14\), 95\% CI \([-1.46\), \(-0.82]\), \(t(1024) = -7.00\), \(p < .001\) and confidence,
-\(b = -9.76\), 95\% CI \([-12.49\), \(-7.02]\), \(t(1027) = -6.99\), \(p < .001\). See Figure \ref{fig:summary-table-gender-study2} for a summary of gender differences in the main variables of interest.
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Gender differences in the main variables of interest, including: task scores, choice to compete, choice to practice, confidence, and risk attitudes. Medians are reported for task score, risk attitudes, and confidence, with IQRs in parentheses. For choice to practice and choice to compete, we report the number and percentage of participants that fall into each category for each respective gender.} 
+\label{tab:summary-table-gender-study2}
+\end{table}
 
-\begin{figure}
+\newpage
 
-{\centering \includegraphics[width=0.5\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/summary-table-gender-study2} 
+\begin{center}\includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/tab_task-scores-study2} \end{center}
 
-}
-
-\caption{Gender differences in the main variables of interest, including: task scores, choice to compete, choice to practice, confidence, and risk attitudes. Medians are reported for task score, risk attitudes, and confidence, with IQRs in parentheses. For choice to practice and choice to compete, we report the number and percentage of participants that fall into each category for each respective gender}\label{fig:summary-table-gender-study2}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/tab_task-scores-study2} 
-
-}
-
-\caption{All models are linear regressions with task score as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. After controlling for risk attitudes, confidence, and competition choice, women no longer have lower scores on the multiplication task than men, p < .05 is considered significant and bolded.}\label{fig:tab-task-scores-study2}
-\end{figure}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{All models are linear regressions with task score as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. After controlling for risk attitudes, confidence, and competition choice, women no longer have lower scores on the multiplication task than men, p < .05 is considered significant and bolded.} 
+\label{tab:tab-task-scores-study2}
+\end{table}
 
 \hypertarget{effects-of-limited-preparation-condition-on-gender-differences-in-choice-to-compete}{%
 \subsubsection{Effects of limited preparation condition on gender differences in choice to compete}\label{effects-of-limited-preparation-condition-on-gender-differences-in-choice-to-compete}}
 
-We did not find evidence of an interaction between gender and preparation condition on the choice to compete in a logistic regression, \(b = -0.17\), 95\% CI \([-0.83\), \(0.48]\), \(z = -0.51\), \(p = .610\) (see Figure \ref{fig:s200}). Also, we did not find evidence of a significant effect of condition on the choice to compete as a sole predictor in a logistic regression, \(b = -0.19\), 95\% CI \([-0.52\), \(0.13]\), \(z = -1.17\), \(p = .243\).
+We did not find evidence of an interaction between gender and preparation condition on the choice to compete in a logistic regression, \(b = -0.17\), 95\% CI \([-0.83\), \(0.48]\), \(z = -0.51\), \(p = .610\) (see Figure \ref{fig:s200}). Also, we did not find evidence of a significant effect of condition on the choice to compete as a sole predictor in a logistic regression, \(b = -0.19\), 95\% CI \([-0.52\), \(0.13]\), \(z = -1.17\), \(p = .243\). The point estimate for the effect of the limited preparation condition was negative and the 95\% CI did not include positive effects that were greater in magnitude than 0.13.
 
 \begin{figure}
 
@@ -726,10 +816,12 @@ We did not find evidence of an interaction between gender and preparation condit
 \caption{Proportion of men and women in Study 2 who chose to compete based on preparation condition. Limited preparation did not reduce the gender difference in competitiveness. Error bars represent standard errors.}\label{fig:s200}
 \end{figure}
 
+\newpage
+
 \hypertarget{gender-differences-in-preparation-2}{%
 \subsubsection{Gender differences in preparation}\label{gender-differences-in-preparation-2}}
 
-Despite no evidence for the effect of requiring people to prepare (i.e., condition) on the choice to compete across participants, we replicate the effect of gender on the choice to practice found in Study 1, where women were significantly more likely to opt-in to prepare for the task, even after being required to prepare in the preparation condition. 42.02\% of women across conditions chose to practice for the multiplication task beyond what was required, relative to 35.99\% of men, \(b = 0.25\), 95\% CI \([0.00\), \(0.50]\), \(z = 1.99\), \(p = .047\) (see right panel of Figure \ref{fig:panel-study2}). The gender effect holds even after controlling for the decision to compete and the interaction between gender and the decision to compete, \(b = 0.31\), 95\% CI \([0.03\), \(0.59]\), \(z = 2.17\), \(p = .030\) (see left panel of Figure \ref{fig:panel-study2}). Within the same model, we find that the choice to compete itself increases the likelihood a participant will practice before completing the paid task, \(b = 0.83\), 95\% CI \([0.39\), \(1.27]\), \(z = 3.70\), \(p < .001\), but no evidence of an interaction between gender and payment scheme choice, \(b = 0.04\), 95\% CI \([-0.63\), \(0.72]\), \(z = 0.12\), \(p = .906\). To see if the gender effect is explained by other variables included in the study, we added confidence, risk attitudes, and task scores to the previous model, and find that gender still significantly predicts the choice to practice, \(b = 0.41\), 95\% CI \([0.12\), \(0.71]\), \(z = 2.76\), \(p = .006\), over any effects of differences in risk attitudes, confidence, or task scores (see Figure \ref{fig:tab-pract-choice-study2}). We ran the same two-part hurdle model described in Study 1 with gender, competition choice, and the interaction between those variables predicting the number of practice rounds variable. Again, we do not find evidence of gender differences in the choice to continue preparing after the initial decision to prepare, \emph{b} = -0.14, 95\% CI {[}-0.53, 0.25{]}, \emph{z} = -0.71, \emph{p} = 0.48.
+Despite no evidence for the effect of requiring people to prepare (i.e., condition) on the choice to compete across participants, we replicate the effect of gender on the choice to practice found in Study 1, where women were significantly more likely to opt-in to prepare for the task, even after being required to prepare in the preparation condition. 42.02\% of women across conditions chose to practice for the multiplication task beyond what was required, relative to 35.99\% of men, \(b = 0.25\), 95\% CI \([0.00\), \(0.50]\), \(z = 1.99\), \(p = .047\) (see right panel of Figure \ref{fig:panel-study2}). The gender effect holds even after controlling for the decision to compete and the interaction between gender and the decision to compete, \(b = 0.31\), 95\% CI \([0.03\), \(0.59]\), \(z = 2.17\), \(p = .030\) (see left panel of Figure \ref{fig:panel-study2}). Within the same model, we find that the choice to compete itself increases the likelihood a participant will practice before completing the paid task, \(b = 0.83\), 95\% CI \([0.39\), \(1.27]\), \(z = 3.70\), \(p < .001\), but no evidence of an interaction between gender and payment scheme choice, \(b = 0.04\), 95\% CI \([-0.63\), \(0.72]\), \(z = 0.12\), \(p = .906\). To see if the gender effect is explained by other variables included in the study, we added confidence, risk attitudes, and task scores to the previous model, and find that gender still significantly predicts the choice to practice, \(b = 0.41\), 95\% CI \([0.12\), \(0.71]\), \(z = 2.76\), \(p = .006\), over any effects of differences in risk attitudes, confidence, or task scores (see Table \ref{tab:tab-pract-choice-study2}). We ran the same two-part hurdle model described in Study 1 with gender, competition choice, and the interaction between those variables predicting the number of practice rounds variable. Again, we do not find evidence of gender differences in the choice to continue preparing after the initial decision to prepare, \emph{b} = -0.14, 95\% CI {[}-0.53, 0.25{]}, \emph{z} = -0.71, \emph{p} = 0.48.
 
 \begin{figure}
 
@@ -739,29 +831,38 @@ Despite no evidence for the effect of requiring people to prepare (i.e., conditi
 
 \caption{Right panel shows the proportion of men and women in Study 2 who chose to prepare. Left panel shows the proportion of men and women in Study 2 who chose to prepare based on choice to compete. Women choose to prepare more than men, regardless of their decision to compete. Error bars represent standard errors.}\label{fig:panel-study2}
 \end{figure}
+\newpage
 
-\begin{figure}
+\begin{center}\includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/tab_pract-choice-study2} \end{center}
 
-{\centering \includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/tab_pract-choice-study2} 
-
-}
-
-\caption{All models are logistic regressions with choice to prepare as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. Women prepare more than men regardless of competition choice, task score, risk attitudes, or confidence. p < .05 is considered significant and bolded.}\label{fig:tab-pract-choice-study2}
-\end{figure}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{All models are logistic regressions with choice to prepare as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. Women prepare more than men regardless of competition choice, task score, risk attitudes, or confidence. p < .05 is considered significant and bolded.} 
+\label{tab:tab-pract-choice-study2}
+\end{table}
 
 \hypertarget{perceptions-of-gender-differences-in-preparation-performance-and-competitiveness-2}{%
 \subsubsection{Perceptions of gender differences in preparation, performance, and competitiveness}\label{perceptions-of-gender-differences-in-preparation-performance-and-competitiveness-2}}
 
-Again, we find that these results align with participants' expectations, where they were significantly more likely to expect women (with 85.38\% selecting women versus 14.62\% selecting men) to choose to prepare more than men both in general, \(\chi^2(1, n = 1088) = 513.72\), \(p < .001\) (see Figure \ref{fig:s206}), and on the paid multiplication task, \(\chi^2(1, n = 1088) = 394.33\), \(p < .001\) (see Figure \ref{fig:s203}) (with 80.95\% selecting women versus 19.05\% selecting men), despite expecting men to choose to compete more often, \(\chi^2(1, n = 1088) = 580.69\), \(p < .001\) (see Figure \ref{fig:s205}) and expecting no gender differences in performance on the task, \(\chi^2(1, n = 1088) = 0.51\), \(p = .473\) (see Figure \ref{fig:s204}). See Figure \ref{fig:summary-table-beliefs-study2} for a summary of participants' responses to the questions about gender differences in preparation, performance, and competitiveness.
+Again, we find that these results align with participants' expectations, where they were significantly more likely to expect women (with 85.38\% selecting women versus 14.62\% selecting men) to choose to prepare more than men both in general, \(\chi^2(1, n = 1088) = 513.72\), \(p < .001\) (see Figure \ref{fig:s206}), and on the paid multiplication task, \(\chi^2(1, n = 1088) = 394.33\), \(p < .001\) (see Figure \ref{fig:s203}) (with 80.95\% selecting women versus 19.05\% selecting men), despite expecting men to choose to compete more often, \(\chi^2(1, n = 1088) = 580.69\), \(p < .001\) (see Figure \ref{fig:s205}) and expecting no gender differences in performance on the task, \(\chi^2(1, n = 1088) = 0.51\), \(p = .473\) (see Figure \ref{fig:s204}). See Table \ref{tab:summary-table-beliefs-study2} for a summary of participants' responses to the questions about gender differences in preparation, performance, and competitiveness.
 
-\begin{figure}
+\begin{center}\includegraphics[width=0.35\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/summary-table-beliefs-study2} \end{center}
 
-{\centering \includegraphics[width=0.35\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study2/figs/summary-table-beliefs-study2} 
-
-}
-
-\caption{Number and percentage of participants that selected each respective option when asked which gender would correctly solve more problems on the multiplication task, spend more time preparing for the multiplication task, choose the tournament payment scheme more often, and spend more time preparing on most tasks}\label{fig:summary-table-beliefs-study2}
-\end{figure}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Number and percentage of participants that selected each respective option when asked which gender would correctly solve more problems on the multiplication task, spend more time preparing for the multiplication task, choose the tournament payment scheme more often, and spend more time preparing on most tasks.} 
+\label{tab:summary-table-beliefs-study2}
+\end{table}
 
 \begin{figure}
 
@@ -864,6 +965,8 @@ Finally, we explored participants' experiences while completing the multiplicati
 
 Since we did not find evidence that the limited opportunity to prepare affected gender differences in competitiveness, the last study in Chapter 1 tests experimentally whether having the unlimited opportunity to prepare would affect the gender gap in competitiveness. It is possible that participants in the limited preparation condition may have felt like they were not getting any additional preparation above and beyond what other participants were receiving because they could not choose how much they prepared, and thus, they did not feel like the preparation would have helped their performance substantially more than it would have helped other participants. If this possible explanation for the null effect in Study 2 is correct, we should expect to see an effect of unlimited preparation on reducing the gender difference in competitiveness.
 
+\newpage
+
 \hypertarget{study-3}{%
 \section{Study 3}\label{study-3}}
 
@@ -877,19 +980,40 @@ All study measures described below are publicly available on OSF both as a \href
 
 The final dataset consists of 1072 participants (47.2\% women), with an average age of 39.33 (\emph{SD} = 11.88) years. Of the final sample, 45 participants (44.44\% women) dropped out of the study before finishing (again, we use their data when available) and 67 participants were flagged by Qualtrics' fraud detection software as suspicious based on the aforementioned criteria.
 
-\begin{figure}
+\newpage
 
-{\centering \includegraphics[width=0.85\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/demographics-table-conds-study4} 
+\begin{center}\includegraphics[width=0.85\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/demographics-table-conds-study4} \end{center}
 
-}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Size of sample in Study 3 with corresponding percentage listed for gender and education, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’. Note: we did not include questions about race/ethnicity nor income in this study.} 
+\label{tab:demographics-table-study4}
+\end{table}
 
-\caption{Size of sample in Study 3 with corresponding percentage listed for gender and education, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’. Note: we did not include questions about race/ethnicity nor income in this study.}\label{fig:demographics-table-study4}
-\end{figure}
+\newpage
+
+\begin{center}\includegraphics[width=0.85\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/demographics-table-gender-study4} \end{center}
+
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Size of sample in Study 3 with corresponding percentage listed for education, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’. Note: we did not include questions about race/ethnicity nor income in this study.} 
+\label{tab:demographics-table-gender-study4}
+\end{table}
 
 \hypertarget{procedures-2}{%
 \subsubsection{Procedures}\label{procedures-2}}
 
-As in Studies 1 and 2, participants included in the study were told they would be completing a two-minute multiplication task (identical to the ones used in previous studies) and would be able to choose a payment scheme for their performance. After being told about the rules for the multiplication task and passing the same comprehension questions used in the previous studies, participants were assigned to either an unlimited preparation condition, where they could complete as many practice multiplication problems as they wanted, with the option to opt out of the practice at any time before moving on to the multiplication task, or a control condition, where they were told they could complete as many rounds of a subtraction exercise as they wanted before the multiplication task. An equal number of participants were randomly assigned to both conditions (control= 49.86\%), with no significant difference in representation of men and women across conditions, \(\chi^2(1, n = 1072) = 0.00\), \(p = .971\), confirming there was random assignment to conditions based on gender. Participants across both conditions were given the option to study the multiplication (preparation condition) or subtraction (control condition) tables for as long as they wanted. We measured both the decision to study the respective table within each condition, along with the amount of time that participants who chose to study the tables spent on that page. Next, participants within each condition were given the option to practice problems from the tables within their respective condition. Practice problems were created by randomly drawing pairs of numbers from 1 to 12 and asking participants to multiply them together. Participants across both conditions were able to complete 10 problems at a time before being prompted to indicate whether they would like to continue completing problems. Like the previous studies, we measured the decision to practice multiplication problems (or in the case of the control condition, complete subtraction problems), along with the number of rounds of practice participants completed. Here, the number of rounds of practice was encoded as follows: participants who did not choose to practice had a value of zero for this variable, participants who chose to practice had a value of one for this variable, and thereafter the variable increased incrementally in correspondence with each round of practice participants completed. This variable had a mean of 0.33, with an \emph{SD} of 1.03.
+As in Studies 1 and 2, participants included in the study were told they would be completing a two-minute multiplication task (identical to the ones used in previous studies) and would be able to choose a payment scheme for their performance. After being told about the rules for the multiplication task and passing the same comprehension questions used in the previous studies, participants were assigned to either an unlimited preparation condition, where they could complete as many practice multiplication problems as they wanted, with the option to opt out of the practice at any time before moving on to the multiplication task, or a control condition, where they were told they could complete as many rounds of a subtraction exercise as they wanted before the multiplication task. An equal number of participants were randomly assigned to both conditions (control= 49.86\%), with no significant difference in representation of men and women across conditions, \(\chi^2(1, n = 1072) = 0.00\), \(p = .971\), confirming there was random assignment to conditions based on gender. Participants across both conditions were given the option to study the multiplication (preparation condition) or subtraction (control condition) tables for as long as they wanted. We measured both the decision to study the respective table within each condition, along with the amount of time that participants who chose to study the tables spent on that page. Next, participants within each condition were given the option to complete problems from the tables within their respective condition. Problems were created by randomly drawing pairs of numbers from 1 to 12 and asking participants to multiply them together (preparation condition) or subtract them (control condition). Participants across both conditions were able to complete 10 problems at a time before being prompted to indicate whether they would like to continue completing problems. Like the previous studies, we measured the decision to practice multiplication problems (or in the case of the control condition, complete subtraction problems), along with the number of rounds of practice participants completed. Here, the number of rounds of practice was encoded as follows: participants who did not choose to practice had a value of zero for this variable, participants who chose to practice had a value of one for this variable, and thereafter the variable increased incrementally in correspondence with each round of practice participants completed. This variable had a mean of 0.33, with an \emph{SD} of 1.03.
 
 Afterwards, all participants chose a payment scheme for the multiplication task, described and counterbalanced in the same way as in Studies 1 and 2. Then, participants completed the paid multiplication task for two minutes. We included many of the same follow-up questions as in Studies 1 and 2, including measures of risk attitudes, confidence, perceptions of gender differences in preparation on the multiplication task (for participants in the preparation condition), perceptions of gender differences in preparation in general, competitiveness, and performance. Notably, we added in an additional response option for all of the questions about perceptions of gender differences in behavior, such that participants in this study could choose between saying men were more likely to engage in the specified behavior, women were more likely to engage in the specified behavior, or that there would be no gender differences in the specified behavior. Like before, participants were incentivized to answer the questions about their confidence and perceptions of gender differences correctly, and were paid at the same rate as Studies 1 and 2. Participants also completed a manipulation check, where they were told about the two conditions, and were asked which of the conditions they thought was more helpful in boosting scores on the paid multiplication task. Finally, they completed some demographic questions and provided feedback on the study before being paid for their participation.
 
@@ -899,41 +1023,55 @@ Afterwards, all participants chose a payment scheme for the multiplication task,
 \hypertarget{describing-main-variables-of-interest-2}{%
 \subsubsection{Describing main variables of interest}\label{describing-main-variables-of-interest-2}}
 
-We start by exploring gender differences across the main variables of interest to compare the characteristics of our sample to previous samples in the literature and provide context for the subsequent analyses. First, we replicated the effect from the previous studies of gender on the choice to compete when gender is included as the only predictor in the logistic regression: 20.22\% of men chose to compete compared to 8.85\% of women, \(b = -0.96\), 95\% CI \([-1.34\), \(-0.59]\), \(z = -5.01\), \(p < .001\). However, like the previous two studies, when running regressions including control variables (i.e., task score, risk attitudes, confidence, and the interaction between gender and condition), we find that the effect of gender on the choice to compete is not significant, \(b = -0.15\), 95\% CI \([-0.69\), \(0.37]\), \(z = -0.56\), \(p = .573\), suggesting the effect is explained fully by risk attitudes, \(b = 0.33\), 95\% CI \([0.25\), \(0.41]\), \(z = 7.79\), \(p < .001\), task score, \(b = 0.02\), 95\% CI \([0.01\), \(0.03]\), \(z = 3.84\), \(p < .001\), and confidence, \(b = 0.01\), 95\% CI \([0.00\), \(0.02]\), \(z = 2.17\), \(p = .030\) (See Figure \ref{fig:tab-comp-choice-study4}). On the other hand, we replicate effects from the literature of gender on both confidence, \(b = -14.06\), 95\% CI \([-16.73\), \(-11.39]\), \(t(1035) = -10.35\), \(p < .001\), and risk attitudes, \(b = -1.02\), 95\% CI \([-1.33\), \(-0.71]\), \(t(1035) = -6.48\), \(p < .001\), where women tend to be less confident with regards to their performance on the task and generally more risk averse relative to men.
+We start by exploring gender differences across the main variables of interest to compare the characteristics of our sample to previous samples in the literature and provide context for the subsequent analyses. First, we replicated the effect from the previous studies of gender on the choice to compete when gender is included as the only predictor in the logistic regression: 20.22\% of men chose to compete compared to 8.85\% of women, \(b = -0.96\), 95\% CI \([-1.34\), \(-0.59]\), \(z = -5.01\), \(p < .001\). However, like the previous two studies, when running regressions including control variables (i.e., task score, risk attitudes, confidence, and the interaction between gender and condition), we find that the effect of gender on the choice to compete is not significant, \(b = -0.15\), 95\% CI \([-0.69\), \(0.37]\), \(z = -0.56\), \(p = .573\), suggesting the effect is explained fully by risk attitudes, \(b = 0.33\), 95\% CI \([0.25\), \(0.41]\), \(z = 7.79\), \(p < .001\), task score, \(b = 0.02\), 95\% CI \([0.01\), \(0.03]\), \(z = 3.84\), \(p < .001\), and confidence, \(b = 0.01\), 95\% CI \([0.00\), \(0.02]\), \(z = 2.17\), \(p = .030\) (See Table \ref{tab:tab-comp-choice-study4}). On the other hand, we replicate effects from the literature of gender on both confidence, \(b = -14.06\), 95\% CI \([-16.73\), \(-11.39]\), \(t(1035) = -10.35\), \(p < .001\), and risk attitudes, \(b = -1.02\), 95\% CI \([-1.33\), \(-0.71]\), \(t(1035) = -6.48\), \(p < .001\), where women tend to be less confident with regards to their performance on the task and generally more risk averse relative to men.
 
-\begin{figure}
+\begin{center}\includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/tab_comp-choice-study4} \end{center}
 
-{\centering \includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/tab_comp-choice-study4} 
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{All models are logistic regressions with choice to compete as the dependent variable, where man and control are the reference categories for participant gender and preparation condition, respectively. The gender difference in the choice to compete is not reduced by preparation condition, but is explained by risk attitudes, confidence, and task scores. p < .05 is considered significant and bolded.} 
+\label{tab:tab-comp-choice-study4}
+\end{table}
 
-}
+Another important consideration when interpreting any main effects found in this study is whether there are gender differences in task scores. When including gender by itself as a predictor of performance, we find that women have significantly lower task scores, \(b = -7.60\), 95\% CI \([-10.07\), \(-5.12]\), \(t(1035) = -6.01\), \(p < .001\). However, when controlling for competition choice, confidence, and risk attitudes, the effect of gender is not significant, \(b = -1.35\), 95\% CI \([-3.79\), \(1.09]\), \(t(1031) = -1.09\), \(p = .278\), suggesting that these variables explain the gender difference in task scores. Specifically, we find that both confidence, \(b = 0.43\), 95\% CI \([0.38\), \(0.49]\), \(t(1031) = 16.84\), \(p < .001\), and competition choice, \(b = 8.23\), 95\% CI \([4.42\), \(12.03]\), \(t(1031) = 4.24\), \(p < .001\), positively predict task scores (that is, those who are more confident and chose to compete tend to have higher task scores), while risk attitudes negatively predict task scores (that is, individuals who are more risk seeking tend to have lower scores), \(b = -1.14\), 95\% CI \([-1.58\), \(-0.69]\), \(t(1031) = -4.98\), \(p < .001\) (See Table \ref{tab:tab-task-scores-study4}). See Table \ref{tab:summary-table-gender-study4} for a summary of gender differences in the main variables of interest.
 
-\caption{All models are logistic regressions with choice to compete as the dependent variable, where man and control are the reference categories for participant gender and preparation condition, respectively. The gender difference in the choice to compete is not reduced by preparation condition, but is explained by risk attitudes, confidence, and task scores. p < .05 is considered significant and bolded.}\label{fig:tab-comp-choice-study4}
-\end{figure}
+\begin{center}\includegraphics[width=0.5\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/summary-table-gender-study4} \end{center}
 
-Another important consideration when interpreting any main effects found in this study is whether there are gender differences in task scores. When including gender by itself as a predictor of performance, we find that women have significantly lower task scores, \(b = -7.60\), 95\% CI \([-10.07\), \(-5.12]\), \(t(1035) = -6.01\), \(p < .001\). However, when controlling for competition choice, confidence, and risk attitudes, the effect of gender is not significant, \(b = -1.35\), 95\% CI \([-3.79\), \(1.09]\), \(t(1031) = -1.09\), \(p = .278\), suggesting that these variables explain the gender difference in task scores. Specifically, we find that both confidence, \(b = 0.43\), 95\% CI \([0.38\), \(0.49]\), \(t(1031) = 16.84\), \(p < .001\), and competition choice, \(b = 8.23\), 95\% CI \([4.42\), \(12.03]\), \(t(1031) = 4.24\), \(p < .001\), positively predict task scores (that is, those who are more confident and chose to compete tend to have higher task scores), while risk attitudes negatively predict task scores (that is, individuals who are more risk seeking tend to have lower scores), \(b = -1.14\), 95\% CI \([-1.58\), \(-0.69]\), \(t(1031) = -4.98\), \(p < .001\) (See Figure \ref{fig:tab-task-scores-study4}). See Figure \ref{fig:summary-table-gender-study4} for a summary of gender differences in the main variables of interest.
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Gender differences in the main variables of interest, including: task scores, choice to compete, choice to practice (among the full dataset), confidence, and risk attitudes. Medians are reported for task score, risk attitudes, and confidence, with IQRs in parentheses. For choice to practice and choice to compete, we report the number and percentage of participants that fall into each category for each respective gender.} 
+\label{tab:summary-table-gender-study4}
+\end{table}
 
-\begin{figure}
+\newpage
 
-{\centering \includegraphics[width=0.5\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/summary-table-gender-study4} 
+\begin{center}\includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/tab_task-scores-study4} \end{center}
 
-}
-
-\caption{Gender differences in the main variables of interest, including: task scores, choice to compete, choice to practice (among the full dataset), confidence, and risk attitudes. Medians are reported for task score, risk attitudes, and confidence, with IQRs in parentheses. For choice to practice and choice to compete, we report the number and percentage of participants that fall into each category for each respective gender}\label{fig:summary-table-gender-study4}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/tab_task-scores-study4} 
-
-}
-
-\caption{All models are linear regressions with task score as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. After controlling for risk attitudes, confidence, and competition choice, women no longer have lower scores on the multiplication task than men, p < .05 is considered significant and bolded.}\label{fig:tab-task-scores-study4}
-\end{figure}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{All models are linear regressions with task score as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. After controlling for risk attitudes, confidence, and competition choice, women no longer have lower scores on the multiplication task than men, p < .05 is considered significant and bolded.} 
+\label{tab:tab-task-scores-study4}
+\end{table}
 
 \hypertarget{effects-of-unlimited-preparation-condition-on-gender-differences-in-choice-to-compete}{%
 \subsubsection{Effects of unlimited preparation condition on gender differences in choice to compete}\label{effects-of-unlimited-preparation-condition-on-gender-differences-in-choice-to-compete}}
 
-We do not find evidence of a significant effect of preparing with multiplication or subtraction problems (task relevant vs.~irrelevant preparation condition) on the choice to compete across all participants, \(b = -0.33\), 95\% CI \([-0.68\), \(0.01]\), \(z = -1.88\), \(p = .061\) when included as a single predictor of the choice to compete in a logistic regression. In a subsequent logistic regression adding in gender and the interaction between gender and condition as predictors, we find that gender is the only significant predictor of the choice to compete, \(b = -0.68\), 95\% CI \([-1.18\), \(-0.21]\), \(z = -2.77\), \(p = .006\) and no evidence of the expected interaction effect between gender and condition on the choice to compete, \(b = -0.68\), 95\% CI \([-1.48\), \(0.09]\), \(z = -1.70\), \(p = .089\) (see Figure \ref{fig:s300}).\footnote{The interaction between gender and preparation condition on the choice to compete is still not significant among the full dataset (i.e., after including participants that were flagged by Qualtrics' fraud detection software): \(b = -0.54\), 95\% CI \([-1.27\), \(0.18]\), \(z = -1.45\), \(p = .148\)}
+We do not find evidence of a significant effect of preparing with multiplication or subtraction problems (task relevant vs.~irrelevant preparation condition) on the choice to compete across all participants, \(b = -0.33\), 95\% CI \([-0.68\), \(0.01]\), \(z = -1.88\), \(p = .061\) when included as a single predictor of the choice to compete in a logistic regression. The point estimate for the effect of the unlimited preparation condition was negative and the 95\% CI did not include positive effects that were greater in magnitude than 0.01. In a subsequent logistic regression adding in gender and the interaction between gender and condition as predictors, we find that gender is the only significant predictor of the choice to compete, \(b = -0.68\), 95\% CI \([-1.18\), \(-0.21]\), \(z = -2.77\), \(p = .006\) and no evidence of the expected interaction effect between gender and condition on the choice to compete, \(b = -0.68\), 95\% CI \([-1.48\), \(0.09]\), \(z = -1.70\), \(p = .089\) (see Figure \ref{fig:s300}).\footnote{The interaction between gender and preparation condition on the choice to compete is still not significant among the full dataset (i.e., after including participants that were flagged by Qualtrics' fraud detection software): \(b = -0.54\), 95\% CI \([-1.27\), \(0.18]\), \(z = -1.45\), \(p = .148\)}
 
 \begin{figure}
 
@@ -944,13 +1082,12 @@ We do not find evidence of a significant effect of preparing with multiplication
 \caption{Proportion of men and women in Study 3 who chose to compete based on preparation condition. Unlimited preparation did not reduce the gender difference in competitiveness. Error bars represent standard errors.}\label{fig:s300}
 \end{figure}
 
+\newpage
+
 \hypertarget{gender-differences-in-preparation-3}{%
 \subsubsection{Gender differences in preparation}\label{gender-differences-in-preparation-3}}
 
-Our next set of analyses focused on the effects of gender on decisions to practice. Thus, all subsequent analyses focus on the subset of participants that were assigned to the unlimited preparation condition that were actually given the opportunity to practice beforehand (N = 571).
-
-We do not replicate the effect found in both previous studies of gender on the decision to practice multiplication problems, neither in the model where gender is included by itself as a sole predictor of the choice to practice, \(b = 0.11\), 95\% CI \([-0.27\), \(0.50]\), \(z = 0.58\), \(p = .565\) (see right panel of Figure \ref{fig:panel-study4}), nor in tandem with the choice to compete and the interaction between gender and the choice to compete as predictors, \(b = 0.34\), 95\% CI \([-0.09\), \(0.77]\), \(z = 1.55\), \(p = .121\) (see left panel of Figure \ref{fig:panel-study4}).\footnote{The effect of gender on the choice to prepare is still not significant among the full dataset (i.e., after including participants that were flagged by Qualtrics' fraud detection software): \(b = 0.12\), 95\% CI \([-0.25\), \(0.50]\), \(z = 0.64\), \(p = .519\)} Though the effect is not significant, the proportion of women that chose to practice was still higher than the proportion of men that chose to practice (26.87\% of women chose to prepare via practice, relative to 24.5\% of men) among participants within the unlimited practice condition. Thus, the direction of the effects are not in contrast with previous studies. In line with the previous studies, we do not find an interaction between gender and choice to compete on the choice to practice, \(b = -1.22\), 95\% CI \([-2.84\), \(0.15]\), \(z = -1.64\), \(p = .101\). Instead we find that, like previous studies, the choice to compete is positively related to the choice to practice, \(b = 0.88\), 95\% CI \([0.23\), \(1.51]\), \(z = 2.70\), \(p = .007\). In adding confidence and risk attitudes as predictors to the model with the interaction effect on top of the main effects, we do not find evidence that either of those predictors are significantly related to the choice to practice either (See Figure \ref{fig:tab-pract-choice-study4}). Like the previous two studies in Chapter 1, we also ran a two-part hurdle model with gender, competition choice, and the interaction between those variables predicting the number of practice rounds variable (among participants in the practice condition) and again do not find evidence of gender differences in the choice to continue preparing after the initial decision to prepare, , \emph{b} = 0.42, 95\% CI {[}-0.31, 1.15{]}, \emph{z} = 1.14, \emph{p} = 0.25.\\
-Unlike the previous studies, this study separated the decision to study tables and amount of time studying tables from the decision to practice and number of problems completed, so we had the novel opportunity to explore questions about gender differences in studying here. We do not find evidence that there are gender differences in the decision to study the multiplication tables, \(b = 0.09\), 95\% CI \([-0.28\), \(0.47]\), \(z = 0.49\), \(p = .624\). However, among participants who did choose to study the multiplication tables (N = 234; 40.98\% of participants in the unlimited preparation condition), we find that women studied for more time (in seconds) than men on average, M\textsubscript{women} =33.01, SD\textsubscript{women} =72.74; M\textsubscript{men}= 18.75, SD\textsubscript{men} =25.24, \(b = 21.94\), 95\% CI \([2.65\), \(41.23]\), \(t(211) = 2.24\), \(p = .026\).\footnote{However, we note that the SD for studying time among women is exceptionally high relative to that of men, so the effect may be driven by select outliers pulling the mean}
+Our next set of analyses focused on the effects of gender on decisions to practice. Thus, all subsequent analyses focus on the subset of participants that were assigned to the unlimited preparation condition that were actually given the opportunity to practice beforehand (N = 571). We do not replicate the effect found in both previous studies of gender on the decision to practice multiplication problems, neither in the model where gender is included by itself as a sole predictor of the choice to practice, \(b = 0.11\), 95\% CI \([-0.27\), \(0.50]\), \(z = 0.58\), \(p = .565\) (see right panel of Figure \ref{fig:panel-study4}), nor in tandem with the choice to compete and the interaction between gender and the choice to compete as predictors, \(b = 0.34\), 95\% CI \([-0.09\), \(0.77]\), \(z = 1.55\), \(p = .121\) (see left panel of Figure \ref{fig:panel-study4}).\footnote{The effect of gender on the choice to prepare is still not significant among the full dataset (i.e., after including participants that were flagged by Qualtrics' fraud detection software): \(b = 0.12\), 95\% CI \([-0.25\), \(0.50]\), \(z = 0.64\), \(p = .519\)} Though the effect is not significant, the proportion of women that chose to practice was still higher than the proportion of men that chose to practice (26.87\% of women chose to prepare via practice, relative to 24.5\% of men) among participants within the unlimited practice condition. Thus, the direction of the effects are not in contrast with previous studies. In line with the previous studies, we do not find an interaction between gender and choice to compete on the choice to practice, \(b = -1.22\), 95\% CI \([-2.84\), \(0.15]\), \(z = -1.64\), \(p = .101\). Instead we find that, like previous studies, the choice to compete is positively related to the choice to practice, \(b = 0.88\), 95\% CI \([0.23\), \(1.51]\), \(z = 2.70\), \(p = .007\). In adding confidence and risk attitudes as predictors to the model with the interaction effect on top of the main effects, we do not find evidence that either of those predictors are significantly related to the choice to practice either (See Table \ref{tab:tab-pract-choice-study4}). Like the previous two studies in Chapter 1, we also ran a two-part hurdle model with gender, competition choice, and the interaction between those variables predicting the number of practice rounds variable (among participants in the practice condition) and again do not find evidence of gender differences in the choice to continue preparing after the initial decision to prepare, , \emph{b} = 0.42, 95\% CI {[}-0.31, 1.15{]}, \emph{z} = 1.14, \emph{p} = 0.25. Unlike the previous studies, this study separated the decision to study tables and amount of time studying tables from the decision to practice and number of problems completed, so we had the novel opportunity to explore questions about gender differences in studying here. We do not find evidence that there are gender differences in the decision to study the multiplication tables, \(b = 0.09\), 95\% CI \([-0.28\), \(0.47]\), \(z = 0.49\), \(p = .624\). However, among participants who did choose to study the multiplication tables (N = 234; 40.98\% of participants in the unlimited preparation condition), we find that women studied for more time (in seconds) than men on average, M\textsubscript{women} =33.01, SD\textsubscript{women} =72.74; M\textsubscript{men}= 18.75, SD\textsubscript{men} =25.24, \(b = 21.94\), 95\% CI \([2.65\), \(41.23]\), \(t(211) = 2.24\), \(p = .026\).\footnote{However, we note that the SD for studying time among women is exceptionally high relative to that of men, so the effect may be driven by select outliers pulling the mean}
 
 \begin{figure}
 
@@ -961,19 +1098,25 @@ Unlike the previous studies, this study separated the decision to study tables a
 \caption{Right panel shows the proportion of men and women in Study 3 who chose to prepare. Left panel shows the proportion of men and women in Study 3 who chose to prepare based on choice to compete. Error bars represent standard errors.}\label{fig:panel-study4}
 \end{figure}
 
-\begin{figure}
+\newpage
 
-{\centering \includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/tab_pract-choice-study4} 
+\begin{center}\includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/tab_pract-choice-study4} \end{center}
 
-}
-
-\caption{All models are logistic regressions with choice to prepare as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. We do not find evidence that women prepare more than men. p < .05 is considered significant and bolded.}\label{fig:tab-pract-choice-study4}
-\end{figure}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{All models are logistic regressions with choice to prepare as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. We do not find evidence that women prepare more than men. p < .05 is considered significant and bolded.} 
+\label{tab:tab-pract-choice-study4}
+\end{table}
 
 \hypertarget{perceptions-of-gender-differences-in-preparation-performance-and-competitiveness-3}{%
 \subsubsection{Perceptions of gender differences in preparation, performance, and competitiveness}\label{perceptions-of-gender-differences-in-preparation-performance-and-competitiveness-3}}
 
-Like all studies before, for each question about perceptions of gender differences, we run a chi-square goodness of fit test with the null hypothesis that participants' will choose each option at a similar rate. Since participants were given the option in this study to select one of three response options, rather than two options like the first two studies, we first perform a chi-square goodness of fit test with all response options to see if they are all equally likely. If the test with all three response options was significant, we then performed more targeted chi-square goodness of fit tests with pairs of response options within a given question to test which specific pairs of response options are significantly different. See Figure \ref{fig:summary-table-beliefs-study4} for a summary of participants' responses to the questions about gender differences in preparation, performance, and competitiveness.
+Like all studies before, for each question about perceptions of gender differences, we run a chi-square goodness of fit test with the null hypothesis that participants' will choose each option at a similar rate. Since participants were given the option in this study to select one of three response options, rather than two options like the first two studies, we first perform a chi-square goodness of fit test with all response options to see if they are all equally likely. If the test with all three response options was significant, we then performed more targeted chi-square goodness of fit tests with pairs of response options within a given question to test which specific pairs of response options are significantly different. See Table \ref{tab:summary-table-beliefs-study4} for a summary of participants' responses to the questions about gender differences in preparation, performance, and competitiveness.
 
 When asked to predict gender differences in preparation for the multiplication task,\footnote{Note: this question was only asked among participants in the preparation condition} we find that participants' responding is not evenly distributed across the response options, \(\chi^2(2, n = 571) = 192.97\), \(p < .001\). In performing more targeted analyses, we find that participants were significantly more likely to choose ``women'' (56.7\%) than ``men'' (7.28\%), \(\chi^2(1, n = 571) = 199.29\), \(p < .001\), or ``no difference'' (36.02\%), \(\chi^2(1, n = 571) = 24.10\), \(p < .001\) in response to this question (see Figure \ref{fig:s303}).
 
@@ -983,15 +1126,20 @@ Though participants consistently expected women to be more likely to prepare tha
 
 Despite thinking that there would be no gender difference in performance and expecting women to prepare for the task more, participants consistently expected men to be more likely to compete (78.01\%), \(\chi^2(2, n = 1072) = 961.58\), \(p < .001\) (see Figure \ref{fig:s305}), rather than expecting women to compete more (4.05\%), \(\chi^2(1, n = 1072) = 691.29\), \(p < .001\), or expecting no difference in willingness to compete across genders, (17.94\%), \(\chi^2(1, n = 1072) = 390.08\), \(p < .001\). We discuss these findings about participants' beliefs in light of the actual study results in the discussion section.
 
-\begin{figure}
+\begin{center}\includegraphics[width=0.35\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/summary-table-beliefs-study4} \end{center}
 
-{\centering \includegraphics[width=0.35\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/summary-table-beliefs-study4} 
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Number and percentage of participants that selected each respective option when asked whether men or women would correctly solve more problems on the multiplication task, spend more time preparing for the multiplication task, choose the tournament payment scheme more often, and spend more time preparing on most tasks. Participants were also given the option in this study to indicate there would be no gender difference for any of the variables.} 
+\label{tab:summary-table-beliefs-study4}
+\end{table}
 
-}
-
-\caption{Number and percentage of participants that selected each respective option when asked whether men or women would correctly solve more problems on the multiplication task, spend more time preparing for the multiplication task, choose the tournament payment scheme more often, and spend more time preparing on most tasks. Participants were also given the option in this study to indicate there would be no gender difference for any of the variables}\label{fig:summary-table-beliefs-study4}
-\end{figure}
-
+\newpage
 \begin{figure}
 
 {\centering \includegraphics[width=300px]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study4/figs/fig07_perc-task-gender-pract} 
@@ -1093,11 +1241,11 @@ Like the previous studies, we also explored whether these perceptions are aligne
 
 Overall, we find from Study 3 of Chapter 1 that our manipulation of the unlimited opportunity to prepare did not reduce the gender difference in competitiveness. Like Studies 1 and 2, we show that the gender difference in competitiveness itself is explained by gender differences in risk attitudes and confidence. However, we do not replicate the effect that women chose to prepare more than men. Even still, participants believed that women prepared more than men both in general and on the multiplication task, even after we added a third response option where participants could indicate there were no gender differences in preparation. We do not find evidence that women's preparation behaviors are related to their perceptions of gender differences in preparation, though we argue that we may have not had enough power for testing the interaction effect in the current study.
 
-\hypertarget{chapter-2-effects-of-competition-on-gender-differences-in-the-choice-to-prepare}{%
-\chapter{Chapter 2: Effects of competition on gender differences in the choice to prepare}\label{chapter-2-effects-of-competition-on-gender-differences-in-the-choice-to-prepare}}
+\hypertarget{chapter-3-effects-of-competition-on-gender-differences-in-the-choice-to-prepare}{%
+\chapter{Chapter 3: Effects of competition on gender differences in the choice to prepare}\label{chapter-3-effects-of-competition-on-gender-differences-in-the-choice-to-prepare}}
 
-\hypertarget{introduction-2}{%
-\section{Introduction}\label{introduction-2}}
+\hypertarget{introduction-1}{%
+\section{Introduction}\label{introduction-1}}
 
 Competitions are increasingly prevalent in the global labor market \autocite{Lavy2004,Lemiuex2009} and the winners of competitions are disproportionately rewarded \autocite{Frank2010}. Much work on gender differences in competitiveness has focused on designing interventions that increase women's willingness to compete. We test the viability of one such intervention in Chapter 1 of this dissertation by providing men and women opportunities to practice before competing. While the intervention ultimately did not increase women's competitiveness, the studies in Chapter 1 revealed that women prepare more than men. Moreover, both men and women believed that women would be more likely to practice. Thus, a new gender difference in preparation was discovered. In the current Chapter, we ask whether competitions themselves disproportionately increase rates of practicing among women, such that women are especially likely to prepare before entering competitive environments relative to non-competitive environments. Additionally, we explore whether gender stereotypes may be driving the gender difference to practice. While considerable efforts have been made to understand why men are more likely than women to choose to compete, less attention has been paid to whether and how men and women may differentially respond to competitions. Yet, understanding downstream consequences of nudging or forcing women into competitions may too help address gender disparities in economic outcomes \autocite{Blau2017,Altonji1999}.
 
@@ -1195,6 +1343,7 @@ Not only do the aforementioned factors (i.e., gender differences in confidence a
 For the above reasons, this study included a new measure of how much participants felt they prepared relative to other participants to test whether gender predicts participants' perceptions of their relative amount of preparation. More concretely, we expected women will be more likely to assume they practice less than others compared to men (that is, the effect of gender on perceptions of relative practice will be negative), especially when assigned to the competitive tournament payment scheme (such that women in general will think that they practice less than other participants than men, but this difference will be exacerbated in the competition condition).
 
 The research design, pre-registered hypotheses, measures and analyses are available on \href{https://osf.io/8bwfz/}{OSF} and all analyses were conducted in R statistical software (version 4.0.4).
+\newpage
 
 \hypertarget{methods-3}{%
 \section{Methods}\label{methods-3}}
@@ -1204,23 +1353,51 @@ The research design, pre-registered hypotheses, measures and analyses are availa
 
 All study measures described below are publicly available on OSF both as a \href{https://osf.io/xbrvs/}{.pdf} and \href{https://osf.io/4mvyr/}{.qsf}. Participants were recruited on Amazon Mechanical Turk using the same screening criteria as all previous studies in Chapter 1. Like the last study of Chapter 1, we used Qualtrics' fraud detection software to filter out responses that were suspicious either because they were likely 1) bots and/or 2) duplicate responses using the same exclusion criteria from before. These exclusions were applied for all main analyses reported in the results section.
 
-The final dataset consists of 3980 participants (57.36\% women), with an average age of 41.3 (\emph{SD} = 13.2) years. Of the final sample, 75 participants (30.67\% women) dropped out of the study before finishing (we use their data when available) and 192 participants were flagged by Qualtrics' fraud detection software as suspicious based on the aforementioned criteria.
+\begin{center}\includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study5/figs/demographics-table-conds-study5} \end{center}
+
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Size of sample with corresponding percentage listed for gender and education, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’. Note: we did not include questions about race/ethnicity nor income in this study.} 
+\label{tab:demographics-table-study5}
+\end{table}
+
+\newpage
+
+\begin{center}\includegraphics[width=0.85\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study5/figs/demographics-table-gender-study5} \end{center}
+
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Size of sample with corresponding percentage listed for education, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’. Note: we did not include questions about race/ethnicity nor income in this study.} 
+\label{tab:demographics-table-gender-study5}
+\end{table}
+
+\newpage
+
+Given the difficulty of powering interaction effects \autocites[see][]{Simonsohn2014,Giner-Sorolla2018}, we conducted a power analysis to determine an adequate sample size for the main hypothesized interaction effect in the primary analysis \autocite[simulations modeled after code from][]{Hughes2017a}. We ran 5000 simulations while varying the sample size (\emph{N} = 3000, 3250, 3500) and the effect size for the interaction effect (\emph{b} = .2, .3, .4). Based on these simulated estimates, we aimed to recruit 4000 participants to achieve at least 80\% power for a relatively small effect (\emph{b} = .2) (see Figure \ref{fig:power-analysis-study5}). The final dataset consists of 3980 participants (57.36\% women), with an average age of 41.3 (\emph{SD} = 13.2) years. Of the final sample, 75 participants (30.67\% women) dropped out of the study before finishing (we use their data when available) and 192 participants were flagged by Qualtrics' fraud detection software as suspicious based on the aforementioned criteria.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.85\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study5/figs/demographics-table-conds-study5} 
+{\centering \includegraphics[width=300px]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study5/figs/nsf-power-analysis} 
 
 }
 
-\caption{Size of sample with corresponding percentage listed for gender and education, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’. Note: we did not include questions about race/ethnicity nor income in this study.}\label{fig:demographics-table-study5}
+\caption{Plot of simulation output used to determine necessary sample size for at least 80 percent power.}\label{fig:power-analysis-study5}
 \end{figure}
 
 \hypertarget{procedures-3}{%
 \subsection{Procedures}\label{procedures-3}}
 
-Participants included in the study were told they would be completing a multiplication task. Notably, we aimed to recruit a larger sample to provide enough power to detect our anticipated interaction effects, and shortened the task from two minutes (as in Chapter 1) to 30 seconds (in the present study). Otherwise, the task used was identical to the ones used in previous studies.
-
-Like the studies in Chapter 1, participants were first told about the rules for the multiplication task and were required to pass the same comprehension questions used in the previous studies before moving onto the main manipulation of payment scheme.
+Participants included in the study were told they would be completing a multiplication task. Notably, we aimed to recruit a larger sample to provide enough power to detect our anticipated interaction effects, and shortened the task from two minutes (as in Chapter 1) to 30 seconds (in the present study). Otherwise, the task used was identical to the ones used in previous studies. Like the studies in Chapter 1, participants were first told about the rules for the multiplication task and were required to pass the same comprehension questions used in the previous studies before moving onto the main manipulation of payment scheme.
 
 \hypertarget{manipulation-of-payment-scheme}{%
 \subsubsection{Manipulation of payment scheme}\label{manipulation-of-payment-scheme}}
@@ -1234,16 +1411,12 @@ Again, we checked that condition was assigned evenly across participants (contro
 
 After they were informed of their payment scheme, all participants were given the opportunity to spend unlimited time preparing before completing the paid multiplication task. The nature of the unlimited preparation was identical to that used in Study 3 of Chapter 1, where participants who chose to prepare were shown 10 multiplication problems that were created randomly by drawing from the pool of numbers used in the main multiplication task. Unlike the last study in Chapter 1, participants were not asked to explicitly indicate whether they would like to study the times tables. Instead, they were shown the times table right after the practice problems directly on the practice problems page and told they could check their answers using the table as desired. By including the option to check their answers, we hoped to make the practice itself more useful by providing participants a way to receive feedback on their responses. At the bottom of each practice page, participants were asked if they would like to continue practicing multiplication problems, with the option to continue as many times as desired or opt out at any point. The amount of time (in seconds) participants spent on each practice page was also recorded. Thus, like the previous studies, we have multiple measures of preparation, by design: 1) the actual decision to practice problems (before knowing what the practice entails), 2) the number of practice problems participants attempted (quantified as number of practice problems not left blank, irrespective of accuracy - with participants who did not opt into the practice having a value of zero), 3) the amount of time participants spent across all practice rounds they completed (where those who chose not to practice had a value of zero for this variable), and 4) the number of practice rounds participants completed. Since the practice structure in this study is identical to that of Study 3 in Chapter 1, the number of practice rounds variable was encoded in the same way as that study (\emph{M} = 0.59, \emph{SD} = 0.98).
 
-After completing the practicing/studying, participants guessed how much their amount of practicing for the task compared to all other participants who completed the task by indicating the decile of their practice relative to other participants. We also asked participants to indicate their anticipated decile when their amount of practicing was compared to that of all participants who identified as men and women, respectively.
-
-We used these decile questions to create the perceived practice deviation variables as follows: self-rated decile (either based on the question about practicing relative to all other participants, relative to only men, or relative to only women) - actual percentile based on number of practice problems completed. We subtracted percentile from decile here because it provides more variation in the variable, thus allowing us to be more precise in our estimates of the effects of various predictors on this variable. We chose to ask participants to indicate their decile rather than percentile because it would be cumbersome for participants and it is unlikely they would be able to provide concise responses. Overall, negative values for this variable indicate a participant expected to have practiced less, relative to other participants, than they actually did, and vice versa for positive values.
+After completing the practicing/studying, participants guessed how much their amount of practicing for the task compared to all other participants who completed the task by indicating the decile of their practice relative to other participants. We also asked participants to indicate their anticipated decile when their amount of practicing was compared to that of all participants who identified as men and women, respectively. We used these decile questions to create the perceived practice deviation variables as follows: self-rated decile (either based on the question about practicing relative to all other participants, relative to only men, or relative to only women) - actual percentile based on number of practice problems completed. We subtracted percentile from decile here because it provides more variation in the variable, thus allowing us to be more precise in our estimates of the effects of various predictors on this variable. We chose to ask participants to indicate their decile rather than percentile because it would be cumbersome for participants and it is unlikely they would be able to provide concise responses. Overall, negative values for this variable indicate a participant expected to have practiced less, relative to other participants, than they actually did, and vice versa for positive values.
 
 \hypertarget{paid-multiplication-task-and-post-task-measures}{%
 \subsubsection{Paid multiplication task and post-task measures}\label{paid-multiplication-task-and-post-task-measures}}
 
-After practicing, participants completed the paid multiplication task, received feedback about their absolute (but not relative) performance, and completed many of the same follow-up questions used across Chapter 1, including risk attitudes, confidence, and perceptions of gender differences in preparation, competitiveness, and performance. Like Study 3 of Chapter 1, all questions had three response options (e.g., men are more likely to compete than women, women are more likely to compete than men, or there are no differences in how much men or women would choose to compete). One of the perceptions of gender differences questions deviated slightly from the previous studies, which was edited for the sake of clarity. Instead of asking participants to indicate ``Do you think men or women in this study chose the tournament payment option more often?'', they were asked ``If given the opportunity to choose between the two payment schemes (Piece Rate or Tournament), do you think men in this study would choose the piece rate or the tournament payment scheme more often?'', with the options to indicate: ``Men would choose tournament more often than piece rate'', ``Men would choose piece rate more often than tournament'', or ``Men would choose each payment scheme equally''. This question was repeated with respect to women in the study.
-
-We paid participants to answer the questions about their confidence and perceptions of gender differences correctly at the same rate as previous studies. Finally, they completed the same demographic questions from Chapter 1 and provided feedback on the study before being paid for their participation.
+After practicing, participants completed the paid multiplication task, received feedback about their absolute (but not relative) performance, and completed many of the same follow-up questions used across Chapter 1, including risk attitudes, confidence, and perceptions of gender differences in preparation, competitiveness, and performance. Like Study 3 of Chapter 1, all questions had three response options (e.g., men are more likely to compete than women, women are more likely to compete than men, or there are no differences in how much men or women would choose to compete). One of the perceptions of gender differences questions deviated slightly from the previous studies, which was edited for the sake of clarity. Instead of asking participants to indicate ``Do you think men or women in this study chose the tournament payment option more often?'', they were asked ``If given the opportunity to choose between the two payment schemes (Piece Rate or Tournament), do you think men in this study would choose the piece rate or the tournament payment scheme more often?'', with the options to indicate: ``Men would choose tournament more often than piece rate'', ``Men would choose piece rate more often than tournament'', or ``Men would choose each payment scheme equally''. This question was repeated with respect to women in the study. We paid participants to answer the questions about their confidence and perceptions of gender differences correctly at the same rate as previous studies. Finally, they completed the same demographic questions from Chapter 1 and provided feedback on the study before being paid for their participation.
 
 \hypertarget{results-3}{%
 \section{Results}\label{results-3}}
@@ -1253,30 +1426,39 @@ We paid participants to answer the questions about their confidence and percepti
 
 First, we explored the characteristics of the main practice variables in the dataset. Across conditions, 45.51\% of all participants chose to practice, with 48.22\% choosing to practice in the piece-rate payment condition and 51.78\% choosing to practice in the tournament payment condition. This difference in the choice to practice across conditions is significant when condition is included as a predictor alone, \(b = 0.15\), 95\% CI \([0.02\), \(0.28]\), \(z = 2.35\), \(p = .019\), but in the subsequent section we explain how the effect changes when including other predictors in the model. Participants spent an average of 29.12 seconds practicing across all rounds of practice. We replicate the effects of gender on risk attitudes, \(b = -0.86\), 95\% CI \([-1.01\), \(-0.70]\), \(t(3920) = -10.71\), \(p < .001\), and confidence, \(b = -8.46\), 95\% CI \([-10.12\), \(-6.79]\), \(t(3978) = -9.96\), \(p < .001\) found in Chapter 1, such that women were more risk averse and less confident relative to men.
 
-Like all studies in Chapter 1, we find a significant effect of gender on task score when included as a sole predictor, M\textsubscript{women} =10.45, SD\textsubscript{women} =4.47; M\textsubscript{men}= 12.29, SD\textsubscript{men} =7.28, \(b = -1.83\), 95\% CI \([-2.20\), \(-1.47]\), \(t(3929) = -9.75\), \(p < .001\). Contrary to the majority of studies in the first chapter, the effect of gender holds even after including risk attitudes, confidence, and an interaction between gender and condition in the model, \(b = -1.38\), 95\% CI \([-1.89\), \(-0.86]\), \(t(3916) = -5.20\), \(p < .001\) (See Figure \ref{fig:tab-task-scores-study5}). We explore this finding further in the discussion section for this study. See Figure \ref{fig:summary-table-gender-study5} for a summary of gender differences in the main variables of interest.
+Like all studies in Chapter 1, we find a significant effect of gender on task score when included as a sole predictor, M\textsubscript{women} =10.45, SD\textsubscript{women} =4.47; M\textsubscript{men}= 12.29, SD\textsubscript{men} =7.28, \(b = -1.83\), 95\% CI \([-2.20\), \(-1.47]\), \(t(3929) = -9.75\), \(p < .001\). Contrary to the majority of studies in the first chapter, the effect of gender holds even after including risk attitudes, confidence, and an interaction between gender and condition in the model, \(b = -1.38\), 95\% CI \([-1.89\), \(-0.86]\), \(t(3916) = -5.20\), \(p < .001\) (See Table \ref{tab:tab-task-scores-study5}). We explore this finding further in the discussion section for this study. See Table \ref{tab:summary-table-gender-study5} for a summary of gender differences in the main variables of interest.
 
-\begin{figure}
+\begin{center}\includegraphics[width=0.5\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study5/figs/summary-table-gender-study5} \end{center}
 
-{\centering \includegraphics[width=0.5\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study5/figs/summary-table-gender-study5} 
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Gender differences in the main variables of interest, including: task scores, choice to practice, risk attitudes, and confidence. Medians are reported for task score, risk attitudes, and confidence, with IQRs in parentheses. For choice to practice, we report the number and percentage of participants that fall into each category for each respective gender.} 
+\label{tab:summary-table-gender-study5}
+\end{table}
+\newpage
 
-}
+\begin{center}\includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study5/figs/tab_task-scores-study5} \end{center}
 
-\caption{Gender differences in the main variables of interest, including: task scores, choice to practice, risk attitudes, and confidence. Medians are reported for task score, risk attitudes, and confidence, with IQRs in parentheses. For choice to practice, we report the number and percentage of participants that fall into each category for each respective gender}\label{fig:summary-table-gender-study5}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study5/figs/tab_task-scores-study5} 
-
-}
-
-\caption{All models are linear regressions with task score as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition condition, respectively. Even after controlling for risk attitudes, confidence, and competition condition, women have lower scores on the multiplication task than men, p < .05 is considered significant and bolded.}\label{fig:tab-task-scores-study5}
-\end{figure}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{All models are linear regressions with task score as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition condition, respectively. Even after controlling for risk attitudes, confidence, and competition condition, women have lower scores on the multiplication task than men, p < .05 is considered significant and bolded.} 
+\label{tab:tab-task-scores-study5}
+\end{table}
 
 \hypertarget{effects-of-gender-and-competition-condition-on-practicing}{%
 \subsection{Effects of gender and competition condition on practicing}\label{effects-of-gender-and-competition-condition-on-practicing}}
 
-We replicate the effect of gender on the choice to practice found in Chapter 1, where 51.26\% of women chose to prepare via practice, relative to 37.81\% of men, \(b = 0.55\), 95\% CI \([0.42\), \(0.68]\), \(z = 8.37\), \(p < .001\) (see right panel of Figure \ref{fig:panel-study5}). The gender effect holds in a logistic regression with gender, condition, and the interaction between the two predicting the binary choice to practice problems, \(b = 0.51\), 95\% CI \([0.33\), \(0.69]\), \(z = 5.49\), \(p < .001\) (see left panel of Figure \ref{fig:panel-study5}). However, we do not find an interaction between gender and condition, \(b = 0.08\), 95\% CI \([-0.18\), \(0.34]\), \(z = 0.60\), \(p = .547\), contrary to our hypothesis that the gender difference in the choice to prepare would be exacerbated under the tournament payment scheme relative to the piece-rate payment scheme.\footnote{The interaction between gender and competition condition on the choice to compete is still not significant among the full dataset (i.e., after including participants that were flagged by Qualtrics' fraud detection software): \(b = 0.08\), 95\% CI \([-0.17\), \(0.33]\), \(z = 0.65\), \(p = .514\). However, the effect of gender remains significant among the full dataset,} Additionally, the aforementioned effect of condition on the choice to practice is no longer significant in the model including these additional predictors, \(b = 0.10\), 95\% CI \([-0.09\), \(0.30]\), \(z = 1.03\), \(p = .302\). In a subsequent logistic regression that added confidence, risk attitudes, and task scores as predictors to explore whether they explain the gender difference in the choice to practice, we find that gender still significantly predicts the choice to practice when these variables are included in the model, \(b = 0.53\), 95\% CI \([0.34\), \(0.71]\), \(z = 5.56\), \(p < .001\) (See Figure \ref{fig:tab-pract-choice-study5}).
+We replicate the effect of gender on the choice to practice found in Chapter 1, where 51.26\% of women chose to prepare via practice, relative to 37.81\% of men, \(b = 0.55\), 95\% CI \([0.42\), \(0.68]\), \(z = 8.37\), \(p < .001\) (see right panel of Figure \ref{fig:panel-study5}). The gender effect holds in a logistic regression with gender, condition, and the interaction between the two predicting the binary choice to practice problems, \(b = 0.51\), 95\% CI \([0.33\), \(0.69]\), \(z = 5.49\), \(p < .001\) (see left panel of Figure \ref{fig:panel-study5}). However, we do not find an interaction between gender and condition, \(b = 0.08\), 95\% CI \([-0.18\), \(0.34]\), \(z = 0.60\), \(p = .547\), contrary to our hypothesis that the gender difference in the choice to prepare would be exacerbated under the tournament payment scheme relative to the piece-rate payment scheme.\footnote{The interaction between gender and competition condition on the choice to compete is still not significant among the full dataset (i.e., after including participants that were flagged by Qualtrics' fraud detection software): \(b = 0.08\), 95\% CI \([-0.17\), \(0.33]\), \(z = 0.65\), \(p = .514\). However, the effect of gender remains significant among the full dataset,} Additionally, the aforementioned effect of condition on the choice to practice is no longer significant in the model including these additional predictors, \(b = 0.10\), 95\% CI \([-0.09\), \(0.30]\), \(z = 1.03\), \(p = .302\). In a subsequent logistic regression that added confidence, risk attitudes, and task scores as predictors to explore whether they explain the gender difference in the choice to practice, we find that gender still significantly predicts the choice to practice when these variables are included in the model, \(b = 0.53\), 95\% CI \([0.34\), \(0.71]\), \(z = 5.56\), \(p < .001\) (See Table \ref{tab:tab-pract-choice-study5}).
 
 \begin{figure}
 
@@ -1287,14 +1469,20 @@ We replicate the effect of gender on the choice to practice found in Chapter 1, 
 \caption{Right panel shows the proportion of men and women who chose to prepare. Left panel shows the proportion of men and women who chose to prepare based on choice to compete. Women choose to prepare more than men, regardless of their decision to compete. Error bars represent standard errors.}\label{fig:panel-study5}
 \end{figure}
 
-\begin{figure}
+\newpage
 
-{\centering \includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study5/figs/tab_pract-choice-study5} 
+\begin{center}\includegraphics[width=1\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study5/figs/tab_pract-choice-study5} \end{center}
 
-}
-
-\caption{All models are logistic regressions with choice to prepare as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition condition, respectively. Women prepare more than men regardless of condition, task score, risk attitudes, or confidence. p < .05 is considered significant and bolded.}\label{fig:tab-pract-choice-study5}
-\end{figure}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{All models are logistic regressions with choice to prepare as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition condition, respectively. Women prepare more than men regardless of condition, task score, risk attitudes, or confidence. p < .05 is considered significant and bolded.} 
+\label{tab:tab-pract-choice-study5}
+\end{table}
 
 We also examined other measures of practice to test the robustness of the effect of gender on practicing. We find that women, relative to men, completed a significantly higher number of practice problems, \(b = 0.39\), 95\% CI \([0.35\), \(0.43]\), \(z = 18.54\), \(p < .001\), more rounds of practice, \emph{b} = 0.31, 95\% CI {[}0.04, 0.59{]}, \emph{z} = 2.24, \emph{p} = 0.03, and spent more time completing practice problems, \(b = 13.12\), 95\% CI \([7.95\), \(18.28]\), \(t(3959) = 4.98\), \(p < .001\) while controlling for payment scheme condition and the interaction between gender and payment scheme condition. None of the interaction effects were significant across any of these dependent variables, meaning that the effects of the payment scheme conditions on the preparation outcomes did not differ by gender.
 
@@ -1327,16 +1515,22 @@ Similarly, participants were significantly more likely to say that women prepare
 
 Yet, participants did not expect a gender difference in performance on the main multiplication task used, \(\chi^2(2, n = 3980) = 781.11\), \(p < .001\) (see Figure \ref{fig:s404}), where 54.17\% of participants said that there was no difference in how many multiplication problems men and women correctly solved, while 20.56\% said men correctly solved more multiplication problems than women, \(\chi^2(1, n = 3980) = 594.16\), \(p < .001\), and 25.27\% said women had a performance advantage over men, \(\chi^2(1, n = 3980) = 413.36\), \(p < .001\).
 
-Finally, 64.24\% of participants expected women would be more likely to choose the piece-rate payment scheme than the tournament payment scheme, \(\chi^2(2, n = 3980) = 1,707.40\), \(p < .001\) (see Figure \ref{fig:s408}), which was a significantly higher proportion of participants than those who expected women would choose each payment scheme equally (20.9\%), \(\chi^2(1, n = 3980) = 865.27\), \(p < .001\), and than those who expected women would choose tournament more often than piece rate, (14.86\%), \(\chi^2(1, n = 3980) = 1,209.14\), \(p < .001\). On the contrary, when asked about how much men in the study would compete, a significant majority of participants (63.5\%) expected men to be more likely to choose the tournament payment scheme over the piece-rate payment scheme, \(\chi^2(2, n = 3980) = 1,620.33\), \(p < .001\) (see Figure \ref{fig:s409}), relative to the proportion of participants who said men would choose each payment scheme equally (15.8\%), \(\chi^2(1, n = 3980) = 1,125.25\), \(p < .001\), and the proportion who said men would choose piece rate more often than tournament (20.7\%), \(\chi^2(1, n = 3980) = 853.48\), \(p < .001\). See Figure \ref{fig:summary-table-beliefs-study5} for a summary of participants' responses to the questions about gender differences in preparation, performance, and competitiveness.
+Finally, 64.24\% of participants expected women would be more likely to choose the piece-rate payment scheme than the tournament payment scheme, \(\chi^2(2, n = 3980) = 1,707.40\), \(p < .001\) (see Figure \ref{fig:s408}), which was a significantly higher proportion of participants than those who expected women would choose each payment scheme equally (20.9\%), \(\chi^2(1, n = 3980) = 865.27\), \(p < .001\), and than those who expected women would choose tournament more often than piece rate, (14.86\%), \(\chi^2(1, n = 3980) = 1,209.14\), \(p < .001\). On the contrary, when asked about how much men in the study would compete, a significant majority of participants (63.5\%) expected men to be more likely to choose the tournament payment scheme over the piece-rate payment scheme, \(\chi^2(2, n = 3980) = 1,620.33\), \(p < .001\) (see Figure \ref{fig:s409}), relative to the proportion of participants who said men would choose each payment scheme equally (15.8\%), \(\chi^2(1, n = 3980) = 1,125.25\), \(p < .001\), and the proportion who said men would choose piece rate more often than tournament (20.7\%), \(\chi^2(1, n = 3980) = 853.48\), \(p < .001\). See Table \ref{tab:summary-table-beliefs-study5} for a summary of participants' responses to the questions about gender differences in preparation, performance, and competitiveness.
 
-\begin{figure}
+\newpage
 
-{\centering \includegraphics[width=0.6\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study5/figs/summary-table-beliefs-study5} 
+\begin{center}\includegraphics[width=0.6\linewidth]{C:/Users/keana/OneDrive - PennO365/Comp_transfer2018/Penn/practice_study/gender-practice/study5/figs/summary-table-beliefs-study5} \end{center}
 
-}
-
-\caption{Number and percentage of participants that selected each respective option when asked whether men or women would correctly solve more problems on the multiplication task, spend more time preparing for the multiplication task, choose the tournament payment scheme more often, and spend more time preparing on most tasks. Participants were also given the option in this study to indicate there would be no gender difference for any of the variables}\label{fig:summary-table-beliefs-study5}
-\end{figure}
+\begin{table}[ht]
+\centering
+\begingroup\fontsize{0.1pt}{0.1pt}\selectfont
+\begin{tabular}{r}
+   \\ 
+ \end{tabular}
+\endgroup
+\caption{Number and percentage of participants that selected each respective option when asked whether men or women would correctly solve more problems on the multiplication task, spend more time preparing for the multiplication task, choose the tournament payment scheme more often, and spend more time preparing on most tasks. Participants were also given the option in this study to indicate there would be no gender difference for any of the variables.} 
+\label{tab:summary-table-beliefs-study5}
+\end{table}
 
 \begin{figure}
 
@@ -1434,12 +1628,11 @@ On top of the gender differences in practicing and perceptions of said gender di
 
 Overall, our results for the study in Chapter 2 suggest that women prepare more than men, regardless of whether they were assigned to a competitive tournament or non-competitive piece-rate payment scheme, and despite thinking they practice relatively less than men for the multiplication task used in the study. It is possible that gender stereotypes are driving these gender differences in behaviors and perceptions, given our replication of the findings from all three studies in Chapter 1 that participants expected women to prepare more both before the specific task used in the study and in general, along with the finding that participants tended to rate their relative practicing significantly lower when comparing themselves to women than men. In our direct test of the relationship between participants' perceptions of gender differences in behavior and their choice to prepare, we find that women are only more likely to prepare when they believe that women prepare more than men for the multiplication task, but their perceptions of general gender differences in preparation behaviors is not strongly related to their choice to prepare. We discuss these findings in light of the full set of results in the overall discussion section.
 
-\hypertarget{discussion-4}{%
-\chapter*{Discussion}\label{discussion-4}}
-\addcontentsline{toc}{chapter}{Discussion}
+\hypertarget{chapter-4-discussion}{%
+\chapter{Chapter 4: Discussion}\label{chapter-4-discussion}}
 
 \adjustmtc
-\markboth{Introduction}{}
+\markboth{Discussion}{}
 
 \hypertarget{summary-of-main-results-across-studies}{%
 \section{Summary of main results across studies}\label{summary-of-main-results-across-studies}}
@@ -1474,7 +1667,7 @@ Notably, we do not replicate the effect of gender on the choice to practice prob
 \hypertarget{possible-explanations-for-the-gender-difference-in-preparation}{%
 \subsubsection{Possible explanations for the gender difference in preparation}\label{possible-explanations-for-the-gender-difference-in-preparation}}
 
-The gender difference in preparation observed in the majority of the studies here may be driven by women's relatively greater desire to reduce uncertainty around their future performance (given their greater average risk aversion) and/or increase their performance (given their lower average confidence). Indeed, mastery is an important driver of confidence \autocites[for review, see][]{Gist1992,Usher2008}. While it is possible that confidence and risk attitudes may be driving the gender difference in preparation and the choice to compete, it is important to note that preparation in our studies did not increase competitiveness in either men or women. Because participants were able to choose to prepare across studies before they completed the measures of risk attitudes and confidence, we are unable to identify whether preparation causally affected confidence and/or risk attitudes. Future work should examine the bidirectional relationships between confidence and preparation and risk and preparation. Of course, other explanations for the gender differences in preparation may also exist, including relative differences in real or perceived opportunity costs, how rewarding it is to prepare, and/or enjoyment on the task, and we encourage future work to explore these alternative explanations. Notably, given the consistency of perceptions of gender differences in preparation found across studies, our results directly speak to another possible explanation for the observed gender difference in preparation: stereotypes that women prepare more than men in general. In fact, gender stereotypes about preparation may be one of the reasons we did not find evidence for the hypothesized interaction between gender and payment scheme on the choice to prepare across any of the studies. Specifically, gender stereotypes about preparation may be so powerful that women prepare more than men regardless of context. Since we collected data both about the choice to prepare and perceptions of gender differences in preparation across all studies in the dissertation, we could directly test whether gender and beliefs about gender differences in preparation were related to the choice to prepare. We find evidence across multiple studies that gender stereotypes are in fact related to preparation, such that women were especially likely to prepare when they believed women prepare more both in general and for the multiplication task. However, we reiterate the importance of testing these effects causally, especially since we are unable to test the directionality of the relationship between perceptions of gender differences and gender differences in behavior in these studies.
+The gender difference in preparation observed in the majority of the studies here may be driven by women's relatively greater desire to reduce uncertainty around their future performance (given their greater average risk aversion) and/or increase their performance (given their lower average confidence). Indeed, mastery is an important driver of confidence \autocites[for review, see][]{Gist1992,Usher2008}. While it is possible that confidence and risk attitudes may be driving the gender difference in preparation and the choice to compete, it is important to note that preparation in our studies did not increase competitiveness in either men or women. Because participants were able to choose to prepare across studies before they completed the measures of risk attitudes and confidence, we are unable to identify whether preparation causally affected confidence and/or risk attitudes. Future work should examine the bidirectional relationships between confidence and preparation and risk and preparation. Of course, other explanations for the gender differences in preparation may also exist, including relative differences in real or perceived opportunity costs, how rewarding it is to prepare, and/or enjoyment on the task, and we encourage future work to explore these alternative explanations. Notably, given the consistency of perceptions of gender differences in preparation found across studies, our results directly speak to another possible explanation for the observed gender difference in preparation: stereotypes that women prepare more than men in general. In fact, gender stereotypes about preparation may be one of the reasons we did not find evidence for the hypothesized interaction between gender and payment scheme on the choice to prepare across any of the studies. Specifically, gender stereotypes about preparation may be so powerful that women prepare more than men regardless of context. Since we collected data both about the choice to prepare and perceptions of gender differences in preparation across all studies in the dissertation, we could directly test whether gender and beliefs about gender differences in preparation were related to the choice to prepare. We find evidence across multiple studies that gender stereotypes are in fact related to preparation, such that women were especially likely to prepare when they believed women prepare more both in general and for the multiplication task. However, we reiterate the importance of testing these effects causally, especially since we are unable to test the directionality of the relationship between perceptions of gender differences and gender differences in behavior in these studies. That is, practicing may have led participants' to believe that other individuals who have the same gender identity practice more (behavior leading to perception) or the belief that other participants who have the same gender identity practice more may have led participants to practice more (perception leading to behavior). As such, we implore future research to explore these questions through experiments. Finally, we found evidence of a gender difference in performance on the task in two of the four studies. As preparing may have helped performance, it is possible that the gender difference was fully explained by gender differences in the need to prepare on the task. Since our research is not able to directly test whether the choice to prepare was driven by the actual need to prepare based on performance, we encourage future research to explore the possibility that gender differences in performance may have been driving the gender difference in preparation by employing less gender-typed tasks (see Future Directions section).
 
 \hypertarget{summary-of-effects-of-perceptions-of-gender-differences}{%
 \subsection{Summary of effects of perceptions of gender differences}\label{summary-of-effects-of-perceptions-of-gender-differences}}
@@ -1519,7 +1712,7 @@ Finally, in research exploring the effects of nudges, \textcite{He2021} show tha
 
 There are a few considerations that must be taken into account when interpreting our findings. First, we only included two genders in our study - participants who identified as men and women - so we are not able to attest to whether any of the results found across studies hold in other genders. We propose future research attempts to address this drawback by actively recruiting participants with a diverse set of gender identities.
 
-Also, we used the same study population across all studies: participants recruited through Amazon Mechanical Turk. Although this population has been shown to provide results that closely resemble other participant populations \autocite{Rand2012,Buhrmester2011,Paolacci2014,Chandler2016} and we took different measures to ensure high data quality across the studies (e.g., excluding duplicate IP addresses, including only CloudResearch approved participants that must pass screening tests, using Qualtrics' fraud detection software to exclude potentially suspicious/fraudulent responses), it is still entirely possible that the data from these studies do not generalize to other participant populations. Future research should attempt to replicate these results in other populations.
+Also, we used the same study population across all studies: participants recruited through Amazon Mechanical Turk. Although this population has been shown to provide results that closely resemble other participant populations \autocite{Rand2012,Buhrmester2011,Paolacci2014,Chandler2016} and we took different measures to ensure high data quality across the studies (e.g., excluding duplicate IP addresses, including only CloudResearch approved participants that must pass screening tests, using Qualtrics' fraud detection software to exclude potentially suspicious/fraudulent responses), it is still entirely possible that the data from these studies do not generalize to other participant populations. For instance, there may be other unmeasured differences between genders that we are not capturing with our data that contribute to the gender difference in preparation. If that possibility is valid, it would suggest that the gender difference in preparation may not be found in other populations where gender differences in said unmeasured confounds are not are not as prominent. As such, future research should attempt to replicate these results in other populations.
 
 Another unique characteristic of the study is that we employed a simple multiplication task as the main task participants were paid for. Although we originally chose the multiplication task because we predicted that, unlike other tasks, participants can easily see their improvement on the task as they practice, a drawback is that the task is not representative of tasks that are typically used in organizational contexts. Thus, some of the decisions participants made before and after completing the task may not be reflective of decisions made on tasks that may be more relevant in organizational contexts. For that reason, we encourage subsequent research to explore these effects using other, possibly more relevant, tasks (e.g., exploring gender differences in the choice to prepare for interviews). On an encouraging note, many studies within the literature on gender differences in competitiveness also employed math tasks (albeit addition) and the choice to compete in those tasks did predict earnings and career choices \autocite{Reuben2017,Buser2014}, so if those results are at all reflective of the predictive validity of our results, our findings are likely relevant to other contexts. Similarly, in two of out of the four studies (i.e., Study 1 of Chapter 1 and Study study of Chapter 2), we find a significant gender difference in task scores, where women perform less well on the multiplication task than men - even when controlling for other possible contributing variables (i.e., risk, confidence, competition choice). Since gender differences in performance would likely contribute to gender differences in the choice to prepare on a given task, we encourage future research to employ different tasks to understand how the gender difference in the choice to prepare responds to different tasks, especially where performance is consistently the same on average for men and women. This would help us further understand how women's decisions to prepare are responsive to the actual need to prepare given relative performance.
 

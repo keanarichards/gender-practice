@@ -22,7 +22,7 @@ if(!"devtools" %in% rownames(installed.packages())) install.packages("devtools")
 
 
 ## Package names
-packages <- c("readr", "tidyverse", "here", "devtools", "knitr", "officer", "summarytools")
+packages <- c("readr", "tidyverse", "here", "devtools", "knitr", "officer", "summarytools", "xtable")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -44,64 +44,90 @@ source(here("study2", "source", "03_exploratory-analyses.R"))
 
 na_drop <- clean %>% drop_na(condition) 
 
+
+dt = function(label, caption=NULL) {
+  print(xtable(setNames(data.frame(x=numeric()), " "),
+               caption=caption,
+               label=paste0("tab:", label)), 
+        hline.after=NULL,
+        booktabs=FALSE,
+        size="\\fontsize{0.1pt}{0.1pt}\\selectfont")
+}
+
+options(xtable.include.rownames=FALSE, xtable.comment=FALSE)
+
+
+
 ```
 
 #### Describing main variables of interest
 
-We replicated the effect of gender on the choice to compete when gender is included as the only predictor in the logistic regression: `r ctable(clean$gender, clean$comp_choice, useNA = "no")$proportions[4]*100`% of men chose to compete compared to `r ctable(clean$gender, clean$comp_choice, useNA = "no")$proportions[5]*100`% of women, `r apa_print(sec_exploratory7)$full_result$genderWoman`. Like Study 1, the gender effect on competitiveness is no longer significant after adding the same control variables as before (i.e., risk attitudes, confidence, task scores, and the hypothesized interaction between gender and competition choice), where risk attitudes, `r apa_print(exploratory1)$full_result$risk`, confidence, `r apa_print(exploratory1)$full_result$conf_rank`, and task scores, `r apa_print(exploratory1)$full_result$task_score` appear to explain the gender differences in competitiveness (see Figure \@ref(fig:tab-comp-choice-study2)). 
+We replicated the effect of gender on the choice to compete when gender is included as the only predictor in the logistic regression: `r ctable(clean$gender, clean$comp_choice, useNA = "no")$proportions[4]*100`% of men chose to compete compared to `r ctable(clean$gender, clean$comp_choice, useNA = "no")$proportions[5]*100`% of women, `r apa_print(sec_exploratory7)$full_result$genderWoman`. Like Study 1, the gender effect on competitiveness is no longer significant after adding the same control variables as before (i.e., risk attitudes, confidence, task scores, and the hypothesized interaction between gender and competition choice), where risk attitudes, `r apa_print(exploratory1)$full_result$risk`, confidence, `r apa_print(exploratory1)$full_result$conf_rank`, and task scores, `r apa_print(exploratory1)$full_result$task_score` appear to explain the gender differences in competitiveness (see Table \@ref(tab:tab-comp-choice-study2)). 
 
-```{r tab-comp-choice-study2, fig.align="center", fig.cap = "All models are logistic regressions with choice to compete as the dependent variable, where man and control are the reference categories for participant gender and preparation condition, respectively. The gender difference in the choice to compete is not reduced by preparation condition, but is explained by risk attitudes, task scores, and confidence. p < .05 is considered significant and bolded.", out.width='100%'}
+```{r tab-comp-choice-study2, fig.align="center", out.width='100%', results = 'asis'}
 knitr::include_graphics(here("study2", "figs", "tab_comp-choice-study2.png"))
+
+dt("tab-comp-choice-study2", "All models are logistic regressions with choice to compete as the dependent variable, where man and control are the reference categories for participant gender and preparation condition, respectively. The gender difference in the choice to compete is not reduced by preparation condition, but is explained by risk attitudes, task scores, and confidence. p < .05 is considered significant and bolded.")
+
 ```
 
-
-Again, we find that gender predicts task scores when included by itself as a predictor, `r apa_print(exploratory4)$full_result$genderWoman`. However, unlike Study 1, when other variables are included as predictors in the linear regression, we find that the effect of gender on task scores dissipates, `r apa_print(sec_exploratory10)$full_result$genderWoman`, suggesting that the other variables, such as competition choice, `r apa_print(sec_exploratory10)$full_result$comp_choice`, risk attitudes, `r apa_print(sec_exploratory10)$full_result$risk`, and confidence, `r apa_print(sec_exploratory10)$full_result$conf_rank`, explained the gender difference in task scores in this study (see \@ref(fig:tab-task-scores-study2)). In support of this possibility, we replicate the finding from the Study 1 of this chapter that gender predicts both risk attitudes, `r apa_print(sec_exploratory8)$full_result$genderWoman` and confidence, 
-`r apa_print(sec_exploratory9)$full_result$genderWoman`. See Figure \@ref(fig:summary-table-gender-study2) for a summary of gender differences in the main variables of interest.
+Again, we find that gender predicts task scores when included by itself as a predictor, `r apa_print(exploratory4)$full_result$genderWoman`. However, unlike Study 1, when other variables are included as predictors in the linear regression, we find that the effect of gender on task scores dissipates, `r apa_print(sec_exploratory10)$full_result$genderWoman`, suggesting that the other variables, such as competition choice, `r apa_print(sec_exploratory10)$full_result$comp_choice`, risk attitudes, `r apa_print(sec_exploratory10)$full_result$risk`, and confidence, `r apa_print(sec_exploratory10)$full_result$conf_rank`, explained the gender difference in task scores in this study (see \@ref(tab:tab-task-scores-study2)). In support of this possibility, we replicate the finding from the Study 1 of this chapter that gender predicts both risk attitudes, `r apa_print(sec_exploratory8)$full_result$genderWoman` and confidence, `r apa_print(sec_exploratory9)$full_result$genderWoman`. See Table \@ref(tab:summary-table-gender-study2) for a summary of gender differences in the main variables of interest.
 
 
-```{r summary-table-gender-study2, fig.align="center", fig.cap = "Gender differences in the main variables of interest, including: task scores, choice to compete, choice to practice, confidence, and risk attitudes. Medians are reported for task score, risk attitudes, and confidence, with IQRs in parentheses. For choice to practice and choice to compete, we report the number and percentage of participants that fall into each category for each respective gender", out.width='50%'}
+```{r summary-table-gender-study2, fig.align="center", out.width='50%', results = "asis"}
 knitr::include_graphics(here("study2","figs", "summary-table-gender-study2.png"))
+
+dt("summary-table-gender-study2", "Gender differences in the main variables of interest, including: task scores, choice to compete, choice to practice, confidence, and risk attitudes. Medians are reported for task score, risk attitudes, and confidence, with IQRs in parentheses. For choice to practice and choice to compete, we report the number and percentage of participants that fall into each category for each respective gender.")
+
 ```
 
+\newpage
 
-```{r tab-task-scores-study2, fig.align="center", fig.cap = "All models are linear regressions with task score as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. After controlling for risk attitudes, confidence, and competition choice, women no longer have lower scores on the multiplication task than men, p < .05 is considered significant and bolded.", out.width='100%'}
+```{r tab-task-scores-study2, fig.align="center", out.width='100%', results = 'asis'}
 knitr::include_graphics(here("study2", "figs", "tab_task-scores-study2.png"))
+dt("tab-task-scores-study2", "All models are linear regressions with task score as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. After controlling for risk attitudes, confidence, and competition choice, women no longer have lower scores on the multiplication task than men, p < .05 is considered significant and bolded.")
+
 ```
-
-
 
 #### Effects of limited preparation condition on gender differences in choice to compete 
 
-We did not find evidence of an interaction between gender and preparation condition on the choice to compete in a logistic regression, `r apa_print(sec_exploratory14)$full_result$genderWoman_conditionpract` (see Figure \@ref(fig:s200)). Also, we did not find evidence of a significant effect of condition on the choice to compete as a sole predictor in a logistic regression, `r apa_print(exploratory5)$full_result$conditionpract`.
+We did not find evidence of an interaction between gender and preparation condition on the choice to compete in a logistic regression, `r apa_print(sec_exploratory14)$full_result$genderWoman_conditionpract` (see Figure \@ref(fig:s200)). Also, we did not find evidence of a significant effect of condition on the choice to compete as a sole predictor in a logistic regression, `r apa_print(exploratory5)$full_result$conditionpract`. The point estimate for the effect of the limited preparation condition was negative and the 95% CI did not include positive effects that were greater in magnitude than 0.13.
+
 
 ```{r s200, fig.align="center",fig.cap="Proportion of men and women in Study 2 who chose to compete based on preparation condition. Limited preparation did not reduce the gender difference in competitiveness. Error bars represent standard errors.", out.width="300px"}
 knitr::include_graphics(here::here("study2", "figs", "fig06_comp-choice-by-gender-and-cond-bar.png"))
 
 ```
 
-
-
+\newpage 
 #### Gender differences in preparation
 
-Despite no evidence for the effect of requiring people to prepare (i.e., condition) on the choice to compete across participants, we replicate the effect of gender on the choice to practice found in Study 1, where women were significantly more likely to opt-in to prepare for the task, even after being required to prepare in the preparation condition. `r ctable(clean$gender, clean$pract_choice, useNA = "no")$proportions[5]*100`% of women across conditions chose to practice for the multiplication task beyond what was required, relative to `r ctable(clean$gender, clean$pract_choice, useNA = "no")$proportions[4]*100`% of men, `r apa_print(sec_exploratory16)$full_result$genderWoman` (see right panel of Figure \@ref(fig:panel-study2)). The gender effect holds even after controlling for the decision to compete and the interaction between gender and the decision to compete, `r apa_print(sec_exploratory11)$full_result$genderWoman` (see left panel of Figure \@ref(fig:panel-study2)). Within the same model, we find that the choice to compete itself increases the likelihood a participant will practice before completing the paid task, `r apa_print(sec_exploratory11)$full_result$comp_choicetournament`, but no evidence of an interaction between gender and payment scheme choice, `r apa_print(sec_exploratory11)$full_result$genderWoman_comp_choicetournament`. To see if the gender effect is explained by other variables included in the study, we added confidence, risk attitudes, and task scores to the previous model, and find that gender still significantly predicts the choice to practice, `r apa_print(sec_exploratory13)$full_result$genderWoman`, over any effects of differences in risk attitudes, confidence, or task scores (see Figure \@ref(fig:tab-pract-choice-study2)). We ran the same two-part hurdle model described in Study 1 with gender, competition choice, and the interaction between those variables predicting the number of practice rounds variable. Again, we do not find evidence of gender differences in the choice to continue preparing after the initial decision to prepare, *b* = `r summary_sec_exploratory17[["coefficients"]][["count"]][[2]]`, 95% CI [`r summary_sec_exploratory17[["coefficients"]]$count[2] - summary_sec_exploratory17[["coefficients"]]$count[6]*1.96`, `r summary_sec_exploratory17[["coefficients"]]$count[2] + summary_sec_exploratory17[["coefficients"]]$count[6]*1.96`], *z* = `r summary_sec_exploratory17[["coefficients"]]$count[10]`, *p* = `r summary_sec_exploratory17[["coefficients"]]$count[14]`.   
+Despite no evidence for the effect of requiring people to prepare (i.e., condition) on the choice to compete across participants, we replicate the effect of gender on the choice to practice found in Study 1, where women were significantly more likely to opt-in to prepare for the task, even after being required to prepare in the preparation condition. `r ctable(clean$gender, clean$pract_choice, useNA = "no")$proportions[5]*100`% of women across conditions chose to practice for the multiplication task beyond what was required, relative to `r ctable(clean$gender, clean$pract_choice, useNA = "no")$proportions[4]*100`% of men, `r apa_print(sec_exploratory16)$full_result$genderWoman` (see right panel of Figure \@ref(fig:panel-study2)). The gender effect holds even after controlling for the decision to compete and the interaction between gender and the decision to compete, `r apa_print(sec_exploratory11)$full_result$genderWoman` (see left panel of Figure \@ref(fig:panel-study2)). Within the same model, we find that the choice to compete itself increases the likelihood a participant will practice before completing the paid task, `r apa_print(sec_exploratory11)$full_result$comp_choicetournament`, but no evidence of an interaction between gender and payment scheme choice, `r apa_print(sec_exploratory11)$full_result$genderWoman_comp_choicetournament`. To see if the gender effect is explained by other variables included in the study, we added confidence, risk attitudes, and task scores to the previous model, and find that gender still significantly predicts the choice to practice, `r apa_print(sec_exploratory13)$full_result$genderWoman`, over any effects of differences in risk attitudes, confidence, or task scores (see Table \@ref(tab:tab-pract-choice-study2)). We ran the same two-part hurdle model described in Study 1 with gender, competition choice, and the interaction between those variables predicting the number of practice rounds variable. Again, we do not find evidence of gender differences in the choice to continue preparing after the initial decision to prepare, *b* = `r summary_sec_exploratory17[["coefficients"]][["count"]][[2]]`, 95% CI [`r summary_sec_exploratory17[["coefficients"]]$count[2] - summary_sec_exploratory17[["coefficients"]]$count[6]*1.96`, `r summary_sec_exploratory17[["coefficients"]]$count[2] + summary_sec_exploratory17[["coefficients"]]$count[6]*1.96`], *z* = `r summary_sec_exploratory17[["coefficients"]]$count[10]`, *p* = `r summary_sec_exploratory17[["coefficients"]]$count[14]`.   
 
 
 ```{r panel-study2, fig.retina=NULL, fig.cap="Right panel shows the proportion of men and women in Study 2 who chose to prepare. Left panel shows the proportion of men and women in Study 2 who chose to prepare based on choice to compete. Women choose to prepare more than men, regardless of their decision to compete. Error bars represent standard errors.", out.width='100%', fig.align="center"}
 knitr::include_graphics(here::here("study2", "figs", "panel_study2.png"))
 
 ```
+\newpage
 
-
-```{r tab-pract-choice-study2,  fig.cap = "All models are logistic regressions with choice to prepare as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. Women prepare more than men regardless of competition choice, task score, risk attitudes, or confidence. p < .05 is considered significant and bolded.", out.width='100%', fig.align="center"}
+```{r tab-pract-choice-study2, out.width='100%', fig.align="center", results = 'asis'}
 knitr::include_graphics(here("study2", "figs", "tab_pract-choice-study2.png"))
+
+dt("tab-pract-choice-study2", "All models are logistic regressions with choice to prepare as the dependent variable, where man and piece-rate payment scheme are the reference categories for participant gender and competition choice, respectively. Women prepare more than men regardless of competition choice, task score, risk attitudes, or confidence. p < .05 is considered significant and bolded.")
+
+
 ```
 
 #### Perceptions of gender differences in preparation, performance, and competitiveness
 
-Again, we find that these results align with participants' expectations, where they were significantly more likely to expect women (with `r unname(prop.table(t3)*100)[2]`% selecting women versus `r unname(prop.table(t3)*100)[1]`% selecting men) to choose to prepare more than men both in general, `r apa_print(exploratory3c, n = nrow(clean))$statistic` (see Figure \@ref(fig:s206)), and on the paid multiplication task, `r apa_print(exploratory3d, n = nrow(clean))$statistic` (see Figure \@ref(fig:s203)) (with `r unname(prop.table(t4)*100)[2]`% selecting women versus `r unname(prop.table(t4)*100)[1]`% selecting men), despite expecting men to choose to compete more often, `r apa_print(exploratory3b, n = nrow(clean))$statistic` (see Figure \@ref(fig:s205)) and expecting no gender differences in performance on the task, `r apa_print(exploratory3a, n = nrow(clean))$statistic` (see Figure \@ref(fig:s204)). See Figure \@ref(fig:summary-table-beliefs-study2) for a summary of participants' responses to the questions about gender differences in preparation, performance, and competitiveness.
+Again, we find that these results align with participants' expectations, where they were significantly more likely to expect women (with `r unname(prop.table(t3)*100)[2]`% selecting women versus `r unname(prop.table(t3)*100)[1]`% selecting men) to choose to prepare more than men both in general, `r apa_print(exploratory3c, n = nrow(clean))$statistic` (see Figure \@ref(fig:s206)), and on the paid multiplication task, `r apa_print(exploratory3d, n = nrow(clean))$statistic` (see Figure \@ref(fig:s203)) (with `r unname(prop.table(t4)*100)[2]`% selecting women versus `r unname(prop.table(t4)*100)[1]`% selecting men), despite expecting men to choose to compete more often, `r apa_print(exploratory3b, n = nrow(clean))$statistic` (see Figure \@ref(fig:s205)) and expecting no gender differences in performance on the task, `r apa_print(exploratory3a, n = nrow(clean))$statistic` (see Figure \@ref(fig:s204)). See Table \@ref(tab:summary-table-beliefs-study2) for a summary of participants' responses to the questions about gender differences in preparation, performance, and competitiveness.
 
-```{r summary-table-beliefs-study2, fig.align="center", fig.cap = "Number and percentage of participants that selected each respective option when asked which gender would correctly solve more problems on the multiplication task, spend more time preparing for the multiplication task, choose the tournament payment scheme more often, and spend more time preparing on most tasks", out.width='35%'}
+```{r summary-table-beliefs-study2, fig.align="center", out.width='35%', results = "asis"}
 knitr::include_graphics(here("study2","figs", "summary-table-beliefs-study2.png"))
+
+dt("summary-table-beliefs-study2", "Number and percentage of participants that selected each respective option when asked which gender would correctly solve more problems on the multiplication task, spend more time preparing for the multiplication task, choose the tournament payment scheme more often, and spend more time preparing on most tasks.")
+
 ```
 
 
@@ -143,9 +169,6 @@ knitr::include_graphics(here::here("study2", "figs", "pract-choice-by-gender-and
 knitr::include_graphics(here::here("study2", "figs", "pract-choice-by-gender-and-perc-task-prep-bar-study2.png"))
 
 ```
-
-
-
 
 #### Post-manipulation measures 
 

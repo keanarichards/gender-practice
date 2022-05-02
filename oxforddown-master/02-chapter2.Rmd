@@ -22,7 +22,7 @@ pacman::p_load(tidyverse, here)
 here::i_am("flag_project_root.R")
 ```
 
-# Chapter 2: Effects of competition on gender differences in the choice to prepare 
+# Chapter 3: Effects of competition on gender differences in the choice to prepare 
 
 ## Introduction 
 
@@ -30,7 +30,7 @@ here::i_am("flag_project_root.R")
 ```{r child = here::here("chapter2", "intro.Rmd")}
 
 ```
-
+\newpage
 
 ```{r child = here("chapter2", "study5.Rmd")}
 ```

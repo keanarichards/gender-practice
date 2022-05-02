@@ -2,6 +2,7 @@
 author: "Keana Richards"
 date: "6/9/2020"
 output:
+  pdf_document: default
   word_document: default
 ---
 
@@ -17,7 +18,7 @@ options(pillar.sigfig = 2)
 options(repos="https://cran.rstudio.com" )
 # load packages -----------------------------------------------------------
 ## Package names
-packages <- c("readr", "tidyverse", "here", "summarytools", "papaja", "magrittr")
+packages <- c("readr", "tidyverse", "here", "summarytools", "papaja", "magrittr", "xtable")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -35,25 +36,52 @@ dropped_out <- read_csv(here("study5", "data", "dropped_out.csv"))
 clean_fraud_removed <- clean %>% filter(fraud == 0) 
 source(here("study5", "source", "03_exploratory-analyses.R"))
 
+
+dt = function(label, caption=NULL) {
+  print(xtable(setNames(data.frame(x=numeric()), " "),
+               caption=caption,
+               label=paste0("tab:", label)), 
+        hline.after=NULL,
+        booktabs=FALSE,
+        size="\\fontsize{0.1pt}{0.1pt}\\selectfont")
+}
+
+options(xtable.include.rownames=FALSE, xtable.comment=FALSE)
+
+
 ```
 
 ### Participants
 
 All study measures described below are publicly available on OSF both as a [.pdf](https://osf.io/xbrvs/) and [.qsf](https://osf.io/4mvyr/). Participants were recruited on Amazon Mechanical Turk using the same screening criteria as all previous studies in Chapter 1. Like the last study of Chapter 1, we used Qualtrics’ fraud detection software to filter out responses that were suspicious either because they were likely 1) bots and/or 2) duplicate responses using the same exclusion criteria from before. These exclusions were applied for all main analyses reported in the results section. 
 
-The final dataset consists of `r nrow(clean_fraud_removed)` participants (`r freq(clean_fraud_removed$gender, report.nas = F)[6]`% women), with an average age of `r mean(clean_fraud_removed$age, na.rm = T)` (*SD* = `r sd(clean_fraud_removed$age, na.rm = T)`) years. Of the final sample, `r nrow(dropped_out)` participants (`r freq(dropped_out$Gender...17, report.nas = F)[5]`% women) dropped out of the study before finishing (we use their data when available) and `r nrow(clean %>% filter(fraud ==1))` participants were flagged by Qualtrics' fraud detection software as suspicious based on the aforementioned criteria. 
-
-
-```{r demographics-table-study5, fig.align="center", fig.cap = "Size of sample with corresponding percentage listed for gender and education, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’. Note: we did not include questions about race/ethnicity nor income in this study.", out.width='85%'}
+```{r demographics-table-study5, fig.align="center", out.width='100%', results = 'asis'}
 knitr::include_graphics(here("study5", "figs", "demographics-table-conds-study5.png"))
+dt("demographics-table-study5", "Size of sample with corresponding percentage listed for gender and education, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’. Note: we did not include questions about race/ethnicity nor income in this study.")
+
+```
+
+\newpage 
+
+```{r demographics-table-gender-study5, fig.align="center", out.width='85%', results = 'asis'}
+knitr::include_graphics(here("study5", "figs", "demographics-table-gender-study5.png"))
+dt("demographics-table-gender-study5", "Size of sample with corresponding percentage listed for education, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’. Note: we did not include questions about race/ethnicity nor income in this study.")
+
 ```
 
 
+\newpage
+
+Given the difficulty of powering interaction effects [see @Simonsohn2014; @Giner-Sorolla2018], we conducted a power analysis to determine an adequate sample size for the main hypothesized interaction effect in the primary analysis [simulations modeled after code from @Hughes2017a]. We ran 5000 simulations while varying the sample size (_N_ = 3000, 3250, 3500) and the effect size for the interaction effect (_b_ = .2, .3, .4). Based on these simulated estimates, we aimed to recruit 4000 participants to achieve at least 80% power for a relatively small effect (_b_ = .2) (see Figure \@ref(fig:power-analysis-study5)). The final dataset consists of `r nrow(clean_fraud_removed)` participants (`r freq(clean_fraud_removed$gender, report.nas = F)[6]`% women), with an average age of `r mean(clean_fraud_removed$age, na.rm = T)` (*SD* = `r sd(clean_fraud_removed$age, na.rm = T)`) years. Of the final sample, `r nrow(dropped_out)` participants (`r freq(dropped_out$Gender...17, report.nas = F)[5]`% women) dropped out of the study before finishing (we use their data when available) and `r nrow(clean %>% filter(fraud ==1))` participants were flagged by Qualtrics' fraud detection software as suspicious based on the aforementioned criteria.
+
+```{r power-analysis-study5, fig.cap="Plot of simulation output used to determine necessary sample size for at least 80 percent power.", fig.align="center", out.width="300px"}
+knitr::include_graphics(here::here("study5", "figs", "nsf-power-analysis.jpg"))
+
+```
+
 ### Procedures 
 
-Participants included in the study were told they would be completing a multiplication task. Notably, we aimed to recruit a larger sample to provide enough power to detect our anticipated interaction effects, and shortened the task from two minutes (as in Chapter 1) to 30 seconds (in the present study). Otherwise, the task used was identical to the ones used in previous studies.
-
-Like the studies in Chapter 1, participants were first told about the rules for the multiplication task and were required to pass the same comprehension questions used in the previous studies before moving onto the main manipulation of payment scheme.
+Participants included in the study were told they would be completing a multiplication task. Notably, we aimed to recruit a larger sample to provide enough power to detect our anticipated interaction effects, and shortened the task from two minutes (as in Chapter 1) to 30 seconds (in the present study). Otherwise, the task used was identical to the ones used in previous studies. Like the studies in Chapter 1, participants were first told about the rules for the multiplication task and were required to pass the same comprehension questions used in the previous studies before moving onto the main manipulation of payment scheme.
 
 #### Manipulation of payment scheme 
 
@@ -65,12 +93,8 @@ Again, we checked that condition was assigned evenly across participants (contro
 
 After they were informed of their payment scheme, all participants were given the opportunity to spend unlimited time preparing before completing the paid multiplication task. The nature of the unlimited preparation was identical to that used in Study 3 of Chapter 1, where participants who chose to prepare were shown 10 multiplication problems that were created randomly by drawing from the pool of numbers used in the main multiplication task. Unlike the last study in Chapter 1, participants were not asked to explicitly indicate whether they would like to study the times tables. Instead, they were shown the times table right after the practice problems directly on the practice problems page and told they could check their answers using the table as desired. By including the option to check their answers, we hoped to make the practice itself more useful by providing participants a way to receive feedback on their responses. At the bottom of each practice page, participants were asked if they would like to continue practicing multiplication problems, with the option to continue as many times as desired or opt out at any point. The amount of time (in seconds) participants spent on each practice page was also recorded. Thus, like the previous studies, we have multiple measures of preparation, by design: 1) the actual decision to practice problems (before knowing what the practice entails), 2) the number of practice problems participants attempted (quantified as number of practice problems not left blank, irrespective of accuracy - with participants who did not opt into the practice having a value of zero), 3) the amount of time participants spent across all practice rounds they completed (where those who chose not to practice had a value of zero for this variable), and 4) the number of practice rounds participants completed. Since the practice structure in this study is identical to that of Study 3 in Chapter 1, the number of practice rounds variable was encoded in the same way as that study (*M* = `r mean(clean_fraud_removed$total_practice_rounds_count, na.rm = T)`, *SD* = `r sd(clean_fraud_removed$total_practice_rounds_count, na.rm = T)`). 
 
-After completing the practicing/studying, participants guessed how much their amount of practicing for the task compared to all other participants who completed the task by indicating the decile of their practice relative to other participants. We also asked participants to indicate their anticipated decile when their amount of practicing was compared to that of all participants who identified as men and women, respectively. 
-
-We used these decile questions to create the perceived practice deviation variables as follows: self-rated decile (either based on the question about practicing relative to all other participants, relative to only men, or relative to only women) - actual percentile based on number of practice problems completed. We subtracted percentile from decile here because it provides more variation in the variable, thus allowing us to be more precise in our estimates of the effects of various predictors on this variable. We chose to ask participants to indicate their decile rather than percentile because it would be cumbersome for participants and it is unlikely they would be able to provide concise responses. Overall, negative values for this variable indicate a participant expected to have practiced less, relative to other participants, than they actually did, and vice versa for positive values. 
+After completing the practicing/studying, participants guessed how much their amount of practicing for the task compared to all other participants who completed the task by indicating the decile of their practice relative to other participants. We also asked participants to indicate their anticipated decile when their amount of practicing was compared to that of all participants who identified as men and women, respectively. We used these decile questions to create the perceived practice deviation variables as follows: self-rated decile (either based on the question about practicing relative to all other participants, relative to only men, or relative to only women) - actual percentile based on number of practice problems completed. We subtracted percentile from decile here because it provides more variation in the variable, thus allowing us to be more precise in our estimates of the effects of various predictors on this variable. We chose to ask participants to indicate their decile rather than percentile because it would be cumbersome for participants and it is unlikely they would be able to provide concise responses. Overall, negative values for this variable indicate a participant expected to have practiced less, relative to other participants, than they actually did, and vice versa for positive values. 
 
 #### Paid multiplication task and post-task measures
 
-After practicing, participants completed the paid multiplication task, received feedback about their absolute (but not relative) performance, and completed many of the same follow-up questions used across Chapter 1, including risk attitudes, confidence, and perceptions of gender differences in preparation, competitiveness, and performance. Like Study 3 of Chapter 1, all questions had three response options (e.g., men are more likely to compete than women, women are more likely to compete than men, or there are no differences in how much men or women would choose to compete). One of the perceptions of gender differences questions deviated slightly from the previous studies, which was edited for the sake of clarity. Instead of asking participants to indicate “Do you think men or women in this study chose the tournament payment option more often?”, they were asked "If given the opportunity to choose between the two payment schemes (Piece Rate or Tournament), do you think men in this study would choose the piece rate or the tournament payment scheme more often?", with the options to indicate: "Men would choose tournament more often than piece rate", "Men would choose piece rate more often than tournament", or "Men would choose each payment scheme equally". This question was repeated with respect to women in the study. 
-
-We paid participants to answer the questions about their confidence and perceptions of gender differences correctly at the same rate as previous studies. Finally, they completed the same demographic questions from Chapter 1 and provided feedback on the study before being paid for their participation. 
+After practicing, participants completed the paid multiplication task, received feedback about their absolute (but not relative) performance, and completed many of the same follow-up questions used across Chapter 1, including risk attitudes, confidence, and perceptions of gender differences in preparation, competitiveness, and performance. Like Study 3 of Chapter 1, all questions had three response options (e.g., men are more likely to compete than women, women are more likely to compete than men, or there are no differences in how much men or women would choose to compete). One of the perceptions of gender differences questions deviated slightly from the previous studies, which was edited for the sake of clarity. Instead of asking participants to indicate “Do you think men or women in this study chose the tournament payment option more often?”, they were asked "If given the opportunity to choose between the two payment schemes (Piece Rate or Tournament), do you think men in this study would choose the piece rate or the tournament payment scheme more often?", with the options to indicate: "Men would choose tournament more often than piece rate", "Men would choose piece rate more often than tournament", or "Men would choose each payment scheme equally". This question was repeated with respect to women in the study. We paid participants to answer the questions about their confidence and perceptions of gender differences correctly at the same rate as previous studies. Finally, they completed the same demographic questions from Chapter 1 and provided feedback on the study before being paid for their participation. 

@@ -7,7 +7,7 @@
 # The format options are: 'pdf', 'bs4', 'gitbook', 'word'
 # E.g. you can build both pdf and html with 'thesis_formats <- c("pdf", "bs4")'
 knit: (function(input, ...) {
-    thesis_formats <- c("pdf", "word");
+    thesis_formats <- "pdf";
     
     source("scripts_and_filters/knit-functions.R");
     knit_thesis(input, thesis_formats, ...)
@@ -27,14 +27,13 @@ university-logo-width: 5cm
 submitted-text: A thesis submitted for the degree of
 degree: Doctor of Philosophy
 dedication: For my mom 
+abstract-heading: "Abstract"
+abstract: |
+  `r paste(readLines("front-and-back-matter/_abstract.Rmd"), collapse = "\n  ")`
+show-abstract-in-toc: true
 acknowledgements: |
   `r paste(readLines("front-and-back-matter/_acknowledgements.Rmd"), collapse = '\n  ')`
 show-acknowledgements-in-toc: true
-abstract-heading: "ABSTRACT"
-abstract: |
-  `r paste(readLines("front-and-back-matter/_abstract.Rmd"), collapse = '\n  ')`
-show-abstract-in-toc: true
-# add a second abstract with abstract-second-heading: "Abstract two", and abstract-second: "My abstract"
 
 
 #######################
@@ -58,7 +57,7 @@ alternative-title-page: templates/alt-title-page-example.tex
 
 
 ### citation and bibliography style ###
-bibliography-heading-in-pdf: Works Cited
+bibliography-heading-in-pdf: Bibliography
 
 # biblatex options #
 # unless you run into 'biber' error messages, use natbib as it lets you customise your bibliography directly
@@ -92,13 +91,13 @@ toc-link-page-numbers: true
 page-layout: nobind #'nobind' for equal margins (PDF output), 'twoside' for two-sided binding (mirror margins and blank pages), leave blank for one-sided binding (left margin > right margin)
 
 ### position of page numbers ###
-ordinary-page-number-foot-or-head: foot #'foot' puts page number in footer, 'head' in header
+ordinary-page-number-foot-or-head: head #'foot' puts page number in footer, 'head' in header
 ordinary-page-number-position: C  #C = center, R = right, L = left. If page layout is 'twoside', O = odd pages and E = even pages. E.g. RO,LE puts the page number to the right on odd pages and left on even pages
-chapter-page-number-foot-or-head: foot #you may want it to be different on the chapter pages
+chapter-page-number-foot-or-head: head #you may want it to be different on the chapter pages
 chapter-page-number-position: C
 
 ### position of running header ###
-running-header: true #indicate current chapter/section in header?
+running-header: false #indicate current chapter/section in header?
 running-header-foot-or-head: head
 running-header-position-leftmark: LO #marks the chapter. If layout is 'nobind', only this is used.
 running-header-position-rightmark: RE  #marks the section.
@@ -127,6 +126,8 @@ space-after-code-block: 8pt
 ### linespacing ###
 linespacing: 22pt plus2pt # 22pt is official for submission & library copies
 frontmatter-linespacing: 17pt plus1pt minus1pt #spacing in roman-numbered pages (acknowledgments, table of contents, etc.)
+
+
 
 ### other stuff ###
 abstractseparate: false  # include front page w/ abstract for examination schools?

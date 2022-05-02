@@ -8,7 +8,7 @@ output:
 documentclass: book
 ---
 
-# Introduction {.unnumbered}
+# Chapter 1: Introduction 
 
 ```{=tex}
 \adjustmtc

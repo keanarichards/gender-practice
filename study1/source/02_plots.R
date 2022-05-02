@@ -323,7 +323,7 @@ clean %>% select(better_gender_guess,perc_task_gender_pract,  perc_gender_comp, 
   opt_align_table_header(align = "left") %>% gt::gtsave(., file = here("study1","figs", "summary-table-beliefs-study1.png"))
 
 
-# creating demographic tables ---------------------------------------------
+# creating demographic tables by condition ---------------------------------------------
 
 ## should recode the people who select more than one option to multi-racial per narratives study
 
@@ -406,7 +406,6 @@ clean %>%
   tab_header(title = md("***Demographics Across Conditions***")) %>%
   opt_align_table_header(align = "left") %>% gt::gtsave(., file = here("study1","figs", "demographics-table-conds-study1.png"))
 
-
 # creating panel plots ----------------------------------------------------
 
 img1 <- magick::image_read(here::here("study1", "figs", "fig01_pract-choice-by-gender-and-comp-choice-bar.png"))
@@ -458,4 +457,68 @@ p <- ggplot(data = dat, aes(x = perc_gen_gender_pract, fill = gender)) +
   )
 
 ggsave(here("study1", "figs", "pract-choice-by-gender-and-perc-gen-prep-bar-study1.png"), p, width = 7, height = 7)
+
+# creating demographic tables by gender ---------------------------------------------
+
+clean %>%
+  dplyr::select(
+    age,
+    gender, 
+    race_ethnicity,
+    income, 
+    education
+  ) %>%
+  mutate(
+    education = factor(
+      education,
+      levels = c(
+        "Less than a high school degree",
+        "High School Diploma",
+        "Vocational Training",
+        "Some College",
+        "Bachelor's degree",
+        "Graduate Degree"
+      )
+    ),
+    income = factor(
+      income,
+      levels = c(
+        "Less than $10,000",
+        "$10,000 to $20,000",
+        "$20,000 to $30,000",
+        "$30,000 to $40,000",
+        "$40,000 to $50,000",
+        "$50,000 to $60,000",
+        "$60,000 to $70,000",
+        "$70,000 to $80,000",
+        "$80,000 to $90,000",
+        "$90,000 to $100,000",
+        "$100,000 to $200,00",
+        "Over $200,000"
+      )
+    )
+  ) %>% 
+  tbl_summary(
+    by = gender,
+    label = list(
+      age ~ "Age",
+      race_ethnicity ~ "Race/ethnicity",
+      education ~ "Education",
+      income ~ "Household Income"
+    ), 
+    statistic = list(all_continuous() ~ "{mean} ({sd})")
+  ) %>%
+  bold_labels() %>%
+  add_p(test = list(all_continuous() ~ "kruskal.test", all_categorical() ~ "fishers")) %>%  modify_footnote(
+    update = everything() ~ NA) %>% 
+  as_gt() %>%  tab_style(
+    style = cell_borders(
+      sides = c("top", "bottom"),
+      color = "white",
+      style = "solid"
+    ),
+    locations = cells_body(columns = everything(), rows = everything())
+  ) %>%
+  tab_header(title = md("***Demographics Based on Participant Gender***")) %>%
+  opt_align_table_header(align = "left") %>% gt::gtsave(., file = here("study1","figs", "demographics-table-gender-study1.png"))
 

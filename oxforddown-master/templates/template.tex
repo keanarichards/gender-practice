@@ -29,7 +29,7 @@
 
 % As you can see from the uncommented line below, oxforddown template uses the a4paper size, 
 % and passes in the binding option from the YAML header in index.Rmd:
-\documentclass[a4paper, $if(page-layout)$$page-layout$$endif$]{templates/ociamthesis}
+\documentclass[letterpaper, $if(page-layout)$$page-layout$$endif$]{templates/ociamthesis}
 
 
 %%%%% ADDING LATEX PACKAGES
@@ -131,7 +131,7 @@ $endfor$
 \preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
 \makeatother
 
-
+\counterwithout{footnote}{chapter} 
 
 %%%%%%% PAGE HEADERS AND FOOTERS %%%%%%%%%
 \usepackage{fancyhdr}
@@ -243,7 +243,6 @@ $endif$
 % Term and year of submission, or date if your board requires (eg most masters)
 \degreedate{$degreedate$}
 
-
 %%%%% YOUR OWN PERSONAL MACROS
 % This is a good place to dump your own LaTeX macros as they come up.
 
@@ -276,10 +275,12 @@ $endif$
 %
 % Oxford University logo on title page
 %
-\def\crest{{\includegraphics[width=$university-logo-width$]{$university-logo$}}}
-\renewcommand{\university}{$university$}
-\renewcommand{\submittedtext}{$submitted-text$}
-
+%\def\crest{{\includegraphics[width=$university-logo-width$]{$university-logo$}}}
+%\renewcommand{\university}{$university$}
+%\renewcommand{\submittedtext}{$submitted-text$}
+%\renewcommand{\thesistitlesize}{\fontsize{$title-size$}{$title-size-linespacing$}\selectfont}
+%\renewcommand{\gapbeforecrest}{$gap-before-crest$}
+%\renewcommand{\gapaftercrest}{$gap-after-crest$}
 
 % Leave this line alone; it gets things started for the real document.
 \setlength{\baselineskip}{\textbaselineskip}
@@ -324,14 +325,17 @@ $endif$
 %%%%% \end{dedication}
 %%%%% $endif$
 
+\phantom{\cite{?}}
+
 %%%%% ACKNOWLEDGEMENTS -- Nothing to do here except comment out if you don't want it.
 $if(acknowledgements)$
 
 $if(show-acknowledgements-in-toc)$
+\cleardoublepage
+\phantomsection
 \addcontentsline{toc}{chapter}{Acknowledgements}
 \renewcommand{\numberstyleacks}{plain}
 \renewcommand{\numberstyleabstract}{plain}
-
 $endif$
 
 \begin{acknowledgements}
@@ -356,6 +360,20 @@ $endif$
 
 $endif$
 
+$if(abstract-second)$
+
+$if(show-abstract-in-toc)$
+\addcontentsline{toc}{chapter}{$abstract-second-heading$}
+\renewcommand{\numberstyleabstract}{plain}
+$endif$
+
+\renewcommand{\abstractsecondtitle}{$abstract-second-heading$}
+\begin{abstractsecond}
+	$abstract-second$
+\end{abstractsecond}
+
+$endif$
+
 %%%%% MINI TABLES
 % This lays the groundwork for per-chapter, mini tables of contents.  Comment the following line
 % (and remove \minitoc from the chapter files) if you don't want this.  Un-comment either of the
@@ -376,17 +394,19 @@ $endif$
 % This is where the whole-document ToC appears:
 \tableofcontents
 
+% Uncomment to generate a list of tables:
+$if(lot)$
+\listoftables
+  \mtcaddchapter
+$endif$
+
+
 $if(lof)$
 \listoffigures
 	\mtcaddchapter
   	% \mtcaddchapter is needed when adding a non-chapter (but chapter-like) entity to avoid confusing minitoc
 $endif$
 
-% Uncomment to generate a list of tables:
-% $if(lot)$
-%\listoftables
-%  \mtcaddchapter
-%$endif$
 %%%%% LIST OF ABBREVIATIONS
 % This example includes a list of abbreviations.  Look at text/abbreviations.tex to see how that file is
 % formatted.  The template can handle any kind of list though, so this might be a good place for a

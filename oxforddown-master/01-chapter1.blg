@@ -1,4 +1,4 @@
-[0] Config.pm:307> INFO - This is Biber 2.17
-[0] Config.pm:310> INFO - Logfile is '01-chapter1.blg'
-[716] biber-MSWIN32:340> INFO - === 
-[904] Biber.pm:418> INFO - Reading '01-chapter1.bcf'
+[1] Config.pm:307> INFO - This is Biber 2.17
+[1] Config.pm:310> INFO - Logfile is '01-chapter1.blg'
+[391] biber-MSWIN32:340> INFO - === 
+[518] Biber.pm:418> INFO - Reading '01-chapter1.bcf'

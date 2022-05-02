@@ -10,7 +10,7 @@ output:
 ```{r, include = F}
 
 ## hiding code chunks globally 
-knitr::opts_chunk$set(echo=FALSE, message = F, warning = F)
+knitr::opts_chunk$set(echo=F, message = F, warning = F)
 
 
 ## limiting number of digits to 2 decimal places
@@ -19,7 +19,7 @@ options(pillar.sigfig = 2)
 options(repos="https://cran.rstudio.com" )
 # load packages -----------------------------------------------------------
 ## Package names
-packages <- c("readr", "tidyverse", "here", "summarytools", "papaja")
+packages <- c("readr", "tidyverse", "here", "summarytools", "papaja", "xtable")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -36,15 +36,42 @@ dropped_out <- read_csv(here("study1", "data", "dropped_out.csv"))
 
 source(here("study1", "source", "03_exploratory-analyses.R"))
 
+dt = function(label, caption=NULL) {
+  print(xtable(setNames(data.frame(x=numeric()), " "),
+               caption=caption,
+               label=paste0("tab:", label)), 
+        hline.after=NULL,
+        booktabs=FALSE,
+        size="\\fontsize{0.1pt}{0.1pt}\\selectfont")
+}
+options(xtable.include.rownames=FALSE, xtable.comment=FALSE)
+
 ```
 
 #### Participants
 
-All study measures described below are publicly available on OSF both as a [.pdf](https://osf.io/hb9nw/) and [.qsf](https://osf.io/ga24t/). Participants on Amazon Mechanical Turk who opted into the study had to pass several screening questions. Specifically, participants included in the paid portion of the study had to (i) identify their nationality as American and live in the United States, (ii) identify as a man or a woman, and (iii) be using a computer (rather than a phone or tablet). If they did not meet these criteria, they did not proceed to the paid portion of the study. Additionally, upon reviewing the data, we had reason to suspect that some participants completed the study more than once. Specifically, some participants had the same IP address, MTurk ID, and were of the same gender. When entries matched on all three identifiers, we included only the first entry and excluded all subsequent entries. The final sample consisted of `r nrow(clean)` participants (`r freq(clean$gender, report.nas = F)[6]`% women), with an average age of `r mean(clean$age, na.rm = T)` (*SD* = `r sd(clean$age, na.rm= T)`) years.^[Note: Per our screening criteria for participants, the number of participants who do not identify as men or women is 0 across all studies. Therefore, the proportion of men in the sample is represented by whatever proportion of the full sample does not identify as women] `r nrow(dropped_out)` participants (`r freq(dropped_out$Gender...19, report.nas = F)[5]`% women) dropped out of the study before finishing and we use their data when available. See Figure \ref{fig:demographics-table-study1} for all demographic information. 
+All study measures described below are publicly available on OSF both as a [.pdf](https://osf.io/hb9nw/) and [.qsf](https://osf.io/ga24t/). Participants on Amazon Mechanical Turk who opted into the study had to pass several screening questions. Specifically, participants included in the paid portion of the study had to (i) identify their nationality as American and live in the United States, (ii) identify as a man or a woman, and (iii) be using a computer (rather than a phone or tablet). If they did not meet these criteria, they did not proceed to the paid portion of the study. Additionally, upon reviewing the data, we had reason to suspect that some participants completed the study more than once. Specifically, some participants had the same IP address, MTurk ID, and were of the same gender. When entries matched on all three identifiers, we included only the first entry and excluded all subsequent entries. The final sample consisted of `r nrow(clean)` participants (`r freq(clean$gender, report.nas = F)[6]`% women), with an average age of `r mean(clean$age, na.rm = T)` (*SD* = `r sd(clean$age, na.rm= T)`) years.^[Note: Per our screening criteria for participants, the number of participants who do not identify as men or women is 0 across all studies. Therefore, the proportion of men in the sample is represented by whatever proportion of the full sample does not identify as women] `r nrow(dropped_out)` participants (`r freq(dropped_out$Gender...19, report.nas = F)[5]`% women) dropped out of the study before finishing and we use their data when available. See Table \ref{tab:demographics-table-study1} for all demographic information. 
 
-```{r demographics-table-study1, fig.align="center", fig.cap = "Size of sample in Study 1 with corresponding percentage listed for gender, race, education, and household income, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’.", out.width='60%'}
+\newpage
+
+```{r demographics-table-study1, fig.align="center",  out.width='60%', results = 'asis'}
 knitr::include_graphics(here("study1", "figs", "demographics-table-conds-study1.png"))
+
+dt("demographics-table-study1", "Size of sample in Study 1 with corresponding percentage listed for gender, race, education, and household income, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’.")
+
+
 ```
+
+\newpage
+
+```{r demographics-table-gender-study1, fig.align="center",  out.width='50%', results = 'asis'}
+knitr::include_graphics(here("study1", "figs", "demographics-table-gender-study1.png"))
+
+dt("demographics-table-gender-study1", "Size of sample in Study 1 with corresponding percentage listed for race, education, and household income, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’.")
+
+
+```
+
 
 #### Procedures
 

@@ -79,7 +79,12 @@
 %
 
 \ifmc@nobind
-\usepackage[includehead,hmargin={3.1cm, 3.1cm}, vmargin={2.5cm,2.7cm}, headsep=.8cm,footskip=1.2cm]{geometry}
+\usepackage[left=1.5in,
+                right=1in,
+                vmargin=1in,
+                nohead,
+                includeheadfoot,
+                letterpaper]{geometry}
 \else
 \usepackage[includehead,hmargin={3.6cm, 2.6cm}, vmargin={2.5cm,2.7cm}, headsep=.8cm,footskip=1.2cm]{geometry}
 \fi
@@ -177,8 +182,8 @@
 \ifmasterssubmission
   \begin{center}
   \vspace*{-3ex}
-    { \LARGE {\bfseries {\@title}} \par}
-{\large \vspace*{25mm} {\crest \par} \vspace*{20mm}}
+    { \thesistitlesize {\bfseries {\@title}} \par}
+{\large \vspace*{\gapbeforecrest} {\crest \par} \vspace*{\gapaftercrest}}
     {{\Large Candidate no.\ \@candidateno} \par}
 {\large \vspace*{1ex}
     {Word count: {\@wordcount} \par}
@@ -192,9 +197,8 @@
     {\@degreedate}}
   \end{center}
 \else
-  \begin{center}
-    { \LARGE {\bfseries {\@title}} \par}
-{\large \vspace*{30mm} {\crest \par} \vspace*{25mm}}
+  { \thesistitlesize {\bfseries {\@title}} \par}
+{\large \vspace*{\gapbeforecrest} {\crest \par} \vspace*{\gapaftercrest}}
     {{\Large \@author} \par}
 {\large \vspace*{1ex}
     {{\@college} \par}
@@ -232,9 +236,7 @@
 % themselves appear in a quote environment, i.e. tabbed in at both sides, and
 % on its own page.
 
-
 \newcommand{\numberstyleacks}{empty}
-
 \newenvironment{acknowledgements}%
 { \begin{alwayssingle}\chapter*{Acknowledgements}
   \thispagestyle{\numberstyleacks}

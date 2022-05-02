@@ -3,6 +3,7 @@ title: "Study 2 methods"
 author: "Keana Richards"
 date: "6/9/2020"
 output:
+  pdf_document: default
   word_document: default
 ---
 
@@ -18,7 +19,7 @@ options(pillar.sigfig = 2)
 options(repos="https://cran.rstudio.com" )
 # load packages -----------------------------------------------------------
 ## Package names
-packages <- c("readr", "tidyverse", "here", "summarytools")
+packages <- c("readr", "tidyverse", "here", "summarytools", "xtable", "papaja")
 
 ## Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -35,16 +36,37 @@ dropped_out <- read_csv(here("study2", "data", "dropped_out.csv"))
 
 source(here("study2", "source", "03_exploratory-analyses.R"))
 
+dt = function(label, caption=NULL) {
+  print(xtable(setNames(data.frame(x=numeric()), " "),
+               caption=caption,
+               label=paste0("tab:", label)), 
+        hline.after=NULL,
+        booktabs=FALSE,
+        size="\\fontsize{0.1pt}{0.1pt}\\selectfont")
+}
+options(xtable.include.rownames=FALSE, xtable.comment=FALSE)
+
 ```
 
 #### Participants
 
 All study measures described below are publicly available on OSF both as a [.pdf](https://osf.io/9pt2e/) and [.qsf](https://osf.io/bxwu2/). Participants were recruited on Amazon Mechanical Turk via CloudResearch using the same screening criteria as Study 1. For all studies in the dissertation after Study 1 of Chapter 1, we used CloudResearch to filter out participants that had already participated in any of the other studies in this dissertation. Therefore, only MTurkers who were naive to the design were included in the current and subsequent studies. Also, if participants had an identical IP address, MTurkID, and gender, we excluded their second response. The final sample consisted of `r nrow(clean)` participants (`r freq(clean$gender, report.nas = F)[6]`% women), with an average age of `r mean(clean$age, na.rm = T)` (*SD* = `r sd(clean$age, na.rm = T)`) years. `r nrow(dropped_out)` participants (`r freq(dropped_out$Gender...19, report.nas = F)[5]`% women) dropped out of the study before finishing^[Note: we use data from participants who dropped out when available]. 
 
-```{r demographics-table-study2, fig.align="center", fig.cap = "Size of sample in Study 2 with corresponding percentage listed for gender, race, education, and household income, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’.", out.width='60%'}
+\newpage
+
+```{r demographics-table-study2, fig.align="center", out.width='60%', results = 'asis'}
 knitr::include_graphics(here("study2", "figs", "demographics-table-conds-study2.png"))
+dt("demographics-table-study2", "Size of sample in Study 2 with corresponding percentage listed for gender, race, education, and household income, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’.")
+
 ```
 
+\newpage
+
+```{r demographics-table-gender-study2, fig.align="center", out.width='50%', results = 'asis'}
+knitr::include_graphics(here("study2", "figs", "demographics-table-gender-study2.png"))
+dt("demographics-table-gender-study2", "Size of sample in Study 2 with corresponding percentage listed for race, education, and household income, with p-values derived from Fisher’s exact test. Mean with corresponding standard deviation listed for age, with p-values derived from Kruskal-Wallis test. If a participant did not respond to a given question, we list their response as ‘Unknown’.")
+
+```
 
 #### Procedures
 

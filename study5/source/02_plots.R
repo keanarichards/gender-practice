@@ -372,6 +372,52 @@ gt_tbl <- gt(study5_models) %>%
   opt_align_table_header(align = "left")
 gt::gtsave(gt_tbl, file = here("study5","figs", "pre-reg-study5.png"))
 
+# creating demographic tables by gender ---------------------------------------------
+
+clean_fraud_removed %>%
+  dplyr::select(
+    age,
+    gender, 
+    education
+  ) %>%
+  mutate(
+    education = factor(
+      education,
+      levels = c(
+        "No formal education",
+        "Less than high school",
+        "High school graduate (diploma)",
+        "High school graduate (GED)",
+        "Some college (1-4 years, no degree)",
+        "Associate's degree (including occupational or academic degrees)",
+        "Bachelor's degree (BA, BS, etc)",
+        "Master's degree (MA, MS, MENG, MSW, etc)",
+        "Professional school degree (MD, DDC, JD, etc)",
+        "Doctorate degree (PhD, EdD, etc)"
+      )
+    )
+  ) %>% 
+  tbl_summary(
+    by = gender,
+    label = list(
+      age ~ "Age",
+      education ~ "Education"
+    ), 
+    statistic = list(all_continuous() ~ "{mean} ({sd})")
+  ) %>%
+  bold_labels() %>%
+  add_p(test = list(all_continuous() ~ "kruskal.test", all_categorical() ~ "fishers")) %>%  modify_footnote(
+    update = everything() ~ NA) %>% 
+  as_gt() %>%  tab_style(
+    style = cell_borders(
+      sides = c("top", "bottom"),
+      color = "white",
+      style = "solid"
+    ),
+    locations = cells_body(columns = everything(), rows = everything())
+  ) %>%
+  tab_header(title = md("***Demographics Based on Participant Gender***")) %>%
+  opt_align_table_header(align = "left") %>% gt::gtsave(., file = here("study5","figs", "demographics-table-gender-study5.png"))
 
 
 

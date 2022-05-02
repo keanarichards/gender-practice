@@ -21,7 +21,7 @@ pacman::p_load(tidyverse, here)
 here::i_am("flag_project_root.R")
 ```
 
-# Chapter 1: Effects of preparation on gender differences in willingness to compete
+# Chapter 2: Effects of preparation on gender differences in willingness to compete
 
 
 ## Introduction 
@@ -31,11 +31,15 @@ here::i_am("flag_project_root.R")
 
 ```
 
+\newpage
+
 ## Study 1 
 
 ```{r child = here("paper", "study1.Rmd")}
 
 ```
+
+\newpage
 
 ## Study 2
 
@@ -43,6 +47,7 @@ here::i_am("flag_project_root.R")
 
 ```
 
+\newpage
 
 ## Study 3
 
